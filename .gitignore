@@ -1,0 +1,23 @@
+# Xojo
+# C# .net
+Builds*
+*.debug
+*.debug.app
+Debug*.exe
+Debug*/Debug*.exe
+Debug*/Debug*\ Libs
+*.rbuistate
+*.xojo_uistate
+*.obsolete*
+.DS_Store
+obj/
+bin/
+*.user
+.idea
+
+# ensure files containing secrets are never checked in
+*.config
+appsettings*.json
+appSettings*.json
+*.nginx
+*.service

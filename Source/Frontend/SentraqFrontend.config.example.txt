@@ -1,0 +1,43 @@
+# Beispiel-Konfiguration Sentraq Frontend
+# (c) 2026 Stefan Watermann, Watermann IT, Auetal (Deutschland), www.watermann-it.de
+# ---------------------------------
+# HINWEIS: Die tatsächlich verwendeten Konfigurationsdateien SentraqFrontend.config und
+# SentraqFrontend.debug.config NIEMALS in das Source-Code Repository einchecken (siehe .gitignore).
+
+# Name und Logo zur Anzeige in der Kopfzeile im Frontend.
+App.Header.Title = SentraQ - Monitoring Platform
+App.Header.Logo = applogo.png
+
+# Länge und Breite des Initialen Ortes der Kartendarstellung, jeweils als Double Wert.
+Map.Default.Latitude = 51.080983
+Map.Default.Longitude = 9.860885
+Map.Default.Zoom = 12
+
+# Erwarteter Wert des X-API-KEY HTTP-Header bei Zugriffen auf das Frontend API
+# durch das Backend (z.B. für Realtime Updates).
+# WICHTIG: Darf kein $ enthalten, da sonst der HTTP Header ungültig wird.
+App.StatusService.ApiKey = F8780181-D1D7-4B01-A2F5-51AB2C7627D0
+
+# Zur Verschlüsselung des Session-Anmeldung verwendetes Salt.
+# Applikations-eindeutiger String von mindestens 6 Zeichen länge (z.B. $Xu2%m).
+Session.AuthenticationSalt = $Xu2%m
+
+# Anzahl Tage, die der Session Cookie gültig ist.
+Session.CookieDurationDays = 30
+
+# Anzahl Tage, die er Authentication Cookie gültig ist. Default ist 1.
+Auth.CookieDurationDays = 1
+
+# Periode in welcher das Frontend Daten aus dem Backend lädt.
+# Unabhängig der Realtime-Updates aus dem Backend, durch neue Event Nachrichten.
+DataReload.PeriodSec = 30
+
+# Periode in welcher das Frontend die Web-Oberfläche aktualisiert.
+FrontendRefresh.PeriodSec = 5
+
+# URI und X-API-KEY für den Zugriff auf das Backend APIs
+ControllerApi.Url = http://localhost:5183
+ControllerApi.AuthKeyValue = FA0A4217-0AA5-4A26-985E-D38FD491D0FE
+
+# Logging settings (DEBUG, INFO, ERROR)
+Logging.LogLevel = INFO

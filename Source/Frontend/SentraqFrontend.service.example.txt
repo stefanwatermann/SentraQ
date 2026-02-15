@@ -1,0 +1,15 @@
+# Beispiel-Konfiguration SystemCtl Service für das Sentraq Frontend.
+# (c) 2026 Stefan Watermann, Watermann IT, Auetal (Deutschland), www.watermann-it.de
+# ---------------------------------
+# HINWEIS: Tatsächlich verwendete Konfigurationsdateien NIEMALS in das
+# Source-Code Repository einchecken (siehe .gitignore).
+
+[Service]
+Type=simple
+Restart=on-failure
+RestartSec=3
+User=<todo>
+WorkingDirectory=/var/sentraq/frontend
+ExecStart=/var/sentraq/frontend/SentraqFrontend --port=9100 --Logging=/var/sentraq/log/frontend.log
+[Install]
+WantedBy=multi-user.target

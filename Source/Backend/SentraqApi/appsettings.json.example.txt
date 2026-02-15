@@ -1,0 +1,25 @@
+{
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "System": "Error",
+      "Microsoft": "Error",
+      "Microsoft.EntityFrameworkCore": "Error"
+    }
+  },
+  "Kestrel": {
+    "Endpoints": {
+      "Http": {
+        "Url": "http://*:5183"
+      }
+    }
+  },
+  "Controller": {
+    "AssemblyPath": "../SentraqBackend/SentraqController/bin/Debug/net9.0",
+    "StatusFile": "../SentraqBackend/SentraqController/status-file.txt"
+  },
+  "AllowedHosts": "*",
+  "ConnectionStrings": {
+    "DbConnection": "Host=<todo>;Database=sentraq;Username=<todo>;Password=<todo>"
+  }
+}

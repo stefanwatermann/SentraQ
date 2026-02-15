@@ -1,0 +1,26 @@
+# Beispiel-Konfiguration NGINX als Web-Proxy für das Sentraq Frontend.
+# (c) 2026 Stefan Watermann, Watermann IT, Auetal (Deutschland), www.watermann-it.de
+# ---------------------------------
+# HINWEIS: Tatsächlich verwendete Konfigurationsdateien NIEMALS in das
+# Source-Code Repository einchecken (siehe .gitignore).
+
+server	{
+	listen 443 ssl;
+	listen [::]:443;
+
+	server_name <todo>;
+
+	ssl_certificate     /etc/letsencrypt/live/<todo>/fullchain.pem;
+	ssl_certificate_key /etc/letsencrypt/live/<todo>/privkey.pem;
+
+	root  /var/sentraq/frontend;
+	index index.html index.htm index.nginx-debian.html;
+
+	location / {
+		proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+		proxy_set_header X-Forwarded-Proto $scheme;
+		proxy_set_header X-Real-IP $remote_addr;
+		proxy_set_header Host $http_host;
+		proxy_pass http://127.0.0.1: 9100;
+	}
+}

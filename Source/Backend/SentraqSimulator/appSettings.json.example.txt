@@ -1,0 +1,25 @@
+{
+    "Logging": {
+        "LogLevel": {
+            "Default": "Debug",
+            "System": "Error",
+            "Microsoft": "Error"
+        }
+    },
+
+    "Mqtt" : {
+        "Broker": {
+            "Hostname": "<todo>",
+            "Port": 1883,
+            "Username": "<todo>",
+            "Password": "<todo>"
+        },
+        "ClientTopic": "<todo>"
+    },
+    "CounterEnabled": false,
+    "SimulationEnabled": true,
+    "ConnectionStrings": {
+        "WwpDbConnection": "Host=<todo>;Database=sentraq;Username=<todo>;Password=<todo>"
+    },
+    "SimulationDelayMSec": 250
+}
