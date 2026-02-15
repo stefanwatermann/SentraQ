@@ -1,6 +1,6 @@
 # SentraQ - Visualisierung, Alarmierung und Monitoring für Wasser- oder Energienetze
 
-Ein freies Softwaresystem zur Datensammlung, Visualisierung und Alarmierung für Einrichtungen der Wasserversorgung oder von Energienetzen.
+Ein Open-Source Softwaresystem zur Datensammlung, Visualisierung und Alarmierung für Einrichtungen der Wasserversorgung oder von Energienetzen.
 
 Sentraq empfängt und verarbeitet MQTT Daten aus physischen Vor-Ort Stationen (z.B. Pumpstation) und stellt diese über ein web-basiertes Frontend dar. MQTT Daten können dazu von einer geeigneten Kleinsteuerung oder SPS (z.B. Siemens LOGO8) gesendet werden. Es wird ein generisches MQTT Payload unterstützt, sowie das Payload der Kleinsteuerung Siemens LOGO8 (siehe Dokumenation). Fehlersituationen können Alarme auslösen (z.B. Hochwasser), sodass Mitarbeiter schnell reagieren können und alle erforderlichen Informationen sofort zur Verfügung haben.
 
