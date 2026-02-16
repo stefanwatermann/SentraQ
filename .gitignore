@@ -21,3 +21,4 @@ appsettings*.json
 appSettings*.json
 *.nginx
 *.service
+launchSettings.json
