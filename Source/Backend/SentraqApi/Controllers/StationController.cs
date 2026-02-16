@@ -59,11 +59,11 @@ public class StationController(
     [HttpGet("{stationUid}/components/")]
     public IEnumerable<Api.Component> GetComponents(string stationUid)
     {
-        logger.LogInformation($"Getting components for station {stationUid}");
+        logger.LogInformation($"Getting components for station {stationUid.Sanitize(36)}");
 
         var components = dbContext
             .ComponentsView
-            .Where(c => c.StationUid == stationUid)
+            .Where(c => c.StationUid == stationUid.Sanitize(36))
             .OrderBy(c => c.DisplayOrder);
 
         var r = components
