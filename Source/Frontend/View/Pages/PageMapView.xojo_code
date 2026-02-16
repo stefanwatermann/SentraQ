@@ -33,6 +33,7 @@ Begin LobBase.LobWebPage PageMapView
    _ImplicitInstance=   False
    _mDesignHeight  =   0
    _mDesignWidth   =   0
+   _mName          =   ""
    _mPanelIndex    =   -1
    Begin HeaderContainer HeaderContainer1
       ControlCount    =   0
@@ -67,7 +68,7 @@ Begin LobBase.LobWebPage PageMapView
    End
    Begin WebMapViewer MapViewer1
       AllowFullScreen =   False
-      APIKey          =   "AIzaSyB-Iv4U_8Qyu0w0oMXoc705wc4Jb13EO0M"
+      APIKey          =   ""
       ControlID       =   ""
       CSSClasses      =   ""
       Enabled         =   True
