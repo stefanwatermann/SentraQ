@@ -1,6 +1,24 @@
 #tag Class
 Protected Class LobWebPage
 Inherits WebPage
+	#tag Method, Flags = &h0
+		Sub Constructor()
+		  // Calling the overridden superclass constructor.
+		  // Note that this may need modifications if there are multiple constructor choices.
+		  // Possible constructor calls:
+		  // Constructor() -- From WebView
+		  // Constructor() -- From WebUIControl
+		  // Constructor() -- From WebControl
+		  Super.Constructor
+		  self.CurrentSession = Session
+		End Sub
+	#tag EndMethod
+
+
+	#tag Property, Flags = &h0
+		CurrentSession As WebSession
+	#tag EndProperty
+
 	#tag Property, Flags = &h0
 		RequiresAuthenticatedUser As Boolean
 	#tag EndProperty

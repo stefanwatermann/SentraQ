@@ -1,6 +1,10 @@
 #tag Module
- Attributes ( "@Guid" = "37AD9693-5463-4C21-8B6D-292A5F71C435", "@Version" = "1.0.2", "@Copyright" = "(c) 2025 Stefan Watermann", "@Author" = "Stefan Watermann, Auetal", "@Description" = "Line-Of-Business WebApplication helper classes.", "@Depends" = "File v1.2.2, Authentication v1.1.0, WebSessionExtensions v1.1, StringUtils2 V1.0.1, WebConfiguration v1.0, SecureBrowserSession v1.0, StatusRequestService v1.0.3" ) Protected Module LobBase
+ Attributes ( "@Guid" = "37AD9693-5463-4C21-8B6D-292A5F71C435", "@Version" = "1.0.3", "@Copyright" = "(c) 2025 Stefan Watermann", "@Author" = "Stefan Watermann, Auetal", "@Description" = "Line-Of-Business WebApplication helper classes.", "@Depends" = "File v1.2.2, Authentication v1.1.0, WebSessionExtensions v1.1, StringUtils2 V1.0.1, WebConfiguration v1.0, SecureBrowserSession v1.0, StatusRequestService v1.0.3" ) Protected Module LobBase
 	#tag Note, Name = History
+		v1.0.2 - 2026-02-16
+		--------------------
+		- CurrentSession
+		
 		v1.0.2 - 2026-02-03
 		--------------------
 		- X-API-KEY check no longer fails if only one header is send

@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SentraqApi.Attributes;
 using SentraqCommon.Context;
+using SentraqCommon.Extensions;
 using SentraqModels.Mapper;
 using Api = SentraqModels.Api;
 
@@ -12,7 +13,7 @@ namespace SentraqApi.Controllers;
 public class EventDataController(
     DatabaseContext dbContext) : ControllerBase
 {
-    [AuthorizationKey]
+    [RequireAuthorizationKey]
     [HttpGet("")]
     public IQueryable<Api.EventData> GetLast100()
     {
@@ -26,11 +27,11 @@ public class EventDataController(
         return eventData;
     }
     
-    [AuthorizationKey]
+    [RequireAuthorizationKey]
     [HttpGet("{hid}")]
     public IQueryable<Api.EventData> GetLast100(string hid)
     {
-        var filter = $"%{hid}%";
+        var filter = $"%{hid.Sanitize(36)}%";
         var eventData = dbContext
             .EventData
             .FromSql($"SELECT * FROM public.\"EventData\" WHERE \"HardwareId\" like {filter}")

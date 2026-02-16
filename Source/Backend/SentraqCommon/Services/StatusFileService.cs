@@ -30,6 +30,8 @@ public class StatusFileService(
 
     public DateTime GetLastTimestamp()
     {
+        if (!File.Exists(_filePathName))
+            return DateTime.MinValue;
         var data = File.ReadAllText(_filePathName);
         var timestamp = DateTime.ParseExact(data, "yyyyMMdd-HHmmss", CultureInfo.InvariantCulture);
         return timestamp;

@@ -10,19 +10,25 @@ public class AlertMessageHandler(
     DatabaseContext dbContext,
     SettingService settings,
     MailService mailService,
-    CacheService componentCacheService,
+    CacheService cacheService,
     ILogger<AlertMessageHandler> logger) : IMessageHandler
 {
     public void HandleMessage(MqttPayload payload)
     {
-        var component = componentCacheService.GetComponent(payload);
+        var faultValue = Convert.ToInt32(payload.Value.ToString());
+        
+        logger.LogDebug("AlertMessageHandler: {hid} Fault message received with value {v}", payload.Hid, faultValue);
+     
+        var component = cacheService.GetComponent(payload);
         if (component == null) 
             return;
-        
-        var alertValue = Convert.ToInt32(payload.Value.ToString());
-        
-        logger.LogDebug("AlertMessageHandler: {hid} Fault message received with value {v}", payload.Hid, alertValue);
-        
+
+        if (!WaitFaultsReceived(payload.Hid, faultValue))
+        {
+            logger.LogDebug("AlertMessageHandler: {hid} MaxWaitFaultsReceived not reached, still waiting before sending alert", payload.Hid);
+            return;
+        }
+
         var alert = dbContext
             .Alerts
             .FirstOrDefault(a => a.StationUid == component.Station.Uid && a.IsActive == "Y");
@@ -34,11 +40,11 @@ public class AlertMessageHandler(
             logger.LogDebug("AlertMessageHandler: reloaded Alert={alert}", JsonSerializer.Serialize(alert));
         }
 
-        if (alertValue != 0)
+        if (faultValue != 0)
         {
             if (alert == null)
             {
-                logger.LogDebug("AlertMessageHandler: {hid} No active Alert found, creating new Alert.", payload.Hid);
+                logger.LogInformation("AlertMessageHandler: {hid} No active Alert found, creating new Alert.", payload.Hid);
                 
                 // create new (active) alert
                 alert = new Alert()
@@ -80,6 +86,12 @@ public class AlertMessageHandler(
 
     private void SendAlertMail(Alert alert, Component component)
     {
+        if (string.IsNullOrWhiteSpace(component.Station.AlertReceiverEmailAddresses))
+        {
+            logger.LogWarning("AlertMessageHandler: Mail not sent, AlertReceiverEmailAddresses not set.");
+            return;
+        }
+
         // start async, weil sonst blockiert es den MqttSubscriber
         mailService.Send(
             component.Station.AlertReceiverEmailAddresses, 
@@ -105,8 +117,26 @@ public class AlertMessageHandler(
             .Replace("{Alert.LastEventTs}", GetTs(alert.LastEventTs, ""));
     }
 
-    private string GetTs(DateTime? ts, string defaultValue)
+    private static string GetTs(DateTime? ts, string defaultValue)
     {
         return ts.HasValue ? ts.Value.ToString("yyyy-MM-dd HH:mm:ss") : defaultValue;
+    }
+
+    private bool WaitFaultsReceived(string hid, int faultValue)
+    {
+        // reset counter if faultValue is 0
+        if (faultValue == 0)
+        {
+            cacheService.SetFaultCounter(hid, 0);
+            return false;
+        }
+
+        // increase fault counter
+        var current = cacheService.GetFaultCounter(hid);
+        cacheService.SetFaultCounter(hid, ++current);
+        
+        logger.LogDebug("AlertMessageHandler: AlertWaitFaultCount={current}", current);
+        
+        return current > settings.AlertWaitFaultCount;
     }
 }

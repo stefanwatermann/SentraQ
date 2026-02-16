@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using SentraqApi.Attributes;
 using SentraqCommon.Context;
+using SentraqCommon.Extensions;
 using SentraqCommon.Services;
 using SentraqModels.Mapper;
 using Api = SentraqModels.Api;
@@ -21,7 +22,7 @@ public class StationController(
     /// Returns a list of all stations.
     /// </summary>
     /// <returns>List of stations</returns>
-    [AuthorizationKey]
+    [RequireAuthorizationKey]
     [HttpGet("")]
     public IEnumerable<Api.Station?> Get()
     {
@@ -36,15 +37,15 @@ public class StationController(
             .ToList();
     }
     
-    [AuthorizationKey]
+    [RequireAuthorizationKey]
     [HttpGet("{stationUid}")]
     public Api.Station? GetStation(string stationUid)
     {
-        logger.LogInformation("Get station {stationUid}", stationUid);
+        logger.LogInformation("Get station {stationUid}", stationUid.Sanitize(36));
 
         var dataStation = dbContext
             .StationsView
-            .FirstOrDefault(s => s.Uid == stationUid);
+            .FirstOrDefault(s => s.Uid == stationUid.Sanitize(36));
         
         return StationMapper.Map(dataStation);
     }
@@ -54,7 +55,7 @@ public class StationController(
     /// </summary>
     /// <param name="stationUid">Uid of station</param>
     /// <returns>List of components</returns>
-    [AuthorizationKey]
+    [RequireAuthorizationKey]
     [HttpGet("{stationUid}/components/")]
     public IEnumerable<Api.Component> GetComponents(string stationUid)
     {
@@ -77,7 +78,7 @@ public class StationController(
     /// </summary>
     /// <param name="station"></param>
     /// <exception cref="KeyNotFoundException"></exception>
-    [AuthorizationKey]
+    [RequireAuthorizationKey]
     [HttpPut()]
     public void Update([FromBody] Api.Station station)
     {
@@ -102,7 +103,7 @@ public class StationController(
     /// </summary>
     /// <param name="station"></param>
     /// <returns></returns>
-    [AuthorizationKey]
+    [RequireAuthorizationKey]
     [HttpPost()]
     public string Add([FromBody] Api.Station station)
     {
@@ -128,7 +129,7 @@ public class StationController(
     /// </summary>
     /// <param name="guid"></param>
     /// <exception cref="KeyNotFoundException"></exception>
-    [AuthorizationKey]
+    [RequireAuthorizationKey]
     [HttpDelete("{uid}")]
     public void Add(string uid)
     {
@@ -141,7 +142,7 @@ public class StationController(
         dbContext.SaveChanges();
     }
     
-    [AuthorizationKey]
+    [RequireAuthorizationKey]
     [HttpPost("{uid}/clearAlert")]
     public void ClearAlert(string uid)
     {

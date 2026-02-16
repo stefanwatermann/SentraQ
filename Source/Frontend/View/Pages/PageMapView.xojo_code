@@ -33,7 +33,6 @@ Begin LobBase.LobWebPage PageMapView
    _ImplicitInstance=   False
    _mDesignHeight  =   0
    _mDesignWidth   =   0
-   _mName          =   ""
    _mPanelIndex    =   -1
    Begin HeaderContainer HeaderContainer1
       ControlCount    =   0

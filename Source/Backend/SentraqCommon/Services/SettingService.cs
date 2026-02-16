@@ -25,6 +25,7 @@ public class SettingService
     public string AlertMailBody { get; private set; }
     public string AlertMailFrontendUrl { get; private set; }
     public int AlertMailResendMinutes { get; private set; }
+    public int AlertWaitFaultCount { get; private set; }
     
     public int WatchdogAlertAfterSeconds { get; private set; }
     
@@ -54,20 +55,21 @@ public class SettingService
         MailServerUser = GetValue<string>("Mail:Server:User");
         MailServerPassword = GetValue<string>("Mail:Server:Password");
         
-        AlertMailFrom = GetValue<string>("Alert:Mail:From", "");
+        AlertMailFrom = GetValue<string>("Alert:Mail:From");
         AlertMailSubject = GetValue<string>("Alert:Mail:Subject", "Eine Störung liegt vor.");
         AlertMailBody = GetValue<string>("Alert:Mail:Body", "Eine Störung liegt vor.");
-        AlertMailFrontendUrl = GetValue<string>("Alert:Mail:FrontendUrl", "<todo>");
+        AlertMailFrontendUrl = GetValue<string>("Alert:Mail:FrontendUrl");
         AlertMailResendMinutes = GetValue<int>("Alert:Mail:ResendMinutes", 15);
+        AlertWaitFaultCount = GetValue<int>("Alert:Mail:MaxVaultCount", 1);
         
         WatchdogAlertAfterSeconds = GetValue<int>("Watchdog:Alert:AfterSeconds", 300);
         
         ApiRequiredAuthKey = GetValue<string>("Api:RequiredAuthKey");
         
-        PasswordResetMailFrom = GetValue<string>("PasswordReset:Mail:From", "<todo>");
+        PasswordResetMailFrom = GetValue<string>("PasswordReset:Mail:From");
         PasswordResetMailBody = GetValue<string>("PasswordReset:Mail:Body", "<div>Klicken Sie nachstehenden Link um Ihr Passwort mit Ihrem Passwort-Code {PasswordResetCode} zu ändern.</div><div><a href='{PasswordResetLink}'>Passwort jetzt ändern...</a></div>"); PasswordResetMailSubject = GetValue<string>("PasswordReset:Mail:Subject", "Passwort zurücksetzen");
         PasswordResetCodeLifetimeMinutes = GetValue<int>("PasswordReset:Code:LifetimeMinutes", 30);
-        PasswordResetCodeSalt = GetValue<string>("PasswordReset:Code:Salt", "<todo>");
+        PasswordResetCodeSalt = GetValue<string>("PasswordReset:Code:Salt");
         PasswordResetFrontendUrl = GetValue<string>("PasswordReset:FrontendUrl");
     }
 

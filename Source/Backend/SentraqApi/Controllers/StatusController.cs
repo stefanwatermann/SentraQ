@@ -2,6 +2,7 @@ using System.Reflection;
 using System.Runtime.Loader;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using SentraqApi.Attributes;
 using SentraqCommon.Context;
 using SentraqCommon.Services;
 using SentraqModels.Api;
@@ -16,6 +17,7 @@ public class StatusController(
     DatabaseContext dbContext,
     StatusFileService statusFileService) : ControllerBase
 {
+    [RequireAuthorizationKey]
     [HttpGet("")]
     public StatusInfo Get()
     {

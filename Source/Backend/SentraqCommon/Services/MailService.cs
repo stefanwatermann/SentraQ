@@ -1,4 +1,3 @@
-using System.Net.Mail;
 using MimeKit;
 using SentraqCommon.Security;
 using SmtpClient = MailKit.Net.Smtp.SmtpClient;

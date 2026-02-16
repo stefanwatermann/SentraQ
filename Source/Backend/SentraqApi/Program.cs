@@ -12,7 +12,7 @@ using SentraqCommon.Converters;
 using SentraqCommon.Security;
 using SentraqCommon.Services;
 
-[assembly: AssemblyVersion("1.0.0.*")]
+[assembly: AssemblyVersion("1.0.1.*")]
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -39,7 +39,7 @@ builder.Services.AddScoped<MailService>();
 builder.Services.AddScoped<PasswordResetService>();
 builder.Services.AddScoped<LogService>();
 builder.Services.AddScoped<StatusFileService>();
-builder.Services.AddScoped<AuthorizationKeyAuthFilter>();
+builder.Services.AddScoped<RequireAuthorizationKeyAuthFilter>();
 
 builder.Services.AddLogging(b =>
 {

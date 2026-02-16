@@ -37,17 +37,19 @@ public class LogService(
     
     public void Add(Event evt, Severity svt = Severity.Info, string msg = "")
     {
+        var safeMsg = msg.Sanitize(1000);
+        
         var log = new Log()
         {
             LogTs = DateTime.Now,
             Severity = TranslateSeverity(svt),
             Event = TranslateEvent(evt),
-            Message = msg
+            Message = safeMsg
         };
         
         dbContext.Logs.Add(log);
         
-        logger.LogInformation("LogService: message added: {evt}, {msg}", evt, msg);
+        logger.LogInformation("LogService: message added: {evt}, {msg}", evt, safeMsg);
     }
 
     private string TranslateSeverity(Severity severity)

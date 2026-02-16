@@ -17,6 +17,7 @@ public class CacheService(
 {
     private List<Component> _knownComponents = [];
     private List<Counter> _knownCounters = [];
+    private Dictionary<string, int> _faultCounter = new();
 
     public void Init()
     {
@@ -73,5 +74,15 @@ public class CacheService(
     {
         return _knownCounters
             .FirstOrDefault(c => c.HardwareId == hardwareId);
+    }
+
+    public void SetFaultCounter(string hid, int value)
+    {
+        _faultCounter[hid] = value;
+    }
+
+    public int GetFaultCounter(string hid)
+    {
+        return _faultCounter.GetValueOrDefault(hid, 0);
     }
 }

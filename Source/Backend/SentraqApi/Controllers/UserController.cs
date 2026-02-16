@@ -2,6 +2,7 @@ using System.Text.Json.Nodes;
 using Microsoft.AspNetCore.Mvc;
 using SentraqApi.Attributes;
 using SentraqCommon.Context;
+using SentraqCommon.Extensions;
 using SentraqCommon.Services;
 using SentraqModels.Mapper;
 using Api = SentraqModels.Api;
@@ -20,7 +21,7 @@ public class UserController(
     /// Returns a list of all users.
     /// </summary>
     /// <returns>List of stations</returns>
-    [AuthorizationKey]
+    [RequireAuthorizationKey]
     [HttpGet("")]
     public IEnumerable<Api.User?> Get()
     {
@@ -30,22 +31,22 @@ public class UserController(
             .ToList();
     }
 
-    [AuthorizationKey]
+    [RequireAuthorizationKey]
     [HttpPost("loggedOn/{login}")]
     public void LoggedOn(string login)
     {
-        logService.AddInfo(LogService.Event.UserLogon, login);
+        logService.AddInfo(LogService.Event.UserLogon, login.Sanitize(10));
         dbContext.SaveChanges();
     }
 
-    [AuthorizationKey]
+    [RequireAuthorizationKey]
     [HttpPost("requestPasswordReset/{login}")]
     public void RequestPasswordReset(string login)
     {
-        passwordResetService.RequestPasswordReset(login);
+        passwordResetService.RequestPasswordReset(login.Sanitize(10));
     }
     
-    [AuthorizationKey]
+    [RequireAuthorizationKey]
     [HttpPost("setNewPassword/{login}")]
     public void PasswordReset(string login, [FromBody] JsonObject data)
     {
@@ -54,10 +55,10 @@ public class UserController(
         if (newPwdHash == null)
             throw new KeyNotFoundException($"Key {nameof(newPwdHash)} not found in JSON data.");
         
-        passwordResetService.SetNewPassword(login, newPwdHash.ToString());
+        passwordResetService.SetNewPassword(login.Sanitize(10), newPwdHash.ToString());
     }
     
-    [AuthorizationKey]
+    [RequireAuthorizationKey]
     [HttpGet("byResetCode/{resetCode}")]
     public Api.User PasswordReset(string resetCode)
     {

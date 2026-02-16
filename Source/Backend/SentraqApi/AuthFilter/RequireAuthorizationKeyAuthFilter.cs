@@ -7,7 +7,7 @@ namespace SentraqApi.AuthFilter;
 /// <summary>
 /// Checks that api-request provides the required authorization key header.
 /// </summary>
-public class AuthorizationKeyAuthFilter(
+public class RequireAuthorizationKeyAuthFilter(
     SettingService settings
     ) : IAuthorizationFilter
 {
