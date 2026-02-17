@@ -35,4 +35,7 @@ public class Component
     public required int MaxValue { get; init; }
     
     public int? DisplayOrder { get; set; }
+    
+    [MaxLength(50)]
+    public string? AdjustmentFunction { get; init; }
 }

@@ -24,7 +24,6 @@ Begin WebContainer ComponentCounterViewContainer Implements IEmbeddableViewConta
    Width           =   180
    _mDesignHeight  =   0
    _mDesignWidth   =   0
-   _mName          =   ""
    _mPanelIndex    =   -1
    Begin WebLabel lbDisplayName
       BindProperty    =   "DisplayName"
@@ -180,7 +179,7 @@ End
 		Sub UpdateControls()
 		  lbDisplayName.Text = MyComponent.ShortName
 		  
-		  lbValue.Text = Str(Self.MyComponent.CurrentValue.AsString("0")) 
+		  lbValue.Text = Str(Self.MyComponent.CurrentValue.DoubleValue.ToString(Locale.Current, "#.#")) 
 		  lbDisplayUnit.Text = Self.MyComponent.DisplayUnit
 		End Sub
 	#tag EndMethod

@@ -1,3 +1,5 @@
+using SentraqModels.Extensions;
+
 namespace SentraqModels.Mapper;
 
 public static class ComponentMapper
@@ -11,7 +13,7 @@ public static class ComponentMapper
             Type = componentView.Type,
             DisplayName = componentView.DisplayName,
             ShortName = componentView.ShortName,
-            CurrentValue = componentView.LastPayload,
+            CurrentValue = componentView.AdjustedPayload(),
             LastReceivedTs = componentView.LastReceivedTs,
             FirstReceivedTs = componentView.FirstReceivedTs,
             MaxValue = componentView.MaxValue,

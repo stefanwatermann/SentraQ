@@ -34,6 +34,7 @@ public class ComponentView
     public Station Station { get; init; }
     
     public required string StationUid { get; init; }
+    public string? AdjustmentFunction { get; init; }
     
     public string? LastPayload { get; init; }
     

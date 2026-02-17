@@ -128,7 +128,7 @@ public class AlertMessageHandler(
         if (faultValue == 0)
         {
             cacheService.SetFaultCounter(hid, 0);
-            return false;
+            return true;
         }
 
         // increase fault counter
@@ -137,6 +137,6 @@ public class AlertMessageHandler(
         
         logger.LogDebug("AlertMessageHandler: AlertWaitFaultCount={current}", current);
         
-        return current > settings.AlertWaitFaultCount;
+        return current >= settings.AlertWaitFaultCount;
     }
 }

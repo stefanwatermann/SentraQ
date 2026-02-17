@@ -60,7 +60,7 @@ public class SettingService
         AlertMailBody = GetValue<string>("Alert:Mail:Body", "Eine Störung liegt vor.");
         AlertMailFrontendUrl = GetValue<string>("Alert:Mail:FrontendUrl");
         AlertMailResendMinutes = GetValue<int>("Alert:Mail:ResendMinutes", 15);
-        AlertWaitFaultCount = GetValue<int>("Alert:Mail:MaxVaultCount", 1);
+        AlertWaitFaultCount = GetValue<int>("Alert:Mail:MaxFaultCount", 1);
         
         WatchdogAlertAfterSeconds = GetValue<int>("Watchdog:Alert:AfterSeconds", 300);
         
