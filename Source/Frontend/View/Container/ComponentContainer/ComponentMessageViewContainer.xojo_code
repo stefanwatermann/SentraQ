@@ -24,7 +24,6 @@ Begin WebContainer ComponentMessageViewContainer Implements IEmbeddableViewConta
    Width           =   450
    _mDesignHeight  =   0
    _mDesignWidth   =   0
-   _mName          =   ""
    _mPanelIndex    =   -1
    Begin WebLabel lbDisplayName
       BindProperty    =   "DisplayName"
@@ -95,36 +94,6 @@ Begin WebContainer ComponentMessageViewContainer Implements IEmbeddableViewConta
       Width           =   430
       _mPanelIndex    =   -1
    End
-   Begin WebButton btnInfo
-      AllowAutoDisable=   False
-      Cancel          =   False
-      Caption         =   "i"
-      ControlID       =   ""
-      CSSClasses      =   "border-0"
-      Default         =   False
-      Enabled         =   True
-      Height          =   30
-      Index           =   -2147483648
-      Indicator       =   0
-      Left            =   415
-      LockBottom      =   False
-      LockedInPosition=   True
-      LockHorizontal  =   False
-      LockLeft        =   False
-      LockRight       =   True
-      LockTop         =   True
-      LockVertical    =   False
-      Outlined        =   True
-      PanelIndex      =   0
-      Scope           =   2
-      TabIndex        =   2
-      TabStop         =   True
-      Tooltip         =   ""
-      Top             =   5
-      Visible         =   False
-      Width           =   30
-      _mPanelIndex    =   -1
-   End
    Begin WebButton btnClear
       AllowAutoDisable=   False
       Cancel          =   False
@@ -152,7 +121,7 @@ Begin WebContainer ComponentMessageViewContainer Implements IEmbeddableViewConta
       Tooltip         =   ""
       Top             =   5
       Visible         =   False
-      Width           =   110
+      Width           =   140
       _mPanelIndex    =   -1
    End
    Begin DialogYesNo DialogYesNo1
@@ -292,14 +261,6 @@ End
 	#tag Event
 		Sub Pressed()
 		  //MessageBox(lbValue.Text)
-		End Sub
-	#tag EndEvent
-#tag EndEvents
-#tag Events btnInfo
-	#tag Event
-		Sub Pressed()
-		  // TODO collect infos
-		  MessageBox(kComponentInforHtmlTemplate.Replace("#data#", GetInfos))
 		End Sub
 	#tag EndEvent
 #tag EndEvents

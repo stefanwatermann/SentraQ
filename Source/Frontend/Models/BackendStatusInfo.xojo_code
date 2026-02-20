@@ -17,6 +17,14 @@ Inherits JsonModelBase
 		LastLogs As String
 	#tag EndProperty
 
+	#tag Property, Flags = &h0
+		WatchdogUp As Boolean
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		WatchdogVersion As String
+	#tag EndProperty
+
 
 	#tag ViewBehavior
 		#tag ViewProperty
@@ -81,7 +89,7 @@ Inherits JsonModelBase
 			Group="Behavior"
 			InitialValue=""
 			Type="String"
-			EditorType=""
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="LastLogs"
@@ -89,7 +97,7 @@ Inherits JsonModelBase
 			Group="Behavior"
 			InitialValue=""
 			Type="String"
-			EditorType=""
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

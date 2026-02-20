@@ -57,7 +57,7 @@ public class MqttSubscriberWorkerService(
         {
             // Update status-file every 10 seconds 
             if (DateTime.Now.Second % 10 == 0)
-                statusFileService.Keepalive();
+                statusFileService.Keepalive("Controller");
             
             // keep service running
             await Task.Delay(1_000, stoppingToken);
@@ -190,7 +190,7 @@ public class MqttSubscriberWorkerService(
             serializerOptions.Converters.Add(new SimpleDateTimeConverter());
 
             var httpClient = new HttpClient();
-            httpClient.DefaultRequestHeaders.Add("X-AUTH-KEY", Decrypt.Text(apiAuthKeyValue, Secrets.EncryptionPwd));
+            httpClient.DefaultRequestHeaders.Add("X-AUTH-KEY", apiAuthKeyValue);
             httpClient.PostAsJsonAsync(url, payload, serializerOptions).Result.EnsureSuccessStatusCode();
 
             logger.LogDebug("Message for {uid} successfully sent to frontend: {url}", payload.Hid, url);

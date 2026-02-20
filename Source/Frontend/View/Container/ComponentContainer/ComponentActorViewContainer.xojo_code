@@ -24,7 +24,6 @@ Begin WebContainer ComponentActorViewContainer Implements IEmbeddableViewContain
    Width           =   180
    _mDesignHeight  =   0
    _mDesignWidth   =   0
-   _mName          =   ""
    _mPanelIndex    =   -1
    Begin WebLabel lbDisplayName
       BindProperty    =   "DisplayName"
@@ -34,7 +33,7 @@ Begin WebContainer ComponentActorViewContainer Implements IEmbeddableViewContain
       Enabled         =   True
       FontName        =   ""
       FontSize        =   14.0
-      Height          =   30
+      Height          =   20
       Index           =   -2147483648
       Indicator       =   0
       Italic          =   False

@@ -224,7 +224,7 @@ Inherits LobBase.LobWebApplication
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
-			  return "Powered by SentraQ - (c) " + str(DateTime.Now.Year) + " Watermann IT, Auetal - Version " + App.AppVersion
+			  return "Powered by SentraQ - (c) " + str(DateTime.Now.Year) + " Watermann IT, Auetal"
 			End Get
 		#tag EndGetter
 		AppCopyrightText As String

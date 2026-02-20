@@ -13,7 +13,7 @@ public class MqttSenderService(
     ILogger<MqttSenderService> logger,
     SettingService settings)
 {
-    private readonly MqttTopicTemplate _topicTemplate = new("client/{clientTopic}");
+    private readonly MqttTopicTemplate _topicTemplate = new("/client/send/{clientTopic}");
     
     public async void Send(MqttPayload payload)
     {
@@ -40,7 +40,7 @@ public class MqttSenderService(
 
         await mqttClient.ConnectAsync(mqttClientOptions, CancellationToken.None);
         
-        logger.LogDebug($"MQTT client connected, now sending payload: {JsonSerializer.Serialize(payload)}");
+        logger.LogInformation($"MQTT client connected, now sending payload: {JsonSerializer.Serialize(payload)}");
         
         await mqttClient.PublishAsync(applicationMessage, CancellationToken.None);
 

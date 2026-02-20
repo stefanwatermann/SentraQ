@@ -2,16 +2,15 @@ using Microsoft.EntityFrameworkCore;
 using SentraqCommon.Context;
 using SentraqCommon.Services;
 using SentraqModels.Mqtt;
+using SentraqWatchdog.Models;
 
 namespace SentraqWatchdog.Services;
 
-internal class WatchdogStation
-{
-    public string StationUid { get; set; }
-    public string WatchdogHardwareId { get; set; }
-    public DateTime LastReceivedTs { get; set; }
-}
-
+/// <summary>
+/// SentraQ Watchdog service. Sends fault (type=FL) messages for Stations with configured WatchdogId.
+/// Sends 0 if messages are being received frequently and 1 if no new messages have arrived
+/// within the configured time periode (WatchdogAlertAfterSeconds).
+/// </summary>
 public class WatchdogService(
     MqttSenderService mqttSenderService,
     SettingService settings,
@@ -21,8 +20,8 @@ public class WatchdogService(
 
     public void Watch()
     {
-        // alle Stations mit gesetztem Watchdog und ausbleibenden Messages
-        var stationsToBeAlerted = GetStationsToBeAlerted();
+        // get Stations with Watchdog faults to be alerted
+        var stationsToBeAlerted = GetStationsToAlert();
         
         if (stationsToBeAlerted.Any())
         {
@@ -32,10 +31,10 @@ public class WatchdogService(
             }
         }
 
-        // Stationen ohne Störung ermitteln
-        var stationsToBeUnAlerted = GetStationsToBeUnAlerted(stationsToBeAlerted);
+        // get Stations without Watchdog fault
+        var stationsToBeUnAlerted = GetStationsToClearAlert(stationsToBeAlerted);
 
-        // Value 0 senden, für alle ohne Störung
+        // send Value 0 for all Stations without Watchdog fault
         if (stationsToBeUnAlerted.Any())
         {
             foreach (var station in stationsToBeUnAlerted)
@@ -45,20 +44,13 @@ public class WatchdogService(
         }
     }
 
+    /// <summary>
+    /// Send Watchdog message to MQTT broker for station.
+    /// </summary>
+    /// <param name="station"></param>
+    /// <param name="payload"></param>
     private void SendWatchdogMessage(WatchdogStation station, string payload)
     {
-        // get latest value of watchdog
-        var lastWatchdogValue = dbContext
-            .ComponentsView
-            .Where(c => c.HardwareId == station.WatchdogHardwareId)
-            .OrderByDescending(c => c.LastReceivedTs)
-            .FirstOrDefault();
-
-        // do not send message if last payload is already set to payload-value
-        if (lastWatchdogValue == null &&
-            string.IsNullOrWhiteSpace(lastWatchdogValue.LastPayload) ||
-            lastWatchdogValue.LastPayload == payload) return;
-
         // create an alert station
         var mqttPayload = new MqttPayload()
         {
@@ -71,6 +63,10 @@ public class WatchdogService(
         mqttSenderService.Send(mqttPayload);
     }
 
+    /// <summary>
+    /// Get list of Stations with Watchdog set and at least on message received.
+    /// </summary>
+    /// <returns></returns>
     private List<WatchdogStation> GetWatchdogStations()
     {
         var data = dbContext
@@ -102,7 +98,11 @@ public class WatchdogService(
         return data;
     }
 
-    private List<WatchdogStation> GetStationsToBeAlerted()
+    /// <summary>
+    /// Stations with Watchdog set and time of last message older than _watchdogAlertAfterSeconds.
+    /// </summary>
+    /// <returns></returns>
+    private List<WatchdogStation> GetStationsToAlert()
     {
         return GetWatchdogStations()
             .Where(c => 
@@ -110,11 +110,16 @@ public class WatchdogService(
             .ToList();
     }
 
-    private List<WatchdogStation> GetStationsToBeUnAlerted(List<WatchdogStation> stationsToBeAlerted)
+    /// <summary>
+    /// Stations with Watchdog set and no active watchdog alert.
+    /// </summary>
+    /// <param name="stationsToAlert"></param>
+    /// <returns></returns>
+    private List<WatchdogStation> GetStationsToClearAlert(List<WatchdogStation> stationsToAlert)
     {
         var watchdogStations = GetWatchdogStations();
         return watchdogStations.Where(station => 
-            stationsToBeAlerted.FirstOrDefault(c => c.StationUid == station.StationUid) == null)
+            stationsToAlert.FirstOrDefault(c => c.StationUid == station.StationUid) == null)
             .ToList();
     }
 }

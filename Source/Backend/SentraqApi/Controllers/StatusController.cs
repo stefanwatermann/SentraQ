@@ -26,6 +26,8 @@ public class StatusController(
             ApiVersion = Assembly.GetExecutingAssembly().GetName()?.Version?.ToString(),
             ControllerVersion = GetControllerVersion(),
             ControllerUp = IsControllerRunning(),
+            WatchdogVersion = GetWatchdogVersion(),
+            WatchdogUp = IsWatchdogRunning(),
             LastLogs = GetLastLogs()
         };
     }
@@ -44,17 +46,46 @@ public class StatusController(
             return "failed";
         }
     }
+    
+    private string GetWatchdogVersion()
+    {
+        try
+        {
+            var assemblyPath = configuration.GetValue<string>("Watchdog:AssemblyPath") ?? "../watchdog";
+            var name = AssemblyLoadContext.GetAssemblyName($"{assemblyPath}/SentraqWatchdog.dll");
+            return name.Version != null ? name.Version.ToString() : "unknown";
+        }
+        catch (Exception e)
+        {
+            logger.LogError("Failed to get assembly-version of watchdog.");
+            return "failed";
+        }
+    }
 
     private bool IsControllerRunning()
     {
         try
         {
-            var lastTs = statusFileService.GetLastTimestamp();
+            var lastTs = statusFileService.GetLastTimestamp("Controller");
             return lastTs > DateTime.Now.AddSeconds(-15);
         }
         catch (Exception e)
         {
             logger.LogError("Failed to read status of controller.");
+            return false;
+        }
+    }
+    
+    private bool IsWatchdogRunning()
+    {
+        try
+        {
+            var lastTs = statusFileService.GetLastTimestamp("Watchdog");
+            return lastTs > DateTime.Now.AddSeconds(-15);
+        }
+        catch (Exception e)
+        {
+            logger.LogError("Failed to read status of watchdog.");
             return false;
         }
     }

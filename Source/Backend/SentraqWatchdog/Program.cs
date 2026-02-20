@@ -32,7 +32,7 @@ class Program
         
         var configuration = new ConfigurationBuilder()
             .SetBasePath(Directory.GetCurrentDirectory())
-            .AddJsonFile("appSettings.json", false)
+            .AddJsonFile("appsettings.json", false)
             .Build();
 
         var connStr = configuration.GetConnectionString("DbConnection") ??
@@ -44,6 +44,7 @@ class Program
         builder.Services.AddSingleton<SettingService>();
         builder.Services.AddScoped<MqttSenderService>();
         builder.Services.AddScoped<WatchdogService>();
+        builder.Services.AddScoped<StatusFileService>();
         builder.Services.AddHostedService<WatchdogWorkerService>();
         
         builder.Services.AddLogging(b =>

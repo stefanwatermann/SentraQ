@@ -14,25 +14,25 @@ public class StatusFileService(
     IConfiguration configuration,
     ILogger<StatusFileService> logger)
 {
-    private readonly string _filePathName = configuration["Controller:StatusFile"] ?? "status-file.txt";
-
-    public void Keepalive()
+    public void Keepalive(string cfg)
     {
+        var filePathName = configuration["{cfg}:StatusFile".Replace("{cfg}", cfg)] ?? "status-file.txt";
         try
         {
-            File.WriteAllText(_filePathName, DateTime.Now.ToString("yyyyMMdd-HHmmss"));
+            File.WriteAllText(filePathName, DateTime.Now.ToString("yyyyMMdd-HHmmss"));
         }
         catch (Exception e)
         {
-            logger.LogError("StatusFileService: Cannot update status-file {file}: {e}", _filePathName, e);
+            logger.LogError("StatusFileService: Cannot update status-file {file}: {e}", filePathName, e);
         }
     }
 
-    public DateTime GetLastTimestamp()
+    public DateTime GetLastTimestamp(string cfg)
     {
-        if (!File.Exists(_filePathName))
+        var filePathName = configuration["{cfg}:StatusFile".Replace("{cfg}", cfg)] ?? "status-file.txt";
+        if (!File.Exists(filePathName))
             return DateTime.MinValue;
-        var data = File.ReadAllText(_filePathName);
+        var data = File.ReadAllText(filePathName);
         var timestamp = DateTime.ParseExact(data, "yyyyMMdd-HHmmss", CultureInfo.InvariantCulture);
         return timestamp;
     }

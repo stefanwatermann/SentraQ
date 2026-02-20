@@ -24,12 +24,11 @@ Begin WebContainer FooterContainer
    Width           =   400
    _mDesignHeight  =   0
    _mDesignWidth   =   0
-   _mName          =   ""
    _mPanelIndex    =   -1
    Begin WebLabel Label1
       Bold            =   False
       ControlID       =   ""
-      CSSClasses      =   "footer-copyright-label"
+      CSSClasses      =   "footer-copyright-label cursor-pointer"
       Enabled         =   True
       FontName        =   ""
       FontSize        =   0.0
@@ -38,11 +37,11 @@ Begin WebContainer FooterContainer
       Indicator       =   ""
       Italic          =   False
       Left            =   0
-      LockBottom      =   False
+      LockBottom      =   True
       LockedInPosition=   False
-      LockHorizontal  =   False
-      LockLeft        =   True
-      LockRight       =   True
+      LockHorizontal  =   True
+      LockLeft        =   False
+      LockRight       =   False
       LockTop         =   True
       LockVertical    =   False
       Multiline       =   False
@@ -60,6 +59,20 @@ Begin WebContainer FooterContainer
       Width           =   400
       _mPanelIndex    =   -1
    End
+   Begin WebTimer BackendStatusTimer
+      ControlID       =   ""
+      Enabled         =   True
+      Index           =   -2147483648
+      Location        =   0
+      LockedInPosition=   False
+      PanelIndex      =   0
+      Period          =   15000
+      RunMode         =   2
+      Scope           =   2
+      TabIndex        =   1
+      TabStop         =   True
+      _mPanelIndex    =   -1
+   End
 End
 #tag EndWebContainerControl
 
@@ -69,7 +82,35 @@ End
 #tag Events Label1
 	#tag Event
 		Sub Opening()
-		  me.Text = App.AppCopyrightText
+		  Me.Text = App.AppCopyrightText
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub Pressed()
+		  If session.Authenticator.IsAuthenticatedUser Then
+		    Var p As New ServiceStatusInfoContainer
+		    p.ShowPopover(Self)
+		  end
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events BackendStatusTimer
+	#tag Event
+		Sub Run()
+		  Var c As Color = &c91919100
+		  
+		  Try
+		    Var bsi As BackendStatusInfo = App.DataSvc.GetBackendStatusInfo
+		    If Not bsi.ControllerUp Or Not bsi.WatchdogUp Then
+		      c = &cFF803D00
+		    End
+		  Catch ex As RuntimeException
+		    c = &cFF483D00
+		    // no access to backendApi means offline, return default values as set above
+		    // exception is not valuable at this stage
+		  End
+		  
+		  Label1.TextColor = c
 		End Sub
 	#tag EndEvent
 #tag EndEvents
