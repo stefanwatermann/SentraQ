@@ -137,6 +137,10 @@ public class MqttSubscriberWorkerService(
                 }
             }
         }
+        catch (InvalidDataException exception)
+        {
+            logger.LogWarning(exception.Message, "Unexpected data: " + payloadText);
+        }
         catch (Exception exception)
         {
             logger.LogError(exception, "MQTT client failed while processing message: " + payloadText);
