@@ -26,14 +26,13 @@ Begin LobBase.LobWebPage PageLowRes
    RequiresAuthenticatedUser=   False
    ScaleFactor     =   0.0
    TabIndex        =   0
-   Title           =   ""
+   Title           =   "SentraQ"
    Top             =   0
    Visible         =   True
    Width           =   240
    _ImplicitInstance=   False
    _mDesignHeight  =   0
    _mDesignWidth   =   0
-   _mName          =   ""
    _mPanelIndex    =   -1
    Begin WebLabel Label1
       Bold            =   False

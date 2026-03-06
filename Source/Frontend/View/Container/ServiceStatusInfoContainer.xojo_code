@@ -5,7 +5,7 @@ Begin WebContainer ServiceStatusInfoContainer
    ControlID       =   ""
    CSSClasses      =   ""
    Enabled         =   True
-   Height          =   165
+   Height          =   115
    Indicator       =   0
    LayoutDirection =   0
    LayoutType      =   0
@@ -93,40 +93,6 @@ Begin WebContainer ServiceStatusInfoContainer
       Width           =   80
       _mPanelIndex    =   -1
    End
-   Begin WebLabel Label3
-      Bold            =   False
-      ControlID       =   ""
-      CSSClasses      =   "small"
-      Enabled         =   True
-      FontName        =   ""
-      FontSize        =   0.0
-      Height          =   20
-      Index           =   -2147483648
-      Indicator       =   ""
-      Italic          =   False
-      Left            =   20
-      LockBottom      =   False
-      LockedInPosition=   True
-      LockHorizontal  =   False
-      LockLeft        =   True
-      LockRight       =   False
-      LockTop         =   True
-      LockVertical    =   False
-      Multiline       =   False
-      PanelIndex      =   0
-      Scope           =   2
-      TabIndex        =   2
-      TabStop         =   True
-      Text            =   "Controller"
-      TextAlignment   =   0
-      TextColor       =   &c79797900
-      Tooltip         =   ""
-      Top             =   100
-      Underline       =   False
-      Visible         =   True
-      Width           =   80
-      _mPanelIndex    =   -1
-   End
    Begin WebLabel Label4
       Bold            =   False
       ControlID       =   ""
@@ -151,7 +117,7 @@ Begin WebContainer ServiceStatusInfoContainer
       Scope           =   2
       TabIndex        =   3
       TabStop         =   True
-      Text            =   "API"
+      Text            =   "Backend"
       TextAlignment   =   0
       TextColor       =   &c79797900
       Tooltip         =   ""
@@ -170,7 +136,7 @@ Begin WebContainer ServiceStatusInfoContainer
       FontSize        =   0.0
       Height          =   20
       Index           =   -2147483648
-      indicator       =   0
+      Indicator       =   0
       Italic          =   False
       Left            =   100
       LockBottom      =   False
@@ -195,7 +161,7 @@ Begin WebContainer ServiceStatusInfoContainer
       Width           =   190
       _mPanelIndex    =   -1
    End
-   Begin WebLabel lbConrtoller
+   Begin WebLabel lbBackend
       Bold            =   False
       ControlID       =   ""
       CSSClasses      =   "small"
@@ -204,41 +170,7 @@ Begin WebContainer ServiceStatusInfoContainer
       FontSize        =   0.0
       Height          =   20
       Index           =   -2147483648
-      indicator       =   0
-      Italic          =   False
-      Left            =   100
-      LockBottom      =   False
-      LockedInPosition=   True
-      LockHorizontal  =   False
-      LockLeft        =   True
-      LockRight       =   False
-      LockTop         =   True
-      LockVertical    =   False
-      Multiline       =   False
-      PanelIndex      =   0
-      Scope           =   2
-      TabIndex        =   5
-      TabStop         =   True
-      Text            =   "-"
-      TextAlignment   =   0
-      TextColor       =   &c94110000
-      Tooltip         =   ""
-      Top             =   100
-      Underline       =   False
-      Visible         =   True
-      Width           =   190
-      _mPanelIndex    =   -1
-   End
-   Begin WebLabel lbApi
-      Bold            =   False
-      ControlID       =   ""
-      CSSClasses      =   "small"
-      Enabled         =   True
-      FontName        =   ""
-      FontSize        =   0.0
-      Height          =   20
-      Index           =   -2147483648
-      indicator       =   0
+      Indicator       =   0
       Italic          =   False
       Left            =   100
       LockBottom      =   False
@@ -293,106 +225,28 @@ Begin WebContainer ServiceStatusInfoContainer
       Width           =   30
       _mPanelIndex    =   -1
    End
-   Begin WebLabel Label5
-      Bold            =   False
-      ControlID       =   ""
-      CSSClasses      =   "small"
-      Enabled         =   True
-      FontName        =   ""
-      FontSize        =   0.0
-      Height          =   20
-      Index           =   -2147483648
-      indicator       =   0
-      Italic          =   False
-      Left            =   20
-      LockBottom      =   False
-      LockedInPosition=   True
-      LockHorizontal  =   False
-      LockLeft        =   True
-      LockRight       =   False
-      LockTop         =   True
-      LockVertical    =   False
-      Multiline       =   False
-      PanelIndex      =   0
-      Scope           =   2
-      TabIndex        =   8
-      TabStop         =   True
-      Text            =   "Watchdog"
-      TextAlignment   =   0
-      TextColor       =   &c79797900
-      Tooltip         =   ""
-      Top             =   125
-      Underline       =   False
-      Visible         =   True
-      Width           =   80
-      _mPanelIndex    =   -1
-   End
-   Begin WebLabel lbWatchdog
-      Bold            =   False
-      ControlID       =   ""
-      CSSClasses      =   "small"
-      Enabled         =   True
-      FontName        =   ""
-      FontSize        =   0.0
-      Height          =   20
-      Index           =   -2147483648
-      indicator       =   0
-      Italic          =   False
-      Left            =   100
-      LockBottom      =   False
-      LockedInPosition=   True
-      LockHorizontal  =   False
-      LockLeft        =   True
-      LockRight       =   False
-      LockTop         =   True
-      LockVertical    =   False
-      Multiline       =   False
-      PanelIndex      =   0
-      Scope           =   2
-      TabIndex        =   9
-      TabStop         =   True
-      Text            =   "-"
-      TextAlignment   =   0
-      TextColor       =   &c94110000
-      Tooltip         =   ""
-      Top             =   125
-      Underline       =   False
-      Visible         =   True
-      Width           =   190
-      _mPanelIndex    =   -1
-   End
 End
 #tag EndWebContainerControl
 
 #tag WindowCode
 	#tag Method, Flags = &h0
 		Sub ShowPopover(parentControl As WebUIControl, displaySide As WebContainer.DisplaySides = WebContainer.DisplaySides.Bottom, x As Integer = -1, y As Integer = -1)
-		  Var apiStatus As String = "offline"
-		  Var controllerStatus As String = "offline"
-		  Var watchdogStatus As String = "offline"
+		  Var backendStatus As String = "offline"
 		  Var frontendStatus As String = "v" + App.AppVersion
 		  
 		  Try
 		    Var bsi As BackendStatusInfo = App.DataSvc.GetBackendStatusInfo
-		    apiStatus = "online - v" + bsi.ApiVersion
-		    Self.lbApi.TextColor = &c008F0000
-		    If bsi.ControllerUp Then
-		      controllerStatus = "online - v" + bsi.ControllerVersion
-		      Self.lbConrtoller.TextColor = &c008F0000
-		    End 
-		    If bsi.WatchdogUp Then
-		      watchdogStatus = "online - v" + bsi.WatchdogVersion
-		      Self.lbWatchdog.TextColor = &c008F0000
+		    If bsi.ControllerUp and bsi.WatchdogUp Then
+		      backendStatus = "online - v" + bsi.ApiVersion
+		      Self.lbBackend.TextColor = &c008F0000
 		    End 
 		  Catch ex As RuntimeException
 		    // no access to backendApi means offline, return default values as set above
 		    // exception is not valuable at this stage
 		  End
 		  
-		  Self.lbConrtoller.Text = controllerStatus
-		  Self.lbApi.Text = apiStatus
 		  Self.lbFrontend.Text = frontendStatus
-		  Self.lbWatchdog.Text = watchdogStatus
+		  Self.lbBackend.Text = backendStatus
 		  
 		  // Calling the overridden superclass method.
 		  Super.ShowPopover(parentControl, displaySide, x, y)

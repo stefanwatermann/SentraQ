@@ -26,7 +26,7 @@ Begin LobBase.LobWebPage PageMapView
    RequiresAuthenticatedUser=   True
    ScaleFactor     =   0.0
    TabIndex        =   0
-   Title           =   "WWP - Karte"
+   Title           =   "Karte"
    Top             =   0
    Visible         =   True
    Width           =   600

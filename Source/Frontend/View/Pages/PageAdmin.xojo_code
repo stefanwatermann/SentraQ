@@ -26,14 +26,13 @@ Begin LobBase.LobWebPage PageAdmin
    RequiresAuthenticatedUser=   True
    ScaleFactor     =   0.0
    TabIndex        =   0
-   Title           =   "WWP - Admin"
+   Title           =   "Admin"
    Top             =   0
    Visible         =   True
    Width           =   800
    _ImplicitInstance=   False
    _mDesignHeight  =   0
    _mDesignWidth   =   0
-   _mName          =   ""
    _mPanelIndex    =   -1
    Begin WebRectangle rectBackground
       BackgroundColor =   &cFFFFFF

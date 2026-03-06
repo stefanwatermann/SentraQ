@@ -26,7 +26,7 @@ Begin LobBase.LobWebPage PageLogon
    RequiresAuthenticatedUser=   False
    ScaleFactor     =   0.0
    TabIndex        =   0
-   Title           =   "WWP - Logon"
+   Title           =   "Logon"
    Top             =   0
    Visible         =   True
    Width           =   600

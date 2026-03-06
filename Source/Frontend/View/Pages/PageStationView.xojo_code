@@ -21,12 +21,12 @@ Begin LobBase.LobWebPage PageStationView
    LockTop         =   True
    LockVertical    =   False
    MinimumHeight   =   400
-   MinimumWidth    =   600
+   MinimumWidth    =   680
    PanelIndex      =   0
    RequiresAuthenticatedUser=   True
    ScaleFactor     =   0.0
    TabIndex        =   0
-   Title           =   "WWP - Stationen"
+   Title           =   "Stationen"
    Top             =   0
    Visible         =   True
    Width           =   800

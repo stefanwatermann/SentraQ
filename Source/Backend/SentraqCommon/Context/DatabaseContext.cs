@@ -21,9 +21,15 @@ public class DatabaseContext : DbContext
     public DbSet<User> Users { get; init; }
     public DbSet<Log> Logs { get; init; }
     public DbSet<Counter> Counters { get; init; }
-    
+    public DbSet<Aggregation5m> Aggregation5ms { get; init; }
+    public DbSet<Aggregation1h> Aggregation1hs { get; init; }
+    public DbSet<Aggregation1d> Aggregation1ds { get; init; }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        
+        modelBuilder
+            .Entity<Aggregation5m>(e => e.HasNoKey())
+            .Entity<Aggregation1h>(e => e.HasNoKey())
+            .Entity<Aggregation1d>(e => e.HasNoKey());
     }
 }

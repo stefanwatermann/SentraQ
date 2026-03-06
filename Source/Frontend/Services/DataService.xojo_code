@@ -16,6 +16,25 @@ Protected Class DataService
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function GetAggregations(type as string, hardwareId as string) As AggregationModel()
+		  Var apiClient As New BackendApiControllerClient
+		  Var response As String = apiClient.Get("aggregation/" + type + "/" + hardwareId)
+		  
+		  Var result() As AggregationModel
+		  
+		  Var aggregations() As Variant = ParseJSON(response)
+		  
+		  For Each agg As Dictionary In aggregations
+		    Var a As New AggregationModel
+		    AggregationModel.FromDictionary(agg, a)
+		    result.Add(a)
+		  Next
+		  
+		  Return result
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function GetBackendStatusInfo() As BackendStatusInfo
 		  Var apiClient As New BackendApiControllerClient
 		  Var response As String = apiClient.Get("status")

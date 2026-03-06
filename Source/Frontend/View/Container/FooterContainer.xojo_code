@@ -24,6 +24,7 @@ Begin WebContainer FooterContainer
    Width           =   400
    _mDesignHeight  =   0
    _mDesignWidth   =   0
+   _mName          =   ""
    _mPanelIndex    =   -1
    Begin WebLabel Label1
       Bold            =   False
@@ -69,8 +70,6 @@ Begin WebContainer FooterContainer
       Period          =   15000
       RunMode         =   2
       Scope           =   2
-      TabIndex        =   1
-      TabStop         =   True
       _mPanelIndex    =   -1
    End
 End

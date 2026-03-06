@@ -26,7 +26,7 @@ Begin LobBase.LobWebPage PagePasswordReset
    RequiresAuthenticatedUser=   False
    ScaleFactor     =   0.0
    TabIndex        =   0
-   Title           =   "Passwort Setzen"
+   Title           =   "Passwort setzen"
    Top             =   0
    Visible         =   True
    Width           =   600
