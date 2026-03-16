@@ -3,9 +3,16 @@ Protected Class BindableWebTextArea
 Inherits WebTextArea
 Implements ModelBinding.IBindableWebControl
 	#tag Event
+		Sub FocusLost()
+		  IsValid = RaiseEvent Validate
+		End Sub
+	#tag EndEvent
+
+	#tag Event
 		Sub TextChanged()
 		  Me.UpdateBindValue(Me.BindProperty, Me.Text)
 		  RaiseEvent TextChanged
+		  IsValid = RaiseEvent Validate
 		End Sub
 	#tag EndEvent
 
@@ -17,14 +24,28 @@ Implements ModelBinding.IBindableWebControl
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h0
+		Function GetBindValue() As Variant
+		  return me.Text
+		End Function
+	#tag EndMethod
+
 
 	#tag Hook, Flags = &h0
 		Event TextChanged()
 	#tag EndHook
 
+	#tag Hook, Flags = &h0
+		Event Validate() As Boolean
+	#tag EndHook
+
 
 	#tag Property, Flags = &h0
 		BindProperty As String
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		IsValid As Boolean
 	#tag EndProperty
 
 

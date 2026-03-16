@@ -6,7 +6,7 @@
 using System.Reflection;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.EntityFrameworkCore;
-using SentraqApi.AuthFilter;
+using SentraqApi.Filters;
 using SentraqCommon.Context;
 using SentraqCommon.Converters;
 using SentraqCommon.Security;
@@ -38,6 +38,7 @@ builder.Services.AddScoped<ComponentService>();
 builder.Services.AddScoped<MailService>();
 builder.Services.AddScoped<PasswordResetService>();
 builder.Services.AddScoped<LogService>();
+builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<StatusFileService>();
 builder.Services.AddScoped<RequireAuthorizationKeyAuthFilter>();
 

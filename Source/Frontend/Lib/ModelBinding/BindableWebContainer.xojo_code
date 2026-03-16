@@ -19,8 +19,8 @@ Inherits WebContainer
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h21
-		Private Sub BindProperties(model as Object)
+	#tag Method, Flags = &h0
+		Sub BindProperties(model as Object)
 		  Using Introspection
 		  
 		  Self.Model = model

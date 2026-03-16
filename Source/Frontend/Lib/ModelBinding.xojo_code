@@ -1,5 +1,15 @@
 #tag Module
- Attributes ( "@Guid" = "F544A9FB-F177-4498-9E93-790C55D37B99", "@Copyright" = "(c)2025 - Stefan Watermann", "@Version" = "1.0.1", "@Author" = "Stefan Watermann", "@Description" = "Model-Binding for WebUiControls" ) Protected Module ModelBinding
+ Attributes ( "@Guid" = "F544A9FB-F177-4498-9E93-790C55D37B99", "@Copyright" = "(c)2025 - Stefan Watermann", "@Version" = "1.0.3", "@Author" = "Stefan Watermann", "@Description" = "Model-Binding for WebUiControls" ) Protected Module ModelBinding
+	#tag Method, Flags = &h21
+		Private Function GetBindValue(extends c as WebUiControl, propertyName as string) As Variant
+		  If c.Parent <> Nil And c.Parent IsA BindableWebContainer Then
+		    Var p As BindableWebContainer = BindableWebContainer(c.Parent)
+		    Return p.GetBindValue(propertyName)
+		  End
+		  return nil
+		End Function
+	#tag EndMethod
+
 	#tag Method, Flags = &h21
 		Private Function HasValue(extends popup as WebPopupMenu, value as string) As Boolean
 		  For i As Integer = 0 To popup.RowCount - 1
@@ -34,6 +44,15 @@
 	#tag EndNote
 
 	#tag Note, Name = History
+		v1.0.3 - 2026-03-16
+		--------------------
+		- Bindables now have Methode GetBindValue(propName)
+		- Validierung für TextArea und TextField
+		
+		v1.0.2 - 2026-03-10
+		--------------------
+		- BindableWebContainer.BindProperties now public to allow rebinding
+		
 		v1.0.1 - 2025-09-17
 		--------------------
 		- BindableWebPopupMenu: if value is a number, SelectedRowIndex is set to value - 1

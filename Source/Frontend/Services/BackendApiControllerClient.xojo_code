@@ -8,6 +8,26 @@ Protected Class BackendApiControllerClient
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function Delete(path as string, executingLogin as string = "") As String
+		  path = If(path.BeginsWith("/"), path, "/" + path)
+		  
+		  Var url As String = Self.ControllerApiUrl + "/api" + path
+		  
+		  If executingLogin <> "" Then
+		    self.MyUrlConnection.RequestHeader("X-LOGIN") = executingLogin
+		  End
+		  
+		  Var response As String = Self.MyUrlConnection.SendSync("DELETE", url)
+		  
+		  If Self.HTTPStatusCode <> 200 Then
+		    Raise New RuntimeException("DELETE request to '" + url + "'failed: [" + Str(Self.HttpStatusCode) + "] " + response)
+		  End
+		  
+		  Return response
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function Get(path as string) As string
 		  // backend-api must be online and configured correctly
 		  
@@ -26,13 +46,17 @@ Protected Class BackendApiControllerClient
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function Post(path as string, data as JSONItem) As String
+		Function Post(path as string, data as JSONItem, executingLogin as string = "") As String
 		  path = If(path.BeginsWith("/"), path, "/" + path)
 		  
 		  Var url As String = Self.ControllerApiUrl + "/api" + path
 		  
 		  If data <> Nil Then
 		    Self.MyUrlConnection.SetRequestContent(data.ToString, "application/json")
+		  End
+		  
+		  If executingLogin <> "" Then
+		    self.MyUrlConnection.RequestHeader("X-LOGIN") = executingLogin
 		  End
 		  
 		  Var response As String = Self.MyUrlConnection.SendSync("POST", url)

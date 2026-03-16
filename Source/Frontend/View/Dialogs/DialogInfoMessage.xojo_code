@@ -25,7 +25,6 @@ Begin WebDialog DialogInfoMessage
    Width           =   400
    _mDesignHeight  =   0
    _mDesignWidth   =   0
-   _mName          =   ""
    _mPanelIndex    =   -1
    Begin WebButton btnOk
       AllowAutoDisable=   False
@@ -64,13 +63,13 @@ Begin WebDialog DialogInfoMessage
       Enabled         =   True
       FontName        =   ""
       FontSize        =   0.0
-      Height          =   90
+      Height          =   120
       Index           =   -2147483648
       Indicator       =   0
       Italic          =   False
-      Left            =   40
+      Left            =   30
       LockBottom      =   False
-      LockedInPosition=   False
+      LockedInPosition=   True
       LockHorizontal  =   False
       LockLeft        =   True
       LockRight       =   False
@@ -85,10 +84,10 @@ Begin WebDialog DialogInfoMessage
       TextAlignment   =   2
       TextColor       =   &c000000FF
       Tooltip         =   ""
-      Top             =   40
+      Top             =   35
       Underline       =   False
       Visible         =   True
-      Width           =   320
+      Width           =   340
       _mPanelIndex    =   -1
    End
 End

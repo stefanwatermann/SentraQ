@@ -86,7 +86,7 @@ Begin LobBase.LobWebPage PagePasswordReset
       PanelIndex      =   0
       Scope           =   2
       ScrollDirection =   0
-      TabIndex        =   1
+      TabIndex        =   2
       TabStop         =   True
       Tooltip         =   ""
       Top             =   570
@@ -121,7 +121,7 @@ Begin LobBase.LobWebPage PagePasswordReset
       LockVertical    =   False
       PanelIndex      =   0
       Scope           =   2
-      TabIndex        =   2
+      TabIndex        =   1
       TabStop         =   True
       Tooltip         =   ""
       Top             =   100
@@ -154,7 +154,7 @@ Begin LobBase.LobWebPage PagePasswordReset
          PanelIndex      =   0
          Parent          =   "rectPset"
          Scope           =   2
-         TabIndex        =   4
+         TabIndex        =   1
          TabPanelIndex   =   0
          TabStop         =   True
          Text            =   "E-Mail Code"
@@ -193,7 +193,7 @@ Begin LobBase.LobWebPage PagePasswordReset
          Parent          =   "rectPset"
          ReadOnly        =   False
          Scope           =   2
-         TabIndex        =   5
+         TabIndex        =   2
          TabPanelIndex   =   0
          TabStop         =   True
          Text            =   ""
@@ -228,7 +228,7 @@ Begin LobBase.LobWebPage PagePasswordReset
          PanelIndex      =   0
          Parent          =   "rectPset"
          Scope           =   2
-         TabIndex        =   6
+         TabIndex        =   3
          TabPanelIndex   =   0
          TabStop         =   True
          Text            =   "-"
@@ -267,7 +267,7 @@ Begin LobBase.LobWebPage PagePasswordReset
          Parent          =   "rectPset"
          ReadOnly        =   False
          Scope           =   2
-         TabIndex        =   7
+         TabIndex        =   4
          TabPanelIndex   =   0
          TabStop         =   True
          Text            =   ""
@@ -335,7 +335,7 @@ Begin LobBase.LobWebPage PagePasswordReset
          PanelIndex      =   0
          Parent          =   "rectPset"
          Scope           =   2
-         TabIndex        =   9
+         TabIndex        =   0
          TabPanelIndex   =   0
          TabStop         =   True
          Text            =   "Neues Passwort setzen"
@@ -371,7 +371,7 @@ Begin LobBase.LobWebPage PagePasswordReset
          PanelIndex      =   0
          Parent          =   "rectPset"
          Scope           =   2
-         TabIndex        =   10
+         TabIndex        =   5
          TabPanelIndex   =   0
          TabStop         =   True
          Text            =   "Neues Passwort"
@@ -409,7 +409,7 @@ Begin LobBase.LobWebPage PagePasswordReset
          Parent          =   "rectPset"
          ReadOnly        =   False
          Scope           =   2
-         TabIndex        =   11
+         TabIndex        =   6
          TabPanelIndex   =   0
          TabStop         =   True
          Text            =   ""
@@ -443,7 +443,7 @@ Begin LobBase.LobWebPage PagePasswordReset
          PanelIndex      =   0
          Parent          =   "rectPset"
          Scope           =   2
-         TabIndex        =   12
+         TabIndex        =   9
          TabPanelIndex   =   0
          TabStop         =   True
          Text            =   "-"
@@ -479,7 +479,7 @@ Begin LobBase.LobWebPage PagePasswordReset
          PanelIndex      =   0
          Parent          =   "rectPset"
          Scope           =   2
-         TabIndex        =   13
+         TabIndex        =   7
          TabPanelIndex   =   0
          TabStop         =   True
          Text            =   "Min. 8 Zeichen, Buschstaben, Zahlen, Sonderzeichen ($,%,&,!)"
@@ -567,6 +567,9 @@ End
 		    
 		    Var pwdHash As String = Session.Authenticator.CreateUserHash(user.Login, tbNewPassword.Text)
 		    App.DataSvc.UserSetNewPassword(user.Login, pwdHash)
+		    
+		    // reload chached user
+		    call App.DataSvc.GetUsers(true)
 		    
 		    DialogInfoMessage1.Show("Das Passwort wurde geändert. Bitte melden Sie sich jetzt neu an.")
 		    

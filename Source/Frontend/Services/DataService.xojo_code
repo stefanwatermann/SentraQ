@@ -16,6 +16,13 @@ Protected Class DataService
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub DeleteUser(user as UserModel, executingLogin as string)
+		  Var apiClient As New BackendApiControllerClient
+		  Var response As String = apiClient.Delete("user/" + user.Login, executingLogin)
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function GetAggregations(type as string, hardwareId as string) As AggregationModel()
 		  Var apiClient As New BackendApiControllerClient
 		  Var response As String = apiClient.Get("aggregation/" + type + "/" + hardwareId)
@@ -104,11 +111,13 @@ Protected Class DataService
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function GetUsers() As UserModel()
+		Function GetUsers(doReloadFromBackend as boolean = false) As UserModel()
 		  // User Objekte werden gecached und nur beim ersten Aufruf vom Backend geladen.
-		  If Self.Users.Count = 0 Then
+		  If Self.Users.Count = 0 or doReloadFromBackend Then
 		    ReadUsers()
 		  End
+		  
+		  Self.users.Sort(AddressOf SortUsers)
 		  
 		  Return Self.Users
 		End Function
@@ -205,6 +214,8 @@ Protected Class DataService
 		  Var apiClient As New BackendApiControllerClient
 		  Var response As String = apiClient.Get("user")
 		  
+		  Self.users.RemoveAll
+		  
 		  Var userDicts() As Variant = ParseJSON(response)
 		  
 		  For Each ud As Dictionary In userDicts
@@ -235,6 +246,21 @@ Protected Class DataService
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub SaveUser(user as UserModel, executingLogin as string)
+		  Var apiClient As New BackendApiControllerClient
+		  Var response As String = apiClient.Post("user", user.ToJson, executingLogin)
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Function SortUSers(a as UserModel, b as UserModel) As Integer
+		  If a.Name > b.Name Then Return 1
+		  If a.Name < b.Name Then Return -1
+		  Return 0
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub UserLoggedOn(login as string)
 		  Var apiClient As New BackendApiControllerClient
 		  Var response As String = apiClient.Post("user/loggedOn/" + login, nil)
@@ -244,7 +270,7 @@ Protected Class DataService
 	#tag Method, Flags = &h0
 		Sub UserRequestPasswordReset(login as string)
 		  Var apiClient As New BackendApiControllerClient
-		  Var response As String = apiClient.Post("user/UserRequestPasswordReset/" + login, nil)
+		  Var response As String = apiClient.Post("user/requestPasswordReset/" + login, nil)
 		End Sub
 	#tag EndMethod
 
@@ -253,7 +279,7 @@ Protected Class DataService
 		  Var apiClient As New BackendApiControllerClient
 		  Var data As New JSONItem
 		  data.Value("newPwdHash") = pwdHash
-		  Var response As String = apiClient.Post("user/UserSetNewPassword/" + login, data)
+		  Var response As String = apiClient.Post("user/setNewPassword/" + login, data)
 		End Sub
 	#tag EndMethod
 

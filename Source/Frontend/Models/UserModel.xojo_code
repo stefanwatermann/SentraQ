@@ -18,7 +18,7 @@ Inherits JsonModelBase
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
-		Role As String
+		Role As String = "USR"
 	#tag EndProperty
 
 	#tag ComputedProperty, Flags = &h0

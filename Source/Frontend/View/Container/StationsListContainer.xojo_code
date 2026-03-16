@@ -24,7 +24,6 @@ Begin WebContainer StationsListContainer
    Width           =   250
    _mDesignHeight  =   0
    _mDesignWidth   =   0
-   _mName          =   ""
    _mPanelIndex    =   -1
    Begin WebListMenu WebListMenu1
       ControlCount    =   0
