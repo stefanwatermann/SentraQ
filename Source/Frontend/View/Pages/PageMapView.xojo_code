@@ -159,19 +159,6 @@ End
 	#tag EndEvent
 
 
-	#tag Method, Flags = &h21
-		Private Function GetLocationIndex(name as string) As Integer
-		  For i As Integer = 0 To MapViewer1.LocationCount -1
-		    Var location As WebMapLocation = MapViewer1.LocationAt(i)
-		    If location.Title = name Then
-		      Return i
-		    End
-		  Next
-		  return -1
-		End Function
-	#tag EndMethod
-
-
 #tag EndWindowCode
 
 #tag Events MapViewer1
@@ -180,10 +167,11 @@ End
 		  Me.RemoveAllLocations
 		  
 		  For Each station As StationModel In App.DataSvc.Stations
-		    Var location As New WebMapLocation(station.Location.Latitude, station.Location.Longitude, station.Uid)
+		    Var location As New WebMapLocation(station.Latitude, station.Longitude)
+		    Var ms As New MapStation(station, location)
 		    location.Icon = station.CreateIcon()
-		    location.Title = station.DisplayName.ConvertEncoding(Encodings.ASCII)
-		    station.MapViewLocation = location
+		    location.Title = ms.DisplayTitle
+		    location.Tag = ms
 		    Me.AddLocation(location)
 		  Next
 		  
@@ -193,7 +181,7 @@ End
 	#tag EndEvent
 	#tag Event
 		Sub LocationSelected(location As WebMapLocation)
-		  GoToURL("#station," + location.Tag)
+		  GoToURL("#station," + MapStation(location.Tag).Station.Uid)
 		  
 		End Sub
 	#tag EndEvent
@@ -204,9 +192,14 @@ End
 		  For Each station As StationModel In App.DataSvc.Stations
 		    Var location As WebMapLocation = MapViewer1.GetLocationByStationsUid(station.Uid)
 		    If location <> Nil Then
-		      MapViewer1.RemoveLocation(station.MapViewLocation)
-		      location.Icon = station.CreateIcon()
-		      MapViewer1.AddLocation(station.MapViewLocation)
+		      Var ms As MapStation = MapStation(location.Tag)
+		      If ms.LastFaultValue <> ms.Station.HasFaults Then
+		        ms.LastFaultValue = ms.Station.HasFaults
+		        MapViewer1.RemoveLocation(ms.MapLocation)
+		        location.Icon = station.CreateIcon()
+		        location.Title = ms.DisplayTitle
+		      End
+		      MapViewer1.AddLocation(ms.MapLocation)
 		    End
 		  Next
 		  

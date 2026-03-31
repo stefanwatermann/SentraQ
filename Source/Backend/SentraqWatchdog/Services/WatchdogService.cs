@@ -80,17 +80,17 @@ public class WatchdogService(
             )
             .GroupBy(s => new
             {
-                s.StationUid,
+                s.Station.Uid,
                 s.Station.WatchdogHardwareId
             })
             .Select(s => new
             {
-                s.Key.StationUid,
+                s.Key.Uid,
                 s.Key.WatchdogHardwareId,
                 LastReceivedTs = s.Max(g => g.LastReceivedTs)
             }).Select(c => new WatchdogStation()
             {
-                StationUid = c.StationUid,
+                StationUid = c.Uid,
                 WatchdogHardwareId = c.WatchdogHardwareId,
                 LastReceivedTs = c.LastReceivedTs.Value
             }).ToList();

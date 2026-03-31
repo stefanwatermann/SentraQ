@@ -17,7 +17,7 @@ Protected Module MyProfiler
 		  If tags.HasKey(tag) Then
 		    Var startDt As DateTime = tags.Value(tag).DateTimeValue
 		    Var d As DateInterval = DateTime.now - startDt
-		    Var msg As String = Str(d.Minutes) + "." + Str(d.Seconds, "00") + "." + Str(d.Nanoseconds/1000000)
+		    Var msg As String = Str(d.Minutes) + "." + Str(d.Seconds, "00") + "." + Str(d.Nanoseconds/1000000, "##0")
 		    Log.Info(kProfileStopLogTemplate.Replace("%TAG", tag).Replace("%DURATION", msg), CurrentMethodName)
 		    tags.Remove(tag)
 		  End 

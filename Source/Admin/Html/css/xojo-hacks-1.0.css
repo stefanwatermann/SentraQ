@@ -1,0 +1,72 @@
+#XojoDisconnect .modal-content {
+	background-color: #fffef1;
+	border: 1px solid #ccd7cb;
+}
+
+.form-check-input:checked {
+	background-color: #489d5c;
+	border-color: #489d5c;
+}
+
+.XojoTextField > label {
+	font-size: 0.8em;
+}
+
+table > tbody > tr.selected > * {
+	color: #111 !important;
+}
+
+.XojoSegmentedControl>.btn-group-vertical>.btn, .XojoSegmentedControl>.btn-group>.btn {
+	font-size: 0.8em;
+}
+
+.XojoRadioGroup>div>.form-check {
+	font-size: 0.8em;
+}
+
+.search>input, .search>button {
+	font-size: 0.8em;
+}
+
+.dataTables_empty {
+	font-size: 0.8em;
+}
+
+div.modal-body>p {
+	padding: 1em 2em;
+	font-size: 1.1rem !important;
+}
+
+div.modal-footer {
+	justify-content: center !important;
+}
+
+div.modal-content {
+	border-radius: 0px !important;
+}
+
+.XojoTextArea>textarea.no-wrap {
+	white-space: pre;
+}
+
+.XojoTextArea>textarea.fixed-font {
+	font-family: monospace, monospace;
+	font-size: 0.9em;
+}
+
+.XojoListBox table.table-gls-none tbody tr,
+.XojoListBox table.table-gls-none tbody td {
+	border-radius: 0px;
+	margin: 5px 0px;
+}
+
+div.maplibregl-marker {
+	/*width: 40px !important;
+	height: 40px !important*/;
+}
+
+div.maplibregl-popup {
+	font-size: 1.2em;
+	padding: 10px;
+	font-family: Arial;
+}

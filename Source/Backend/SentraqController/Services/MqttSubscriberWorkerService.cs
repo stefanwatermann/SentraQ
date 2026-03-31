@@ -43,24 +43,32 @@ public class MqttSubscriberWorkerService(
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        componentCacheService.Init();
-
-        _mqttClient = _mqttFactory.CreateMqttClient();
-        _mqttClient.ApplicationMessageReceivedAsync += OnApplicationMessageReceivedAsync;
-        _mqttClient.DisconnectedAsync += OnDisconnectedAsync;
-        _mqttClient.ConnectingAsync += OnConnectingAsync;
-        _mqttClient.ConnectedAsync += OnConnectedAsync;
-
-        await Connect();
-
-        while (!stoppingToken.IsCancellationRequested)
+        try
         {
-            // Update status-file every 10 seconds 
-            if (DateTime.Now.Second % 10 == 0)
-                statusFileService.Keepalive("Controller");
-            
-            // keep service running
-            await Task.Delay(1_000, stoppingToken);
+            componentCacheService.Init();
+
+            _mqttClient = _mqttFactory.CreateMqttClient();
+            _mqttClient.ApplicationMessageReceivedAsync += OnApplicationMessageReceivedAsync;
+            _mqttClient.DisconnectedAsync += OnDisconnectedAsync;
+            _mqttClient.ConnectingAsync += OnConnectingAsync;
+            _mqttClient.ConnectedAsync += OnConnectedAsync;
+
+            await Connect();
+
+            while (!stoppingToken.IsCancellationRequested)
+            {
+                // Update status-file every 10 seconds 
+                if (DateTime.Now.Second % 10 == 0)
+                    statusFileService.Keepalive("Controller");
+
+                // keep service running
+                await Task.Delay(1_000, stoppingToken);
+            }
+        }
+        catch (Exception e)
+        {
+            logger.LogError(e, "Error in main-loop of MqttSubscriberWorkerService");
+            throw;
         }
     }
 
@@ -95,10 +103,10 @@ public class MqttSubscriberWorkerService(
 
     private Task OnDisconnectedAsync(MqttClientDisconnectedEventArgs arg)
     {
-        logger.LogInformation("MqttSubscriber disconnected from {brokerHostname}, reason: {reason}. Reconnecting now.",
-            _brokerHostname, arg.Reason);
+        logger.LogInformation("MqttSubscriber disconnected from {brokerHostname}, reason: {reason}, result: {result}. Reconnecting now.",
+            _brokerHostname, arg.Reason, arg.ConnectResult.ResultCode);
+        
         return Connect();
-        //return Task.CompletedTask;
     }
 
     private Task OnApplicationMessageReceivedAsync(MqttApplicationMessageReceivedEventArgs e)
@@ -130,9 +138,9 @@ public class MqttSubscriberWorkerService(
                     payload.Topic = e.ApplicationMessage.Topic;
 
                     FindAndExecuteMessageHandler(payload);
-                    
+
                     SaveToDatabase(payload);
-                    
+
                     SendToFrontend(payload);
                 }
             }
@@ -163,14 +171,15 @@ public class MqttSubscriberWorkerService(
         catch (Exception e)
         {
             logger.LogError("Message for {uid} failed to execute message-handler: {e}", payload.Hid, e);
-        }    
+        }
     }
-    
+
     private void SaveToDatabase(MqttPayload payload)
     {
         try
         {
-            logger.LogDebug("MqttSubscriberWorkerService: dbContextId={ctxid}, hid={hid}", dbContext.ContextId, payload.Hid);
+            logger.LogDebug("MqttSubscriberWorkerService: dbContextId={ctxid}, hid={hid}", dbContext.ContextId,
+                payload.Hid);
             dbContext.Add(EventDataMapper.Map(payload));
             dbContext.SaveChanges(true);
             logger.LogInformation("Message saved for {uid}.", payload.Hid);

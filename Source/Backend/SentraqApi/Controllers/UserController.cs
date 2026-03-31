@@ -1,5 +1,8 @@
+using System.Collections.Generic;
+using System.Linq;
 using System.Text.Json.Nodes;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using SentraqApi.Attributes;
 using SentraqApi.Filters;
 using SentraqCommon.Extensions;
@@ -30,6 +33,7 @@ public class UserController(
     }
     
     [RequireAuthorizationKey]
+    [NotAllowedExceptionFilter]
     [HttpPost()]
     public void Write([FromBody] Api.User user, [FromHeader(Name = "X-LOGIN")] string changedBy)
     {
@@ -41,7 +45,7 @@ public class UserController(
     [HttpDelete("{userLogin}")]
     public void Remove(string userLogin, [FromHeader(Name = "X-LOGIN")] string changedBy)
     {
-        userService.RemoveUser(userLogin, changedBy.Sanitize(10));
+        userService.RemoveUser(userLogin.Sanitize(10), changedBy.Sanitize(10));
     }
 
     [RequireAuthorizationKey]

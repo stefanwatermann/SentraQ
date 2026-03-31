@@ -8,6 +8,11 @@
 	border-color: #489d5c;
 }
 
+.form-check-input {
+	width: 40px !important;
+	height: 23px !important;
+}
+
 .XojoTextField > label {
 	font-size: 0.8em;
 }

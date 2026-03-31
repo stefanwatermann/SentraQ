@@ -1,13 +1,18 @@
+using System.Collections.Generic;
+using System.Linq;
 using System.Text.Json;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using SentraqApi.Attributes;
+using SentraqApi.Filters;
 using SentraqCommon.Context;
 using SentraqCommon.Extensions;
 using SentraqCommon.Services;
 using SentraqModels.Mapper;
 using Api = SentraqModels.Api;
-using Data = SentraqModels.Data;
 
 namespace SentraqApi.Controllers;
 
@@ -63,7 +68,8 @@ public class StationController(
 
         var components = dbContext
             .ComponentsView
-            .Where(c => c.StationUid == stationUid.Sanitize(36))
+            .Include(c => c.Station)
+            .Where(c => c.Station.Uid == stationUid.Sanitize(36))
             .OrderBy(c => c.DisplayOrder);
 
         var r = components
@@ -77,69 +83,27 @@ public class StationController(
     /// Update existing Station
     /// </summary>
     /// <param name="station"></param>
+    /// <param name="changedBy"></param>
     /// <exception cref="KeyNotFoundException"></exception>
     [RequireAuthorizationKey]
-    [HttpPut()]
-    public void Update([FromBody] Api.Station station)
-    {
-        var ds = dbContext
-                     .Stations
-                     .FirstOrDefault(s => s.Uid == station.Uid) 
-                 ?? throw new KeyNotFoundException("Station not found");
-
-        ds.DisplayName = station.DisplayName;
-        ds.ShortName = station.ShortName;
-        ds.Type = station.Type;
-        ds.Longitude = station.Location.Longitude;
-        ds.Latitude = station.Location.Latitude;
-        ds.DisplayOrder = station.DisplayOrder;
-
-        dbContext.Set<Data.Station>().Update(ds);
-        dbContext.SaveChanges();
-    }
-
-    /// <summary>
-    /// Add new Station, Guid will be generated. Any provided Guid will be ignored.
-    /// </summary>
-    /// <param name="station"></param>
-    /// <returns></returns>
-    [RequireAuthorizationKey]
+    [NotAllowedExceptionFilter]
     [HttpPost()]
-    public string Add([FromBody] Api.Station station)
+    public void Write([FromBody] Api.Station station, [FromHeader(Name = "X-LOGIN")] string changedBy)
     {
-        var ds = new Data.Station()
-        {
-            Uid = Guid.NewGuid().ToString(),
-            DisplayName = station.DisplayName,
-            ShortName = station.ShortName,
-            Type = station.Type,
-            Longitude = station.Location.Longitude,
-            Latitude = station.Location.Latitude,
-            DisplayOrder = station.DisplayOrder
-        };
-
-        dbContext.Set<Data.Station>().Add(ds);
-        dbContext.SaveChanges();
-
-        return ds.Uid;
+        stationService.WriteStation(StationMapper.Map(station), changedBy.Sanitize(10));
     }
 
     /// <summary>
     /// Delete Station.
     /// </summary>
-    /// <param name="guid"></param>
-    /// <exception cref="KeyNotFoundException"></exception>
+    /// <param name="uid"></param>
+    /// <param name="changedBy"></param>
     [RequireAuthorizationKey]
+    [NotAllowedExceptionFilter]
     [HttpDelete("{uid}")]
-    public void Add(string uid)
+    public void Remove(string uid, [FromHeader(Name = "X-LOGIN")] string changedBy)
     {
-        var ds = dbContext
-                     .Stations
-                     .FirstOrDefault(s => s.Uid == uid)
-                 ?? throw new KeyNotFoundException("Station not found");
-
-        dbContext.Set<Data.Station>().Remove(ds);
-        dbContext.SaveChanges();
+        stationService.RemoveStation(uid.Sanitize(36), changedBy.Sanitize(10));
     }
     
     [RequireAuthorizationKey]

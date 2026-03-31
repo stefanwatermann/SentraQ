@@ -90,34 +90,6 @@ Begin WebContainer ComponentActorViewContainer Implements IEmbeddableViewContain
       Width           =   30
       _mPanelIndex    =   -1
    End
-   Begin SwitchViewControl SwitchViewControl1
-      ControlID       =   ""
-      CSSClasses      =   ""
-      DiffEngineDisabled=   False
-      Enabled         =   False
-      Height          =   22
-      Index           =   -2147483648
-      Indicator       =   ""
-      Left            =   20
-      LockBottom      =   False
-      LockedInPosition=   True
-      LockHorizontal  =   False
-      LockLeft        =   True
-      LockRight       =   False
-      LockTop         =   True
-      LockVertical    =   False
-      mEnabled        =   "False"
-      PanelIndex      =   0
-      Scope           =   2
-      TabIndex        =   3
-      TabStop         =   True
-      Tooltip         =   ""
-      Top             =   64
-      Value           =   False
-      Visible         =   True
-      Width           =   50
-      _mPanelIndex    =   -1
-   End
    Begin WebLabel lbSwitchValue
       Bold            =   False
       ControlID       =   ""
@@ -125,11 +97,11 @@ Begin WebContainer ComponentActorViewContainer Implements IEmbeddableViewContain
       Enabled         =   True
       FontName        =   ""
       FontSize        =   0.0
-      Height          =   30
+      Height          =   35
       Index           =   -2147483648
       Indicator       =   ""
       Italic          =   False
-      Left            =   90
+      Left            =   80
       LockBottom      =   False
       LockedInPosition=   True
       LockHorizontal  =   False
@@ -146,10 +118,42 @@ Begin WebContainer ComponentActorViewContainer Implements IEmbeddableViewContain
       TextAlignment   =   0
       TextColor       =   &c000000FF
       Tooltip         =   ""
-      Top             =   60
+      Top             =   50
       Underline       =   False
       Visible         =   True
       Width           =   80
+      _mPanelIndex    =   -1
+   End
+   Begin WebSwitchControl Switch1
+      ControlCount    =   0
+      ControlID       =   ""
+      CSSClasses      =   ""
+      Enabled         =   False
+      Height          =   35
+      Index           =   -2147483648
+      Indicator       =   0
+      LayoutDirection =   0
+      LayoutType      =   0
+      Left            =   20
+      LockBottom      =   False
+      LockedInPosition=   True
+      LockHorizontal  =   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      LockVertical    =   False
+      PanelIndex      =   0
+      Scope           =   2
+      ScrollDirection =   0
+      TabIndex        =   5
+      TabStop         =   True
+      Tooltip         =   ""
+      Top             =   50
+      Value           =   False
+      Visible         =   True
+      Width           =   50
+      _mDesignHeight  =   0
+      _mDesignWidth   =   0
       _mPanelIndex    =   -1
    End
 End
@@ -172,18 +176,17 @@ End
 	#tag Method, Flags = &h21
 		Private Sub SetSwitchLabel(v as boolean)
 		  lbSwitchValue.Text = If (v, "An", "Aus")
-		  lbSwitchValue.TextColor = If (v, &c4FA90000, &c92929200)
+		  lbSwitchValue.TextColor = If (v, &c4FA90000, &c42424200)
 		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
 		Sub UpdateControls()
-		  lbDisplayName.Text = MyComponent.DisplayName
+		  lbDisplayName.Text = MyComponent.ShortName
 		  
 		  Var v As Boolean = If (Self.MyComponent.CurrentValue.IntegerValue = 0, False, True)
 		  SetSwitchLabel(v)
-		  SwitchViewControl1.Value = v
-		  SwitchViewControl1.Refresh
+		  Switch1.Value = v
 		End Sub
 	#tag EndMethod
 

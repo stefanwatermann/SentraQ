@@ -19,23 +19,25 @@ public class Component
     public required string HardwareId { get; init; }
     
     [MaxLength(250)]
-    public required string DisplayName { get; init; }
+    public required string DisplayName { get; set; }
     
     [MaxLength(50)]
-    public required string ShortName { get; init; }
+    public required string ShortName { get; set; }
         
     [MaxLength(20)]
-    public required string Type { get; init; }
+    public required string Type { get; set; }
     
     [MaxLength(50)]
-    public string? DisplayUnit { get; init; }
+    public string? DisplayUnit { get; set; }
     
-    public required int MinValue { get; init; }
+    public required int MinValue { get; set; }
     
-    public required int MaxValue { get; init; }
+    public required int MaxValue { get; set; }
     
     public int? DisplayOrder { get; set; }
     
     [MaxLength(50)]
-    public string? AdjustmentFunction { get; init; }
+    public string? AdjustmentFunction { get; set; }
+    
+    public bool Removed { get; set; }
 }

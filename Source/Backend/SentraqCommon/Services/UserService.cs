@@ -7,12 +7,14 @@ namespace SentraqCommon.Services;
 public class UserService(
     ILogger<CacheService> logger,
     LogService logService,
+    AuthorizationService authorizationService,
     DatabaseContext dbContext)
 {
     public IQueryable<User> GetUsers()
     {
         return dbContext
-            .Users;
+            .Users
+            .Where(u => !u.Removed);
     }
 
     public void LoggedOn(string login)
@@ -30,7 +32,7 @@ public class UserService(
     /// <exception cref="KeyNotFoundException"></exception>
     public void WriteUser(User user, string changedBy)
     {
-        CheckChangedByUser(changedBy);
+        authorizationService.ThrowWhenChangedByUserNotAdmin(changedBy);
 
         var existingUser = dbContext
                                .Users
@@ -43,6 +45,7 @@ public class UserService(
             existingUser.Name = user.Name;
             existingUser.Email = user.Email;
             existingUser.Role = user.Role;
+            existingUser.Removed = false;
         }
         else
         {
@@ -56,24 +59,16 @@ public class UserService(
 
     public void RemoveUser(string login, string changedBy)
     {
-        CheckChangedByUser(changedBy);
+        authorizationService.ThrowWhenChangedByUserNotAdmin(changedBy);
 
         var user = dbContext
                        .Users
                        .SingleOrDefault(u => u.Login == login) ??
                    throw new KeyNotFoundException($"User {login} not found.");
 
-        dbContext.Remove(user);
-        logService.AddInfo(LogService.Event.UserRemoved, $"User {login} removed by {changedBy}.");
+        user.Removed = true;
+        
+        logService.AddInfo(LogService.Event.UserRemoved, $"User {login} (id={user.Id}) removed by {changedBy}.");
         dbContext.SaveChanges();
-    }
-
-    private void CheckChangedByUser(string changedBy)
-    {
-        var user = dbContext
-                       .Users
-                       .SingleOrDefault(u => u.Login == changedBy && u.Role == "ADM") ??
-                   throw new UnauthorizedAccessException(
-                       $"ChangedBy user {changedBy} not found or does not have role ADM.");
     }
 }

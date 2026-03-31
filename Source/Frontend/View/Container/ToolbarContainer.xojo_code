@@ -24,7 +24,6 @@ Begin WebContainer ToolbarContainer
    Width           =   300
    _mDesignHeight  =   0
    _mDesignWidth   =   0
-   _mName          =   ""
    _mPanelIndex    =   -1
    Begin WebButton btnLogonLogOff
       AllowAutoDisable=   False
@@ -272,7 +271,7 @@ End
 	#tag EndEvent
 	#tag Event
 		Sub Pressed()
-		  App.DataSvc.LoadStations
+		  App.DataSvc.ReadAndCacheStationsAndComponents
 		  Session.CurrentPage.UpdateBrowser
 		  // TODO Seite neu laden, bzw. aktualisieren
 		End Sub

@@ -93,6 +93,12 @@ Inherits WebSession
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h0
+		Sub HideWaitIndicator()
+		  ShowWaitIndicator(False)
+		End Sub
+	#tag EndMethod
+
 	#tag Method, Flags = &h21
 		Private Sub InitAuthentiation()
 		  Var authProvider As Authentication.IAuthenticationStoreProvider = New AuthenticationWebApiStoreProvider
@@ -128,10 +134,6 @@ Inherits WebSession
 		  Self.PageHandler.RegisterPage(PageNotFound, "404")
 		  Self.PageHandler.RegisterPage(PageNoAccess, "403")
 		  Self.PageHandler.RegisterPage(PagePasswordReset, "pset")
-		  
-		  If Self.Authenticator.CurrentUserRole = "ADM" Then
-		    Self.PageHandler.RegisterPage(PageAdmin, "admin")
-		  End
 		End Sub
 	#tag EndMethod
 
@@ -149,7 +151,6 @@ Inherits WebSession
 		  Self.Authenticator.ClearCurrentUser
 		  
 		  Self.GoToURL("/")
-		  
 		End Sub
 	#tag EndMethod
 
@@ -180,6 +181,24 @@ Inherits WebSession
 	#tag Method, Flags = &h0
 		Sub ResetExecutionTime()
 		  Self.SessionStartDt = DateTime.Now
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub ShowWaitIndicator()
+		  ShowWaitIndicator(True)
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Sub ShowWaitIndicator(visible as Boolean)
+		  For Each ctrl As WebUiControl In Self.CurrentPage.Controls
+		    If ctrl IsA WaitContainer Then
+		      ctrl.Visible = visible
+		      ctrl.UpdateBrowser
+		      Exit
+		    End
+		  Next
 		End Sub
 	#tag EndMethod
 
@@ -240,7 +259,7 @@ Inherits WebSession
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
-			  return App.DataSvc.GetUserByLogin(self.Authenticator.CurrentUserName)
+			  return App.DataSvc.GetCachedUserByLogin(self.Authenticator.CurrentUserName)
 			End Get
 		#tag EndGetter
 		CurrentUser As UserModel

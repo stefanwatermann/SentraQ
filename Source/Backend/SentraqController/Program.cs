@@ -6,6 +6,7 @@
 using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 using SentraqCommon.Context;
+using SentraqCommon.Loggers;
 using SentraqCommon.Security;
 using SentraqCommon.Services;
 using SentraqController.MessageHandler;
@@ -13,7 +14,7 @@ using SentraqController.MessageHandler.Handler;
 using SentraqController.MqttParser;
 using SentraqController.Services;
 
-[assembly: AssemblyVersion("1.0.2.*")]
+[assembly: AssemblyVersion("1.0.3.*")]
 
 namespace SentraqController;
 
@@ -33,7 +34,7 @@ class Program
             .SetBasePath(Directory.GetCurrentDirectory())
             .AddJsonFile("appsettings.json", false)
             .Build();
-
+        
         var connStr = configuration.GetConnectionString("DbConnection") ??
                       throw new InvalidOperationException("Could not find connection string in appsettings.json");
         
@@ -50,10 +51,14 @@ class Program
         builder.Services.AddSingleton<MessageHandlerFactory>();
         builder.Services.AddSingleton<CacheService>();
         builder.Services.AddHostedService<MqttSubscriberWorkerService>();
+        
+        var errorFilename = configuration.GetValue<string>("ErrorLogFilename") ?? "error.log";
+        
         builder.Services.AddLogging(b =>
         {
             b.ClearProviders();
             b.AddConfiguration(configuration.GetSection("Logging"))
+                .AddProvider(new ExceptionFileLoggerProvider(errorFilename))
                 .AddConsole()
                 .AddDebug();
         });

@@ -199,10 +199,10 @@ End
 	#tag Constant, Name = kCustomScript, Type = String, Dynamic = False, Default = \"function SelectWebMenuItem(sender) {\n  let elems \x3D sender.parentElement.getElementsByClassName(\"list-group-item-action\");\n  for (const el of elems) {\n    el.classList.remove(\"active\");\n  }\n  sender.classList.add(\"active\");\n}", Scope = Private
 	#tag EndConstant
 
-	#tag Constant, Name = kListGroup, Type = String, Dynamic = False, Default = \"<div class\x3D\"list-group list-group-flush h-100\">\n{items}\n</div>", Scope = Private
+	#tag Constant, Name = kListGroup, Type = String, Dynamic = False, Default = \"<div class\x3D\"list-group list-group-flush\">\n{items}\n</div>", Scope = Private
 	#tag EndConstant
 
-	#tag Constant, Name = kListGroupItem, Type = String, Dynamic = False, Default = \"<button type\x3D\"button\" class\x3D\"list-group-item list-group-item-action border-0 d-flex justify-content-between align-items-start text-nowrap align-items-center {active}\" onclick\x3D\"javascript:SelectWebMenuItem(this);{callback}\">{caption}</button>", Scope = Private
+	#tag Constant, Name = kListGroupItem, Type = String, Dynamic = False, Default = \"<button type\x3D\"button\" class\x3D\"list-group-item border-0 d-flex justify-content-between align-items-start text-nowrap align-items-center {active}\" onclick\x3D\"javascript:SelectWebMenuItem(this);{callback}\">{caption}</button>", Scope = Private
 	#tag EndConstant
 
 
