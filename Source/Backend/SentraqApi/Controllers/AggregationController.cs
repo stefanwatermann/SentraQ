@@ -1,4 +1,6 @@
+using System.Linq;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using SentraqApi.Attributes;
 using SentraqCommon.Context;
 using SentraqModels.Mapper;

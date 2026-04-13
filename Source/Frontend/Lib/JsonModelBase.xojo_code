@@ -1,5 +1,5 @@
 #tag Class
- Attributes ( "@Version" = "1.2.4", "@Copyright" = "(c) 2022-2025 watermann-it.de", "@Guid" = "7391BC4F-5E17-4EED-A7FC-7D000EF67BA5", "@Author" = "Stefan Watermann", "@Description" = "Base-class used for model-classes to convert to and from JSON. Recursive JSON Support.", "@Depends" = "-", "@History" = "Fix missing encoding for ToJson. ToJson as JSONItem. Handling MemoryBlock types. Support for #JsonIgnore attribute." ) Protected Class JsonModelBase
+ Attributes ( "@Version" = "1.2.5", "@Copyright" = "(c) 2022-2025 watermann-it.de", "@Guid" = "7391BC4F-5E17-4EED-A7FC-7D000EF67BA5", "@Author" = "Stefan Watermann", "@Description" = "Base-class used for model-classes to convert to and from JSON. Recursive JSON Support.", "@Depends" = "-", "@History" = "Fix missing encoding for ToJson. ToJson as JSONItem. Handling MemoryBlock types. Support for #JsonIgnore attribute." ) Protected Class JsonModelBase
 	#tag Method, Flags = &h21
 		Private Shared Function CreateArray(p as Introspection.PropertyInfo, json as JSONItem) As Variant
 		  Var values() As Variant = ParseJSON(json.ToString)
@@ -362,7 +362,7 @@
 		          json.Value(p.Name) = p.Value(Self).DateTimeValue.SQLDateTime
 		          
 		        ElseIf p.PropertyType.FullName = "Boolean" Then
-		          json.Value(p.Name) = p.Value(Self).BooleanValue.ToString
+		          json.Value(p.Name) = p.Value(Self).BooleanValue
 		          
 		        ElseIf p.PropertyType.FullName = "String" Then
 		          json.Value(p.Name) = p.Value(Self).StringValue
@@ -446,7 +446,7 @@
 		          json.Value(p.Name) = p.Value(Self).DateTimeValue.SQLDateTime
 		          
 		        ElseIf p.PropertyType.FullName = "Boolean" Then
-		          json.Value(p.Name) = p.Value(Self).BooleanValue.ToString
+		          json.Value(p.Name) = p.Value(Self).BooleanValue
 		          
 		        ElseIf p.PropertyType.FullName = "String" Then
 		          json.Value(p.Name) = p.Value(Self).StringValue
@@ -504,6 +504,10 @@
 		v1.2.4 - 2025-10-08
 		--------------------
 		- FromDictionary rekursiv und Picture
+		
+		v1.2.5 -2026-03-17
+		--------------------
+		- fix: wrong Boolean value in ToJson...
 	#tag EndNote
 
 

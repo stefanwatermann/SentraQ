@@ -1,9 +1,9 @@
 #tag WebContainerControl
-Begin WebContainer WebListMenu Attributes ( "@Guid" = "DA5C2FC6-7925-4879-907A-B94E33D7032A", "@Copyright" = "(c)2026 Stefan Watermann", "@Version" = "1.0", "@Description" = "Ein Listen-Menü für Web Apps.", "@Author" = "Stefan Watermann, Auetal", "@Depends" = "CallbackControl 1.0" ) 
+Begin WebContainer WebListMenu Attributes ( "@Guid" = "DA5C2FC6-7925-4879-907A-B94E33D7032A", "@Copyright" = "(c)2026 Stefan Watermann", "@Version" = "1.0.2", "@Description" = "Ein Listen-Menü für Web Apps.", "@Author" = "Stefan Watermann, Auetal", "@Depends" = "CallbackControl 1.0" ) 
    Compatibility   =   ""
    ControlCount    =   0
    ControlID       =   ""
-   CSSClasses      =   "vh-100"
+   CSSClasses      =   ""
    Enabled         =   True
    Height          =   250
    Indicator       =   0
@@ -24,9 +24,8 @@ Begin WebContainer WebListMenu Attributes ( "@Guid" = "DA5C2FC6-7925-4879-907A-B
    Width           =   250
    _mDesignHeight  =   0
    _mDesignWidth   =   0
-   _mName          =   ""
    _mPanelIndex    =   -1
-   Begin WebHTMLViewer HTMLViewer1 Attributes ( "@Guid" = "DA5C2FC6-7925-4879-907A-B94E33D7032A", "@Copyright" = "(c)2026 Stefan Watermann", "@Version" = "1.0", "@Description" = "Ein Listen-Menü für Web Apps.", "@Author" = "Stefan Watermann, Auetal", "@Depends" = "CallbackControl 1.0" ) 
+   Begin WebHTMLViewer HTMLViewer1 Attributes ( "@Guid" = "DA5C2FC6-7925-4879-907A-B94E33D7032A", "@Copyright" = "(c)2026 Stefan Watermann", "@Version" = "1.0.2", "@Description" = "Ein Listen-Menü für Web Apps.", "@Author" = "Stefan Watermann, Auetal", "@Depends" = "CallbackControl 1.0" ) 
       ControlID       =   ""
       CSSClasses      =   ""
       Enabled         =   True
@@ -52,7 +51,7 @@ Begin WebContainer WebListMenu Attributes ( "@Guid" = "DA5C2FC6-7925-4879-907A-B
       Width           =   250
       _mPanelIndex    =   -1
    End
-   Begin CallbackControl CallbackControl1 Attributes ( "@Guid" = "DA5C2FC6-7925-4879-907A-B94E33D7032A", "@Copyright" = "(c)2026 Stefan Watermann", "@Version" = "1.0", "@Description" = "Ein Listen-Menü für Web Apps.", "@Author" = "Stefan Watermann, Auetal", "@Depends" = "CallbackControl 1.0" ) 
+   Begin CallbackControl CallbackControl1 Attributes ( "@Guid" = "DA5C2FC6-7925-4879-907A-B94E33D7032A", "@Copyright" = "(c)2026 Stefan Watermann", "@Version" = "1.0.2", "@Description" = "Ein Listen-Menü für Web Apps.", "@Author" = "Stefan Watermann, Auetal", "@Depends" = "CallbackControl 1.0" ) 
       ControlID       =   ""
       Enabled         =   True
       Index           =   -2147483648
@@ -84,6 +83,18 @@ End
 		Sub Constructor()
 		  Self.ListItems = New Dictionary
 		  Super.Constructor
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub Refresh()
+		  RenderMenu
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub RemoveAllItems()
+		  Self.ListItems = New Dictionary
 		End Sub
 	#tag EndMethod
 
@@ -123,6 +134,13 @@ End
 		Event Opening()
 	#tag EndHook
 
+
+	#tag Note, Name = History
+		v1.0.1 - 2026-03-16
+		--------------------
+		- öffentlche Methode Refresh ergänzt
+		
+	#tag EndNote
 
 	#tag Note, Name = WICHTIG!
 		Im Projekt muss das "CallbackControl" aus dem WebSDK vorhanden sein.
@@ -181,10 +199,10 @@ End
 	#tag Constant, Name = kCustomScript, Type = String, Dynamic = False, Default = \"function SelectWebMenuItem(sender) {\n  let elems \x3D sender.parentElement.getElementsByClassName(\"list-group-item-action\");\n  for (const el of elems) {\n    el.classList.remove(\"active\");\n  }\n  sender.classList.add(\"active\");\n}", Scope = Private
 	#tag EndConstant
 
-	#tag Constant, Name = kListGroup, Type = String, Dynamic = False, Default = \"<div class\x3D\"list-group list-group-flush h-100\">\n{items}\n</div>", Scope = Private
+	#tag Constant, Name = kListGroup, Type = String, Dynamic = False, Default = \"<div class\x3D\"list-group list-group-flush\">\n{items}\n</div>", Scope = Private
 	#tag EndConstant
 
-	#tag Constant, Name = kListGroupItem, Type = String, Dynamic = False, Default = \"<button type\x3D\"button\" class\x3D\"list-group-item list-group-item-action border-0 d-flex justify-content-between align-items-start text-nowrap align-items-center {active}\" onclick\x3D\"javascript:SelectWebMenuItem(this);{callback}\">{caption}</button>", Scope = Private
+	#tag Constant, Name = kListGroupItem, Type = String, Dynamic = False, Default = \"<button type\x3D\"button\" class\x3D\"list-group-item border-0 d-flex justify-content-between align-items-start text-nowrap align-items-center {active}\" onclick\x3D\"javascript:SelectWebMenuItem(this);{callback}\">{caption}</button>", Scope = Private
 	#tag EndConstant
 
 

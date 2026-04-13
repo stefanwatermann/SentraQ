@@ -7,8 +7,8 @@ Protected Class DocumentationService
 		  .Replace("{ShortName}", station.ShortName)_
 		  .Replace("{Uid}", station.Uid)_
 		  .Replace("{Type}", station.TypeName)_
-		  .Replace("{Latitude}", Str(station.Location.Latitude))_
-		  .Replace("{Longitude}", Str(station.Location.Longitude))
+		  .Replace("{Latitude}", Str(station.Latitude))_
+		  .Replace("{Longitude}", Str(station.Longitude))
 		  
 		  Var componentInfoHtml() As String
 		  Var rowCnt As Integer = 0

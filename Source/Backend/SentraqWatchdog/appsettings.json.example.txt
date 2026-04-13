@@ -5,6 +5,15 @@
             "System": "Error",
             "Microsoft": "Error",
             "Microsoft.EntityFrameworkCore": "Error"
+        },
+        "Console": {
+          "FormatterName": "simple",
+            "FormatterOptions": {
+                "SingleLine": true,
+                "IncludeScopes": true,
+                "TimestampFormat": "HH:mm:ss ",
+                "UseUtcTimestamp": true
+            }
         }
     },
 

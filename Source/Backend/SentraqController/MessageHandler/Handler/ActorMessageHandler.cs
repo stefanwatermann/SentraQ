@@ -56,13 +56,13 @@ public class ActorMessageHandler(
         if (counter.LastValue is 1 && counter.LastTs < DateTime.Now.AddMinutes(-5))
         {
             counter.LastValue = 0;
-            logService.AddInfo(LogService.Event.ActorCounterRestart, $"Counter LastValue set to 0 because last timestamp was too old (>5 minutes). Station outage?");
+            logService.AddInfo(LogService.Event.ActorCounterRestart, $"Counter {counter.HardwareId}: LastValue set to 0 because last timestamp was too old (-5 minutes). Station outage?");
         }
 
         if (counter.LastValue is 1)
         {
             var sec = Convert.ToInt64(timeSpan.TotalSeconds);
-            logger.LogDebug("ActorMessageHandler: counter={counter}, sec={sec}, lastValue={lastValue}, payload={payload}", counter, sec, counter.LastValue, payloadValue);
+            logger.LogDebug("ActorMessageHandler: counter={counter}, sec={sec}, lastValue={lastValue}, payload={payload}", counter.HardwareId, sec, counter.LastValue, payloadValue);
             counter.Count += sec;
         }
         

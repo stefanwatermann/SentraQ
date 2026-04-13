@@ -1,11 +1,11 @@
 #tag WebContainerControl
-Begin WebContainer AdminEventDataContainer
+Begin WebContainer WaitContainer
    Compatibility   =   ""
    ControlCount    =   0
    ControlID       =   ""
    CSSClasses      =   ""
    Enabled         =   True
-   Height          =   500
+   Height          =   250
    Indicator       =   0
    LayoutDirection =   0
    LayoutType      =   0
@@ -21,132 +21,31 @@ Begin WebContainer AdminEventDataContainer
    TabIndex        =   0
    Top             =   0
    Visible         =   True
-   Width           =   600
+   Width           =   250
    _mDesignHeight  =   0
    _mDesignWidth   =   0
-   _mName          =   ""
    _mPanelIndex    =   -1
-   Begin WebListBox lbEventData
-      AllowRowReordering=   False
-      ColumnCount     =   4
-      ColumnWidths    =   ""
+   Begin WebRectangle rectBackground
+      BackgroundColor =   &cD6D6D6B2
+      BorderColor     =   &c000000FF
+      BorderThickness =   0
+      ControlCount    =   0
       ControlID       =   ""
-      CSSClasses      =   "small"
-      DefaultRowHeight=   30
+      CornerSize      =   0
+      CSSClasses      =   ""
       Enabled         =   True
-      GridLineStyle   =   0
-      HasBorder       =   True
-      HasHeader       =   True
-      HeaderHeight    =   0
-      Height          =   450
-      HighlightSortedColumn=   True
+      HasBackgroundColor=   True
+      Height          =   250
       Index           =   -2147483648
-      Indicator       =   0
-      InitialValue    =   "HardwareId	CreateTS	ReceivedTS	Payload"
-      LastAddedRowIndex=   0
-      LastColumnIndex =   0
-      LastRowIndex    =   0
+      Indicator       =   ""
+      LayoutDirection =   "LayoutDirections.LeftToRight"
+      LayoutType      =   "LayoutTypes.Fixed"
       Left            =   0
       LockBottom      =   True
       LockedInPosition=   True
       LockHorizontal  =   False
       LockLeft        =   True
-      LockRight       =   False
-      LockTop         =   True
-      LockVertical    =   False
-      NoRowsMessage   =   "Keine Daten"
-      PanelIndex      =   0
-      ProcessingMessage=   ""
-      RowCount        =   0
-      RowSelectionType=   1
-      Scope           =   2
-      SearchCriteria  =   ""
-      SelectedRowColor=   &cC0E1FF00
-      SelectedRowIndex=   0
-      TabIndex        =   0
-      TabStop         =   True
-      Tooltip         =   ""
-      Top             =   50
-      Visible         =   True
-      Width           =   600
-      _mPanelIndex    =   -1
-   End
-   Begin WebLabel Label1
-      Bold            =   False
-      ControlID       =   ""
-      CSSClasses      =   ""
-      Enabled         =   True
-      FontName        =   ""
-      FontSize        =   13.0
-      Height          =   20
-      Index           =   -2147483648
-      Indicator       =   0
-      Italic          =   False
-      Left            =   0
-      LockBottom      =   False
-      LockedInPosition=   True
-      LockHorizontal  =   False
-      LockLeft        =   True
-      LockRight       =   False
-      LockTop         =   True
-      LockVertical    =   False
-      Multiline       =   False
-      PanelIndex      =   0
-      Scope           =   2
-      TabIndex        =   1
-      TabStop         =   True
-      Text            =   "EventData (letzte 100)"
-      TextAlignment   =   0
-      TextColor       =   &c000000FF
-      Tooltip         =   ""
-      Top             =   20
-      Underline       =   False
-      Visible         =   True
-      Width           =   250
-      _mPanelIndex    =   -1
-   End
-   Begin WebSearchField SearchField1
-      ControlID       =   ""
-      CSSClasses      =   "small"
-      Enabled         =   True
-      Height          =   30
-      Hint            =   "Filter HardwareId"
-      Index           =   -2147483648
-      Indicator       =   0
-      Left            =   400
-      LockBottom      =   False
-      LockedInPosition=   True
-      LockHorizontal  =   False
-      LockLeft        =   True
-      LockRight       =   False
-      LockTop         =   True
-      LockVertical    =   False
-      PanelIndex      =   0
-      Scope           =   2
-      TabIndex        =   2
-      TabStop         =   True
-      Text            =   ""
-      Tooltip         =   ""
-      Top             =   10
-      Visible         =   True
-      Width           =   200
-      _mPanelIndex    =   -1
-   End
-   Begin WebCheckbox Checkbox1
-      Caption         =   "Autoload"
-      ControlID       =   ""
-      CSSClasses      =   "form-switch small"
-      Enabled         =   True
-      Height          =   30
-      Indeterminate   =   False
-      Index           =   -2147483648
-      Indicator       =   0
-      Left            =   260
-      LockBottom      =   False
-      LockedInPosition=   True
-      LockHorizontal  =   False
-      LockLeft        =   True
-      LockRight       =   False
+      LockRight       =   True
       LockTop         =   True
       LockVertical    =   False
       PanelIndex      =   0
@@ -154,69 +53,119 @@ Begin WebContainer AdminEventDataContainer
       TabIndex        =   3
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   15
-      Value           =   False
+      Top             =   0
       Visible         =   True
-      Width           =   132
+      Width           =   250
+      _mDesignHeight  =   0
+      _mDesignWidth   =   0
       _mPanelIndex    =   -1
-   End
-   Begin WebTimer Timer1
-      ControlID       =   ""
-      Enabled         =   False
-      Index           =   -2147483648
-      Location        =   0
-      LockedInPosition=   True
-      PanelIndex      =   0
-      Period          =   5000
-      RunMode         =   2
-      Scope           =   2
-      _mPanelIndex    =   -1
+      Begin WebRectangle Rectangle1
+         BackgroundColor =   &cFFFFFF
+         BorderColor     =   &cD6D6D600
+         BorderThickness =   1
+         ControlCount    =   0
+         ControlID       =   ""
+         CornerSize      =   10
+         CSSClasses      =   ""
+         Enabled         =   True
+         HasBackgroundColor=   True
+         Height          =   77
+         Index           =   -2147483648
+         Indicator       =   ""
+         LayoutDirection =   "LayoutDirections.LeftToRight"
+         LayoutType      =   "LayoutTypes.Fixed"
+         Left            =   20
+         LockBottom      =   False
+         LockedInPosition=   True
+         LockHorizontal  =   True
+         LockLeft        =   False
+         LockRight       =   False
+         LockTop         =   False
+         LockVertical    =   True
+         PanelIndex      =   0
+         Parent          =   "rectBackground"
+         Scope           =   2
+         TabIndex        =   0
+         TabStop         =   True
+         Tooltip         =   ""
+         Top             =   87
+         Visible         =   True
+         Width           =   210
+         _mDesignHeight  =   0
+         _mDesignWidth   =   0
+         _mPanelIndex    =   -1
+         Begin WebProgressWheel ProgressWheel1
+            Colorize        =   False
+            ControlID       =   ""
+            CSSClasses      =   ""
+            Enabled         =   True
+            Height          =   38
+            Index           =   -2147483648
+            Indicator       =   ""
+            Left            =   35
+            LockBottom      =   False
+            LockedInPosition=   True
+            LockHorizontal  =   False
+            LockLeft        =   True
+            LockRight       =   False
+            LockTop         =   True
+            LockVertical    =   False
+            PanelIndex      =   0
+            Parent          =   "Rectangle1"
+            Scope           =   2
+            SVGColor        =   &c00000000
+            SVGData         =   ""
+            TabIndex        =   1
+            TabStop         =   True
+            Tooltip         =   ""
+            Top             =   107
+            Visible         =   True
+            Width           =   38
+            _mPanelIndex    =   -1
+         End
+         Begin WebLabel Label1
+            Bold            =   False
+            ControlID       =   ""
+            CSSClasses      =   ""
+            Enabled         =   True
+            FontName        =   ""
+            FontSize        =   0.0
+            Height          =   38
+            Index           =   -2147483648
+            Indicator       =   ""
+            Italic          =   False
+            Left            =   85
+            LockBottom      =   False
+            LockedInPosition=   True
+            LockHorizontal  =   False
+            LockLeft        =   True
+            LockRight       =   False
+            LockTop         =   True
+            LockVertical    =   False
+            Multiline       =   False
+            PanelIndex      =   0
+            Parent          =   "Rectangle1"
+            Scope           =   2
+            TabIndex        =   2
+            TabStop         =   True
+            Text            =   "Bitte warten..."
+            TextAlignment   =   0
+            TextColor       =   &c79797900
+            Tooltip         =   ""
+            Top             =   107
+            Underline       =   False
+            Visible         =   True
+            Width           =   140
+            _mPanelIndex    =   -1
+         End
+      End
    End
 End
 #tag EndWebContainerControl
 
 #tag WindowCode
-	#tag Method, Flags = &h21
-		Private Sub PopulateList(filter as string = "")
-		  lbEventData.RemoveAllRows
-		  
-		  For Each ev As EventDataModel In App.DataSvc.GetEventData(filter)
-		    lbEventData.AddRow(ev.HardwareId, ev.CreateTS.SQLDateTime, ev.ReceivedTs.SQLDateTime, ev.Payload)
-		  Next
-		End Sub
-	#tag EndMethod
-
-
 #tag EndWindowCode
 
-#tag Events lbEventData
-	#tag Event
-		Sub Shown()
-		  PopulateList()
-		End Sub
-	#tag EndEvent
-#tag EndEvents
-#tag Events SearchField1
-	#tag Event
-		Sub Pressed()
-		  PopulateList(Me.Text)
-		End Sub
-	#tag EndEvent
-#tag EndEvents
-#tag Events Checkbox1
-	#tag Event
-		Sub ValueChanged()
-		  Timer1.Enabled = me.Value
-		End Sub
-	#tag EndEvent
-#tag EndEvents
-#tag Events Timer1
-	#tag Event
-		Sub Run()
-		  PopulateList(SearchField1.Text)
-		End Sub
-	#tag EndEvent
-#tag EndEvents
 #tag ViewBehavior
 	#tag ViewProperty
 		Name="PanelIndex"

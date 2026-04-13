@@ -1,5 +1,5 @@
 #tag Module
- Attributes ( "@Guid" = "9EAC44D8-DF52-4CCD-9682-D03904F6F013", "@Version" = "1.1", "@Author" = "Stefan Watermann", "@Copyright" = "(c)2023 watermann IT, Germany", "@Depends" = "File", "@Description" = "Drop-In Modul erweitert die WebApplication Klasse um Methoden eine Configuration-Datei zu verwalten." ) Protected Module WebConfiguration
+ Attributes ( "@Guid" = "9EAC44D8-DF52-4CCD-9682-D03904F6F013", "@Version" = "1.1.1", "@Author" = "Stefan Watermann", "@Copyright" = "(c)2023 watermann IT, Germany", "@Depends" = "File", "@Description" = "Drop-In Modul erweitert die WebApplication Klasse um Methoden eine Configuration-Datei zu verwalten." ) Protected Module WebConfiguration
 	#tag CompatibilityFlags = ( TargetConsole and ( Target32Bit or Target64Bit ) ) or ( TargetWeb and ( Target32Bit or Target64Bit ) ) or ( TargetDesktop and ( Target32Bit or Target64Bit ) ) or ( TargetIOS and ( Target64Bit ) ) or ( TargetAndroid and ( Target64Bit ) )
 	#tag Method, Flags = &h0
 		Function ConfigValue(extends app as WebApplication, key as string, defaultValue as Variant = "") As Variant
@@ -104,14 +104,14 @@
 		
 		Die Config-Datei hat den selben Namen wie das Executable der App, mit dem Zusatz ".config".
 		Hat das Executable den Namen "MyApp.app", dann hat die Konfigdatei den Namen "MyApp.app.config".
-		Im Debug-Mode ist im Namen der App ".debug" enthalten, sodass eine separate COnfig Datei für
+		Im Debug-Mode ist im Namen der App ".debug" enthalten, sodass eine separate Config Datei für
 		Debugzwecke angelegt werden muss.
 		
 		Existiert die Config-Datei nicht, so liefern alle ConfigValue Methoden den DefaultValue zurück.
 		
 		Ab V1.1: 
 		Zugriff auf Umgebungsvariablen mit App.EnvValue(name, defaultValue).
-		Ist die genannte Umgebunsgvariable nicht vorhanden oder leer udn kein defaultValue angegeben,
+		Ist die genannte Umgebunsgvariable nicht vorhanden oder leer und kein defaultValue angegeben,
 		wird eine RuntimeException ausgelöst.
 		
 		Verwendung:

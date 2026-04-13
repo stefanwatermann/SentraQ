@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using SentraqApi.AuthFilter;
+using SentraqApi.Filters;
 
 namespace SentraqApi.Attributes;
 

@@ -14,7 +14,7 @@ using SentraqCommon.Security;
 using SentraqCommon.Services;
 using SentraqWatchdog.Services;
 
-[assembly: AssemblyVersion("1.0.1.*")]
+[assembly: AssemblyVersion("1.0.3.*")]
 
 namespace SentraqWatchdog;
 

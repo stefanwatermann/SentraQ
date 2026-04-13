@@ -35,7 +35,7 @@ Protected Module StationModelExtensions
 		  g.FillOval(x, y, w, h)
 		  
 		  g.DrawingColor = Color.White
-		  g.PenSize = 3
+		  g.PenSize = 4
 		  g.DrawOval(x, y, w, h)
 		End Sub
 	#tag EndMethod
@@ -81,7 +81,7 @@ Protected Module StationModelExtensions
 		  .Replace("#UId#", station.Uid) _
 		  .Replace("#ShortName#", station.ShortName) _
 		  .Replace("#Type#", station.Type) _
-		  .Replace("#Location#", str(Station.Location.Latitude) + " / " + str(station.Location.Longitude))
+		  .Replace("#Location#", str(Station.Latitude) + " / " + str(station.Longitude))
 		  
 		End Function
 	#tag EndMethod

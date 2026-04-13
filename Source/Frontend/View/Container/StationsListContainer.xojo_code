@@ -24,7 +24,6 @@ Begin WebContainer StationsListContainer
    Width           =   250
    _mDesignHeight  =   0
    _mDesignWidth   =   0
-   _mName          =   ""
    _mPanelIndex    =   -1
    Begin WebListMenu WebListMenu1
       ControlCount    =   0
@@ -104,7 +103,6 @@ End
 
 	#tag Method, Flags = &h0
 		Sub RefreshData()
-		  Var stations() As StationModel = App.DataSvc.Stations
 		  For Each station As StationModel In App.DataSvc.Stations
 		    If station.HasFaults Then
 		      WebListMenu1.UpdateMenuItem(station.Uid, kListRowAlertHtmlTemplate.Replace("#content#", station.ShortName))
@@ -153,7 +151,7 @@ End
 	#tag EndEvent
 	#tag Event
 		Sub ItemSelected(key as Variant)
-		  RaiseEvent SelectedStationChanged(App.DataSvc.GetStationByUid(key))
+		  RaiseEvent SelectedStationChanged(App.DataSvc.GetCachedStationByUid(key))
 		  
 		End Sub
 	#tag EndEvent

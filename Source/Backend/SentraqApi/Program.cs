@@ -6,13 +6,13 @@
 using System.Reflection;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.EntityFrameworkCore;
-using SentraqApi.AuthFilter;
+using SentraqApi.Filters;
 using SentraqCommon.Context;
 using SentraqCommon.Converters;
 using SentraqCommon.Security;
 using SentraqCommon.Services;
 
-[assembly: AssemblyVersion("1.0.1.*")]
+[assembly: AssemblyVersion("1.0.3.*")]
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -33,11 +33,13 @@ builder.Services.AddDbContext<DatabaseContext>(options =>
 
 builder.Services.AddScoped<SettingService>();
 builder.Services.AddScoped<CacheService>();
+builder.Services.AddScoped<AuthorizationService>();
 builder.Services.AddScoped<StationService>();
 builder.Services.AddScoped<ComponentService>();
 builder.Services.AddScoped<MailService>();
 builder.Services.AddScoped<PasswordResetService>();
 builder.Services.AddScoped<LogService>();
+builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<StatusFileService>();
 builder.Services.AddScoped<RequireAuthorizationKeyAuthFilter>();
 

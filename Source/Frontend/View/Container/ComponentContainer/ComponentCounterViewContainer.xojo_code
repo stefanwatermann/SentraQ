@@ -24,6 +24,7 @@ Begin WebContainer ComponentCounterViewContainer Implements IEmbeddableViewConta
    Width           =   180
    _mDesignHeight  =   0
    _mDesignWidth   =   0
+   _mName          =   ""
    _mPanelIndex    =   -1
    Begin WebLabel lbDisplayName
       BindProperty    =   "DisplayName"

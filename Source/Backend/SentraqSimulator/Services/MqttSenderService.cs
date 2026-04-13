@@ -14,7 +14,7 @@ public class MqttSenderService(
     IConfiguration config,
     Component component)
 {
-    private readonly MqttTopicTemplate _topicTemplate = new("client/send/{clientTopic}");
+    private readonly MqttTopicTemplate _topicTemplate = new("/client/send/{clientTopic}");
     
     private readonly string _brokerHostname = config.GetValue<string>("Mqtt:Broker:Hostname", string.Empty);
     private readonly int _tcpPort = config.GetValue<int>("Mqtt:Broker:Port");

@@ -85,15 +85,31 @@ textarea.textinput {
 	margin-bottom: 5px;
 }
 
+.list-group {
+	height: calc(100% - 6px;);
+}
+
 .list-group-item {
 	border-bottom: 1px solid #f9f9f9 !important;
 	font-size: 0.9em;
+	border-radius: 6px !important;
+	margin: 3px 8px !important;
 }
 
 .list-group-item.active {
-  background-color: #C0C0C0;
-  border-color: #C0C0C0;
-  color: black;
+	background-color: rgb(223, 224, 225);
+	border-color: #e0e0e3;
+	color: black;
+}
+
+.list-group-item:hover {
+	background-color: #f0f0f3;
+	border-color: #f0f0f3;
+	color: black;
+}
+
+.list-group:first-child {
+	margin-top: 6px;
 }
 
 .cursor-pointer {
@@ -101,7 +117,27 @@ textarea.textinput {
 }
 
 .small {
-	font-size: 0.9em;
+	font-size: 0.9em !important;
+}
+
+.no-border {
+	border: none;
+}
+
+.no-radius {
+	border-radius: 0 !important;
+}
+
+.s30h {
+	height: 30px;
+	max-height: 30px;
+}
+
+.s30h>img {
+	height: 20px;
+	width: 20px;
+	max-width: 20px;
+	max-height: 20px;
 }
 
 .header-background {
@@ -137,7 +173,7 @@ textarea.textinput {
 	margin: 10px;
 	background-color: white;
 	box-shadow: 1px 1px #eee;
-	border-radius: 4px;
+	border-radius: 8px;
 }
 .component-title {
 	font-size: 0.9em;
@@ -163,4 +199,14 @@ textarea.textinput {
 
 .cursor-not-allowed {
 	cursor: not-allowed;
+}
+
+.slim-table-header > div > div > div > div > table > thead > tr > th {
+	font-size: 12px;
+	background-color: transparent !important;
+	border-top: none;
+	border-left: none;
+	border-right: none;
+	border-bottom: solid 1px silver;
+	height: 30px;
 }

@@ -26,6 +26,12 @@ public class LogService(
         UserLogon,
         UserPasswordResetRequested,
         UserPasswordChanged,
+        UserChanged,
+        UserRemoved,
+        StationChanged,
+        StationRemoved,
+        ComponentChanged,
+        ComponentRemoved,
         AlertAction,
         ActorCounterRestart
     }

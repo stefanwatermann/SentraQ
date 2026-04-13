@@ -19,8 +19,8 @@ Inherits WebContainer
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h21
-		Private Sub BindProperties(model as Object)
+	#tag Method, Flags = &h0
+		Sub BindProperties(model as Object)
 		  Using Introspection
 		  
 		  Self.Model = model
@@ -158,8 +158,8 @@ Inherits WebContainer
 		Private BindableModelProperties() As Introspection.PropertyInfo
 	#tag EndProperty
 
-	#tag Property, Flags = &h21
-		Private Model As Object
+	#tag Property, Flags = &h0
+		Model As Object
 	#tag EndProperty
 
 	#tag ComputedProperty, Flags = &h0

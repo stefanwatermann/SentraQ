@@ -2,7 +2,7 @@
 Protected Class StationModel
 Inherits JsonModelBase
 	#tag Property, Flags = &h0
-		Components() As ComponentModel
+		Attributes( "#JsonIgnore" ) Components() As ComponentModel
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
@@ -13,6 +13,23 @@ Inherits JsonModelBase
 		DisplayName As String
 	#tag EndProperty
 
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  // return an ASCII string with replaced Umlaute used by MapViewer, because MapViewer cannot show Umlaute (Bug?).
+			  Return DisplayName _
+			  .ReplaceAll("ä", "ae")_
+			  .ReplaceAll("Ä", "Ae")_
+			  .ReplaceAll("ö", "oe")_
+			  .ReplaceAll("Ö", "Oe")_
+			  .ReplaceAll("Ü", "ue")_
+			  .ReplaceAll("ß", "ss")_
+			  .ConvertEncoding(Encodings.ASCII)
+			End Get
+		#tag EndGetter
+		Attributes( "#JsonIgnore" ) DisplayNameAscii As String
+	#tag EndComputedProperty
+
 	#tag Property, Flags = &h0
 		DisplayOrder As Integer
 	#tag EndProperty
@@ -22,11 +39,11 @@ Inherits JsonModelBase
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
-		Location As Geolocation
+		Latitude As Double
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
-		Attributes( "#JsonIgnore" ) MapViewLocation As WebMapLocation
+		Longitude As Double
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
@@ -86,6 +103,10 @@ Inherits JsonModelBase
 
 	#tag Property, Flags = &h0
 		Uid As String
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		WatchdogHardwareId As String
 	#tag EndProperty
 
 
@@ -207,6 +228,38 @@ Inherits JsonModelBase
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="TypeName"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="String"
+			EditorType="MultiLineEditor"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Latitude"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="Double"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Longitude"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="Double"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="WatchdogHardwareId"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="String"
+			EditorType="MultiLineEditor"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="DisplayNameAscii"
 			Visible=false
 			Group="Behavior"
 			InitialValue=""

@@ -313,7 +313,7 @@ End
 	#tag EndEvent
 	#tag Event
 		Sub Shown()
-		  Var station As StationModel = App.DataSvc.GetStationByUid(Session.CurrentSelectedStationUid)
+		  Var station As StationModel = App.DataSvc.GetCachedStationByUid(Session.CurrentSelectedStationUid)
 		  
 		  If station = Nil And app.DataSvc.Stations.Count > 0 Then
 		    station = App.DataSvc.Stations(0)

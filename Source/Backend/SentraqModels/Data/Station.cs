@@ -13,7 +13,7 @@ public class Station
         public required string Uid { get; init; }
         
         [MaxLength(36)]
-        public string? WatchdogHardwareId { get; init; }
+        public string? WatchdogHardwareId { get; set; }
     
         [MaxLength(250)]
         public required string DisplayName { get; set; }
@@ -28,11 +28,13 @@ public class Station
         [MaxLength(20)]
         public required string Type { get; set; }
         
-        public string? DisplayColor { get; init; }
+        public string? DisplayColor { get; set; }
         
         public int? DisplayOrder { get; set; }
         
-        public string? AlertReceiverEmailAddresses { get; init; }
+        public string? AlertReceiverEmailAddresses { get; set; }
+        
+        public bool Removed { get; set; }
         
         public ICollection<Component> Components { get; init; } = new List<Component>();
 }

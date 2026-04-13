@@ -33,6 +33,7 @@ Begin LobBase.LobWebPage PageMapView
    _ImplicitInstance=   False
    _mDesignHeight  =   0
    _mDesignWidth   =   0
+   _mName          =   ""
    _mPanelIndex    =   -1
    Begin HeaderContainer HeaderContainer1
       ControlCount    =   0
@@ -71,6 +72,7 @@ Begin LobBase.LobWebPage PageMapView
       ControlID       =   ""
       CSSClasses      =   ""
       Enabled         =   True
+      HasScaleIndicator=   False
       Height          =   320
       Index           =   -2147483648
       Indicator       =   0
@@ -152,24 +154,13 @@ End
 	#tag Event
 		Sub Opening()
 		  RefreshIconsTimer.Period = App.ConfigValue("FrontendRefresh.PeriodSec", 5).IntegerValue * 1000
-		  MapViewer1.Latitude = App.ConfigValue("Map.Default.Latitude").DoubleValue
-		  MapViewer1.Longitude = App.ConfigValue("Map.Default.Longitude").DoubleValue
-		  MapViewer1.Zoom = App.ConfigValue("Map.Default.Zoom", 12).IntegerValue
 		End Sub
 	#tag EndEvent
 
 
-	#tag Method, Flags = &h21
-		Private Function GetLocationIndex(name as string) As Integer
-		  For i As Integer = 0 To MapViewer1.LocationCount -1
-		    Var location As WebMapLocation = MapViewer1.LocationAt(i)
-		    If location.Title = name Then
-		      Return i
-		    End
-		  Next
-		  return -1
-		End Function
-	#tag EndMethod
+	#tag Property, Flags = &h21
+		Private SaveClientPrefsRequired As Boolean = False
+	#tag EndProperty
 
 
 #tag EndWindowCode
@@ -177,24 +168,54 @@ End
 #tag Events MapViewer1
 	#tag Event
 		Sub Shown()
-		  Me.RemoveAllLocations
+		  If Session.UserClientPrefs.LastMapLatitude > 0 And _
+		    Session.UserClientPrefs.LastMapLongitude > 0 And _
+		    Session.UserClientPrefs.LastMapZoom > 0 And _
+		    Session.UserClientPrefs.LastMapZoom <= 20 Then
+		    MapViewer1.Latitude = Session.UserClientPrefs.LastMapLatitude
+		    MapViewer1.Longitude = Session.UserClientPrefs.LastMapLongitude
+		    MapViewer1.Zoom = Session.UserClientPrefs.LastMapZoom
+		  Else
+		    MapViewer1.Latitude = App.ConfigValue("Map.Default.Latitude").DoubleValue
+		    MapViewer1.Longitude = App.ConfigValue("Map.Default.Longitude").DoubleValue
+		    MapViewer1.Zoom = App.ConfigValue("Map.Default.Zoom", 12).IntegerValue
+		  End
 		  
-		  For Each station As StationModel In App.DataSvc.Stations
-		    Var location As New WebMapLocation(station.Location.Latitude, station.Location.Longitude, station.Uid)
-		    location.Icon = station.CreateIcon()
-		    location.Title = station.DisplayName.ConvertEncoding(Encodings.ASCII)
-		    station.MapViewLocation = location
-		    Me.AddLocation(location)
-		  Next
-		  
-		  Me.UpdateBrowser
-		  
+		  MapViewer1.UpdateBrowser
 		End Sub
 	#tag EndEvent
 	#tag Event
 		Sub LocationSelected(location As WebMapLocation)
-		  GoToURL("#station," + location.Tag)
+		  GoToURL("#station," + MapStation(location.Tag).Station.Uid)
 		  
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub Opening()
+		  Me.RemoveAllLocations
+		  
+		  For Each station As StationModel In App.DataSvc.Stations
+		    Var location As New WebMapLocation(station.Latitude, station.Longitude)
+		    Var ms As New MapStation(station, location)
+		    location.Icon = station.CreateIcon()
+		    location.Title = ms.DisplayTitle
+		    location.Tag = ms
+		    Me.AddLocation(location)
+		  Next
+		  
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub CenterChanged(latitude As Double, longitude As Double)
+		  Session.UserClientPrefs.LastMapLatitude = latitude
+		  Session.UserClientPrefs.LastMapLongitude = longitude
+		  SaveClientPrefsRequired = true
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub ZoomChanged(zoomLevel As Integer)
+		  Session.UserClientPrefs.LastMapZoom = zoomLevel
+		  SaveClientPrefsRequired = True
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -204,13 +225,24 @@ End
 		  For Each station As StationModel In App.DataSvc.Stations
 		    Var location As WebMapLocation = MapViewer1.GetLocationByStationsUid(station.Uid)
 		    If location <> Nil Then
-		      MapViewer1.RemoveLocation(station.MapViewLocation)
-		      location.Icon = station.CreateIcon()
-		      MapViewer1.AddLocation(station.MapViewLocation)
+		      Var ms As MapStation = MapStation(location.Tag)
+		      If ms.LastFaultValue <> ms.Station.HasFaults Then
+		        ms.LastFaultValue = ms.Station.HasFaults
+		        MapViewer1.RemoveLocation(ms.MapLocation)
+		        location.Icon = station.CreateIcon()
+		        location.Title = ms.DisplayTitle
+		        ms.MapLocation = location
+		        MapViewer1.AddLocation(ms.MapLocation)
+		      End
 		    End
 		  Next
 		  
 		  MapViewer1.UpdateBrowser
+		  
+		  If SaveClientPrefsRequired Then
+		    SaveClientPrefsRequired = false
+		    Session.SaveUserClientPrefs
+		  end
 		End Sub
 	#tag EndEvent
 #tag EndEvents

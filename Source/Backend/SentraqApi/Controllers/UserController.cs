@@ -1,7 +1,10 @@
+using System.Collections.Generic;
+using System.Linq;
 using System.Text.Json.Nodes;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using SentraqApi.Attributes;
-using SentraqCommon.Context;
+using SentraqApi.Filters;
 using SentraqCommon.Extensions;
 using SentraqCommon.Services;
 using SentraqModels.Mapper;
@@ -14,8 +17,7 @@ namespace SentraqApi.Controllers;
 public class UserController(
     ILogger<UserController> logger,
     PasswordResetService passwordResetService,
-    LogService logService,
-    DatabaseContext dbContext) : ControllerBase
+    UserService userService) : ControllerBase
 {
     /// <summary>
     /// Returns a list of all users.
@@ -25,18 +27,32 @@ public class UserController(
     [HttpGet("")]
     public IEnumerable<Api.User?> Get()
     {
-        return dbContext
-            .Users
+        return userService.GetUsers()
             .Select(u => UserMapper.Map(u))
             .ToList();
+    }
+    
+    [RequireAuthorizationKey]
+    [NotAllowedExceptionFilter]
+    [HttpPost()]
+    public void Write([FromBody] Api.User user, [FromHeader(Name = "X-LOGIN")] string changedBy)
+    {
+       userService.WriteUser(UserMapper.Map(user), changedBy.Sanitize(10));
+    }
+    
+    [RequireAuthorizationKey]
+    [NotAllowedExceptionFilter]
+    [HttpDelete("{userLogin}")]
+    public void Remove(string userLogin, [FromHeader(Name = "X-LOGIN")] string changedBy)
+    {
+        userService.RemoveUser(userLogin.Sanitize(10), changedBy.Sanitize(10));
     }
 
     [RequireAuthorizationKey]
     [HttpPost("loggedOn/{login}")]
     public void LoggedOn(string login)
     {
-        logService.AddInfo(LogService.Event.UserLogon, login.Sanitize(10));
-        dbContext.SaveChanges();
+        userService.LoggedOn(login.Sanitize(10));
     }
 
     [RequireAuthorizationKey]

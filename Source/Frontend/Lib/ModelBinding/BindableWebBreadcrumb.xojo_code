@@ -9,6 +9,12 @@ Implements ModelBinding.IBindableWebControl
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h0
+		Function GetBindValue() As Variant
+		  return me.InitialValue
+		End Function
+	#tag EndMethod
+
 
 	#tag Property, Flags = &h0
 		BindProperty As String

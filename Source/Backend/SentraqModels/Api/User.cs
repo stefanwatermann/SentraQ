@@ -8,7 +8,7 @@ public class User
     
     public required string Hash { get; set; } = string.Empty;
 
-    public string? Email { get; set; }
+    public string Email { get; set; } = string.Empty;
 
     public required string Role { get; set; } = string.Empty;
 }

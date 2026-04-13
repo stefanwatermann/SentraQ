@@ -68,9 +68,12 @@ Inherits LobBase.LobWebApplication
 	#tag Method, Flags = &h21
 		Private Sub DataReloadTimerAction(sender as Object)
 		  Log.Debug(CurrentMethodName)
+		  MyProfiler.Start(CurrentMethodName)
 		  
 		  // reload stations from controller api
-		  Self.DataSvc.LoadStations
+		  Self.DataSvc.ReadAndCacheStationsAndComponents
+		  
+		  MyProfiler.Stop(CurrentMethodName)
 		End Sub
 	#tag EndMethod
 
@@ -91,7 +94,7 @@ Inherits LobBase.LobWebApplication
 		      If request.Path.BeginsWith("api/update/realtime/") Then
 		        response.Status = HandleUpdateComponentValueRequest(request, response)
 		        
-		      ElseIf request.Path = "api/reloadstations" Then
+		      ElseIf request.Path = "api/reCacheStations" Then
 		        response.Status = HandleReloadDataRequest(request, response)
 		        
 		      Else
@@ -129,7 +132,7 @@ Inherits LobBase.LobWebApplication
 		Private Function HandleReloadDataRequest(requets as WebRequest, response as WebResponse) As integer
 		  // reload stations and components from controller api
 		  // called frequently to decouple frontend requests from backend logic
-		  Self.DataSvc.LoadStations
+		  Self.DataSvc.ReadAndCacheStationsAndComponents
 		  
 		  // return http status success
 		  Return 200
@@ -151,13 +154,13 @@ Inherits LobBase.LobWebApplication
 		        
 		        // JSON data key-names has to be in camelCase
 		        Var data As New JSONItem(body)
-		        Var component As ComponentModel = App.DataSvc.GetComponentByHardwareId(uid)
+		        Var component As ComponentModel = App.DataSvc.GetCachedComponentByHardwareId(uid)
 		        component.CurrentValue = data.Value("value")
 		        component.LastReceivedTs = data.value("ts").DateTimeValue
 		        
 		        // reload station if component type is fault to get info about active alert
 		        If component.TypeDef = Enums.ComponentTypes.Fault Then
-		          Self.DataSvc.LoadStation(component.StationUid)
+		          Self.DataSvc.ReadStation(component.StationUid)
 		        End
 		        
 		        Return 200
@@ -175,7 +178,7 @@ Inherits LobBase.LobWebApplication
 		Private Sub InitAppServices()
 		  // Initialize sesison services
 		  Self.DataSvc = New DataService
-		  Self.DataSvc.LoadStations
+		  Self.DataSvc.ReadAndCacheStationsAndComponents
 		  
 		  // start data reload timer
 		  Self.DataReloadTimer = New Timer

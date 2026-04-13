@@ -31,4 +31,6 @@ public class User
     public string? PasswordResetCode { get; set; }
     
     public DateTime? PasswordResetTs { get; set; }
+    
+    public bool Removed { get; set; }
 }

@@ -1,12 +1,22 @@
 #tag Class
-Protected Class Geolocation
+Protected Class UserClientPrefsModel
 Inherits JsonModelBase
+	#tag Note, Name = Readme
+		Model-Klasse speichert die Benutzer-Einstellungen im Browser
+		
+	#tag EndNote
+
+
 	#tag Property, Flags = &h0
-		Latitude As Double
+		LastMapLatitude As Double
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
-		Longitude As Double
+		LastMapLongitude As Double
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		LastMapZoom As Integer
 	#tag EndProperty
 
 
@@ -52,19 +62,11 @@ Inherits JsonModelBase
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="Longitude"
+			Name="LastMapLatitude"
 			Visible=false
 			Group="Behavior"
 			InitialValue=""
-			Type="Double"
-			EditorType=""
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="Latitude"
-			Visible=false
-			Group="Behavior"
-			InitialValue=""
-			Type="Double"
+			Type="Integer"
 			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior

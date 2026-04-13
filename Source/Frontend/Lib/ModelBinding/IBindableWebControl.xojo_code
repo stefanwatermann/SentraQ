@@ -6,6 +6,12 @@ Protected Interface IBindableWebControl
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h0
+		Function GetBindValue() As Variant
+		  
+		End Function
+	#tag EndMethod
+
 
 	#tag ViewBehavior
 		#tag ViewProperty

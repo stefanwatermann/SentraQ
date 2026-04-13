@@ -13,4 +13,16 @@ public static class UserMapper
             Email = user.Email
         };
     }
+
+    public static Data.User Map(Api.User user)
+    {
+        return new Data.User()
+        {
+            Login = user.Login,
+            Name = user.Name,
+            Email = user.Email,
+            Hash = user.Hash,
+            Role = user.Role
+        };
+    }
 }

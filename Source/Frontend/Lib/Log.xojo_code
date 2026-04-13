@@ -231,7 +231,7 @@ Protected Module Log
 		#tag Getter
 			Get
 			  #If DebugBuild Then
-			    Return True
+			    Return false
 			  #Else
 			    Return False
 			  #EndIf

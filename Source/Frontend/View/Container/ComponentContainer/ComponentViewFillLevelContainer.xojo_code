@@ -86,7 +86,7 @@ Begin WebContainer ComponentViewFillLevelContainer Implements IEmbeddableViewCon
       TabStop         =   True
       Text            =   "..."
       TextAlignment   =   1
-      TextColor       =   &c000000FF
+      TextColor       =   &c79797900
       Tooltip         =   ""
       Top             =   75
       Underline       =   False
@@ -180,7 +180,7 @@ Begin WebContainer ComponentViewFillLevelContainer Implements IEmbeddableViewCon
       TabStop         =   True
       Text            =   "..."
       TextAlignment   =   3
-      TextColor       =   &c000000FF
+      TextColor       =   &c79797900
       Tooltip         =   ""
       Top             =   75
       Underline       =   False

@@ -33,7 +33,6 @@ public class ComponentView
     [ForeignKey("StationId")]
     public Station Station { get; init; }
     
-    public required string StationUid { get; init; }
     public string? AdjustmentFunction { get; init; }
     
     public string? LastPayload { get; init; }

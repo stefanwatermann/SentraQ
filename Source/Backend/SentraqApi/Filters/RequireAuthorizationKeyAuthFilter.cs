@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using SentraqCommon.Services;
 
-namespace SentraqApi.AuthFilter;
+namespace SentraqApi.Filters;
 
 /// <summary>
 /// Checks that api-request provides the required authorization key header.

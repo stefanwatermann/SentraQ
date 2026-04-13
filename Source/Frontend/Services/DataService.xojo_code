@@ -45,7 +45,7 @@ Protected Class DataService
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function GetComponentByHardwareId(hardwareId as string) As ComponentModel
+		Function GetCachedComponentByHardwareId(hardwareId as string) As ComponentModel
 		  For Each station As StationModel In Self.Stations
 		    For Each component As ComponentModel In station.Components
 		      If component.HardwareId = hardwareId Then
@@ -53,6 +53,47 @@ Protected Class DataService
 		      End
 		    Next
 		  Next
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function GetCachedStationByUid(uid as string) As StationModel
+		  For Each station As StationModel In Self.Stations
+		    If station.Uid = uid Then
+		      Return station
+		    End
+		  Next
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function GetCachedUserByLogin(login as string) As UserModel
+		  For Each user As UserModel In Self.Users
+		    If user.Login = login Then
+		      Return user
+		    End
+		  Next
+		  return nil
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function GetComponents(station as StationModel) As ComponentModel()
+		  // reads all components from Component table of the given station
+		  
+		  Var apiClient As New BackendApiControllerClient
+		  Var response As String = apiClient.Get("components/station/" + station.Uid)
+		  
+		  Var components() As Variant = ParseJSON(response)
+		  Var result() As ComponentModel
+		  
+		  For Each component As Dictionary In components
+		    Var c As  New ComponentModel
+		    ComponentModel.FromDictionary(component, c)
+		    result.Add(c)
+		  Next
+		  
+		  Return result
 		End Function
 	#tag EndMethod
 
@@ -73,27 +114,6 @@ Protected Class DataService
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function GetStationByUid(uid as string) As StationModel
-		  For each station As StationModel In Self.Stations
-		    If station.Uid = uid Then
-		      Return station
-		    End
-		  Next
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Function GetUserByLogin(login as string) As UserModel
-		  For Each user As UserModel In Self.Users
-		    If user.Login = login Then
-		      Return user
-		    End
-		  Next
-		  return nil
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
 		Function GetUserByPasswordResetCode(resetCode as string) As UserModel
 		  Var apiClient As New BackendApiControllerClient
 		  Var response As String = apiClient.Get("user/byResetCode/" + resetCode)
@@ -104,31 +124,16 @@ Protected Class DataService
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function GetUsers() As UserModel()
+		Function GetUsers(doReloadFromBackend as boolean = false) As UserModel()
 		  // User Objekte werden gecached und nur beim ersten Aufruf vom Backend geladen.
-		  If Self.Users.Count = 0 Then
-		    ReadUsers()
+		  If Self.Users.Count = 0 or doReloadFromBackend Then
+		    ReadAndCacheUsers()
 		  End
+		  
+		  Self.users.Sort(AddressOf SortUsers)
 		  
 		  Return Self.Users
 		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Sub LoadStation(stationUid as string)
-		  Var apiClient As New BackendApiControllerClient
-		  Var response As String = apiClient.Get("stations/" + stationUid)
-		  If response.Length > 0 Then
-		    Var s As StationModel = GetStationByUid(stationUid)
-		    StationModel.FromJson(response, s)
-		  End
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Sub LoadStations()
-		  ReadStations
-		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
@@ -145,65 +150,26 @@ Protected Class DataService
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h21
-		Private Sub ReadComponents(station as StationModel)
+	#tag Method, Flags = &h0
+		Sub ReadAndCacheStationsAndComponents()
 		  Var apiClient As New BackendApiControllerClient
-		  Var response As String = apiClient.Get("stations/" + station.Uid + "/components")
 		  
-		  Var components() As Variant = ParseJSON(response)
+		  Var r1 As String = apiClient.Get("stations")
+		  Var stations() As Variant = ParseJSON(r1)
 		  
-		  For Each component As Dictionary In components
-		    
-		    Var doAdd As Boolean = False
-		    
-		    Var c As  ComponentModel = GetComponentByHardwareId(component.Value("HardwareId"))
-		    If c = Nil Then
-		      c = New ComponentModel
-		      doAdd = True
-		    End
-		    
-		    ComponentModel.FromDictionary(component, c)
-		    
-		    If doAdd Then
-		      station.Components.Add(c)
-		    End
-		    
-		  Next
+		  Var r2 As String = apiClient.Get("/components/last")
+		  Var components() As Variant = ParseJSON(r2)
+		  
+		  UpdateStationsCache(stations, components)
 		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
-		Private Sub ReadStations()
-		  Var apiClient As New BackendApiControllerClient
-		  Var response As String = apiClient.Get("stations")
-		  
-		  Var stations() As Variant = ParseJSON(response)
-		  
-		  For Each station As Dictionary In stations
-		    
-		    Var doAdd As Boolean = False
-		    
-		    Var s As StationModel = GetStationByUid(station.Value("Uid"))
-		    If s = Nil Then
-		      s = New StationModel
-		      doAdd = True
-		    End
-		    
-		    StationModel.FromDictionary(station, s)
-		    ReadComponents(s)
-		    
-		    If doAdd Then
-		      Self.Stations.Add(s)
-		    End
-		    
-		  Next
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h21
-		Private Sub ReadUsers()
+		Private Sub ReadAndCacheUsers()
 		  Var apiClient As New BackendApiControllerClient
 		  Var response As String = apiClient.Get("user")
+		  
+		  Self.users.RemoveAll
 		  
 		  Var userDicts() As Variant = ParseJSON(response)
 		  
@@ -216,22 +182,95 @@ Protected Class DataService
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function ReloadComponent(componentUid as string) As ComponentModel
+		Sub ReadStation(stationUid as string)
 		  Var apiClient As New BackendApiControllerClient
-		  Var response As String = apiClient.Get("components/" + componentUid)
-		  
-		  Var c As New ComponentModel
-		  ComponentModel.FromJson(response, c)
-		  
-		  For Each station As StationModel In Self.Stations
-		    For Each component As ComponentModel In station.Components
-		      If component.HardwareId = c.HardwareId Then
-		        component = c
-		        Return component
-		      End
-		    Next
-		  Next
+		  Var response As String = apiClient.Get("stations/" + stationUid)
+		  If response.Length > 0 Then
+		    Var s As StationModel = GetCachedStationByUid(stationUid)
+		    StationModel.FromJson(response, s)
+		  End
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub RemoveComponent(component as ComponentModel, executingLogin as string)
+		  Var apiClient As New BackendApiControllerClient
+		  Var response As String = apiClient.Delete("components/" + component.HardwareId, executingLogin)
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub RemoveStation(station as stationModel, executingLogin as string)
+		  Var apiClient As New BackendApiControllerClient
+		  Var response As String = apiClient.Delete("stations/" + station.Uid, executingLogin)
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub RemoveUser(user as UserModel, executingLogin as string)
+		  Var apiClient As New BackendApiControllerClient
+		  Var response As String = apiClient.Delete("user/" + user.Login, executingLogin)
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Function SortUSers(a as UserModel, b as UserModel) As Integer
+		  If a.Name > b.Name Then Return 1
+		  If a.Name < b.Name Then Return -1
+		  Return 0
 		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Sub UpdateComponentsCache(station as StationModel, components() as Variant)
+		  // add and update cached components
+		  For Each component As Dictionary In components
+		    If component.Value("StationUid") = station.Uid Then
+		      
+		      Var doAdd As Boolean = False
+		      
+		      Var c As  ComponentModel = GetCachedComponentByHardwareId(component.Value("HardwareId"))
+		      If c = Nil Then
+		        c = New ComponentModel
+		        doAdd = True
+		      End
+		      
+		      ComponentModel.FromDictionary(component, c)
+		      
+		      If doAdd Then
+		        station.Components.Add(c)
+		      End
+		      
+		    End
+		  Next
+		  
+		  Log.Debug(Str(station.Components.Count) + " components in cache for station " + station.DisplayName)
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Sub UpdateStationsCache(stations() as Variant, components() as Variant)
+		  For Each station As Dictionary In stations
+		    
+		    Var doAdd As Boolean = False
+		    
+		    Var s As StationModel = GetCachedStationByUid(station.Value("Uid"))
+		    If s = Nil Then
+		      s = New StationModel
+		      doAdd = True
+		    End
+		    
+		    StationModel.FromDictionary(station, s)
+		    UpdateComponentsCache(s, components)
+		    
+		    If doAdd Then
+		      Self.Stations.Add(s)
+		    End
+		    
+		  Next
+		  
+		  Log.Debug(Str(Self.Stations.Count) + " stations in cache.")
+		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
@@ -244,7 +283,7 @@ Protected Class DataService
 	#tag Method, Flags = &h0
 		Sub UserRequestPasswordReset(login as string)
 		  Var apiClient As New BackendApiControllerClient
-		  Var response As String = apiClient.Post("user/UserRequestPasswordReset/" + login, nil)
+		  Var response As String = apiClient.Post("user/requestPasswordReset/" + login, nil)
 		End Sub
 	#tag EndMethod
 
@@ -253,7 +292,28 @@ Protected Class DataService
 		  Var apiClient As New BackendApiControllerClient
 		  Var data As New JSONItem
 		  data.Value("newPwdHash") = pwdHash
-		  Var response As String = apiClient.Post("user/UserSetNewPassword/" + login, data)
+		  Var response As String = apiClient.Post("user/setNewPassword/" + login, data)
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub WriteComponent(component as ComponentModel, executingLogin as string)
+		  Var apiClient As New BackendApiControllerClient
+		  Var response As String = apiClient.Post("components", component.ToJson, executingLogin)
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub WriteStation(station as StationModel, executingLogin as string)
+		  Var apiClient As New BackendApiControllerClient
+		  Var response As String = apiClient.Post("stations", station.ToJson, executingLogin)
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub WriteUser(user as UserModel, executingLogin as string)
+		  Var apiClient As New BackendApiControllerClient
+		  Var response As String = apiClient.Post("user", user.ToJson, executingLogin)
 		End Sub
 	#tag EndMethod
 

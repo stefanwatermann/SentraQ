@@ -169,7 +169,7 @@ End
 		Private Sub ClearAlert()
 		  // clear alert on station level
 		  App.DataSvc.ClearAlert(Station.Uid, Session.Authenticator.CurrentUserName)
-		  App.DataSvc.LoadStations
+		  App.DataSvc.ReadAndCacheStationsAndComponents
 		  Self.UpdateControls
 		End Sub
 	#tag EndMethod
@@ -243,7 +243,7 @@ End
 		#tag Getter
 			Get
 			  If Self.Components.Count > 0 Then
-			    Return App.DataSvc.GetStationByUid(Self.Components(0).StationUid)
+			    Return App.DataSvc.GetCachedStationByUid(Self.Components(0).StationUid)
 			  End
 			End Get
 		#tag EndGetter
