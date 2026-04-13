@@ -35,7 +35,7 @@ Protected Module StationModelExtensions
 		  g.FillOval(x, y, w, h)
 		  
 		  g.DrawingColor = Color.White
-		  g.PenSize = 3
+		  g.PenSize = 4
 		  g.DrawOval(x, y, w, h)
 		End Sub
 	#tag EndMethod

@@ -21,7 +21,7 @@ public class ExceptionFileLogger(
 
         try
         {
-            var log = $"[{logLevel.ToString()}] {DateTime.Now:yyyy-MM-dd HH:mm:ss} [{category}] {message}";
+            var log = $"{logLevel.ToString().ToUpper()}; {DateTime.Now:yyyy-MM-dd HH:mm:ss}; {category.ToUpper()}; {message}{Environment.NewLine}";
             File.AppendAllText(logfileName, log);
         }
         catch (Exception e)

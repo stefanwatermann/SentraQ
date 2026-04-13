@@ -67,7 +67,7 @@ public class MqttSubscriberWorkerService(
         }
         catch (Exception e)
         {
-            logger.LogError(e, "Error in main-loop of MqttSubscriberWorkerService");
+            logger.LogError(e, $"Error in main-loop of MqttSubscriberWorkerService: {e}");
             throw;
         }
     }

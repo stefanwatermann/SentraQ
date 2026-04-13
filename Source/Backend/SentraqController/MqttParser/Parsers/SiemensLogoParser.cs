@@ -18,11 +18,20 @@ internal class SiemensLogoParser(string payloadText) : IMqttParser
         var nodes = JsonNode.Parse(payloadText) 
                     ?? throw new ArgumentNullException();
         
-        if (!payloadText.Contains("\"desc\":"))
-            throw new InvalidDataException("Invalid payload. Is 'Array Format' activated?");
-        
+        // payload needs to have a 'state' and  a 'reported' element.
         var a = nodes["state"]!["reported"]?.AsObject() 
-                ?? throw new ArgumentNullException();
+                ?? throw new InvalidDataException();
+        
+        // if payload does not have a 'desc' and a 'value' element the LOGO is sending in the wrong format
+        if (!payloadText.Contains("\"desc\":") && !payloadText.Contains("\"value\":"))
+        {
+            if (payloadText.Contains("\"$logotime\":"))
+                // if payload contains a '$logotime' element just return an empty list
+                // therefore single $logotime messages will be ignored
+                return payloads;
+            else
+                throw new InvalidDataException("Invalid payload. Is 'Array Format' activated?");
+        }
         
         foreach (var o in a)
         {

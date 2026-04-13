@@ -1,5 +1,5 @@
 #tag WebContainerControl
-Begin WebContainer WebListMenu Attributes ( "@Guid" = "DA5C2FC6-7925-4879-907A-B94E33D7032A", "@Copyright" = "(c)2026 Stefan Watermann", "@Version" = "1.0.1", "@Description" = "Ein Listen-Menü für Web Apps.", "@Author" = "Stefan Watermann, Auetal", "@Depends" = "CallbackControl 1.0" ) 
+Begin WebContainer WebListMenu Attributes ( "@Guid" = "DA5C2FC6-7925-4879-907A-B94E33D7032A", "@Copyright" = "(c)2026 Stefan Watermann", "@Version" = "1.0.2", "@Description" = "Ein Listen-Menü für Web Apps.", "@Author" = "Stefan Watermann, Auetal", "@Depends" = "CallbackControl 1.0" ) 
    Compatibility   =   ""
    ControlCount    =   0
    ControlID       =   ""
@@ -25,7 +25,7 @@ Begin WebContainer WebListMenu Attributes ( "@Guid" = "DA5C2FC6-7925-4879-907A-B
    _mDesignHeight  =   0
    _mDesignWidth   =   0
    _mPanelIndex    =   -1
-   Begin WebHTMLViewer HTMLViewer1 Attributes ( "@Guid" = "DA5C2FC6-7925-4879-907A-B94E33D7032A", "@Copyright" = "(c)2026 Stefan Watermann", "@Version" = "1.0.1", "@Description" = "Ein Listen-Menü für Web Apps.", "@Author" = "Stefan Watermann, Auetal", "@Depends" = "CallbackControl 1.0" ) 
+   Begin WebHTMLViewer HTMLViewer1 Attributes ( "@Guid" = "DA5C2FC6-7925-4879-907A-B94E33D7032A", "@Copyright" = "(c)2026 Stefan Watermann", "@Version" = "1.0.2", "@Description" = "Ein Listen-Menü für Web Apps.", "@Author" = "Stefan Watermann, Auetal", "@Depends" = "CallbackControl 1.0" ) 
       ControlID       =   ""
       CSSClasses      =   ""
       Enabled         =   True
@@ -51,7 +51,7 @@ Begin WebContainer WebListMenu Attributes ( "@Guid" = "DA5C2FC6-7925-4879-907A-B
       Width           =   250
       _mPanelIndex    =   -1
    End
-   Begin CallbackControl CallbackControl1 Attributes ( "@Guid" = "DA5C2FC6-7925-4879-907A-B94E33D7032A", "@Copyright" = "(c)2026 Stefan Watermann", "@Version" = "1.0.1", "@Description" = "Ein Listen-Menü für Web Apps.", "@Author" = "Stefan Watermann, Auetal", "@Depends" = "CallbackControl 1.0" ) 
+   Begin CallbackControl CallbackControl1 Attributes ( "@Guid" = "DA5C2FC6-7925-4879-907A-B94E33D7032A", "@Copyright" = "(c)2026 Stefan Watermann", "@Version" = "1.0.2", "@Description" = "Ein Listen-Menü für Web Apps.", "@Author" = "Stefan Watermann, Auetal", "@Depends" = "CallbackControl 1.0" ) 
       ControlID       =   ""
       Enabled         =   True
       Index           =   -2147483648

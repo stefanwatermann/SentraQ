@@ -34,6 +34,7 @@ Begin WebContainer ComponentActorViewContainer Implements IEmbeddableViewContain
       FontName        =   ""
       FontSize        =   14.0
       Height          =   20
+      HTMLElement     =   0
       Index           =   -2147483648
       Indicator       =   0
       Italic          =   False
@@ -98,6 +99,7 @@ Begin WebContainer ComponentActorViewContainer Implements IEmbeddableViewContain
       FontName        =   ""
       FontSize        =   0.0
       Height          =   35
+      HTMLElement     =   0
       Index           =   -2147483648
       Indicator       =   ""
       Italic          =   False
@@ -124,12 +126,14 @@ Begin WebContainer ComponentActorViewContainer Implements IEmbeddableViewContain
       Width           =   80
       _mPanelIndex    =   -1
    End
-   Begin WebSwitchControl Switch1
+   Begin WebSwitch Switch1
+      Caption         =   ""
       ControlCount    =   0
       ControlID       =   ""
       CSSClasses      =   ""
       Enabled         =   False
       Height          =   35
+      Indeterminate   =   False
       Index           =   -2147483648
       Indicator       =   0
       LayoutDirection =   0

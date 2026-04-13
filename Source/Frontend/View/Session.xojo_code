@@ -8,6 +8,7 @@ Inherits WebSession
   AllowTabOrderWrap=True
   ColorMode=1
   SendEventsInBatches=False
+  LazyLoadDependencies=True
 #tag EndSession
 	#tag Event
 		Function AllowUnsupportedBrowser(ByRef errorMessage As String, ByRef sendAsHTML As Boolean) As Boolean
@@ -185,6 +186,16 @@ Inherits WebSession
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub SaveUserClientPrefs()
+		  Var data As String = EncodeBase64(Self.UserClientPrefs.ToJsonString, 0)
+		  
+		  Session.Cookies.Set(kUserClientPrefs, data, DateTime.Now.AddInterval(1), Session.Domain, "/", False, False, WebCookieManager.SameSiteStrength.Strict)
+		  
+		  //Self.RecordData(kUserClientPrefs, )
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub ShowWaitIndicator()
 		  ShowWaitIndicator(True)
 		End Sub
@@ -215,6 +226,9 @@ Inherits WebSession
 		  
 		  Log.Info("Starting session. Sub-Domain: " + Self.SubDomain + ", Remote-Address: " + Self.RemoteAddress + ", User-Agent: " + Self.UserAgent + ", ClientWidth: " + Str(Self.ClientWidth), Self.SecureSessionId)
 		  
+		  // Init user-client-prefs
+		  UpdateUserClientPrefs(DecodeBase64(Session.Cookies.Value(kUserClientPrefs)))
+		  
 		  // set language (zunächst nur deutsch unterstüzt)
 		  Self.LanguageCode = "de-DE"
 		  
@@ -228,9 +242,21 @@ Inherits WebSession
 		  InitPageHandler()
 		  
 		  // save userSession
-		  App.AddOrUpdateUserSession(self.SecureSessionId)
+		  App.AddOrUpdateUserSession(Self.SecureSessionId)
 		  
 		  MyProfiler.Stop(CurrentMethodName)
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Sub UpdateUserClientPrefs(jsonString as String)
+		  If Self.UserClientPrefs = Nil Then
+		    Self.UserClientPrefs = New UserClientPrefsModel
+		  End
+		  
+		  If jsonString <> "" Then
+		    UserClientPrefsModel.FromJson(jsonString, Self.UserClientPrefs)
+		  end
 		End Sub
 	#tag EndMethod
 
@@ -290,12 +316,43 @@ Inherits WebSession
 		Private SessionStartDt As DateTime
 	#tag EndProperty
 
+	#tag Property, Flags = &h0
+		UserClientPrefs As UserClientPrefsModel
+	#tag EndProperty
+
 
 	#tag Constant, Name = kMinClientWidth, Type = Double, Dynamic = False, Default = \"320", Scope = Private, Description = 4D696E696D756D2073697A65206F66207468652065787065637465642062726F777365722077696E646F772E
 	#tag EndConstant
 
+	#tag Constant, Name = kUserClientPrefs, Type = String, Dynamic = False, Default = \"user-client-prefs", Scope = Private
+	#tag EndConstant
+
 
 	#tag ViewBehavior
+		#tag ViewProperty
+			Name="Title"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="String"
+			EditorType="MultiLineEditor"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="LazyLoadDependencies"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="Boolean"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="_mIsUserAuthenticationCapable"
+			Visible=false
+			Group="Behavior"
+			InitialValue="False"
+			Type="Boolean"
+			EditorType=""
+		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Index"
 			Visible=true
