@@ -41,7 +41,7 @@ public class ComponentController(
         var components = dbContext
             .Components
             .Include(c => c.Station)
-            .Where(c => c.Station.Uid == stationUid)
+            .Where(c => c.Station.Uid == stationUid && c.Removed == false)
             .OrderBy(c => c.DisplayOrder)
             .Select(c => ComponentMapper.Map(c));
         
