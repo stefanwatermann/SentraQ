@@ -35,7 +35,6 @@ Begin LobBase.LobWebPage PageStationView
    _mDesignWidth   =   0
    _mPanelIndex    =   -1
    Begin WebRectangle leftPanel
-      BackgroundColor =   &cFFFFFF
       BorderColor     =   &c000000FF
       BorderThickness =   0
       ControlCount    =   0
@@ -43,9 +42,8 @@ Begin LobBase.LobWebPage PageStationView
       CornerSize      =   0
       CSSClasses      =   ""
       Enabled         =   True
-      FillColor       =   "&cFFFFFF00"
-      HasBackgroundColor=   True
-      HasFillColor    =   "True"
+      FillColor       =   &cFFFFFF
+      HasFillColor    =   True
       Height          =   520
       Index           =   -2147483648
       Indicator       =   ""
@@ -75,7 +73,7 @@ Begin LobBase.LobWebPage PageStationView
          ControlID       =   ""
          CSSClasses      =   ""
          Enabled         =   True
-         Height          =   490
+         Height          =   470
          Index           =   -2147483648
          Indicator       =   0
          InitialParent   =   "leftPanel"
@@ -190,7 +188,7 @@ Begin LobBase.LobWebPage PageStationView
       Indicator       =   0
       LayoutDirection =   0
       LayoutType      =   0
-      Left            =   20
+      Left            =   190
       LockBottom      =   True
       LockedInPosition=   True
       LockHorizontal  =   False
@@ -206,9 +204,47 @@ Begin LobBase.LobWebPage PageStationView
       Tooltip         =   ""
       Top             =   570
       Visible         =   True
-      Width           =   760
+      Width           =   420
       _mDesignHeight  =   0
       _mDesignWidth   =   0
+      _mPanelIndex    =   -1
+   End
+   Begin WebLink btnExport
+      Appearance      =   0
+      Bold            =   False
+      ControlID       =   ""
+      CSSClasses      =   ""
+      Enabled         =   True
+      FontName        =   ""
+      FontSize        =   14.0
+      Height          =   38
+      HTMLElement     =   0
+      Index           =   -2147483648
+      Indicator       =   ""
+      Italic          =   False
+      Left            =   23
+      LockBottom      =   True
+      LockedInPosition=   True
+      LockHorizontal  =   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   False
+      LockVertical    =   False
+      Multiline       =   False
+      PanelIndex      =   0
+      Scope           =   2
+      TabIndex        =   6
+      TabStop         =   True
+      Target          =   0
+      Text            =   "Exportieren..."
+      TextAlignment   =   0
+      TextColor       =   &c000000FF
+      Tooltip         =   ""
+      Top             =   555
+      Underline       =   False
+      URL             =   "#export"
+      Visible         =   True
+      Width           =   160
       _mPanelIndex    =   -1
    End
 End
@@ -333,6 +369,8 @@ End
 		  StationViewContainer1.RefreshData
 		End Sub
 	#tag EndEvent
+#tag EndEvents
+#tag Events btnExport
 #tag EndEvents
 #tag ViewBehavior
 	#tag ViewProperty

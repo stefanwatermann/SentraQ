@@ -34,6 +34,7 @@ Begin WebContainer ComponentMessageViewContainer Implements IEmbeddableViewConta
       FontName        =   ""
       FontSize        =   0.0
       Height          =   30
+      HTMLElement     =   0
       Index           =   -2147483648
       Indicator       =   0
       Italic          =   False
@@ -68,6 +69,7 @@ Begin WebContainer ComponentMessageViewContainer Implements IEmbeddableViewConta
       FontName        =   ""
       FontSize        =   0.0
       Height          =   68
+      HTMLElement     =   0
       Index           =   -2147483648
       Indicator       =   0
       Italic          =   False

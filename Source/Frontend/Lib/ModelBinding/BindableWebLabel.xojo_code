@@ -23,6 +23,23 @@ Implements ModelBinding.IBindableWebControl
 
 	#tag ViewBehavior
 		#tag ViewProperty
+			Name="HTMLElement"
+			Visible=true
+			Group="Behavior"
+			InitialValue="0"
+			Type="WebLabel.HTMLElements"
+			EditorType="Enum"
+			#tag EnumValues
+				"0 - Paragraph"
+				"1 - Heading1"
+				"2 - Heading2"
+				"3 - Heading3"
+				"4 - Heading4"
+				"5 - Heading5"
+				"6 - Heading6"
+			#tag EndEnumValues
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="Index"
 			Visible=true
 			Group="ID"

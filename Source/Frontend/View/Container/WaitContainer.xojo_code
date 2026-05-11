@@ -26,7 +26,6 @@ Begin WebContainer WaitContainer
    _mDesignWidth   =   0
    _mPanelIndex    =   -1
    Begin WebRectangle rectBackground
-      BackgroundColor =   &cD6D6D6B2
       BorderColor     =   &c000000FF
       BorderThickness =   0
       ControlCount    =   0
@@ -34,7 +33,8 @@ Begin WebContainer WaitContainer
       CornerSize      =   0
       CSSClasses      =   ""
       Enabled         =   True
-      HasBackgroundColor=   True
+      FillColor       =   &cD6D6D6B2
+      HasFillColor    =   True
       Height          =   250
       Index           =   -2147483648
       Indicator       =   ""
@@ -60,7 +60,6 @@ Begin WebContainer WaitContainer
       _mDesignWidth   =   0
       _mPanelIndex    =   -1
       Begin WebRectangle Rectangle1
-         BackgroundColor =   &cFFFFFF
          BorderColor     =   &cD6D6D600
          BorderThickness =   1
          ControlCount    =   0
@@ -68,7 +67,8 @@ Begin WebContainer WaitContainer
          CornerSize      =   10
          CSSClasses      =   ""
          Enabled         =   True
-         HasBackgroundColor=   True
+         FillColor       =   &cFFFFFF
+         HasFillColor    =   True
          Height          =   77
          Index           =   -2147483648
          Indicator       =   ""
@@ -86,6 +86,7 @@ Begin WebContainer WaitContainer
          Parent          =   "rectBackground"
          Scope           =   2
          TabIndex        =   0
+         TabPanelIndex   =   0
          TabStop         =   True
          Tooltip         =   ""
          Top             =   87
@@ -116,6 +117,7 @@ Begin WebContainer WaitContainer
             SVGColor        =   &c00000000
             SVGData         =   ""
             TabIndex        =   1
+            TabPanelIndex   =   0
             TabStop         =   True
             Tooltip         =   ""
             Top             =   107
@@ -131,6 +133,7 @@ Begin WebContainer WaitContainer
             FontName        =   ""
             FontSize        =   0.0
             Height          =   38
+            HTMLElement     =   0
             Index           =   -2147483648
             Indicator       =   ""
             Italic          =   False
@@ -147,6 +150,7 @@ Begin WebContainer WaitContainer
             Parent          =   "Rectangle1"
             Scope           =   2
             TabIndex        =   2
+            TabPanelIndex   =   0
             TabStop         =   True
             Text            =   "Bitte warten..."
             TextAlignment   =   0

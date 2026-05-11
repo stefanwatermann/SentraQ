@@ -24,7 +24,6 @@ Begin WebContainer StationViewContainer
    Width           =   600
    _mDesignHeight  =   0
    _mDesignWidth   =   0
-   _mName          =   ""
    _mPanelIndex    =   -1
    Begin WebLabel lbDisplayName
       BindProperty    =   "DisplayName"
@@ -35,6 +34,7 @@ Begin WebContainer StationViewContainer
       FontName        =   ""
       FontSize        =   22.0
       Height          =   50
+      HTMLElement     =   0
       Index           =   -2147483648
       Indicator       =   ""
       Italic          =   False

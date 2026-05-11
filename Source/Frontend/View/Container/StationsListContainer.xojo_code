@@ -28,7 +28,7 @@ Begin WebContainer StationsListContainer
    Begin WebListMenu WebListMenu1
       ControlCount    =   0
       ControlID       =   ""
-      CSSClasses      =   "vh-100"
+      CSSClasses      =   ""
       Enabled         =   True
       Height          =   500
       Index           =   -2147483648
@@ -61,6 +61,13 @@ End
 #tag EndWebContainerControl
 
 #tag WindowCode
+	#tag Event
+		Sub Opening()
+		  me.Style.Value("border-bottom") = "solid rgb(240,241,242) 1px"
+		End Sub
+	#tag EndEvent
+
+
 	#tag Method, Flags = &h21
 		Private Sub AdjustListEntries(width as integer)
 		  Self.Small = width < 200

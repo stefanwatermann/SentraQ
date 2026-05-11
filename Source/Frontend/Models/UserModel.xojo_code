@@ -9,12 +9,25 @@ Inherits JsonModelBase
 		Hash As String
 	#tag EndProperty
 
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  return self.PasskeyIdent.Trim.Length > 0
+			End Get
+		#tag EndGetter
+		Attributes( "#JsonIgnore" ) HasPasskey As Boolean
+	#tag EndComputedProperty
+
 	#tag Property, Flags = &h0
 		Login As String
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
 		Name As String
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		PasskeyIdent As String
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
@@ -104,7 +117,7 @@ Inherits JsonModelBase
 			Name="Role"
 			Visible=false
 			Group="Behavior"
-			InitialValue=""
+			InitialValue="USR"
 			Type="String"
 			EditorType="MultiLineEditor"
 		#tag EndViewProperty

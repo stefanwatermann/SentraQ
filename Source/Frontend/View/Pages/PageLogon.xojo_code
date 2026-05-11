@@ -6,7 +6,7 @@ Begin LobBase.LobWebPage PageLogon
    ControlID       =   ""
    CSSClasses      =   ""
    Enabled         =   False
-   Height          =   500
+   Height          =   550
    ImplicitInstance=   True
    Index           =   -2147483648
    Indicator       =   0
@@ -20,13 +20,13 @@ Begin LobBase.LobWebPage PageLogon
    LockRight       =   False
    LockTop         =   True
    LockVertical    =   False
-   MinimumHeight   =   500
+   MinimumHeight   =   550
    MinimumWidth    =   320
    PanelIndex      =   0
    RequiresAuthenticatedUser=   False
    ScaleFactor     =   0.0
    TabIndex        =   0
-   Title           =   "Logon"
+   Title           =   "Login"
    Top             =   0
    Visible         =   True
    Width           =   600
@@ -59,7 +59,7 @@ Begin LobBase.LobWebPage PageLogon
       TabIndex        =   2
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   250
+      Top             =   240
       Visible         =   True
       Width           =   200
       _mPanelIndex    =   -1
@@ -139,7 +139,8 @@ Begin LobBase.LobWebPage PageLogon
       Enabled         =   True
       FontName        =   ""
       FontSize        =   14.0
-      Height          =   110
+      Height          =   100
+      HTMLElement     =   0
       Index           =   -2147483648
       Indicator       =   0
       Italic          =   False
@@ -160,7 +161,7 @@ Begin LobBase.LobWebPage PageLogon
       TextAlignment   =   0
       TextColor       =   &c94110000
       Tooltip         =   ""
-      Top             =   360
+      Top             =   420
       Underline       =   False
       Visible         =   True
       Width           =   280
@@ -174,6 +175,7 @@ Begin LobBase.LobWebPage PageLogon
       FontName        =   ""
       FontSize        =   22.0
       Height          =   38
+      HTMLElement     =   0
       Index           =   -2147483648
       Indicator       =   0
       Italic          =   False
@@ -225,7 +227,7 @@ Begin LobBase.LobWebPage PageLogon
       TabIndex        =   7
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   310
+      Top             =   285
       Visible         =   True
       Width           =   200
       _mPanelIndex    =   -1
@@ -254,7 +256,7 @@ Begin LobBase.LobWebPage PageLogon
       TabIndex        =   9
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   20
+      Top             =   45
       Visible         =   True
       Width           =   400
       _mDesignHeight  =   0
@@ -285,11 +287,55 @@ Begin LobBase.LobWebPage PageLogon
       TabIndex        =   10
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   470
+      Top             =   520
       Visible         =   True
       Width           =   560
       _mDesignHeight  =   0
       _mDesignWidth   =   0
+      _mPanelIndex    =   -1
+   End
+   Begin WebUserAuthentication PasskeyAuthentication
+      ApplicationName =   "Example Application"
+      ControlID       =   ""
+      Domain          =   "example.com"
+      Enabled         =   True
+      Index           =   -2147483648
+      LockedInPosition=   False
+      PanelIndex      =   0
+      Scope           =   2
+      TabIndex        =   11
+      TabStop         =   True
+      Timeout         =   60000
+      _mPanelIndex    =   -1
+   End
+   Begin WebButton btnPasskeyLogon
+      AllowAutoDisable=   False
+      Cancel          =   False
+      Caption         =   "Mit Passkey anmelden"
+      ControlID       =   ""
+      CSSClasses      =   ""
+      Default         =   True
+      Enabled         =   True
+      Height          =   38
+      Index           =   -2147483648
+      Indicator       =   3
+      Left            =   200
+      LockBottom      =   False
+      LockedInPosition=   True
+      LockHorizontal  =   True
+      LockLeft        =   False
+      LockRight       =   False
+      LockTop         =   True
+      LockVertical    =   False
+      Outlined        =   False
+      PanelIndex      =   0
+      Scope           =   2
+      TabIndex        =   11
+      TabStop         =   True
+      Tooltip         =   ""
+      Top             =   360
+      Visible         =   True
+      Width           =   200
       _mPanelIndex    =   -1
    End
 End
@@ -399,6 +445,40 @@ End
 	#tag Event
 		Sub YesClicked(tag as Variant)
 		  App.DataSvc.UserRequestPasswordReset(tbUserName.Text)
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events PasskeyAuthentication
+	#tag Event
+		Sub AuthenticationSucceeded(userId As String, credentialId As String, authenticationAttempts As Integer)
+		  
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Function CredentialRequested(userId As String, credentialId As String) As WebAuthenticationCredential
+		  break
+		End Function
+	#tag EndEvent
+	#tag Event
+		Sub Error(message As String)
+		  If message.Contains("requested RPID did not match the origin") Then
+		    ShowHint("Es ist kein Passkey für diese Anwendung vorhanden. Bitte melden Sie sich mit Benutzernamen und Passwort an.")
+		  Else
+		    ShowHint(message)
+		  end
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub Opening()
+		  Me.ApplicationName = App.AppHeaderTitle
+		  me.Domain = Session.FQDN
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events btnPasskeyLogon
+	#tag Event
+		Sub Pressed()
+		  PasskeyAuthentication.Authenticate
 		End Sub
 	#tag EndEvent
 #tag EndEvents

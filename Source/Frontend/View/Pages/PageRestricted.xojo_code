@@ -42,6 +42,7 @@ Begin LobBase.LobWebPage PageRestricted
       FontName        =   ""
       FontSize        =   0.0
       Height          =   38
+      HTMLElement     =   0
       Index           =   -2147483648
       Indicator       =   0
       Italic          =   False

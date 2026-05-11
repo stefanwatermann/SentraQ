@@ -83,7 +83,6 @@ Begin WebDialog DialogStationInfo
       _mPanelIndex    =   -1
    End
    Begin WebRectangle Rectangle1
-      BackgroundColor =   &cFFFFFF
       BorderColor     =   &cEBEBEB00
       BorderThickness =   1
       ControlCount    =   0
@@ -91,7 +90,8 @@ Begin WebDialog DialogStationInfo
       CornerSize      =   -1
       CSSClasses      =   ""
       Enabled         =   True
-      HasBackgroundColor=   False
+      FillColor       =   &cFFFFFF
+      HasFillColor    =   False
       Height          =   1
       Index           =   -2147483648
       Indicator       =   ""

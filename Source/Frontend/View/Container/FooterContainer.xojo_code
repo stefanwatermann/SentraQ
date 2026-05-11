@@ -24,7 +24,6 @@ Begin WebContainer FooterContainer
    Width           =   400
    _mDesignHeight  =   0
    _mDesignWidth   =   0
-   _mName          =   ""
    _mPanelIndex    =   -1
    Begin WebLabel Label1
       Bold            =   False
@@ -34,6 +33,7 @@ Begin WebContainer FooterContainer
       FontName        =   ""
       FontSize        =   0.0
       Height          =   30
+      HTMLElement     =   0
       Index           =   -2147483648
       Indicator       =   ""
       Italic          =   False

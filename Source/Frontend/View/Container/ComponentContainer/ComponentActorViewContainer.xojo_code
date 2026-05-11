@@ -128,7 +128,7 @@ Begin WebContainer ComponentActorViewContainer Implements IEmbeddableViewContain
    End
    Begin WebSwitch Switch1
       Caption         =   ""
-      ControlCount    =   0
+      ControlCount    =   "0"
       ControlID       =   ""
       CSSClasses      =   ""
       Enabled         =   False
@@ -136,8 +136,8 @@ Begin WebContainer ComponentActorViewContainer Implements IEmbeddableViewContain
       Indeterminate   =   False
       Index           =   -2147483648
       Indicator       =   0
-      LayoutDirection =   0
-      LayoutType      =   0
+      LayoutDirection =   "0"
+      LayoutType      =   "0"
       Left            =   20
       LockBottom      =   False
       LockedInPosition=   True
@@ -148,7 +148,7 @@ Begin WebContainer ComponentActorViewContainer Implements IEmbeddableViewContain
       LockVertical    =   False
       PanelIndex      =   0
       Scope           =   2
-      ScrollDirection =   0
+      ScrollDirection =   "0"
       TabIndex        =   5
       TabStop         =   True
       Tooltip         =   ""
@@ -156,8 +156,8 @@ Begin WebContainer ComponentActorViewContainer Implements IEmbeddableViewContain
       Value           =   False
       Visible         =   True
       Width           =   50
-      _mDesignHeight  =   0
-      _mDesignWidth   =   0
+      _mDesignHeight  =   "0"
+      _mDesignWidth   =   "0"
       _mPanelIndex    =   -1
    End
 End

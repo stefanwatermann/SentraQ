@@ -340,7 +340,7 @@ Implements ModelBinding.IBindableWebControl
 			#tag EndEnumValues
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="mIsValid"
+			Name="IsValid"
 			Visible=false
 			Group="Behavior"
 			InitialValue=""

@@ -25,7 +25,6 @@ Begin WebDialog DialogYesNo
    Width           =   400
    _mDesignHeight  =   0
    _mDesignWidth   =   0
-   _mName          =   ""
    _mPanelIndex    =   -1
    Begin WebButton btnOk
       AllowAutoDisable=   False
@@ -95,6 +94,7 @@ Begin WebDialog DialogYesNo
       FontName        =   ""
       FontSize        =   0.0
       Height          =   90
+      HTMLElement     =   0
       Index           =   -2147483648
       Indicator       =   0
       Italic          =   False

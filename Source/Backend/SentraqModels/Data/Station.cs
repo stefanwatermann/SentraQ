@@ -36,5 +36,7 @@ public class Station
         
         public bool Removed { get; set; }
         
+        public bool Visible { get; set; }
+        
         public ICollection<Component> Components { get; init; } = new List<Component>();
 }

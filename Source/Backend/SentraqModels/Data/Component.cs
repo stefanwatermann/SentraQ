@@ -40,4 +40,6 @@ public class Component
     public string? AdjustmentFunction { get; set; }
     
     public bool Removed { get; set; }
+    
+    public bool Visible { get; set; }
 }

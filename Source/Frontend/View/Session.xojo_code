@@ -135,6 +135,8 @@ Inherits WebSession
 		  Self.PageHandler.RegisterPage(PageNotFound, "404")
 		  Self.PageHandler.RegisterPage(PageNoAccess, "403")
 		  Self.PageHandler.RegisterPage(PagePasswordReset, "pset")
+		  Self.PageHandler.RegisterPage(PagePasskeyRegistration, "pkreg")
+		  Self.PageHandler.RegisterPage(PageExport, "export")
 		End Sub
 	#tag EndMethod
 

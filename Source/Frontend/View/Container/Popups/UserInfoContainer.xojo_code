@@ -5,7 +5,7 @@ Begin WebContainer UserInfoContainer
    ControlID       =   ""
    CSSClasses      =   ""
    Enabled         =   True
-   Height          =   290
+   Height          =   325
    Indicator       =   0
    LayoutDirection =   0
    LayoutType      =   0
@@ -24,7 +24,6 @@ Begin WebContainer UserInfoContainer
    Width           =   300
    _mDesignHeight  =   0
    _mDesignWidth   =   0
-   _mName          =   ""
    _mPanelIndex    =   -1
    Begin WebLabel lbUserRole
       Bold            =   False
@@ -34,6 +33,7 @@ Begin WebContainer UserInfoContainer
       FontName        =   ""
       FontSize        =   16.0
       Height          =   30
+      HTMLElement     =   0
       Index           =   -2147483648
       Indicator       =   ""
       Italic          =   False
@@ -98,6 +98,7 @@ Begin WebContainer UserInfoContainer
       FontName        =   ""
       FontSize        =   12.0
       Height          =   25
+      HTMLElement     =   0
       Index           =   -2147483648
       Indicator       =   ""
       Italic          =   False
@@ -148,7 +149,7 @@ Begin WebContainer UserInfoContainer
       TabIndex        =   3
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   75
+      Top             =   92
       Visible         =   True
       Width           =   400
       _mDesignHeight  =   0
@@ -163,6 +164,7 @@ Begin WebContainer UserInfoContainer
       FontName        =   ""
       FontSize        =   12.0
       Height          =   25
+      HTMLElement     =   0
       Index           =   -2147483648
       Indicator       =   0
       Italic          =   False
@@ -197,6 +199,7 @@ Begin WebContainer UserInfoContainer
       FontName        =   ""
       FontSize        =   12.0
       Height          =   25
+      HTMLElement     =   0
       Index           =   -2147483648
       Indicator       =   0
       Italic          =   False
@@ -231,6 +234,7 @@ Begin WebContainer UserInfoContainer
       FontName        =   ""
       FontSize        =   16.0
       Height          =   30
+      HTMLElement     =   0
       Index           =   -2147483648
       Indicator       =   0
       Italic          =   False
@@ -265,6 +269,7 @@ Begin WebContainer UserInfoContainer
       FontName        =   ""
       FontSize        =   16.0
       Height          =   30
+      HTMLElement     =   0
       Index           =   -2147483648
       Indicator       =   0
       Italic          =   False
@@ -289,6 +294,36 @@ Begin WebContainer UserInfoContainer
       Underline       =   False
       Visible         =   True
       Width           =   220
+      _mPanelIndex    =   -1
+   End
+   Begin WebButton btnCreatePasskey
+      AllowAutoDisable=   False
+      Cancel          =   False
+      Caption         =   "Passkey registrieren"
+      ControlID       =   ""
+      CSSClasses      =   "small"
+      Default         =   False
+      Enabled         =   True
+      Height          =   30
+      Index           =   -2147483648
+      Indicator       =   0
+      Left            =   40
+      LockBottom      =   False
+      LockedInPosition=   True
+      LockHorizontal  =   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      LockVertical    =   False
+      Outlined        =   False
+      PanelIndex      =   0
+      Scope           =   2
+      TabIndex        =   9
+      TabStop         =   True
+      Tooltip         =   ""
+      Top             =   275
+      Visible         =   True
+      Width           =   170
       _mPanelIndex    =   -1
    End
 End
@@ -319,14 +354,29 @@ End
 #tag Events btnRequestPwdReset
 	#tag Event
 		Sub Pressed()
-		  DialogYesNo1.Show("Möchten Sie Ihr Passwort zurücksetzen? Sie erhalten eine E-Mail mit einem Link und können anschließend ein neues Passwort setzen.")
+		  DialogYesNo1.Show("Möchten Sie Ihr Passwort zurücksetzen? Sie erhalten eine E-Mail mit einem Link und können anschließend ein neues Passwort setzen.", "pwreset")
 		End Sub
 	#tag EndEvent
 #tag EndEvents
 #tag Events DialogYesNo1
 	#tag Event
 		Sub YesClicked(tag as Variant)
-		  App.DataSvc.UserRequestPasswordReset(self.CurrentUser.Login)
+		  Select Case tag
+		    
+		  case "pwreset"
+		    App.DataSvc.UserRequestPasswordReset(Self.CurrentUser.Login)
+		    
+		  Case "pkreg"
+		    
+		    
+		  end
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events btnCreatePasskey
+	#tag Event
+		Sub Pressed()
+		  DialogYesNo1.Show("Möchten Sie einen (neuen) Passkey zur passwortlosen Anmeldung erstellen? Sie erhalten eine E-Mail mit einem Link und können anschließend Ihren persönlichen Passkey erzeugen.", "pkreg")
 		End Sub
 	#tag EndEvent
 #tag EndEvents

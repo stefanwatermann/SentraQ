@@ -97,7 +97,6 @@ Begin LobBase.LobWebPage PagePasswordReset
       _mPanelIndex    =   -1
    End
    Begin WebRectangle rectPset
-      BackgroundColor =   &cFFFFFF
       BorderColor     =   &c000000FF
       BorderThickness =   1
       ControlCount    =   0
@@ -105,7 +104,8 @@ Begin LobBase.LobWebPage PagePasswordReset
       CornerSize      =   6
       CSSClasses      =   ""
       Enabled         =   True
-      HasBackgroundColor=   True
+      FillColor       =   &cFFFFFF
+      HasFillColor    =   True
       Height          =   390
       Index           =   -2147483648
       Indicator       =   ""
@@ -124,7 +124,7 @@ Begin LobBase.LobWebPage PagePasswordReset
       TabIndex        =   1
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   100
+      Top             =   130
       Visible         =   True
       Width           =   420
       _mDesignHeight  =   0
@@ -138,6 +138,7 @@ Begin LobBase.LobWebPage PagePasswordReset
          FontName        =   ""
          FontSize        =   15.0
          Height          =   38
+         HTMLElement     =   0
          Index           =   -2147483648
          Indicator       =   ""
          InitialParent   =   "rectPset"
@@ -161,7 +162,7 @@ Begin LobBase.LobWebPage PagePasswordReset
          TextAlignment   =   0
          TextColor       =   &c000000FF
          Tooltip         =   ""
-         Top             =   200
+         Top             =   230
          Underline       =   False
          Visible         =   True
          Width           =   120
@@ -199,7 +200,7 @@ Begin LobBase.LobWebPage PagePasswordReset
          Text            =   ""
          TextAlignment   =   0
          Tooltip         =   ""
-         Top             =   200
+         Top             =   230
          Visible         =   True
          Width           =   80
          _mPanelIndex    =   -1
@@ -212,6 +213,7 @@ Begin LobBase.LobWebPage PagePasswordReset
          FontName        =   ""
          FontSize        =   0.0
          Height          =   38
+         HTMLElement     =   0
          Index           =   -2147483648
          Indicator       =   ""
          InitialParent   =   "rectPset"
@@ -235,7 +237,7 @@ Begin LobBase.LobWebPage PagePasswordReset
          TextAlignment   =   2
          TextColor       =   &c000000FF
          Tooltip         =   ""
-         Top             =   200
+         Top             =   230
          Underline       =   False
          Visible         =   True
          Width           =   30
@@ -273,7 +275,7 @@ Begin LobBase.LobWebPage PagePasswordReset
          Text            =   ""
          TextAlignment   =   0
          Tooltip         =   ""
-         Top             =   200
+         Top             =   230
          Visible         =   True
          Width           =   80
          _mPanelIndex    =   -1
@@ -306,7 +308,7 @@ Begin LobBase.LobWebPage PagePasswordReset
          TabPanelIndex   =   0
          TabStop         =   True
          Tooltip         =   ""
-         Top             =   355
+         Top             =   385
          Visible         =   True
          Width           =   130
          _mPanelIndex    =   -1
@@ -319,6 +321,7 @@ Begin LobBase.LobWebPage PagePasswordReset
          FontName        =   ""
          FontSize        =   22.0
          Height          =   38
+         HTMLElement     =   0
          Index           =   -2147483648
          Indicator       =   ""
          InitialParent   =   "rectPset"
@@ -342,7 +345,7 @@ Begin LobBase.LobWebPage PagePasswordReset
          TextAlignment   =   0
          TextColor       =   &c000000FF
          Tooltip         =   ""
-         Top             =   140
+         Top             =   170
          Underline       =   False
          Visible         =   True
          Width           =   300
@@ -356,6 +359,7 @@ Begin LobBase.LobWebPage PagePasswordReset
          FontName        =   ""
          FontSize        =   15.0
          Height          =   38
+         HTMLElement     =   0
          Index           =   -2147483648
          Indicator       =   ""
          Italic          =   False
@@ -378,7 +382,7 @@ Begin LobBase.LobWebPage PagePasswordReset
          TextAlignment   =   0
          TextColor       =   &c000000FF
          Tooltip         =   ""
-         Top             =   260
+         Top             =   290
          Underline       =   False
          Visible         =   True
          Width           =   140
@@ -415,7 +419,7 @@ Begin LobBase.LobWebPage PagePasswordReset
          Text            =   ""
          TextAlignment   =   0
          Tooltip         =   ""
-         Top             =   260
+         Top             =   290
          Visible         =   True
          Width           =   190
          _mPanelIndex    =   -1
@@ -428,6 +432,7 @@ Begin LobBase.LobWebPage PagePasswordReset
          FontName        =   ""
          FontSize        =   14.0
          Height          =   70
+         HTMLElement     =   0
          Index           =   -2147483648
          Indicator       =   ""
          Italic          =   False
@@ -450,7 +455,7 @@ Begin LobBase.LobWebPage PagePasswordReset
          TextAlignment   =   0
          TextColor       =   &cDD260000
          Tooltip         =   ""
-         Top             =   410
+         Top             =   440
          Underline       =   False
          Visible         =   False
          Width           =   350
@@ -464,6 +469,7 @@ Begin LobBase.LobWebPage PagePasswordReset
          FontName        =   ""
          FontSize        =   11.0
          Height          =   20
+         HTMLElement     =   0
          Index           =   -2147483648
          Indicator       =   ""
          Italic          =   False
@@ -486,7 +492,7 @@ Begin LobBase.LobWebPage PagePasswordReset
          TextAlignment   =   0
          TextColor       =   &c000000FF
          Tooltip         =   ""
-         Top             =   310
+         Top             =   340
          Underline       =   False
          Visible         =   True
          Width           =   350

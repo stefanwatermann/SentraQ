@@ -33,7 +33,6 @@ Begin LobBase.LobWebPage PageMapView
    _ImplicitInstance=   False
    _mDesignHeight  =   0
    _mDesignWidth   =   0
-   _mName          =   ""
    _mPanelIndex    =   -1
    Begin HeaderContainer HeaderContainer1
       ControlCount    =   0
@@ -147,6 +146,36 @@ Begin LobBase.LobWebPage PageMapView
       Scope           =   2
       _mPanelIndex    =   -1
    End
+   Begin WebButton btnToggleMapView
+      AllowAutoDisable=   False
+      Cancel          =   False
+      Caption         =   "Satellit"
+      ControlID       =   ""
+      CSSClasses      =   "verysmall"
+      Default         =   False
+      Enabled         =   True
+      Height          =   23
+      Index           =   -2147483648
+      Indicator       =   0
+      Left            =   10
+      LockBottom      =   True
+      LockedInPosition=   False
+      LockHorizontal  =   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   False
+      LockVertical    =   False
+      Outlined        =   False
+      PanelIndex      =   0
+      Scope           =   2
+      TabIndex        =   3
+      TabStop         =   True
+      Tooltip         =   ""
+      Top             =   367
+      Visible         =   True
+      Width           =   60
+      _mPanelIndex    =   -1
+   End
 End
 #tag EndWebPage
 
@@ -156,6 +185,17 @@ End
 		  RefreshIconsTimer.Period = App.ConfigValue("FrontendRefresh.PeriodSec", 5).IntegerValue * 1000
 		End Sub
 	#tag EndEvent
+
+
+	#tag Method, Flags = &h21
+		Private Sub SetCaptionToggleMapButton()
+		  If MapViewer1.MapType = WebMapViewer.MapTypes.RoadMap Then
+		    btnToggleMapView.Caption = "Satellit"
+		  Else
+		    btnToggleMapView.Caption = "Karte"
+		  End
+		End Sub
+	#tag EndMethod
 
 
 	#tag Property, Flags = &h21
@@ -243,6 +283,24 @@ End
 		    SaveClientPrefsRequired = false
 		    Session.SaveUserClientPrefs
 		  end
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events btnToggleMapView
+	#tag Event
+		Sub Pressed()
+		  If MapViewer1.MapType = WebMapViewer.MapTypes.RoadMap Then
+		    MapViewer1.MapType = WebMapViewer.MapTypes.Satellite
+		  Else
+		    MapViewer1.MapType = WebMapViewer.MapTypes.RoadMap
+		  End
+		  MapViewer1.UpdateBrowser
+		  SetCaptionToggleMapButton
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub Opening()
+		  SetCaptionToggleMapButton
 		End Sub
 	#tag EndEvent
 #tag EndEvents

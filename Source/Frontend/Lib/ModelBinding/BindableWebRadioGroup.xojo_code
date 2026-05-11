@@ -36,6 +36,14 @@ Implements ModelBinding.IBindableWebControl
 
 	#tag ViewBehavior
 		#tag ViewProperty
+			Name="LastAddedIndex"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="Integer"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="Index"
 			Visible=true
 			Group="ID"

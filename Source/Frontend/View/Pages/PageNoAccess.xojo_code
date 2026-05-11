@@ -32,7 +32,6 @@ Begin WebPage PageNoAccess
    _ImplicitInstance=   False
    _mDesignHeight  =   0
    _mDesignWidth   =   0
-   _mName          =   ""
    _mPanelIndex    =   -1
    Begin WebLabel Label1
       Bold            =   False
@@ -42,6 +41,7 @@ Begin WebPage PageNoAccess
       FontName        =   ""
       FontSize        =   30.0
       Height          =   60
+      HTMLElement     =   0
       Index           =   -2147483648
       Indicator       =   0
       Italic          =   False
@@ -76,6 +76,7 @@ Begin WebPage PageNoAccess
       FontName        =   ""
       FontSize        =   0.0
       Height          =   90
+      HTMLElement     =   0
       Index           =   -2147483648
       Indicator       =   0
       Italic          =   False
@@ -111,6 +112,7 @@ Begin WebPage PageNoAccess
       FontName        =   ""
       FontSize        =   0.0
       Height          =   38
+      HTMLElement     =   0
       Index           =   -2147483648
       Indicator       =   0
       Italic          =   False
@@ -147,6 +149,7 @@ Begin WebPage PageNoAccess
       FontName        =   ""
       FontSize        =   50.0
       Height          =   60
+      HTMLElement     =   0
       Index           =   -2147483648
       Indicator       =   0
       Italic          =   False

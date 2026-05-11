@@ -11,4 +11,6 @@ public class User
     public string Email { get; set; } = string.Empty;
 
     public required string Role { get; set; } = string.Empty;
+    
+    public string PasskeyIdent { get; set; } = string.Empty;
 }

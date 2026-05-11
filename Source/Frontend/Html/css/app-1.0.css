@@ -40,6 +40,12 @@ textarea.textinput {
 	font-size: 1.5em;
 }
 
+.no-focus-ring {
+	outline: 0 !important;
+	border: 0 !important;
+	box-shadow: none !important;
+}
+
 .font-size-08 {
 	font-size: 0.8em;
 }
@@ -93,7 +99,7 @@ textarea.textinput {
 	border-bottom: 1px solid #f9f9f9 !important;
 	font-size: 0.9em;
 	border-radius: 6px !important;
-	margin: 3px 8px !important;
+	margin: 0 8px !important;
 }
 
 .list-group-item.active {
@@ -118,6 +124,10 @@ textarea.textinput {
 
 .small {
 	font-size: 0.9em !important;
+}
+
+.verysmall {
+	font-size: 0.70em !important;
 }
 
 .no-border {
@@ -209,4 +219,28 @@ textarea.textinput {
 	border-right: none;
 	border-bottom: solid 1px silver;
 	height: 30px;
+}
+
+.export-link-icon {
+
+}
+
+
+/* scrollbar width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+/* scrollbar Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 0px grey;
+  border-radius: 10px;
+}
+/* scrollbar Handle */
+::-webkit-scrollbar-thumb {
+  background: rgb(230,230,230);
+  border-radius: 10px;
+}
+/* scrollbar Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(200,200,200);
 }

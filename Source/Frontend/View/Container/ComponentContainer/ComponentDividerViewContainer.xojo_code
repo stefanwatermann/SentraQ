@@ -24,7 +24,6 @@ Begin WebContainer ComponentDividerViewContainer Implements IEmbeddableViewConta
    Width           =   450
    _mDesignHeight  =   0
    _mDesignWidth   =   0
-   _mName          =   ""
    _mPanelIndex    =   -1
    Begin WebLabel lbCaption
       Bold            =   False
@@ -34,6 +33,7 @@ Begin WebContainer ComponentDividerViewContainer Implements IEmbeddableViewConta
       FontName        =   ""
       FontSize        =   12.0
       Height          =   20
+      HTMLElement     =   0
       Index           =   -2147483648
       Indicator       =   ""
       Italic          =   False

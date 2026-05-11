@@ -30,7 +30,7 @@ Begin WebContainer ToolbarContainer
       Cancel          =   False
       Caption         =   "L"
       ControlID       =   ""
-      CSSClasses      =   ""
+      CSSClasses      =   " no-focus-ring"
       Default         =   False
       Enabled         =   True
       Height          =   40
@@ -62,7 +62,7 @@ Begin WebContainer ToolbarContainer
       Cancel          =   False
       Caption         =   "M"
       ControlID       =   ""
-      CSSClasses      =   "bi bi-map"
+      CSSClasses      =   "bi bi-map no-focus-ring"
       Default         =   False
       Enabled         =   True
       Height          =   40
@@ -94,7 +94,7 @@ Begin WebContainer ToolbarContainer
       Cancel          =   False
       Caption         =   "H"
       ControlID       =   ""
-      CSSClasses      =   "bi bi-house"
+      CSSClasses      =   "bi bi-house no-focus-ring"
       Default         =   False
       Enabled         =   True
       Height          =   40
@@ -126,7 +126,7 @@ Begin WebContainer ToolbarContainer
       Cancel          =   False
       Caption         =   "R"
       ControlID       =   ""
-      CSSClasses      =   "bi bi-arrow-clockwise"
+      CSSClasses      =   "bi bi-arrow-clockwise no-focus-ring"
       Default         =   False
       Enabled         =   True
       Height          =   40

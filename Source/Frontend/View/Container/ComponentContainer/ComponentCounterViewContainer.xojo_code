@@ -24,7 +24,6 @@ Begin WebContainer ComponentCounterViewContainer Implements IEmbeddableViewConta
    Width           =   180
    _mDesignHeight  =   0
    _mDesignWidth   =   0
-   _mName          =   ""
    _mPanelIndex    =   -1
    Begin WebLabel lbDisplayName
       BindProperty    =   "DisplayName"
@@ -35,6 +34,7 @@ Begin WebContainer ComponentCounterViewContainer Implements IEmbeddableViewConta
       FontName        =   ""
       FontSize        =   13.0
       Height          =   20
+      HTMLElement     =   0
       Index           =   -2147483648
       Indicator       =   0
       Italic          =   False
@@ -69,6 +69,7 @@ Begin WebContainer ComponentCounterViewContainer Implements IEmbeddableViewConta
       FontName        =   ""
       FontSize        =   24.0
       Height          =   40
+      HTMLElement     =   0
       Index           =   -2147483648
       Indicator       =   0
       Italic          =   False
@@ -133,6 +134,7 @@ Begin WebContainer ComponentCounterViewContainer Implements IEmbeddableViewConta
       FontName        =   ""
       FontSize        =   13.0
       Height          =   20
+      HTMLElement     =   0
       Index           =   -2147483648
       Indicator       =   ""
       Italic          =   False

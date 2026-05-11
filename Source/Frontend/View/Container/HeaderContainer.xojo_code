@@ -26,7 +26,6 @@ Begin WebContainer HeaderContainer
    _mDesignWidth   =   0
    _mPanelIndex    =   -1
    Begin WebRectangle Rectangle1
-      BackgroundColor =   &cFFFFFF00
       BorderColor     =   &c000000FF
       BorderThickness =   0
       ControlCount    =   0
@@ -34,9 +33,8 @@ Begin WebContainer HeaderContainer
       CornerSize      =   0
       CSSClasses      =   "header-background"
       Enabled         =   True
-      FillColor       =   "&cF0F2F400"
-      HasBackgroundColor=   True
-      HasFillColor    =   "True"
+      FillColor       =   &cFFFFFF00
+      HasFillColor    =   True
       Height          =   80
       Index           =   -2147483648
       Indicator       =   ""
@@ -104,6 +102,7 @@ Begin WebContainer HeaderContainer
          FontName        =   ""
          FontSize        =   20.0
          Height          =   80
+         HTMLElement     =   0
          Index           =   -2147483648
          Indicator       =   ""
          Italic          =   False
