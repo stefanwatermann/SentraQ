@@ -13,7 +13,13 @@ Protected Module StationModelExtensions
 		    drawingColor  = Color.FromString(station.DisplayColor)
 		  End
 		  
-		  drawingColor = If(station.HasFaults, &cFF262500, drawingColor)
+		  if  station.HasFaults then
+		    drawingColor = &cFF262500
+		  end
+		  
+		  If station.MaintenanceActive Then
+		    drawingColor = &cFFC10700
+		  end
 		  
 		  Var p As New Picture(w, h)
 		  Var g As Graphics = p.Graphics

@@ -51,9 +51,12 @@ class Program
             builder.Services.AddScoped<AlertMessageHandler>();
             builder.Services.AddScoped<ActorMessageHandler>();
             builder.Services.AddScoped<StatusFileService>();
+            builder.Services.AddScoped<StationService>();
+            builder.Services.AddScoped<AuthorizationService>();
             builder.Services.AddSingleton<MessageHandlerFactory>();
             builder.Services.AddSingleton<CacheService>();
             builder.Services.AddHostedService<MqttSubscriberWorkerService>();
+            builder.Services.AddHostedService<MaintenanceWorkerService>();
 
             var errorFilename = configuration.GetValue<string>("ErrorLogFilename") ?? "errors.log";
 
@@ -70,7 +73,7 @@ class Program
             builder.Services.AddDbContext<DatabaseContext>(options =>
             {
                 options.UseNpgsql(Decrypt.PasswordInConnectionString(connStr, Secrets.EncryptionPwd));
-            });
+            }, ServiceLifetime.Transient);
 
             var host = builder.Build();
 

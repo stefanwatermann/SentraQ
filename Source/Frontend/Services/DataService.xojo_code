@@ -5,7 +5,7 @@ Protected Class DataService
 		  Var apiClient As New BackendApiControllerClient
 		  Var data As New JSONItem
 		  data.Value("user") = user
-		  var response as string = apiClient.Post("stations/" + stationUid + "/clearAlert", data)
+		  var response as string = apiClient.Post("station/" + stationUid + "/clearAlert", data)
 		End Sub
 	#tag EndMethod
 
@@ -16,9 +16,15 @@ Protected Class DataService
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function GetAggregations(type as string, hardwareId as string) As AggregationModel()
+		Function GetAggregations(type as string, hardwareId as string, take as integer = 0) As AggregationModel()
+		  Var url As String = "aggregation/" + type + "/" + hardwareId
+		  
+		  If take > 0 Then
+		    url = url + "?take=" + Str(take)
+		  end
+		  
 		  Var apiClient As New BackendApiControllerClient
-		  Var response As String = apiClient.Get("aggregation/" + type + "/" + hardwareId)
+		  Var response As String = apiClient.Get(url)
 		  
 		  Var result() As AggregationModel
 		  
@@ -114,6 +120,16 @@ Protected Class DataService
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function GetUserByPasskeyRequestCode(resetCode as string) As UserModel
+		  Var apiClient As New BackendApiControllerClient
+		  Var response As String = apiClient.Get("user/byPasskeyRequestCode/" + resetCode)
+		  Var user As New UserModel
+		  UserModel.FromJson(response, user)
+		  Return user
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function GetUserByPasswordResetCode(resetCode as string) As UserModel
 		  Var apiClient As New BackendApiControllerClient
 		  Var response As String = apiClient.Get("user/byResetCode/" + resetCode)
@@ -154,7 +170,7 @@ Protected Class DataService
 		Sub ReadAndCacheStationsAndComponents()
 		  Var apiClient As New BackendApiControllerClient
 		  
-		  Var r1 As String = apiClient.Get("stations")
+		  Var r1 As String = apiClient.Get("station")
 		  Var stations() As Variant = ParseJSON(r1)
 		  
 		  Var r2 As String = apiClient.Get("/components/last")
@@ -184,7 +200,7 @@ Protected Class DataService
 	#tag Method, Flags = &h0
 		Sub ReadStation(stationUid as string)
 		  Var apiClient As New BackendApiControllerClient
-		  Var response As String = apiClient.Get("stations/" + stationUid)
+		  Var response As String = apiClient.Get("station/" + stationUid)
 		  If response.Length > 0 Then
 		    Var s As StationModel = GetCachedStationByUid(stationUid)
 		    StationModel.FromJson(response, s)
@@ -202,7 +218,7 @@ Protected Class DataService
 	#tag Method, Flags = &h0
 		Sub RemoveStation(station as stationModel, executingLogin as string)
 		  Var apiClient As New BackendApiControllerClient
-		  Var response As String = apiClient.Delete("stations/" + station.Uid, executingLogin)
+		  Var response As String = apiClient.Delete("station/" + station.Uid, executingLogin)
 		End Sub
 	#tag EndMethod
 
@@ -210,6 +226,13 @@ Protected Class DataService
 		Sub RemoveUser(user as UserModel, executingLogin as string)
 		  Var apiClient As New BackendApiControllerClient
 		  Var response As String = apiClient.Delete("user/" + user.Login, executingLogin)
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub SetMaintenanceMode(station as stationModel, start as boolean, executingLogin as string)
+		  Var apiClient As New BackendApiControllerClient
+		  Var response As String = apiClient.Post("station/" + station.Uid + "/" + if(start, "startMaintenance", "endMaintenance"), nil, executingLogin)
 		End Sub
 	#tag EndMethod
 
@@ -281,9 +304,25 @@ Protected Class DataService
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub UserRequestPasskey(login as string)
+		  Var apiClient As New BackendApiControllerClient
+		  Var response As String = apiClient.Post("user/requestPasskey/" + login, nil)
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub UserRequestPasswordReset(login as string)
 		  Var apiClient As New BackendApiControllerClient
 		  Var response As String = apiClient.Post("user/requestPasswordReset/" + login, nil)
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub UserSetNewPasskey(login as string, passkeyHash as string)
+		  Var apiClient As New BackendApiControllerClient
+		  Var data As New JSONItem
+		  data.Value("newPasskeyHash") = passkeyHash
+		  Var response As String = apiClient.Post("user/setNewPasskey/" + login, data)
 		End Sub
 	#tag EndMethod
 

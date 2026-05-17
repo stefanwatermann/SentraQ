@@ -58,7 +58,7 @@ Begin WebContainer ComponentViewFillLevelContainer Implements IEmbeddableViewCon
       Top             =   5
       Underline       =   False
       Visible         =   True
-      Width           =   320
+      Width           =   290
       _mPanelIndex    =   -1
    End
    Begin WebLabel lbValue
@@ -237,7 +237,10 @@ End
 #tag Events btnInfo
 	#tag Event
 		Sub Pressed()
-		  MessageBox(MyComponent.GetInfos)
+		  //MessageBox(MyComponent.GetInfos)
+		  Var container As New ComponentInfoContainer
+		  container.Render(MyComponent)
+		  container.ShowPopover(Me)
 		End Sub
 	#tag EndEvent
 #tag EndEvents

@@ -37,7 +37,7 @@ builder.Services.AddScoped<AuthorizationService>();
 builder.Services.AddScoped<StationService>();
 builder.Services.AddScoped<ComponentService>();
 builder.Services.AddScoped<MailService>();
-builder.Services.AddScoped<PasswordResetService>();
+builder.Services.AddScoped<PasswordService>();
 builder.Services.AddScoped<LogService>();
 builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<StatusFileService>();

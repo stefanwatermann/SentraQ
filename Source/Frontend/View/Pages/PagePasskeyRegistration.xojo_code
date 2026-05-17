@@ -55,7 +55,7 @@ Begin LobBase.LobWebPage PagePasskeyRegistration
       PanelIndex      =   0
       Scope           =   2
       ScrollDirection =   0
-      TabIndex        =   0
+      TabIndex        =   2
       TabStop         =   True
       Tooltip         =   ""
       Top             =   570
@@ -86,7 +86,7 @@ Begin LobBase.LobWebPage PagePasskeyRegistration
       PanelIndex      =   0
       Scope           =   2
       ScrollDirection =   0
-      TabIndex        =   1
+      TabIndex        =   0
       TabStop         =   True
       Tooltip         =   ""
       Top             =   0
@@ -106,7 +106,7 @@ Begin LobBase.LobWebPage PagePasskeyRegistration
       Enabled         =   True
       FillColor       =   &cFFFFFF
       HasFillColor    =   True
-      Height          =   390
+      Height          =   420
       Index           =   -2147483648
       Indicator       =   0
       LayoutDirection =   "LayoutDirections.LeftToRight"
@@ -121,7 +121,7 @@ Begin LobBase.LobWebPage PagePasskeyRegistration
       LockVertical    =   False
       PanelIndex      =   0
       Scope           =   2
-      TabIndex        =   2
+      TabIndex        =   1
       TabStop         =   True
       Tooltip         =   ""
       Top             =   130
@@ -142,7 +142,7 @@ Begin LobBase.LobWebPage PagePasskeyRegistration
          Index           =   -2147483648
          Indicator       =   0
          Italic          =   False
-         Left            =   225
+         Left            =   230
          LockBottom      =   False
          LockedInPosition=   True
          LockHorizontal  =   False
@@ -154,14 +154,14 @@ Begin LobBase.LobWebPage PagePasskeyRegistration
          PanelIndex      =   0
          Parent          =   "rectPset"
          Scope           =   2
-         TabIndex        =   3
+         TabIndex        =   2
          TabPanelIndex   =   -1
          TabStop         =   True
          Text            =   "E-Mail Code"
          TextAlignment   =   0
          TextColor       =   &c000000FF
          Tooltip         =   ""
-         Top             =   230
+         Top             =   310
          Underline       =   False
          Visible         =   True
          Width           =   120
@@ -192,13 +192,13 @@ Begin LobBase.LobWebPage PagePasskeyRegistration
          Parent          =   "rectPset"
          ReadOnly        =   False
          Scope           =   2
-         TabIndex        =   4
+         TabIndex        =   3
          TabPanelIndex   =   -1
          TabStop         =   True
          Text            =   ""
          TextAlignment   =   0
          Tooltip         =   ""
-         Top             =   230
+         Top             =   310
          Visible         =   True
          Width           =   80
          _mPanelIndex    =   -1
@@ -227,14 +227,14 @@ Begin LobBase.LobWebPage PagePasskeyRegistration
          PanelIndex      =   0
          Parent          =   "rectPset"
          Scope           =   2
-         TabIndex        =   5
+         TabIndex        =   4
          TabPanelIndex   =   -1
          TabStop         =   True
          Text            =   "-"
          TextAlignment   =   2
          TextColor       =   &c000000FF
          Tooltip         =   ""
-         Top             =   230
+         Top             =   310
          Underline       =   False
          Visible         =   True
          Width           =   30
@@ -265,13 +265,13 @@ Begin LobBase.LobWebPage PagePasskeyRegistration
          Parent          =   "rectPset"
          ReadOnly        =   False
          Scope           =   2
-         TabIndex        =   6
+         TabIndex        =   5
          TabPanelIndex   =   -1
          TabStop         =   True
          Text            =   ""
          TextAlignment   =   0
          Tooltip         =   ""
-         Top             =   230
+         Top             =   310
          Visible         =   True
          Width           =   80
          _mPanelIndex    =   -1
@@ -287,7 +287,7 @@ Begin LobBase.LobWebPage PagePasskeyRegistration
          Height          =   38
          Index           =   -2147483648
          Indicator       =   1
-         Left            =   225
+         Left            =   230
          LockBottom      =   False
          LockedInPosition=   True
          LockHorizontal  =   False
@@ -299,11 +299,11 @@ Begin LobBase.LobWebPage PagePasskeyRegistration
          PanelIndex      =   0
          Parent          =   "rectPset"
          Scope           =   2
-         TabIndex        =   7
+         TabIndex        =   6
          TabPanelIndex   =   -1
          TabStop         =   True
          Tooltip         =   ""
-         Top             =   310
+         Top             =   380
          Visible         =   True
          Width           =   130
          _mPanelIndex    =   -1
@@ -314,13 +314,13 @@ Begin LobBase.LobWebPage PagePasskeyRegistration
          CSSClasses      =   ""
          Enabled         =   True
          FontName        =   ""
-         FontSize        =   22.0
-         Height          =   38
+         FontSize        =   0.0
+         Height          =   80
          HTMLElement     =   0
          Index           =   -2147483648
          Indicator       =   0
          Italic          =   False
-         Left            =   225
+         Left            =   230
          LockBottom      =   False
          LockedInPosition=   True
          LockHorizontal  =   False
@@ -328,21 +328,21 @@ Begin LobBase.LobWebPage PagePasskeyRegistration
          LockRight       =   False
          LockTop         =   True
          LockVertical    =   False
-         Multiline       =   False
+         Multiline       =   True
          PanelIndex      =   0
          Parent          =   "rectPset"
          Scope           =   2
-         TabIndex        =   8
+         TabIndex        =   1
          TabPanelIndex   =   -1
          TabStop         =   True
-         Text            =   "Passkey registrieren"
+         Text            =   "Registrieren Sie Ihren individuellen Passkey für die sichere Anmeldung an der Plattform. Geben Sie hier Ihren E-Mail Code ein."
          TextAlignment   =   0
          TextColor       =   &c000000FF
          Tooltip         =   ""
-         Top             =   170
+         Top             =   220
          Underline       =   False
          Visible         =   True
-         Width           =   300
+         Width           =   340
          _mPanelIndex    =   -1
       End
       Begin WebLabel lbErrorHint
@@ -357,7 +357,7 @@ Begin LobBase.LobWebPage PagePasskeyRegistration
          Index           =   -2147483648
          Indicator       =   0
          Italic          =   False
-         Left            =   225
+         Left            =   230
          LockBottom      =   False
          LockedInPosition=   True
          LockHorizontal  =   False
@@ -369,24 +369,81 @@ Begin LobBase.LobWebPage PagePasskeyRegistration
          PanelIndex      =   0
          Parent          =   "rectPset"
          Scope           =   2
-         TabIndex        =   11
+         TabIndex        =   7
          TabPanelIndex   =   -1
          TabStop         =   True
          Text            =   "-"
          TextAlignment   =   0
          TextColor       =   &cDD260000
          Tooltip         =   ""
-         Top             =   370
+         Top             =   440
          Underline       =   False
          Visible         =   False
-         Width           =   350
+         Width           =   340
          _mPanelIndex    =   -1
       End
+      Begin WebLabel Label4
+         Bold            =   False
+         ControlID       =   ""
+         CSSClasses      =   ""
+         Enabled         =   True
+         FontName        =   ""
+         FontSize        =   22.0
+         Height          =   38
+         HTMLElement     =   0
+         Index           =   -2147483648
+         Indicator       =   ""
+         Italic          =   False
+         Left            =   230
+         LockBottom      =   False
+         LockedInPosition=   True
+         LockHorizontal  =   False
+         LockLeft        =   True
+         LockRight       =   False
+         LockTop         =   True
+         LockVertical    =   False
+         Multiline       =   False
+         PanelIndex      =   0
+         Parent          =   "rectPset"
+         Scope           =   2
+         TabIndex        =   0
+         TabStop         =   True
+         Text            =   "Passkey Registrierung"
+         TextAlignment   =   0
+         TextColor       =   &c000000FF
+         Tooltip         =   ""
+         Top             =   160
+         Underline       =   False
+         Visible         =   True
+         Width           =   340
+         _mPanelIndex    =   -1
+      End
+   End
+   Begin WebUserAuthentication PasskeyAuthentication
+      ApplicationName =   "Example Application"
+      ControlID       =   ""
+      Domain          =   "example.com"
+      Enabled         =   True
+      Index           =   -2147483648
+      LockedInPosition=   False
+      PanelIndex      =   0
+      Scope           =   2
+      TabIndex        =   8
+      TabStop         =   True
+      Timeout         =   60000
+      _mPanelIndex    =   -1
    End
 End
 #tag EndWebPage
 
 #tag WindowCode
+	#tag Event
+		Sub Shown()
+		  tbCode1.SetFocus
+		End Sub
+	#tag EndEvent
+
+
 	#tag Method, Flags = &h21
 		Private Sub ShowHint(msg as string)
 		  lbErrorHint.Text = msg
@@ -405,26 +462,41 @@ End
 		  Try
 		    ShowHint("")
 		    
-		    //If Not IsValidPassword(tbNewPassword.Text) Then
-		    //ShowHint("Das Passwort muss mindestens 8 Zeichen lang sein und aus Buschstaben, mindestens einer Zahl und einem Sonderzeichen ($%&!) bestehen.")
-		    //Return
-		    //End
-		    //
-		    //Var resetCode As String = tbCode1.Text + tbCode2.Text + Session.URLParameter("r")
-		    //
-		    //Var user As UserModel = App.DataSvc.GetUserByPasswordResetCode(resetCode)
-		    //
-		    //Var pwdHash As String = Session.Authenticator.CreateUserHash(user.Login, tbNewPassword.Text)
-		    //App.DataSvc.UserSetNewPassword(user.Login, pwdHash)
-		    //
-		    //// reload chached user
-		    //call App.DataSvc.GetUsers(true) 
+		    Var resetCode As String = tbCode1.Text + tbCode2.Text + Session.URLParameter("r")
+		    
+		    Var user As UserModel = App.DataSvc.GetUserByPasskeyRequestCode(resetCode)
+		    
+		    PasskeyAuthentication.Register(user.Login, user.Email, user.Name)
 		    
 		  Catch e As RuntimeException
-		    ShowHint("Es kann kein Passkey erstellt werden. Entweder ist der Code ungültig oder abgelaufen. Bitte fordern Sie einen neuen Code an.")
+		    ShowHint("Es konnte kein Passkey erstellt werden. Entweder ist der Code ungültig oder abgelaufen. Bitte fordern Sie einen neuen Code an.")
 		    
 		  End
 		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events PasskeyAuthentication
+	#tag Event
+		Sub Error(message As String)
+		  ShowHint("Die Passkey Registrierung hat nicht geklappt. Bitte versuchen Sie es später noch einmal. Fehler: " + message)
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub RegistrationSucceeded(userId As String, credential As WebAuthenticationCredential)
+		  // serialize credentials as string
+		  var passkey as String = EncodeBase64(credential.ToString)
+		  
+		  App.DataSvc.UserSetNewPasskey(userId, passkey)
+		  
+		  // reload chached user
+		  Call App.DataSvc.GetUsers(True) 
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub Opening()
+		  Me.ApplicationName = App.AppHeaderTitle
+		  Me.Domain = if(Session.Domain = ".", "localhost", Session.Domain)   // Session Domain liefert wegen Cookies für localhost einen Punkt.
 		End Sub
 	#tag EndEvent
 #tag EndEvents

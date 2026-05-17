@@ -89,6 +89,8 @@ End
 		  
 		  If Not station.HasFaults Then
 		    Return kListRowStationHtmlTemplate.Replace("#content#", s)
+		  ElseIf Not station.MaintenanceActive Then
+		    Return kListRowMaintenanceHtmlTemplate.Replace("#content#", s)
 		  Else
 		    Return kListRowAlertHtmlTemplate.Replace("#content#", s)
 		  End
@@ -98,11 +100,7 @@ End
 	#tag Method, Flags = &h21
 		Private Sub PopulateList()
 		  For Each station As StationModel In App.DataSvc.Stations
-		    If station.HasFaults Then
-		      WebListMenu1.AddMenuItem(station.Uid, kListRowAlertHtmlTemplate.Replace("#content#", station.ShortName))
-		    Else
-		      WebListMenu1.AddMenuItem(station.Uid, kListRowStationHtmlTemplate.Replace("#content#", station.ShortName))
-		    End
+		    RenderStationEntry(station)
 		  Next
 		  
 		End Sub
@@ -111,12 +109,20 @@ End
 	#tag Method, Flags = &h0
 		Sub RefreshData()
 		  For Each station As StationModel In App.DataSvc.Stations
-		    If station.HasFaults Then
-		      WebListMenu1.UpdateMenuItem(station.Uid, kListRowAlertHtmlTemplate.Replace("#content#", station.ShortName))
-		    Else
-		      WebListMenu1.UpdateMenuItem(station.Uid, kListRowStationHtmlTemplate.Replace("#content#", station.ShortName))
-		    End
+		    RenderStationEntry(station)
 		  Next
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Sub RenderStationEntry(station as StationModel)
+		  If station.HasFaults Then
+		    WebListMenu1.AddOrUpdateMenuItem(station.Uid, kListRowAlertHtmlTemplate.Replace("#content#", station.ShortName))
+		  elseIf station.MaintenanceActive Then
+		    WebListMenu1.AddOrUpdateMenuItem(station.Uid, kListRowMaintenanceHtmlTemplate.Replace("#content#", station.ShortName))
+		  Else
+		    WebListMenu1.AddOrUpdateMenuItem(station.Uid, kListRowStationHtmlTemplate.Replace("#content#", station.ShortName))
+		  End
 		End Sub
 	#tag EndMethod
 
@@ -142,6 +148,9 @@ End
 
 
 	#tag Constant, Name = kListRowAlertHtmlTemplate, Type = String, Dynamic = False, Default = \"#content#<span class\x3D\'badge text-bg-danger rounded-pill\'>i</span>", Scope = Private
+	#tag EndConstant
+
+	#tag Constant, Name = kListRowMaintenanceHtmlTemplate, Type = String, Dynamic = False, Default = \"#content#<span class\x3D\'badge text-bg-warning rounded-pill\'>i</span>", Scope = Private
 	#tag EndConstant
 
 	#tag Constant, Name = kListRowStationHtmlTemplate, Type = String, Dynamic = False, Default = \"#content#", Scope = Private

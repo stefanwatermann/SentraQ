@@ -1,6 +1,7 @@
+using System.Diagnostics;
 using Microsoft.Extensions.Logging;
 using SentraqCommon.Context;
-using SentraqModels.Data;
+using Data = SentraqModels.Data;
 
 namespace SentraqCommon.Services;
 
@@ -10,6 +11,20 @@ public class StationService(
     AuthorizationService authorizationService,
     DatabaseContext dbContext)
 {
+    public IEnumerable<Data.StationView> GetStationsView()
+    {
+        return dbContext
+            .StationsView
+            .OrderBy(s => s.DisplayOrder);
+    }
+    
+    public Data.StationView? GetStationView(string stationUid)
+    {
+        return dbContext
+            .StationsView
+            .FirstOrDefault(s => s.Uid == stationUid);
+    }
+    
     public void ClearAlert(string stationUid, string user)
     {
         var alert = dbContext
@@ -27,7 +42,7 @@ public class StationService(
         dbContext.SaveChanges(true);
     }
     
-    public void WriteStation(Station station, string changedBy)
+    public void WriteStation(Data.Station station, string changedBy)
     {
         authorizationService.ThrowWhenChangedByUserNotAdmin(changedBy);
 
@@ -54,7 +69,7 @@ public class StationService(
             dbContext.Add(station);
         }
 
-        logService.AddInfo(LogService.Event.StationChanged, $"Station {station.ShortName} ({station.Uid}) changed by {changedBy}.");
+        logService.AddInfo(LogService.Event.StationChanged, $"{station.ShortName} ({station.Uid}) changed by {changedBy}.");
         dbContext.SaveChanges();
     }
 
@@ -69,7 +84,41 @@ public class StationService(
 
         station.Removed = true;
         
-        logService.AddInfo(LogService.Event.StationRemoved, $"Station {station.ShortName} ({station.Uid}) removed by {changedBy}.");
+        logService.AddInfo(LogService.Event.StationRemoved, $"{station.ShortName} ({station.Uid}) removed by {changedBy}.");
         dbContext.SaveChanges();
+    }
+
+    public void SetMaintenanceMode(string uid, DateTime? startTs, string changedBy)
+    {
+        var station = dbContext
+                          .Stations
+                          .SingleOrDefault(s => s.Uid == uid) ??
+                      throw new KeyNotFoundException($"Station {uid} not found.");
+
+        station.MaintenanceActiveSinceTs = startTs;
+        
+        if (startTs != null)
+            logService.AddInfo(LogService.Event.StationMaintenanceStarted, $"{station.ShortName} ({station.Uid}) maintenance mode started by {changedBy}.");
+        else
+            logService.AddInfo(LogService.Event.StationMaintenanceStopped, $"{station.ShortName} ({station.Uid}) maintenance mode cleared by {changedBy}.");
+        
+        dbContext.SaveChanges();
+    }
+
+    public void EvaluateStationsMaintenanceModeActiveStatus()
+    {
+        foreach (var station in GetStationsView().ToList())
+        {
+            dbContext.Entry(station).Reload();
+            
+            if (station.MaintenanceActiveSinceTs.HasValue &&
+                station.MaintenanceActiveSinceTs.Value.AddHours(12) <= DateTime.Now &&
+                (!station.MaintenanceActiveAlertSentTs.HasValue || 
+                 station.MaintenanceActiveAlertSentTs.Value.AddHours(12) <= DateTime.Now))
+            {
+                // TODO Mail senden
+                logger.LogInformation($"Station {station.ShortName} ({station.Uid}) maintenance mode active for more than 12h.");
+            }
+        }
     }
 }

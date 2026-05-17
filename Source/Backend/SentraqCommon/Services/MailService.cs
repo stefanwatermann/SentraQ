@@ -1,5 +1,6 @@
 using MimeKit;
 using SentraqCommon.Security;
+using SentraqModels.Data;
 using SmtpClient = MailKit.Net.Smtp.SmtpClient;
 
 namespace SentraqCommon.Services;
@@ -26,5 +27,10 @@ public class MailService(
         client.Authenticate(settings.MailServerUser, Decrypt.Text(settings.MailServerPassword, Secrets.EncryptionPwd));
         client.Send(message);
         client.Disconnect(true);
+    }
+
+    public void SendMaintenanceActiveMessage(Station station)
+    {
+        
     }
 }

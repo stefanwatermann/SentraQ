@@ -1,6 +1,7 @@
 #XojoDisconnect .modal-content {
 	background-color: #fffef1;
 	border: 1px solid #ccd7cb;
+	border-radius: 6px;
 }
 
 .form-check-input:checked {
@@ -47,7 +48,8 @@ div.modal-footer {
 }
 
 div.modal-content {
-	border-radius: 0px !important;
+	border-radius: 6px !important;
+	box-shadow: var(--bs-box-shadow-sm)!important;
 }
 
 .XojoTextArea>textarea.no-wrap {

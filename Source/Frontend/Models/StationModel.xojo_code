@@ -46,6 +46,36 @@ Inherits JsonModelBase
 		Longitude As Double
 	#tag EndProperty
 
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  return self.MaintenanceActiveSinceTs <> nil
+			End Get
+		#tag EndGetter
+		Attributes( "#JsonIgnore" ) MaintenanceActive As Boolean
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  If Self.MaintenanceActiveSinceTs <> Nil Then
+			    Var diff As DateInterval = DateTime.Now - Self.MaintenanceActiveSinceTs
+			    If diff.Hours < 1 Then
+			      Return Str(diff.Minutes) + " Minuten" 
+			    else
+			      Return Str(diff.Days * 24 + diff.Hours + diff.Minutes/60, "#.0") + " Stunden" 
+			    End
+			  end
+			  return ""
+			End Get
+		#tag EndGetter
+		MaintenanceActivePeriode As String
+	#tag EndComputedProperty
+
+	#tag Property, Flags = &h0
+		MaintenanceActiveSinceTs As DateTime
+	#tag EndProperty
+
 	#tag Property, Flags = &h0
 		ShortName As String
 	#tag EndProperty

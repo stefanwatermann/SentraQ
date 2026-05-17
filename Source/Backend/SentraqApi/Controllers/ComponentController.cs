@@ -1,8 +1,5 @@
-using System.Collections.Generic;
-using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 using SentraqApi.Attributes;
 using SentraqApi.Filters;
 using SentraqCommon.Context;
@@ -10,7 +7,6 @@ using SentraqCommon.Extensions;
 using SentraqCommon.Services;
 using SentraqModels.Mapper;
 using Api = SentraqModels.Api;
-using Data = SentraqModels.Data;
 
 namespace SentraqApi.Controllers;
 

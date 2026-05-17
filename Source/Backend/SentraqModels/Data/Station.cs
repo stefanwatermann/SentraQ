@@ -38,5 +38,9 @@ public class Station
         
         public bool Visible { get; set; }
         
+        public DateTime? MaintenanceActiveSinceTs { get; set; }
+        
+        public DateTime? MaintenanceActiveAlertSentTs { get; set; }
+        
         public ICollection<Component> Components { get; init; } = new List<Component>();
 }

@@ -2,6 +2,7 @@ using System.Text.Json;
 using SentraqCommon.Context;
 using SentraqCommon.Services;
 using SentraqModels.Data;
+using SentraqModels.Extensions;
 using SentraqModels.Mqtt;
 
 namespace SentraqController.MessageHandler.Handler;
@@ -72,7 +73,7 @@ public class AlertMessageHandler(
         
         logger.LogDebug("AlertMessageHandler: lastMailTs={lastMailTs}", lastMailTs);
         
-        if (alert is { ConfirmedAt: null, IsActive: "Y" })
+        if (alert is { ConfirmedAt: null, IsActive: "Y" } && !component.Station.InMaintenance())
         {
             if (lastMailTs < DateTime.Now.AddMinutes(-settings.AlertMailResendMinutes))
             {

@@ -14,7 +14,9 @@ Protected Class MapStation
 			Get
 			  If Self.Station <> Nil Then
 			    If Self.Station.HasFaults Then
-			      Return"Stoerung in " + Self.Station.DisplayNameAscii
+			      Return"Stoerung in Station " + Self.Station.DisplayNameAscii
+			    ElseIf Self.Station.MaintenanceActive Then
+			      Return"Wartung aktiv in Station " + Self.Station.DisplayNameAscii
 			    Else
 			      Return Self.Station.DisplayNameAscii
 			    End
@@ -92,7 +94,7 @@ Protected Class MapStation
 			Group="Behavior"
 			InitialValue=""
 			Type="String"
-			EditorType=""
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

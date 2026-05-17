@@ -303,8 +303,6 @@ Begin LobBase.LobWebPage PageLogon
       LockedInPosition=   False
       PanelIndex      =   0
       Scope           =   2
-      TabIndex        =   11
-      TabStop         =   True
       Timeout         =   60000
       _mPanelIndex    =   -1
    End
@@ -451,12 +449,19 @@ End
 #tag Events PasskeyAuthentication
 	#tag Event
 		Sub AuthenticationSucceeded(userId As String, credentialId As String, authenticationAttempts As Integer)
-		  
+		  // TODO Authentication abschließen 
+		  break
 		End Sub
 	#tag EndEvent
 	#tag Event
 		Function CredentialRequested(userId As String, credentialId As String) As WebAuthenticationCredential
-		  break
+		  for each user as UserModel in App.DataSvc.GetUsers
+		    If user.Login = userId Then
+		      Return user.PasskeyIdent.ToWebAuthenticationCredential
+		    end
+		  Next
+		  
+		  raise new RuntimeException("Passkey-Anmeldung nicht möglich.")
 		End Function
 	#tag EndEvent
 	#tag Event
@@ -471,7 +476,7 @@ End
 	#tag Event
 		Sub Opening()
 		  Me.ApplicationName = App.AppHeaderTitle
-		  me.Domain = Session.FQDN
+		  me.Domain =  If(Session.Domain = ".", "localhost", Session.Domain)   // Session Domain liefert wegen Cookies für localhost einen Punkt.
 		End Sub
 	#tag EndEvent
 #tag EndEvents

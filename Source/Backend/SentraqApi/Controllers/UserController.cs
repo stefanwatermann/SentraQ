@@ -1,8 +1,5 @@
-using System.Collections.Generic;
-using System.Linq;
 using System.Text.Json.Nodes;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using SentraqApi.Attributes;
 using SentraqApi.Filters;
 using SentraqCommon.Extensions;
@@ -16,7 +13,7 @@ namespace SentraqApi.Controllers;
 [Route("api/user")]
 public class UserController(
     ILogger<UserController> logger,
-    PasswordResetService passwordResetService,
+    PasswordService passwordService,
     UserService userService) : ControllerBase
 {
     /// <summary>
@@ -59,25 +56,51 @@ public class UserController(
     [HttpPost("requestPasswordReset/{login}")]
     public void RequestPasswordReset(string login)
     {
-        passwordResetService.RequestPasswordReset(login.Sanitize(10));
+        passwordService.RequestPasswordReset(login.Sanitize(10));
     }
     
     [RequireAuthorizationKey]
     [HttpPost("setNewPassword/{login}")]
-    public void PasswordReset(string login, [FromBody] JsonObject data)
+    public void SetNewPassword(string login, [FromBody] JsonObject data)
     {
         var newPwdHash = data.FirstOrDefault(j => j.Key == "newPwdHash").Value;
 
         if (newPwdHash == null)
             throw new KeyNotFoundException($"Key {nameof(newPwdHash)} not found in JSON data.");
         
-        passwordResetService.SetNewPassword(login.Sanitize(10), newPwdHash.ToString());
+        passwordService.SetNewPassword(login.Sanitize(10), newPwdHash.ToString());
     }
     
     [RequireAuthorizationKey]
     [HttpGet("byResetCode/{resetCode}")]
-    public Api.User PasswordReset(string resetCode)
+    public Api.User UserByPasswordReset(string resetCode)
     {
-        return UserMapper.Map(passwordResetService.GetUserByPasswordResetCode(resetCode));
+        return UserMapper.Map(passwordService.GetUserByPasswordResetCode(resetCode));
+    }
+    
+    [RequireAuthorizationKey]
+    [HttpPost("requestPasskey/{login}")]
+    public void RequestPasskey(string login)
+    {
+        passwordService.RequestPasskey(login.Sanitize(10));
+    }
+    
+    [RequireAuthorizationKey]
+    [HttpGet("byPasskeyRequestCode/{resetCode}")]
+    public Api.User UserByPasskeyResetCode(string resetCode)
+    {
+        return UserMapper.Map(passwordService.GetUserByPasskeyRequestCode(resetCode));
+    }
+    
+    [RequireAuthorizationKey]
+    [HttpPost("setNewPasskey/{login}")]
+    public void SetNewPasskey(string login, [FromBody] JsonObject data)
+    {
+        var newPasskeyHash = data.FirstOrDefault(j => j.Key == "newPasskeyHash").Value;
+
+        if (newPasskeyHash == null)
+            throw new KeyNotFoundException($"Key {nameof(newPasskeyHash)} not found in JSON data.");
+        
+        passwordService.SetNewPasskey(login.Sanitize(10), newPasskeyHash.ToString().Sanitize(1000));
     }
 }

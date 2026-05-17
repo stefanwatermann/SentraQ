@@ -36,4 +36,9 @@ public class User
     
     [MaxLength(1000)]
     public string? PasskeyIdent { get; set; }
+    
+    [MaxLength(100)]
+    public string? PasskeyRequestCode { get; set; }
+    
+    public DateTime? PasskeyRequestTs { get; set; }
 }

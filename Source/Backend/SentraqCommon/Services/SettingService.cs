@@ -37,6 +37,10 @@ public class SettingService
     public int PasswordResetCodeLifetimeMinutes { get; private set; }
     public string PasswordResetCodeSalt { get; private set; }
     public string PasswordResetFrontendUrl { get; private set; }
+    
+    public string PasskeyRequestMailBody { get; private set; }
+    public string PasskeyRequestMailSubject { get; private set; }
+    public string PasskeyRequestFrontendUrl { get; private set; }
 
     public SettingService(DatabaseContext dbContext)
     {
@@ -67,10 +71,15 @@ public class SettingService
         ApiRequiredAuthKey = GetValue<string>("Api:RequiredAuthKey");
         
         PasswordResetMailFrom = GetValue<string>("PasswordReset:Mail:From");
-        PasswordResetMailBody = GetValue<string>("PasswordReset:Mail:Body", "<div>Klicken Sie nachstehenden Link um Ihr Passwort mit Ihrem Passwort-Code {PasswordResetCode} zu ändern.</div><div><a href='{PasswordResetLink}'>Passwort jetzt ändern...</a></div>"); PasswordResetMailSubject = GetValue<string>("PasswordReset:Mail:Subject", "Passwort zurücksetzen");
+        PasswordResetMailBody = GetValue<string>("PasswordReset:Mail:Body", "<div>Klicken Sie nachstehenden Link um Ihr Passwort mit Ihrem Passwort-Code {PasswordResetCode} zu ändern.</div><div><a href='{PasswordResetLink}'>Passwort jetzt ändern...</a></div>"); 
+        PasswordResetMailSubject = GetValue<string>("PasswordReset:Mail:Subject", "Passwort zurücksetzen");
         PasswordResetCodeLifetimeMinutes = GetValue<int>("PasswordReset:Code:LifetimeMinutes", 30);
         PasswordResetCodeSalt = GetValue<string>("PasswordReset:Code:Salt");
         PasswordResetFrontendUrl = GetValue<string>("PasswordReset:FrontendUrl");
+        
+        PasskeyRequestMailBody = GetValue<string>("PasskeyRequest:Mail:Body", "<div>Klicken Sie nachstehenden Link um Ihren individuellen Passkey mit dem Code {PasskeyCode} zu erzeugen.</div><div><a href='{PasskeyLink}'>Passkey jetzt erzeugen...</a></div>"); 
+        PasskeyRequestMailSubject = GetValue<string>("PasskeyRequest:Mail:Subject", "Passkey anlegen");
+        PasskeyRequestFrontendUrl = GetValue<string>("PasskeyRequest:FrontendUrl");
     }
 
     private T GetValue<T>(string key, T defaultValue = default)

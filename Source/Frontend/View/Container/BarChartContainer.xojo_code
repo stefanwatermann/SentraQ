@@ -1,5 +1,5 @@
 #tag WebContainerControl
-Begin WebContainer WebListMenu Attributes ( "@Guid" = "DA5C2FC6-7925-4879-907A-B94E33D7032A", "@Copyright" = "(c)2026 Stefan Watermann", "@Version" = "1.0.3", "@Description" = "Ein Listen-Menü für Web Apps.", "@Author" = "Stefan Watermann, Auetal", "@Depends" = "CallbackControl 1.0" ) 
+Begin WebContainer BarChartContainer
    Compatibility   =   ""
    ControlCount    =   0
    ControlID       =   ""
@@ -21,18 +21,33 @@ Begin WebContainer WebListMenu Attributes ( "@Guid" = "DA5C2FC6-7925-4879-907A-B
    TabIndex        =   0
    Top             =   0
    Visible         =   True
-   Width           =   250
+   Width           =   600
    _mDesignHeight  =   0
    _mDesignWidth   =   0
    _mPanelIndex    =   -1
-   Begin WebHTMLViewer HTMLViewer1 Attributes ( "@Guid" = "DA5C2FC6-7925-4879-907A-B94E33D7032A", "@Copyright" = "(c)2026 Stefan Watermann", "@Version" = "1.0.3", "@Description" = "Ein Listen-Menü für Web Apps.", "@Author" = "Stefan Watermann, Auetal", "@Depends" = "CallbackControl 1.0" ) 
+   Begin WebChart Chart1
+      AllowPopover    =   True
+      AutoCalculateYAxis=   False
       ControlID       =   ""
       CSSClasses      =   ""
+      DatasetCount    =   0
+      DatasetLastIndex=   0
       Enabled         =   True
-      Height          =   250
+      GridColor       =   &c000000AA
+      HasAnimation    =   False
+      HasLegend       =   False
+      Height          =   200
       Index           =   -2147483648
-      Indicator       =   0
-      Left            =   0
+      Indicator       =   ""
+      IsGridVisible   =   False
+      IsXAxisVisible  =   False
+      IsYAxisVisible  =   False
+      LabelCount      =   0
+      LabelLastIndex  =   0
+      Left            =   20
+      LegendColor     =   
+      LegendFontName  =   ""
+      LegendFontSize  =   0.0
       LockBottom      =   True
       LockedInPosition=   False
       LockHorizontal  =   False
@@ -40,201 +55,135 @@ Begin WebContainer WebListMenu Attributes ( "@Guid" = "DA5C2FC6-7925-4879-907A-B
       LockRight       =   True
       LockTop         =   True
       LockVertical    =   False
+      Mode            =   1
       PanelIndex      =   0
+      PopoverBackgroundColor=   &c000000
       Scope           =   2
       TabIndex        =   0
       TabStop         =   True
+      Title           =   ""
+      TitleColor      =   
+      TitleFontName   =   ""
+      TitleFontSize   =   0.0
       Tooltip         =   ""
-      Top             =   0
-      UseSandbox      =   False
+      Top             =   10
       Visible         =   True
-      Width           =   250
+      Width           =   560
+      _mMode          =   ""
       _mPanelIndex    =   -1
    End
-   Begin CallbackControl CallbackControl1 Attributes ( "@Guid" = "DA5C2FC6-7925-4879-907A-B94E33D7032A", "@Copyright" = "(c)2026 Stefan Watermann", "@Version" = "1.0.3", "@Description" = "Ein Listen-Menü für Web Apps.", "@Author" = "Stefan Watermann, Auetal", "@Depends" = "CallbackControl 1.0" ) 
+   Begin WebSegmentedButton SegmentedButton1
       ControlID       =   ""
+      CSSClasses      =   "small padding-0"
       Enabled         =   True
+      Height          =   22
       Index           =   -2147483648
+      Indicator       =   0
+      LastSegmentIndex=   0
+      Left            =   200
+      LockBottom      =   True
       LockedInPosition=   False
+      LockHorizontal  =   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   False
+      LockVertical    =   False
+      Outlined        =   False
       PanelIndex      =   0
       Scope           =   2
+      SegmentCount    =   0
+      Segments        =   "24 Stunden\n\nTrue\r30 Tage\n\nFalse"
+      SelectedSegmentIndex=   0
+      SelectionStyle  =   1
+      TabIndex        =   1
+      TabStop         =   True
+      Tooltip         =   ""
+      Top             =   220
+      Visible         =   True
+      Width           =   200
       _mPanelIndex    =   -1
    End
 End
 #tag EndWebContainerControl
 
 #tag WindowCode
-	#tag Event
-		Sub Opening()
-		  RaiseEvent Opening
-		  RenderMenu()
-		  
-		End Sub
-	#tag EndEvent
-
-
 	#tag Method, Flags = &h0
-		Sub AddMenuItem(key as variant, caption as string)
-		  self.ListItems.Value(key) = caption
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Sub AddOrUpdateMenuItem(key as variant, capiton as string)
-		  If ListItems.HasKey(key) Then
-		    UpdateMenuItem(key, capiton)
-		  Else
-		    AddMenuItem(key, capiton)
-		  end
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Sub Constructor()
-		  Self.ListItems = New Dictionary
-		  Super.Constructor
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Sub Refresh()
-		  RenderMenu
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Sub RemoveAllItems()
-		  Self.ListItems = New Dictionary
+		Sub Render(component as ComponentModel)
+		  Self.Component = component
+		  Self.RenderChart
 		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
-		Private Sub RenderMenu()
-		  Var items() As String
-		  For Each key As Variant In ListItems.Keys
-		    Var caption As String = ListItems.Value(key)
-		    Var active As String = ""
-		    If key = SelectedKey Then
-		      active = "active"
-		    End
-		    Var menuItem As String = kListGroupItem.Replace("{caption}", caption).Replace("{callback}", CallbackControl1.MakeCallback("clicked", Str(key))).Replace("{active}", active)
-		    items.Add(menuItem)
+		Private Sub RenderChart()
+		  Var aggregations() As AggregationModel = App.DataSvc.GetAggregations(self.ChartPeriode, self.Component.HardwareId, ChartTake)
+		  
+		  Var labels() As String
+		  Var data() As Double
+		  
+		  For Each aggregation As AggregationModel In aggregations
+		    labels.Add(aggregation.DateBin.ToString("HH"))
+		    data.Add(aggregation.Sum)
 		  Next
 		  
-		  Var html As String = kListGroup.Replace("{items}", String.FromArray(items, EndOfLine))
-		  HTMLViewer1.LoadHTML(html)
+		  Var ds As New ChartLinearDataset(Self.Component.DisplayUnit, Color.Blue, True, data)
+		  
+		  Chart1.Title = ChartTitle
+		  
+		  Chart1.RemoveAllDatasets
+		  Chart1.AddDatasets(ds)
+		  
+		  Chart1.RemoveAllLabels
+		  Chart1.AddLabels(labels)
 		End Sub
 	#tag EndMethod
 
-	#tag Method, Flags = &h0
-		Sub UpdateMenuItem(key as variant, caption as string)
-		  If ListItems.HasKey(key) Then
-		    ListItems.Value(key) = caption
-		    RenderMenu
-		  End
-		End Sub
-	#tag EndMethod
 
-
-	#tag Hook, Flags = &h0
-		Event ItemSelected(key as Variant)
-	#tag EndHook
-
-	#tag Hook, Flags = &h0
-		Event Opening()
-	#tag EndHook
-
-
-	#tag Note, Name = History
-		v1.0.3 - 2026-05-14
-		- zusätzliche Methode AddOrUpdateMenuItem()
-		
-		v1.0.1 - 2026-03-16
-		--------------------
-		- öffentlche Methode Refresh ergänzt
-		
-	#tag EndNote
-
-	#tag Note, Name = WICHTIG!
-		Im Projekt muss das "CallbackControl" aus dem WebSDK vorhanden sein.
-		
-		Nachfolgendes JavaScript muss in die Seite eingefügt werden (App.HTMLHeader):
-		
-		<script type="text/javascript">
-		function SelectWebMenuItem(sender) {
-		  let elems = sender.parentElement.getElementsByClassName("list-group-item-action");
-		  for (const el of elems) {
-		    el.classList.remove("active");
-		  }
-		  sender.classList.add("active");
-		}
-		</script>
-		
-		
-		
-		Nachfolgendes CSS legt die Farben des markierten Eintrags fest:
-		
-		<style>
-		.list-group-item.active {
-		  background-color: #C0C0C0;
-		  border-color: #C0C0C0;
-		  color: black;
-		}
-		</style>
-		
-	#tag EndNote
-
-
-	#tag Property, Flags = &h21
-		Private ListItems As Dictionary
-	#tag EndProperty
-
-	#tag Property, Flags = &h21
-		Private mSelectedKey As Variant
-	#tag EndProperty
-
-	#tag ComputedProperty, Flags = &h0
+	#tag ComputedProperty, Flags = &h21
 		#tag Getter
 			Get
-			  Return mSelectedKey
+			  return if(SegmentedButton1.SelectedSegmentIndex = 0, "1h", "1d")
 			End Get
 		#tag EndGetter
-		#tag Setter
-			Set
-			  mSelectedKey = value
-			  RenderMenu
-			End Set
-		#tag EndSetter
-		SelectedKey As Variant
+		Private ChartPeriode As String
 	#tag EndComputedProperty
 
+	#tag ComputedProperty, Flags = &h21
+		#tag Getter
+			Get
+			  return if(SegmentedButton1.SelectedSegmentIndex = 0, 24, 30)
+			End Get
+		#tag EndGetter
+		Private ChartTake As Integer
+	#tag EndComputedProperty
 
-	#tag Constant, Name = kCustomScript, Type = String, Dynamic = False, Default = \"function SelectWebMenuItem(sender) {\n  let elems \x3D sender.parentElement.getElementsByClassName(\"list-group-item-action\");\n  for (const el of elems) {\n    el.classList.remove(\"active\");\n  }\n  sender.classList.add(\"active\");\n}", Scope = Private
-	#tag EndConstant
+	#tag ComputedProperty, Flags = &h21
+		#tag Getter
+			Get
+			  return if(SegmentedButton1.SelectedSegmentIndex = 0, "Letzte 24 Stunden", "Letzte 30 Tage")
+			End Get
+		#tag EndGetter
+		Private ChartTitle As String
+	#tag EndComputedProperty
 
-	#tag Constant, Name = kListGroup, Type = String, Dynamic = False, Default = \"<div class\x3D\"list-group list-group-flush\">\n{items}\n</div>", Scope = Private
-	#tag EndConstant
-
-	#tag Constant, Name = kListGroupItem, Type = String, Dynamic = False, Default = \"<button type\x3D\"button\" class\x3D\"list-group-item border-0 d-flex justify-content-between align-items-start text-nowrap align-items-center {active}\" onclick\x3D\"javascript:SelectWebMenuItem(this);{callback}\">{caption}</button>", Scope = Private
-	#tag EndConstant
+	#tag Property, Flags = &h21
+		Private Component As ComponentModel
+	#tag EndProperty
 
 
 #tag EndWindowCode
 
-#tag Events HTMLViewer1
+#tag Events Chart1
 	#tag Event
 		Sub Opening()
-		  me.ExecuteJavaScript(kCustomScript)
+		  me.IsGridVisible =false
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events CallbackControl1
+#tag Events SegmentedButton1
 	#tag Event
-		Sub BrowserCallback(method as string, parameters as jsonitem)
-		  If method = "clicked" Then
-		    SelectedKey = parameters.Value("data")
-		    RaiseEvent ItemSelected(SelectedKey)
-		  End
+		Sub Pressed(segmentIndex As Integer)
+		  RenderChart
 		End Sub
 	#tag EndEvent
 #tag EndEvents

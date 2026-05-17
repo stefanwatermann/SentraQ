@@ -126,6 +126,10 @@ textarea.textinput {
 	font-size: 0.9em !important;
 }
 
+.padding-0 {
+	padding: 0 !important;
+}
+
 .verysmall {
 	font-size: 0.70em !important;
 }

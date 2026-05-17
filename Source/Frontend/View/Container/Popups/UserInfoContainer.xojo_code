@@ -24,6 +24,7 @@ Begin WebContainer UserInfoContainer
    Width           =   300
    _mDesignHeight  =   0
    _mDesignWidth   =   0
+   _mName          =   ""
    _mPanelIndex    =   -1
    Begin WebLabel lbUserRole
       Bold            =   False
@@ -367,7 +368,7 @@ End
 		    App.DataSvc.UserRequestPasswordReset(Self.CurrentUser.Login)
 		    
 		  Case "pkreg"
-		    
+		    App.DataSvc.UserRequestPasskey(Self.CurrentUser.Login)
 		    
 		  end
 		End Sub
@@ -376,7 +377,7 @@ End
 #tag Events btnCreatePasskey
 	#tag Event
 		Sub Pressed()
-		  DialogYesNo1.Show("Möchten Sie einen (neuen) Passkey zur passwortlosen Anmeldung erstellen? Sie erhalten eine E-Mail mit einem Link und können anschließend Ihren persönlichen Passkey erzeugen.", "pkreg")
+		  DialogYesNo1.Show("Möchten Sie einen (neuen) Passkey zur sicheren, passwortlosen Anmeldung erstellen? Sie erhalten eine E-Mail mit einem Link und können anschließend Ihren persönlichen Passkey erzeugen.", "pkreg")
 		End Sub
 	#tag EndEvent
 #tag EndEvents

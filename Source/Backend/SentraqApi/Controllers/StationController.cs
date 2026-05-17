@@ -1,11 +1,7 @@
-using System.Collections.Generic;
-using System.Linq;
 using System.Text.Json;
 using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 using SentraqApi.Attributes;
 using SentraqApi.Filters;
 using SentraqCommon.Context;
@@ -17,14 +13,14 @@ using Api = SentraqModels.Api;
 namespace SentraqApi.Controllers;
 
 [ApiController]
-[Route("api/stations")]
+[Route("api/station")]
 public class StationController(
     ILogger<StationController> logger,
     StationService stationService,
     DatabaseContext dbContext) : ControllerBase
 {
     /// <summary>
-    /// Returns a list of all stations.
+    /// Returns a list of all stations from StationView (vStation).
     /// </summary>
     /// <returns>List of stations</returns>
     [RequireAuthorizationKey]
@@ -33,30 +29,29 @@ public class StationController(
     {
         logger.LogInformation("Get all stations");
 
-        var dataStations = dbContext
-            .StationsView
-            .OrderBy(s => s.DisplayOrder);
-
-        return dataStations
-            .Select(dataStation => StationMapper.Map(dataStation))
+        return stationService.GetStationsView()
+            .Select(StationMapper.Map)
             .ToList();
     }
     
+    /// <summary>
+    /// Returns the station object of the given Uid, from StationView (vStation).
+    /// </summary>
+    /// <param name="stationUid"></param>
+    /// <returns></returns>
     [RequireAuthorizationKey]
     [HttpGet("{stationUid}")]
     public Api.Station? GetStation(string stationUid)
     {
-        logger.LogInformation("Get station {stationUid}", stationUid.Sanitize(36));
-
-        var dataStation = dbContext
-            .StationsView
-            .FirstOrDefault(s => s.Uid == stationUid.Sanitize(36));
+        var uid = stationUid.Sanitize(36);
         
-        return StationMapper.Map(dataStation);
+        logger.LogInformation("Get station {stationUid}", uid);
+        
+        return StationMapper.Map(stationService.GetStationView(uid));
     }
 
     /// <summary>
-    /// Returns all components of the specified station.
+    /// Returns all components of the specified station, from ComponentsView (vComponentList).
     /// </summary>
     /// <param name="stationUid">Uid of station</param>
     /// <returns>List of components</returns>
@@ -106,6 +101,10 @@ public class StationController(
         stationService.RemoveStation(uid.Sanitize(36), changedBy.Sanitize(10));
     }
     
+    /// <summary>
+    /// Clear active alert of the given station.
+    /// </summary>
+    /// <param name="uid"></param>
     [RequireAuthorizationKey]
     [HttpPost("{uid}/clearAlert")]
     public void ClearAlert(string uid)
@@ -113,5 +112,19 @@ public class StationController(
         var json = Request.ReadFromJsonAsync<JsonElement>().Result;
         var user= json.GetString("user") ?? "unbekannt";
         stationService.ClearAlert(uid, user);
+    }
+    
+    [RequireAuthorizationKey]
+    [HttpPost("{uid}/startMaintenance")]
+    public void StartMaintenanceMode(string uid, [FromHeader(Name = "X-LOGIN")] string changedBy)
+    {
+        stationService.SetMaintenanceMode(uid, DateTime.Now, changedBy);
+    }
+    
+    [RequireAuthorizationKey]
+    [HttpPost("{uid}/endMaintenance")]
+    public void EndMaintenanceMode(string uid, [FromHeader(Name = "X-LOGIN")] string changedBy)
+    {
+        stationService.SetMaintenanceMode(uid, null, changedBy);
     }
 }

@@ -27,7 +27,6 @@ public class MqttSubscriberWorkerService(
     SettingService settings,
     MqttParserFactory mqttParserFactory,
     MessageHandlerFactory messageHandlerFactory,
-    StatusFileService statusFileService,
     DatabaseContext dbContext) : BackgroundService
 {
     private readonly MqttTopicTemplate _topicTemplate = new("/client/send/{clientTopic}");
@@ -57,10 +56,6 @@ public class MqttSubscriberWorkerService(
 
             while (!stoppingToken.IsCancellationRequested)
             {
-                // Update status-file every 10 seconds 
-                if (DateTime.Now.Second % 10 == 0)
-                    statusFileService.Keepalive("Controller");
-
                 // keep service running
                 await Task.Delay(1_000, stoppingToken);
             }
