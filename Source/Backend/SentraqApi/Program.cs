@@ -12,7 +12,7 @@ using SentraqCommon.Converters;
 using SentraqCommon.Security;
 using SentraqCommon.Services;
 
-[assembly: AssemblyVersion("1.0.3.*")]
+[assembly: AssemblyVersion("1.1.0.*")]
 
 var builder = WebApplication.CreateBuilder(args);
 

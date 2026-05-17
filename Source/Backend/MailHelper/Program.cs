@@ -14,6 +14,9 @@ using SentraqCommon.Services;
 
 namespace MailHelper;
 
+/// <summary>
+/// Helper-programm to test mail-settings of the SentraQ installation. 
+/// </summary>
 internal static class Program
 {
     static void Main(string[] args)

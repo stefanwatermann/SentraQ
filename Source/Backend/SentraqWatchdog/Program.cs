@@ -14,14 +14,14 @@ using SentraqCommon.Security;
 using SentraqCommon.Services;
 using SentraqWatchdog.Services;
 
-[assembly: AssemblyVersion("1.0.3.*")]
+[assembly: AssemblyVersion("1.1.0.*")]
 
 namespace SentraqWatchdog;
 
 /// <summary>
-/// Singulärer Watchdog Service.
+/// Watchdog Service.
 /// Prüft, ob in der MQTT Eingangstabelle regelmäßig Nachrichten eintreffen.
-/// Falls Nachrichten ausbleiben wir ein Alert erzeugt.
+/// Falls Nachrichten ausbleiben, wird eine Alert-Nachricht erzeugt.
 /// </summary>
 class Program
 {

@@ -15,7 +15,7 @@ using SentraqController.MessageHandler.Handler;
 using SentraqController.MqttParser;
 using SentraqController.Services;
 
-[assembly: AssemblyVersion("1.0.3.*")]
+[assembly: AssemblyVersion("1.1.0.*")]
 
 namespace SentraqController;
 

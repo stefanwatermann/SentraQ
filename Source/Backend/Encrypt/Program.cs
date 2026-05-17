@@ -6,7 +6,7 @@
 namespace Encrypt;
 
 /// <summary>
-/// Simple helper-project to encrypt secrets used by the SentraQ plattform.
+/// Helper-project to encrypt secrets used by the SentraQ plattform.
 /// </summary>
 class Program
 {
