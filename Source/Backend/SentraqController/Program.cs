@@ -20,17 +20,18 @@ using SentraqController.Services;
 namespace SentraqController;
 
 /// <summary>
-/// Singulärer MQTT Subscriber Service.
+/// MQTT Subscriber Service.
 /// Wartet auf eingehende MQTT Nachrichten, parst diese und
 /// speichert das Payload in der Datenbank. 
 /// </summary>
-class Program
+internal static class Program
 {
-    static void Main(string[] args)
+    private static void Main(string[] args)
     {
         try
         {
-            Console.WriteLine($"*** SentraQ Controller Worker - v{Assembly.GetExecutingAssembly().GetName()?.Version?.ToString()} ***");
+            Console.WriteLine($"*** SentraQ Controller Service ***");
+            Console.WriteLine($"Version: {Assembly.GetExecutingAssembly().GetName().Version}");
             Console.WriteLine($"CurrentDirectory: {Directory.GetCurrentDirectory()}");
 
             var configuration = new ConfigurationBuilder()

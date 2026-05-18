@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using SentraqApi.Attributes;
-using SentraqCommon.Context;
 using SentraqCommon.Extensions;
+using SentraqCommon.Services;
 using SentraqModels.Mapper;
 using Api = SentraqModels.Api;
 
@@ -10,42 +10,22 @@ namespace SentraqApi.Controllers;
 [ApiController]
 [Route("api/aggregation")]
 public class AggregationController(
-    DatabaseContext dbContext,
-    ILogger<ComponentController> logger) : ControllerBase
+    AggregationService aggregationService) : ControllerBase
 {
+    /// <summary>
+    /// Returns by date-time aggregated values from one of the vAggregation... views.
+    /// </summary>
+    /// <param name="postfix">Postfix of an aggregation-view name (e.g. Avg5m), case-sensitive!</param>
+    /// <param name="hwId">HardwareId of the component to aggregate over</param>
+    /// <param name="take">Number of records to return</param>
+    /// <returns></returns>
     [RequireAuthorizationKey]
-    [HttpGet("5m/{componentUid}")]
-    public IQueryable<Api.Aggregation> Get5m(string componentUid, [FromQuery] int take = 100)
+    [HttpGet("{postfix}/{hwId}")]
+    public IEnumerable<Api.Aggregation> GetAggregation(string postfix, string hwId, [FromQuery] int take = 100)
     {
-        return dbContext
-            .Aggregation5ms
-            .Where(a => a.HardwareId == componentUid.Sanitize(36))
-            .OrderByDescending(a => a.DateBin)
-            .Take(take)
-            .Select(a => AggregationMapper.Map(a));
-    }
-    
-    [RequireAuthorizationKey]
-    [HttpGet("1h/{componentUid}")]
-    public IQueryable<Api.Aggregation> Get1h(string componentUid, [FromQuery] int take = 100)
-    {
-        return dbContext
-            .Aggregation1hs
-            .Where(a => a.HardwareId == componentUid.Sanitize(36))
-            .OrderByDescending(a => a.DateBin)
-            .Take(take)
-            .Select(a => AggregationMapper.Map(a));
-    }
-    
-    [RequireAuthorizationKey]
-    [HttpGet("1d/{componentUid}")]
-    public IQueryable<Api.Aggregation> Get1d(string componentUid, [FromQuery] int take = 100)
-    {
-        return dbContext
-            .Aggregation1ds
-            .Where(a => a.HardwareId == componentUid.Sanitize(36))
-            .OrderByDescending(a => a.DateBin)
-            .Take(take)
-            .Select(a => AggregationMapper.Map(a));
+        var agg = aggregationService
+            .Get(postfix.Sanitize(5), hwId.Sanitize(36), take);
+        
+        return agg.Select(AggregationMapper.Map);
     }
 }

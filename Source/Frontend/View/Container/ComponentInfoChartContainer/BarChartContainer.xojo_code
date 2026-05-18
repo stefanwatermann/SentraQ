@@ -1,11 +1,11 @@
 #tag WebContainerControl
-Begin WebContainer ComponentInfoContainer
+Begin WebContainer BarChartContainer
    Compatibility   =   ""
    ControlCount    =   0
    ControlID       =   ""
    CSSClasses      =   ""
    Enabled         =   True
-   Height          =   330
+   Height          =   250
    Indicator       =   0
    LayoutDirection =   0
    LayoutType      =   0
@@ -25,135 +25,117 @@ Begin WebContainer ComponentInfoContainer
    _mDesignHeight  =   0
    _mDesignWidth   =   0
    _mPanelIndex    =   -1
-   Begin BarChartContainer BarChartContainer1
-      ControlCount    =   0
+   Begin WebChart Chart1
+      AllowPopover    =   True
+      AutoCalculateYAxis=   False
       ControlID       =   ""
       CSSClasses      =   ""
+      DatasetCount    =   0
+      DatasetLastIndex=   0
       Enabled         =   True
-      Height          =   250
+      GridColor       =   &c000000AA
+      HasAnimation    =   False
+      HasLegend       =   False
+      Height          =   200
       Index           =   -2147483648
-      Indicator       =   0
-      LayoutDirection =   0
-      LayoutType      =   0
-      Left            =   0
-      LockBottom      =   False
+      Indicator       =   ""
+      IsGridVisible   =   False
+      IsXAxisVisible  =   False
+      IsYAxisVisible  =   False
+      LabelCount      =   0
+      LabelLastIndex  =   0
+      Left            =   20
+      LegendColor     =   
+      LegendFontName  =   ""
+      LegendFontSize  =   0.0
+      LockBottom      =   True
       LockedInPosition=   True
       LockHorizontal  =   False
       LockLeft        =   True
       LockRight       =   True
       LockTop         =   True
       LockVertical    =   False
+      Mode            =   1
       PanelIndex      =   0
+      PopoverBackgroundColor=   &c000000
       Scope           =   2
-      ScrollDirection =   0
       TabIndex        =   0
       TabStop         =   True
+      Title           =   ""
+      TitleColor      =   
+      TitleFontName   =   ""
+      TitleFontSize   =   0.0
       Tooltip         =   ""
-      Top             =   80
+      Top             =   10
       Visible         =   True
-      Width           =   600
-      _mDesignHeight  =   0
-      _mDesignWidth   =   0
+      Width           =   560
+      _mMode          =   ""
       _mPanelIndex    =   -1
    End
-   Begin WebButton btnClose
-      AllowAutoDisable=   False
-      Cancel          =   False
-      Caption         =   "X"
+   Begin WebSegmentedButton sbPeriode
       ControlID       =   ""
-      CSSClasses      =   "border-0"
-      Default         =   False
+      CSSClasses      =   "small padding-0"
       Enabled         =   True
-      Height          =   30
+      Height          =   22
       Index           =   -2147483648
       Indicator       =   0
-      Left            =   570
-      LockBottom      =   False
+      LastSegmentIndex=   0
+      Left            =   150
+      LockBottom      =   True
       LockedInPosition=   True
       LockHorizontal  =   False
-      LockLeft        =   False
-      LockRight       =   True
-      LockTop         =   True
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   False
       LockVertical    =   False
-      Outlined        =   True
+      Outlined        =   False
       PanelIndex      =   0
       Scope           =   2
+      SegmentCount    =   0
+      Segments        =   "24 Stunden\n\nTrue\r30 Tage\n\nFalse\r90 Tage\n\nFalse"
+      SelectedSegmentIndex=   0
+      SelectionStyle  =   1
       TabIndex        =   1
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   0
+      Top             =   220
       Visible         =   True
-      Width           =   30
+      Width           =   300
       _mPanelIndex    =   -1
    End
-   Begin WebLabel lbName
-      Bold            =   True
+   Begin WebLabel lbHint
+      Bold            =   False
       ControlID       =   ""
-      CSSClasses      =   ""
+      CSSClasses      =   "small"
       Enabled         =   True
       FontName        =   ""
       FontSize        =   0.0
-      Height          =   30
+      Height          =   22
       HTMLElement     =   0
       Index           =   -2147483648
-      Indicator       =   ""
+      Indicator       =   0
       Italic          =   False
-      Left            =   20
-      LockBottom      =   False
-      LockedInPosition=   False
+      Left            =   0
+      LockBottom      =   True
+      LockedInPosition=   True
       LockHorizontal  =   False
       LockLeft        =   True
-      LockRight       =   True
-      LockTop         =   True
+      LockRight       =   False
+      LockTop         =   False
       LockVertical    =   False
       Multiline       =   False
       PanelIndex      =   0
       Scope           =   2
       TabIndex        =   2
       TabStop         =   True
-      Text            =   "Untitled"
-      TextAlignment   =   0
-      TextColor       =   &c000000FF
+      Text            =   "---"
+      TextAlignment   =   3
+      TextColor       =   &c5E5E5E00
       Tooltip         =   ""
-      Top             =   15
+      Top             =   220
       Underline       =   False
       Visible         =   True
-      Width           =   540
-      _mPanelIndex    =   -1
-   End
-   Begin WebLabel lbLastValueTs
-      Bold            =   False
-      ControlID       =   ""
-      CSSClasses      =   ""
-      Enabled         =   True
-      FontName        =   ""
-      FontSize        =   0.0
-      Height          =   30
-      HTMLElement     =   0
-      Index           =   -2147483648
-      Indicator       =   ""
-      Italic          =   False
-      Left            =   20
-      LockBottom      =   False
-      LockedInPosition=   False
-      LockHorizontal  =   False
-      LockLeft        =   True
-      LockRight       =   True
-      LockTop         =   True
-      LockVertical    =   False
-      Multiline       =   False
-      PanelIndex      =   0
-      Scope           =   2
-      TabIndex        =   3
-      TabStop         =   True
-      Text            =   "Untitled"
-      TextAlignment   =   0
-      TextColor       =   &c000000FF
-      Tooltip         =   ""
-      Top             =   45
-      Underline       =   False
-      Visible         =   True
-      Width           =   560
+      Width           =   140
       _mPanelIndex    =   -1
    End
 End
@@ -163,13 +145,64 @@ End
 	#tag Method, Flags = &h0
 		Sub Render(component as ComponentModel)
 		  Self.Component = component
-		  Self.BarChartContainer1.Render(Self.Component)
-		  Self.lbName.Text = Self.Component.DisplayName + " (" + Self.Component.HardwareId + ")"
-		  Self.lbLastValueTs.Text = "Letzter Wert " + LastValue + " empfangen " + LastReceived
-		  
+		  Self.RenderChart
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h21
+		Private Sub RenderChart()
+		  Var aggregations() As AggregationModel = App.DataSvc.GetAggregations(self.ChartPeriode, self.Component.HardwareId, ChartTake)
+		  
+		  Var labels() As String
+		  Var data() As Double
+		  
+		  For Each aggregation As AggregationModel In aggregations
+		    labels.Add(aggregation.DateBin.ToString(LabelStringFormat))
+		    data.Add(aggregation.Sum)
+		  Next
+		  
+		  Var ds As New ChartLinearDataset(Self.Component.DisplayUnit, &c00919300, True, data)
+		  
+		  Chart1.RemoveAllDatasets
+		  Chart1.AddDatasets(ds)
+		  
+		  Chart1.RemoveAllLabels
+		  Chart1.AddLabels(labels)
+		  
+		  lbHint.Text = LabelHintText
+		End Sub
+	#tag EndMethod
+
+
+	#tag ComputedProperty, Flags = &h21
+		#tag Getter
+			Get
+			  If Component.TypeDef = Enums.ComponentTypes.FillLevel Or _
+			    Component.TypeDef = Enums.ComponentTypes.Sensor then
+			    Return If(sbPeriode.SelectedSegmentIndex = 0, "Avg1h", "Avg1d")
+			  Else
+			    Return If(sbPeriode.SelectedSegmentIndex = 0, "Sum1h", "Sum1d")
+			  end
+			End Get
+		#tag EndGetter
+		Private ChartPeriode As String
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h21
+		#tag Getter
+			Get
+			  Select Case sbPeriode.SelectedSegmentIndex
+			  Case 1
+			    Return 30
+			  Case 2
+			    Return 90
+			  Else
+			    Return  24
+			  end
+			End Get
+		#tag EndGetter
+		Private ChartTake As Integer
+	#tag EndComputedProperty
 
 	#tag Property, Flags = &h21
 		Private Component As ComponentModel
@@ -178,28 +211,39 @@ End
 	#tag ComputedProperty, Flags = &h21
 		#tag Getter
 			Get
-			  return  If(Self.Component.LastReceivedTs <> Nil, Self.Component.LastReceivedTs.ToString(DateTime.FormatStyles.Full, DateTime.FormatStyles.Long), "-")
+			  if ChartPeriode.Contains("Avg") then
+			    Return "<raw>&Oslash; der letzten</raw>"
+			  Else
+			    Return "<raw>&sum;  der letzten</raw>"
+			  end
 			End Get
 		#tag EndGetter
-		Private LastReceived As String
+		Private LabelHintText As String
 	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h21
 		#tag Getter
 			Get
-			  return Str(Self.Component.CurrentValue, "###,###.###")
+			  return If(Self.ChartPeriode.Contains("1h"), "HH:00", "dd.MM")
 			End Get
 		#tag EndGetter
-		Private LastValue As String
+		Private LabelStringFormat As String
 	#tag EndComputedProperty
 
 
 #tag EndWindowCode
 
-#tag Events btnClose
+#tag Events Chart1
 	#tag Event
-		Sub Pressed()
-		  self.Close
+		Sub Opening()
+		  Me.IsGridVisible = False
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events sbPeriode
+	#tag Event
+		Sub Pressed(segmentIndex As Integer)
+		  RenderChart
 		End Sub
 	#tag EndEvent
 #tag EndEvents

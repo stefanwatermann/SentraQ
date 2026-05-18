@@ -3,15 +3,15 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SentraqModels.Data;
 
-[Table("vAggregation1h")]
-public class Aggregation1h
+public class Aggregation
 {
     [MaxLength(36)]
     public required string HardwareId { get; init; }
     
+    [Key]
     [Column("date_bin")]
-    public DateTime DateBin { get; set; }
+    public DateTime DateBin { get; init; }
     
-    [Column("sum")]
-    public double Sum { get; set; }
+    [Column("value")]
+    public double Value { get; init; }
 }

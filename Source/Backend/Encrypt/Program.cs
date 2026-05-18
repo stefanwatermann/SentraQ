@@ -12,7 +12,7 @@ class Program
 {
     static int Main(string[] args)
     {
-        Console.WriteLine("*** Encrypt ***");
+        Console.WriteLine("*** SentraQ Encrypt ***");
 
         if (args.Length != 2)
         {

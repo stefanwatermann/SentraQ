@@ -16,7 +16,7 @@ class Program
 {
     static void Main(string[] args)
     {
-        Console.WriteLine("*** Wasserwerk Plattform Simulator ***");
+        Console.WriteLine("*** SentraQ Simulator ***");
         
         var configuration = new ConfigurationBuilder()
             .SetBasePath(Directory.GetCurrentDirectory())

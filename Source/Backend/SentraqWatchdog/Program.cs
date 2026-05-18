@@ -23,11 +23,12 @@ namespace SentraqWatchdog;
 /// Prüft, ob in der MQTT Eingangstabelle regelmäßig Nachrichten eintreffen.
 /// Falls Nachrichten ausbleiben, wird eine Alert-Nachricht erzeugt.
 /// </summary>
-class Program
+internal static class Program
 {
-    static void Main(string[] args)
+    private static void Main(string[] args)
     {
-        Console.WriteLine("*** Sentraq Watchdog Daemon ***");
+        Console.WriteLine("*** SentraQ Watchdog Service ***");
+        Console.WriteLine($"Version: {Assembly.GetExecutingAssembly().GetName().Version}");
         Console.WriteLine($"CurrentDirectory: {Directory.GetCurrentDirectory()}");
         
         var configuration = new ConfigurationBuilder()

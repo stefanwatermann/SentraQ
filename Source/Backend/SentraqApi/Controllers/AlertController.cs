@@ -15,7 +15,7 @@ public class AlertController(
 {
     [RequireAuthorizationKey]
     [HttpGet("")]
-    public IQueryable<Api.Alert> GetLast100()
+    public IQueryable<Api.Alert> GetLast100Total()
     {
         var alerts = dbContext
             .Alerts

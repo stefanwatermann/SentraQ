@@ -237,8 +237,7 @@ End
 #tag Events btnInfo
 	#tag Event
 		Sub Pressed()
-		  //MessageBox(MyComponent.GetInfos)
-		  Var container As New ComponentInfoContainer
+		  Var container As New ComponentInfoChartContainer
 		  container.Render(MyComponent)
 		  container.ShowPopover(Me)
 		End Sub
