@@ -15,13 +15,13 @@ public class AlertController(
 {
     [RequireAuthorizationKey]
     [HttpGet("")]
-    public IQueryable<Api.Alert> GetLast100Total()
+    public IQueryable<Api.Alert> GetLastTotal([FromQuery] int take = 100)
     {
         var alerts = dbContext
             .Alerts
             .AsNoTracking()
             .OrderByDescending(e => e.Id)
-            .Take(100)
+            .Take(take)
             .Select(e => AlertMapper.Map(e));
         
         return alerts;
@@ -29,16 +29,16 @@ public class AlertController(
     
     [RequireAuthorizationKey]
     [HttpGet("{stationUid}")]
-    public IQueryable<Api.Alert> GetLast100(string stationUid)
+    public IQueryable<Api.Alert> GetLast(string stationUid, [FromQuery] int take = 100)
     {
         var filter = $"%{stationUid.Sanitize(36)}%";
         
         var alerts = dbContext
             .Alerts
-            .FromSql($"SELECT * FROM public.\"Alert\" WHERE \"StationUid\" like {filter}")
+            .FromSql($"SELECT * FROM public.\"vAlert\" WHERE \"StationUid\" like {filter}")
             .AsNoTracking()
             .OrderByDescending(e => e.Id)
-            .Take(100)
+            .Take(take)
             .Select(e => AlertMapper.Map(e));
         
         return alerts;

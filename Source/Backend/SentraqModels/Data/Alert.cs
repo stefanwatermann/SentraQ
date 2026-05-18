@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SentraqModels.Data;
 
-[Table("Alert")]
+[Table("vAlert")]
 public class Alert
 {
     [Key]
@@ -28,4 +28,6 @@ public class Alert
     [MaxLength(1)]
     [AllowedValues("Y", "N")]
     public string IsActive { get; set; } = string.Empty;
+    
+    public string? Faults { get; set; }
 }

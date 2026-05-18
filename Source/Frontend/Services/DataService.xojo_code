@@ -41,6 +41,31 @@ Protected Class DataService
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function GetAlerts(uid as string, take as integer = 0) As AlertModel()
+		  Var url As String = "alert/" +uid
+		  
+		  If take > 0 Then
+		    url = url + "?take=" + Str(take)
+		  end
+		  
+		  Var apiClient As New BackendApiControllerClient
+		  Var response As String = apiClient.Get(url)
+		  
+		  Var result() As AlertModel
+		  
+		  Var alerts() As Variant = ParseJSON(response)
+		  
+		  For Each alert As Dictionary In alerts
+		    Var a As New AlertModel
+		    AlertModel.FromDictionary(alert, a)
+		    result.Add(a)
+		  Next
+		  
+		  Return result
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function GetBackendStatusInfo() As BackendStatusInfo
 		  Var apiClient As New BackendApiControllerClient
 		  Var response As String = apiClient.Get("status")
@@ -116,6 +141,43 @@ Protected Class DataService
 		  Var apiClient As New BackendApiControllerClient
 		  Var response As String = apiClient.Get("eventData/" + filter)
 		  Return PopulateEventData(response)
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function GetEventDataExport(uids() as string, types() as string, dtFrom as DateTime, dtTo as DateTime) As EventDataExportModel()
+		  Var url As String = "eventData/export?a=1"
+		  
+		  If uids.Count > 0 Then
+		    url = url + "&uid=" + string.FromArray(uids, ",")
+		  End
+		  
+		  If types.Count > 0 Then
+		    url = url + "&type=" + String.FromArray(types, ",")
+		  End
+		  
+		  if dtFrom <> Nil Then
+		    url = url + "&from=" + dtFrom.SQLDate
+		  End
+		  
+		  If dtTo <> Nil Then
+		    url = url + "&to=" + dtTo.SQLDate
+		  End
+		  
+		  Var apiClient As New BackendApiControllerClient
+		  Var response As String = apiClient.Get(url)
+		  
+		  Var result() As EventDataExportModel
+		  
+		  Var data() As Variant = ParseJSON(response)
+		  
+		  For Each e As Dictionary In data
+		    Var a As New EventDataExportModel
+		    EventDataExportModel.FromDictionary(e, a)
+		    result.Add(a)
+		  Next
+		  
+		  Return result
 		End Function
 	#tag EndMethod
 

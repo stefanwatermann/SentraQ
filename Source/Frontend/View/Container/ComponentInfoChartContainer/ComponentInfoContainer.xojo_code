@@ -25,36 +25,6 @@ Begin WebContainer ComponentInfoContainer
    _mDesignHeight  =   0
    _mDesignWidth   =   0
    _mPanelIndex    =   -1
-   Begin WebButton btnClose
-      AllowAutoDisable=   False
-      Cancel          =   False
-      Caption         =   "X"
-      ControlID       =   ""
-      CSSClasses      =   "border-0"
-      Default         =   False
-      Enabled         =   True
-      Height          =   30
-      Index           =   -2147483648
-      Indicator       =   0
-      Left            =   570
-      LockBottom      =   False
-      LockedInPosition=   True
-      LockHorizontal  =   False
-      LockLeft        =   False
-      LockRight       =   True
-      LockTop         =   True
-      LockVertical    =   False
-      Outlined        =   True
-      PanelIndex      =   0
-      Scope           =   2
-      TabIndex        =   1
-      TabStop         =   True
-      Tooltip         =   ""
-      Top             =   0
-      Visible         =   True
-      Width           =   30
-      _mPanelIndex    =   -1
-   End
    Begin WebLabel lbName
       Bold            =   True
       ControlID       =   ""
@@ -160,6 +130,41 @@ Begin WebContainer ComponentInfoContainer
       Width           =   560
       _mPanelIndex    =   -1
    End
+   Begin WebLabel btnClose
+      Bold            =   False
+      ControlID       =   ""
+      CSSClasses      =   "cursor-pointer"
+      Enabled         =   True
+      FontName        =   ""
+      FontSize        =   0.0
+      Height          =   30
+      HTMLElement     =   0
+      Index           =   -2147483648
+      Indicator       =   0
+      Italic          =   False
+      Left            =   565
+      LockBottom      =   False
+      LockedInPosition=   True
+      LockHorizontal  =   False
+      LockLeft        =   False
+      LockRight       =   True
+      LockTop         =   True
+      LockVertical    =   False
+      Multiline       =   False
+      PanelIndex      =   0
+      Scope           =   0
+      TabIndex        =   5
+      TabStop         =   True
+      Text            =   "X"
+      TextAlignment   =   2
+      TextColor       =   &c000000FF
+      Tooltip         =   ""
+      Top             =   5
+      Underline       =   False
+      Visible         =   True
+      Width           =   30
+      _mPanelIndex    =   -1
+   End
 End
 #tag EndWebContainerControl
 
@@ -202,7 +207,7 @@ End
 #tag Events btnClose
 	#tag Event
 		Sub Pressed()
-		  self.Close
+		  Self.Close
 		End Sub
 	#tag EndEvent
 #tag EndEvents

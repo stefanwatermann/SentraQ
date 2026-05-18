@@ -26,4 +26,19 @@ public static class EventDataMapper
             HardwareId = eventData.HardwareId
         };
     }
+    
+    public static Api.EventDataExport Map(EventDataExport eventData)
+    {
+        return new Api.EventDataExport()
+        {
+            StationName = eventData.StationName,
+            StationUid = eventData.StationUid,
+            Received = eventData.Received,
+            ComponentName = eventData.ComponentName,
+            ComponentType = eventData.ComponentType,
+            Value = eventData.Value,
+            Unit = eventData.Unit,
+            HardwareId = eventData.HardwareId
+        };
+    }
 }

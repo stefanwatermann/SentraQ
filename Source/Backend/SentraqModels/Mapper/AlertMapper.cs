@@ -9,10 +9,11 @@ public static class AlertMapper
             StationUid = alert.StationUid,
             ConfirmedBy = alert.ConfirmedBy,
             ConfirmedAt = alert.ConfirmedAt,
-            IsActive = alert.IsActive,
+            IsActive = alert.IsActive == "Y",
             FirstEventTs = alert.FirstEventTs,
             LastEventTs = alert.LastEventTs,
-            MailSendAt = alert.MailSendAt
+            MailSendAt = alert.MailSendAt,
+            Faults = alert.Faults
         };
     }
 }

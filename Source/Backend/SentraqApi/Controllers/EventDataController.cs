@@ -42,4 +42,30 @@ public class EventDataController(
         
         return eventData;
     }
+    
+    [RequireAuthorizationKey]
+    [HttpGet("export")]
+    public IQueryable<Api.EventDataExport> Export(
+        [FromQuery] string? uid, 
+        [FromQuery] string? type, 
+        [FromQuery] DateTime? from, 
+        [FromQuery] DateTime? to)
+    {
+        var stationUids = uid == null ? new string[0] : uid.Sanitize(1000).Split(',');
+        var componentTypes = type == null ? new string[0] : type.Sanitize(1000).Split(',');
+        var receivedFrom = from ?? DateTime.MinValue;
+        var receivedTo = to ?? DateTime.MaxValue;
+        
+        var eventData = dbContext
+            .EventDataExports
+            .Where(e => 
+                (stationUids.Length == 0 || stationUids.Contains(e.StationUid)) &&
+                (componentTypes.Length == 0 || componentTypes.Contains(e.ComponentType)) &&
+                e.Received >= receivedFrom &&
+                e.Received <= receivedTo)
+            .OrderByDescending(e => e.Received)
+            .Select(e => EventDataMapper.Map(e));
+        
+        return eventData;
+    }
 }

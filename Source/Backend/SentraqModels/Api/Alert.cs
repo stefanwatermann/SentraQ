@@ -14,5 +14,7 @@ public class Alert
     
     public DateTime? LastEventTs { get; set; }
     
-    public string IsActive { get; set; } = string.Empty;
+    public bool IsActive { get; set; } 
+    
+    public string? Faults { get; set; }
 }

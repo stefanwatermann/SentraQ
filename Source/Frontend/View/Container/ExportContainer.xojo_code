@@ -60,12 +60,55 @@ Begin WebContainer ExportContainer
       Width           =   600
       _mPanelIndex    =   -1
    End
+   Begin WebButton Button1
+      AllowAutoDisable=   False
+      Cancel          =   False
+      Caption         =   "Button"
+      ControlID       =   ""
+      CSSClasses      =   ""
+      Default         =   False
+      Enabled         =   True
+      Height          =   38
+      Index           =   -2147483648
+      Indicator       =   0
+      Left            =   171
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockHorizontal  =   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      LockVertical    =   False
+      Outlined        =   False
+      PanelIndex      =   0
+      Scope           =   0
+      TabIndex        =   1
+      TabStop         =   True
+      Tooltip         =   ""
+      Top             =   289
+      Visible         =   True
+      Width           =   258
+      _mPanelIndex    =   -1
+   End
 End
 #tag EndWebContainerControl
 
 #tag WindowCode
 #tag EndWindowCode
 
+#tag Events Button1
+	#tag Event
+		Sub Pressed()
+		  Var uids() As String
+		  Var types() As String
+		  Var dtForm As DateTime
+		  Var dtTo As DateTime
+		  
+		  Var data() As EventDataExportModel = App.DataSvc.GetEventDataExport(uids, types, dtForm, dtTo)
+		  break
+		End Sub
+	#tag EndEvent
+#tag EndEvents
 #tag ViewBehavior
 	#tag ViewProperty
 		Name="PanelIndex"

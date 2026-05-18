@@ -67,6 +67,10 @@ div.modal-content {
 	margin: 5px 0px;
 }
 
+.btn:focus-visible .btn:active .XojoButton {
+	box-shadow: none !important;
+}
+
 div.maplibregl-marker {
 	/*width: 40px !important;
 	height: 40px !important*/;

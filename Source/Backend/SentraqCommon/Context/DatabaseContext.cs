@@ -22,6 +22,7 @@ public class DatabaseContext : DbContext
     public DbSet<Log> Logs { get; init; }
     public DbSet<Counter> Counters { get; init; }
     public DbSet<Aggregation> Aggregations { get; init; }
+    public DbSet<EventDataExport> EventDataExports { get; init; }
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     { }
