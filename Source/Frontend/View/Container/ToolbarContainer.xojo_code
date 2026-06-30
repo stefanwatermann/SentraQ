@@ -289,6 +289,9 @@ End
 		  If session.CurrentUser <> Nil Then
 		    me.Visible = True
 		    Me.Caption = Session.CurrentUser.Name
+		    If Session.WasPasskeyAuthentication Then
+		      me.Caption = "<raw><i class='bi bi-lock'></i>&nbsp;</raw>" + Me.Caption
+		    end
 		  Else
 		    Me.Visible = False
 		  End

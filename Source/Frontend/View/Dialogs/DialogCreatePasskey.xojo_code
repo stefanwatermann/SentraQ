@@ -1,11 +1,11 @@
 #tag WebPage
-Begin WebDialog DialogYesNo
+Begin WebDialog DialogCreatePasskey
    Compatibility   =   ""
    ControlCount    =   0
    ControlID       =   ""
    CSSClasses      =   ""
    Enabled         =   True
-   Height          =   230
+   Height          =   445
    Index           =   -2147483648
    Indicator       =   0
    LayoutDirection =   0
@@ -22,22 +22,125 @@ Begin WebDialog DialogYesNo
    TabIndex        =   0
    Top             =   0
    Visible         =   True
-   Width           =   400
+   Width           =   560
    _mDesignHeight  =   0
    _mDesignWidth   =   0
    _mPanelIndex    =   -1
+   Begin WebLabel Label1
+      Bold            =   False
+      ControlID       =   ""
+      CSSClasses      =   ""
+      Enabled         =   True
+      FontName        =   ""
+      FontSize        =   0.0
+      Height          =   38
+      HTMLElement     =   4
+      Index           =   -2147483648
+      Indicator       =   0
+      Italic          =   False
+      Left            =   50
+      LockBottom      =   False
+      LockedInPosition=   True
+      LockHorizontal  =   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      LockVertical    =   False
+      Multiline       =   False
+      PanelIndex      =   0
+      Scope           =   2
+      TabIndex        =   0
+      TabStop         =   True
+      Text            =   "Persönlichem Passkey erstellen"
+      TextAlignment   =   0
+      TextColor       =   &c000000FF
+      Tooltip         =   ""
+      Top             =   30
+      Underline       =   False
+      Visible         =   True
+      Width           =   500
+      _mPanelIndex    =   -1
+   End
+   Begin WebTextField tbUserName
+      AllowAutoComplete=   False
+      AllowSpellChecking=   False
+      Caption         =   "Benutzername"
+      ControlID       =   ""
+      CSSClasses      =   ""
+      Enabled         =   True
+      FieldType       =   0
+      Height          =   62
+      Hint            =   ""
+      Index           =   -2147483648
+      Indicator       =   ""
+      Left            =   50
+      LockBottom      =   False
+      LockedInPosition=   True
+      LockHorizontal  =   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      LockVertical    =   False
+      MaximumCharactersAllowed=   100
+      PanelIndex      =   0
+      ReadOnly        =   False
+      Scope           =   2
+      TabIndex        =   1
+      TabStop         =   True
+      Text            =   ""
+      TextAlignment   =   0
+      Tooltip         =   ""
+      Top             =   190
+      Visible         =   True
+      Width           =   314
+      _mPanelIndex    =   -1
+   End
+   Begin WebTextField tbPassword
+      AllowAutoComplete=   False
+      AllowSpellChecking=   False
+      Caption         =   "Passwort"
+      ControlID       =   ""
+      CSSClasses      =   ""
+      Enabled         =   True
+      FieldType       =   1
+      Height          =   62
+      Hint            =   ""
+      Index           =   -2147483648
+      Indicator       =   ""
+      Left            =   50
+      LockBottom      =   False
+      LockedInPosition=   True
+      LockHorizontal  =   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      LockVertical    =   False
+      MaximumCharactersAllowed=   100
+      PanelIndex      =   0
+      ReadOnly        =   False
+      Scope           =   2
+      TabIndex        =   2
+      TabStop         =   True
+      Text            =   ""
+      TextAlignment   =   0
+      Tooltip         =   ""
+      Top             =   265
+      Visible         =   True
+      Width           =   314
+      _mPanelIndex    =   -1
+   End
    Begin WebButton btnOk
       AllowAutoDisable=   False
       Cancel          =   False
-      Caption         =   "Ja"
+      Caption         =   "OK"
       ControlID       =   ""
-      CSSClasses      =   "small"
+      CSSClasses      =   ""
       Default         =   True
       Enabled         =   True
-      Height          =   30
+      Height          =   38
       Index           =   -2147483648
       Indicator       =   1
-      Left            =   95
+      Left            =   50
       LockBottom      =   False
       LockedInPosition=   True
       LockHorizontal  =   False
@@ -48,10 +151,10 @@ Begin WebDialog DialogYesNo
       Outlined        =   False
       PanelIndex      =   0
       Scope           =   2
-      TabIndex        =   0
+      TabIndex        =   3
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   175
+      Top             =   370
       Visible         =   True
       Width           =   100
       _mPanelIndex    =   -1
@@ -59,15 +162,15 @@ Begin WebDialog DialogYesNo
    Begin WebButton btnCancel
       AllowAutoDisable=   False
       Cancel          =   True
-      Caption         =   "Nein"
+      Caption         =   "Abbruch"
       ControlID       =   ""
-      CSSClasses      =   "small"
+      CSSClasses      =   ""
       Default         =   False
       Enabled         =   True
-      Height          =   30
+      Height          =   38
       Index           =   -2147483648
       Indicator       =   0
-      Left            =   205
+      Left            =   180
       LockBottom      =   False
       LockedInPosition=   True
       LockHorizontal  =   False
@@ -78,29 +181,29 @@ Begin WebDialog DialogYesNo
       Outlined        =   False
       PanelIndex      =   0
       Scope           =   2
-      TabIndex        =   1
+      TabIndex        =   4
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   175
+      Top             =   370
       Visible         =   True
-      Width           =   100
+      Width           =   120
       _mPanelIndex    =   -1
    End
-   Begin WebLabel lbMessage
+   Begin WebLabel Label2
       Bold            =   False
       ControlID       =   ""
       CSSClasses      =   "small"
       Enabled         =   True
       FontName        =   ""
       FontSize        =   0.0
-      Height          =   120
+      Height          =   85
       HTMLElement     =   0
       Index           =   -2147483648
-      Indicator       =   0
+      Indicator       =   ""
       Italic          =   False
-      Left            =   40
+      Left            =   50
       LockBottom      =   False
-      LockedInPosition=   False
+      LockedInPosition=   True
       LockHorizontal  =   False
       LockLeft        =   True
       LockRight       =   False
@@ -109,71 +212,25 @@ Begin WebDialog DialogYesNo
       Multiline       =   True
       PanelIndex      =   0
       Scope           =   2
-      TabIndex        =   2
+      TabIndex        =   5
       TabStop         =   True
-      Text            =   "Frage?"
-      TextAlignment   =   1
+      Text            =   "Geben Sie Ihren Benutzernamen und Ihr Passwort ein, um Ihren persönlichen Passkey für diese Anwendung zu erstellen. Sie erhalten einen individuellen Code an die hinterlegte E-Mail Adresse und können damit den Passkey anlegen."
+      TextAlignment   =   0
       TextColor       =   &c000000FF
       Tooltip         =   ""
-      Top             =   40
+      Top             =   80
       Underline       =   False
       Visible         =   True
-      Width           =   330
+      Width           =   460
       _mPanelIndex    =   -1
    End
 End
 #tag EndWebPage
 
 #tag WindowCode
-	#tag Event
-		Sub Dismissed()
-		  If OkClicked Then
-		    RaiseEvent YesClicked(Self.Tag)
-		  Else
-		    RaiseEvent NoClicked(Self.Tag)
-		  End
-		End Sub
-	#tag EndEvent
-
-
-	#tag Method, Flags = &h21
-		Private Sub Show()
-		  // Calling the overridden superclass method.
-		  Super.Show()
-		  
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Sub Show(message as string, tag as Variant = "")
-		  btnCancel.Enabled = True
-		  btnOk.Enabled = True
-		  lbMessage.Text = message
-		  Self.Tag = tag
-		  Self.OkClicked = false
-		  
-		  // Calling the overridden superclass method.
-		  Super.Show()
-		End Sub
-	#tag EndMethod
-
-
 	#tag Hook, Flags = &h0
-		Event NoClicked(tag as Variant)
+		Event OkPressed(username as string, password as string)
 	#tag EndHook
-
-	#tag Hook, Flags = &h0
-		Event YesClicked(tag as Variant)
-	#tag EndHook
-
-
-	#tag Property, Flags = &h21
-		Private OkClicked As Boolean
-	#tag EndProperty
-
-	#tag Property, Flags = &h21
-		Private Tag As Variant
-	#tag EndProperty
 
 
 #tag EndWindowCode
@@ -181,17 +238,13 @@ End
 #tag Events btnOk
 	#tag Event
 		Sub Pressed()
-		  btnCancel.Enabled = False
-		  btnOk.Enabled = False
-		  OkClicked = True
-		  Self.Close
+		  RaiseEvent OkPressed(tbUserName.Text, tbPassword.Text)
 		End Sub
 	#tag EndEvent
 #tag EndEvents
 #tag Events btnCancel
 	#tag Event
 		Sub Pressed()
-		  OkClicked = False
 		  Self.Close
 		End Sub
 	#tag EndEvent
@@ -202,34 +255,6 @@ End
 		Visible=false
 		Group="Behavior"
 		InitialValue=""
-		Type="Integer"
-		EditorType=""
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="Position"
-		Visible=true
-		Group="Position"
-		InitialValue="0"
-		Type="WebDialog.Positions"
-		EditorType="Enum"
-		#tag EnumValues
-			"0 - Top"
-			"1 - Center"
-		#tag EndEnumValues
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="ControlCount"
-		Visible=false
-		Group="Behavior"
-		InitialValue=""
-		Type="Integer"
-		EditorType=""
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="_mPanelIndex"
-		Visible=false
-		Group="Behavior"
-		InitialValue="-1"
 		Type="Integer"
 		EditorType=""
 	#tag EndViewProperty
@@ -270,6 +295,34 @@ End
 		Visible=true
 		Group="Position"
 		InitialValue="0"
+		Type="Integer"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="Position"
+		Visible=true
+		Group="Position"
+		InitialValue="0"
+		Type="WebDialog.Positions"
+		EditorType="Enum"
+		#tag EnumValues
+			"0 - Top"
+			"1 - Center"
+		#tag EndEnumValues
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="ControlCount"
+		Visible=false
+		Group="Behavior"
+		InitialValue=""
+		Type="Integer"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="_mPanelIndex"
+		Visible=false
+		Group="Behavior"
+		InitialValue="-1"
 		Type="Integer"
 		EditorType=""
 	#tag EndViewProperty

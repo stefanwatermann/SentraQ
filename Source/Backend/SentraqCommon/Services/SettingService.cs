@@ -92,6 +92,9 @@ public class SettingService
         
         if (!string.IsNullOrWhiteSpace(s))
             return (T) Convert.ChangeType(s, typeof(T));
+
+        if (defaultValue == null)
+            throw new KeyNotFoundException($"Setting {key} is not set and does not have a default value. Please add {key} to the settings-table.");
         
         return defaultValue;
     }

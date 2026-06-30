@@ -46,10 +46,17 @@ public class UserController(
     }
 
     [RequireAuthorizationKey]
-    [HttpPost("loggedOn/{login}")]
-    public void LoggedOn(string login)
+    [HttpPost("loggedOn/up/{login}")]
+    public void LoggedOnUp(string login)
     {
-        userService.LoggedOn(login.Sanitize(10));
+        userService.LoggedOn(login.Sanitize(10), "username/password");
+    }
+    
+    [RequireAuthorizationKey]
+    [HttpPost("loggedOn/pk/{login}")]
+    public void LoggedOnPk(string login)
+    {
+        userService.LoggedOn(login.Sanitize(10), "passkey");
     }
 
     [RequireAuthorizationKey]

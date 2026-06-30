@@ -1,9 +1,10 @@
-using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
 namespace SentraqModels.Data;
 
 [Table("vEventDataExport")]
+[Keyless]
 public class EventDataExport
 {
     public required string StationName { get; init; }
@@ -16,7 +17,6 @@ public class EventDataExport
     
     public required string ComponentType { get; init; }
     
-    [Key]
     public required DateTime Received { get; init; }
     
     public string? Unit { get; init; }

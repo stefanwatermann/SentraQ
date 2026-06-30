@@ -1,5 +1,5 @@
 #tag WebPage
-Begin LobBase.LobWebPage PageStationView
+Begin LobBase.LobWebPage PageSyslog
    AllowTabOrderWrap=   True
    Compatibility   =   ""
    ControlCount    =   0
@@ -20,13 +20,13 @@ Begin LobBase.LobWebPage PageStationView
    LockRight       =   False
    LockTop         =   True
    LockVertical    =   False
-   MinimumHeight   =   400
-   MinimumWidth    =   680
+   MinimumHeight   =   600
+   MinimumWidth    =   800
    PanelIndex      =   0
    RequiresAuthenticatedUser=   True
    ScaleFactor     =   0.0
    TabIndex        =   0
-   Title           =   "Stationen"
+   Title           =   "Syslog"
    Top             =   0
    Visible         =   True
    Width           =   800
@@ -34,149 +34,35 @@ Begin LobBase.LobWebPage PageStationView
    _mDesignHeight  =   0
    _mDesignWidth   =   0
    _mPanelIndex    =   -1
-   Begin WebRectangle leftPanel
-      BorderColor     =   &c000000FF
-      BorderThickness =   0
+   Begin FooterContainer FooterContainer1
       ControlCount    =   0
       ControlID       =   ""
-      CornerSize      =   0
       CSSClasses      =   ""
       Enabled         =   True
-      FillColor       =   &cFFFFFF
-      HasFillColor    =   True
-      Height          =   520
+      Height          =   30
       Index           =   -2147483648
-      Indicator       =   ""
-      LayoutDirection =   "LayoutDirections.LeftToRight"
-      LayoutType      =   "LayoutTypes.Fixed"
+      Indicator       =   0
+      LayoutDirection =   0
+      LayoutType      =   0
       Left            =   0
       LockBottom      =   True
       LockedInPosition=   True
       LockHorizontal  =   False
       LockLeft        =   True
-      LockRight       =   False
-      LockTop         =   True
-      LockVertical    =   False
-      PanelIndex      =   0
-      Scope           =   2
-      TabIndex        =   3
-      TabStop         =   True
-      Tooltip         =   ""
-      Top             =   80
-      Visible         =   True
-      Width           =   220
-      _mDesignHeight  =   0
-      _mDesignWidth   =   0
-      _mPanelIndex    =   -1
-      Begin StationsListContainer StationListContainer1
-         ControlCount    =   0
-         ControlID       =   ""
-         CSSClasses      =   ""
-         Enabled         =   True
-         Height          =   470
-         Index           =   -2147483648
-         Indicator       =   0
-         InitialParent   =   "leftPanel"
-         LayoutDirection =   0
-         LayoutType      =   0
-         Left            =   0
-         LockBottom      =   True
-         LockedInPosition=   True
-         LockHorizontal  =   False
-         LockLeft        =   True
-         LockRight       =   False
-         LockTop         =   True
-         LockVertical    =   False
-         PanelIndex      =   0
-         Parent          =   "leftPanel"
-         Scope           =   2
-         ScrollDirection =   0
-         TabIndex        =   0
-         TabPanelIndex   =   0
-         TabStop         =   True
-         Tooltip         =   ""
-         Top             =   80
-         Visible         =   True
-         Width           =   220
-         _mDesignHeight  =   0
-         _mDesignWidth   =   0
-         _mPanelIndex    =   -1
-      End
-      Begin WebButton btnExport
-         AllowAutoDisable=   False
-         Cancel          =   False
-         Caption         =   " Exportieren..."
-         ControlID       =   ""
-         CSSClasses      =   "border-0 small bi bi-download btn-white"
-         Default         =   False
-         Enabled         =   True
-         Height          =   30
-         Index           =   -2147483648
-         Indicator       =   0
-         Left            =   15
-         LockBottom      =   True
-         LockedInPosition=   True
-         LockHorizontal  =   False
-         LockLeft        =   True
-         LockRight       =   False
-         LockTop         =   False
-         LockVertical    =   False
-         Outlined        =   False
-         PanelIndex      =   0
-         Parent          =   "leftPanel"
-         Scope           =   2
-         TabIndex        =   1
-         TabPanelIndex   =   0
-         TabStop         =   True
-         Tooltip         =   ""
-         Top             =   560
-         Visible         =   True
-         Width           =   150
-         _mPanelIndex    =   -1
-      End
-   End
-   Begin StationViewContainer StationViewContainer1
-      ControlCount    =   0
-      ControlID       =   ""
-      CSSClasses      =   ""
-      Enabled         =   True
-      Height          =   490
-      Index           =   -2147483648
-      Indicator       =   0
-      LayoutDirection =   0
-      LayoutType      =   0
-      Left            =   220
-      LockBottom      =   True
-      LockedInPosition=   True
-      LockHorizontal  =   False
-      LockLeft        =   True
       LockRight       =   True
-      LockTop         =   True
+      LockTop         =   False
       LockVertical    =   False
       PanelIndex      =   0
       Scope           =   2
-      ScrollDirection =   2
-      ShowDebugLog    =   "True"
-      TabIndex        =   4
+      ScrollDirection =   0
+      TabIndex        =   0
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   80
+      Top             =   570
       Visible         =   True
-      Width           =   580
+      Width           =   800
       _mDesignHeight  =   0
       _mDesignWidth   =   0
-      _mPanelIndex    =   -1
-   End
-   Begin WebTimer RefreshDataTimer
-      ControlID       =   ""
-      Enabled         =   True
-      Index           =   -2147483648
-      Location        =   0
-      LockedInPosition=   False
-      PanelIndex      =   0
-      Period          =   5000
-      RunMode         =   2
-      Scope           =   2
       _mPanelIndex    =   -1
    End
    Begin HeaderContainer HeaderContainer1
@@ -200,7 +86,7 @@ Begin LobBase.LobWebPage PageStationView
       PanelIndex      =   0
       Scope           =   2
       ScrollDirection =   0
-      TabIndex        =   5
+      TabIndex        =   1
       TabStop         =   True
       Tooltip         =   ""
       Top             =   0
@@ -210,128 +96,227 @@ Begin LobBase.LobWebPage PageStationView
       _mDesignWidth   =   0
       _mPanelIndex    =   -1
    End
-   Begin FooterContainer FooterContainer1
-      ControlCount    =   0
+   Begin WebListBox lbData
+      AllowRowReordering=   False
+      ColumnCount     =   1
+      ColumnWidths    =   "*"
       ControlID       =   ""
-      CSSClasses      =   ""
+      CSSClasses      =   "small"
+      DefaultRowHeight=   30
       Enabled         =   True
-      Height          =   30
+      GridLineStyle   =   2
+      HasBorder       =   False
+      HasHeader       =   False
+      HeaderHeight    =   0
+      Height          =   420
+      HighlightSortedColumn=   True
       Index           =   -2147483648
       Indicator       =   0
-      LayoutDirection =   0
-      LayoutType      =   0
-      Left            =   190
+      InitialValue    =   ""
+      LastAddedRowIndex=   0
+      LastColumnIndex =   0
+      LastRowIndex    =   0
+      Left            =   5
       LockBottom      =   True
       LockedInPosition=   True
       LockHorizontal  =   False
       LockLeft        =   True
       LockRight       =   True
-      LockTop         =   False
+      LockTop         =   True
       LockVertical    =   False
+      NoRowsMessage   =   "Keine Daten"
       PanelIndex      =   0
+      ProcessingMessage=   ""
+      RowCount        =   0
+      RowSelectionType=   1
       Scope           =   2
-      ScrollDirection =   0
-      TabIndex        =   1
+      SearchCriteria  =   ""
+      SelectedRowColor=   &c0096FFAC
+      SelectedRowIndex=   0
+      TabIndex        =   3
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   570
+      Top             =   150
       Visible         =   True
-      Width           =   420
-      _mDesignHeight  =   0
-      _mDesignWidth   =   0
+      Width           =   790
       _mPanelIndex    =   -1
    End
-   Begin DialogExport DialogExport1
-      ControlCount    =   0
+   Begin WebPopupMenu cbLoadRows
+      ControlID       =   ""
+      CSSClasses      =   "small"
+      Enabled         =   True
+      Height          =   38
+      Index           =   -2147483648
+      Indicator       =   0
+      InitialValue    =   "500\n1000\n5000\n10000"
+      LastAddedRowIndex=   0
+      LastRowIndex    =   0
+      Left            =   690
+      LockBottom      =   False
+      LockedInPosition=   True
+      LockHorizontal  =   False
+      LockLeft        =   False
+      LockRight       =   True
+      LockTop         =   True
+      LockVertical    =   False
+      PanelIndex      =   0
+      RowCount        =   0
+      Scope           =   2
+      SelectedRowIndex=   0
+      SelectedRowText =   ""
+      TabIndex        =   5
+      TabStop         =   True
+      Tooltip         =   ""
+      Top             =   100
+      Visible         =   True
+      Width           =   80
+      _mPanelIndex    =   -1
+   End
+   Begin WebTimer Timer1
+      ControlID       =   ""
+      Enabled         =   False
+      Index           =   -2147483648
+      Location        =   0
+      LockedInPosition=   False
+      PanelIndex      =   0
+      Period          =   10000
+      RunMode         =   2
+      Scope           =   2
+      _mPanelIndex    =   -1
+   End
+   Begin WebSwitch swAutoRefresh
+      Caption         =   ""
       ControlID       =   ""
       CSSClasses      =   ""
       Enabled         =   True
-      Height          =   420
+      Height          =   34
+      Indeterminate   =   False
       Index           =   -2147483648
       Indicator       =   0
-      LayoutDirection =   0
-      LayoutType      =   0
-      Left            =   0
+      Left            =   540
       LockBottom      =   False
-      LockedInPosition=   False
+      LockedInPosition=   True
       LockHorizontal  =   False
       LockLeft        =   False
-      LockRight       =   False
-      LockTop         =   False
+      LockRight       =   True
+      LockTop         =   True
       LockVertical    =   False
       PanelIndex      =   0
-      Position        =   1
-      Scope           =   2
-      TabIndex        =   6
-      TabStop         =   True
-      Tooltip         =   ""
-      Top             =   0
-      Visible         =   True
-      Width           =   700
-      _mDesignHeight  =   0
-      _mDesignWidth   =   0
-      _mPanelIndex    =   -1
-   End
-   Begin DialogExportRun DialogRunExport1
-      ControlCount    =   0
-      ControlID       =   ""
-      CSSClasses      =   ""
-      Enabled         =   True
-      Height          =   200
-      Index           =   -2147483648
-      Indicator       =   0
-      LayoutDirection =   0
-      LayoutType      =   0
-      Left            =   0
-      LockBottom      =   False
-      LockedInPosition=   False
-      LockHorizontal  =   False
-      LockLeft        =   False
-      LockRight       =   False
-      LockTop         =   False
-      LockVertical    =   False
-      PanelIndex      =   0
-      Position        =   1
-      Scope           =   2
-      TabIndex        =   7
-      TabStop         =   True
-      Tooltip         =   ""
-      Top             =   0
-      Visible         =   True
-      Width           =   400
-      _mDesignHeight  =   0
-      _mDesignWidth   =   0
-      _mPanelIndex    =   -1
-   End
-   Begin DialogExportDownload DialogExportDownload1
-      ControlCount    =   0
-      ControlID       =   ""
-      CSSClasses      =   ""
-      Enabled         =   True
-      Height          =   140
-      Index           =   -2147483648
-      Indicator       =   0
-      LayoutDirection =   0
-      LayoutType      =   0
-      Left            =   0
-      LockBottom      =   False
-      LockedInPosition=   False
-      LockHorizontal  =   False
-      LockLeft        =   False
-      LockRight       =   False
-      LockTop         =   False
-      LockVertical    =   False
-      PanelIndex      =   0
-      Position        =   1
       Scope           =   2
       TabIndex        =   8
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   0
+      Top             =   102
+      Value           =   False
       Visible         =   True
-      Width           =   400
-      _mDesignHeight  =   0
-      _mDesignWidth   =   0
+      Width           =   50
+      _mPanelIndex    =   -1
+   End
+   Begin WebLabel Label1
+      Bold            =   False
+      ControlID       =   ""
+      CSSClasses      =   "small"
+      Enabled         =   True
+      FontName        =   ""
+      FontSize        =   0.0
+      Height          =   38
+      HTMLElement     =   0
+      Index           =   -2147483648
+      Indicator       =   0
+      Italic          =   False
+      Left            =   590
+      LockBottom      =   False
+      LockedInPosition=   True
+      LockHorizontal  =   False
+      LockLeft        =   False
+      LockRight       =   True
+      LockTop         =   True
+      LockVertical    =   False
+      Multiline       =   False
+      PanelIndex      =   0
+      Scope           =   2
+      TabIndex        =   9
+      TabStop         =   True
+      Text            =   "Auto-Refresh"
+      TextAlignment   =   0
+      TextColor       =   &c000000FF
+      Tooltip         =   ""
+      Top             =   100
+      Underline       =   False
+      Visible         =   True
+      Width           =   100
+      _mPanelIndex    =   -1
+   End
+   Begin WebSearchField tbSearch
+      ControlID       =   ""
+      CSSClasses      =   ""
+      Enabled         =   True
+      Height          =   38
+      Hint            =   "Filter"
+      Index           =   -2147483648
+      Indicator       =   0
+      Left            =   30
+      LockBottom      =   False
+      LockedInPosition=   True
+      LockHorizontal  =   False
+      LockLeft        =   True
+      LockRight       =   True
+      LockTop         =   True
+      LockVertical    =   False
+      PanelIndex      =   0
+      Scope           =   2
+      TabIndex        =   4
+      TabStop         =   True
+      Text            =   "Sentraq"
+      Tooltip         =   ""
+      Top             =   102
+      Visible         =   True
+      Width           =   460
+      _mPanelIndex    =   -1
+   End
+   Begin Shell Shell1
+      Arguments       =   ""
+      Backend         =   ""
+      Canonical       =   False
+      Enabled         =   True
+      ExecuteMode     =   1
+      ExitCode        =   0
+      Index           =   -2147483648
+      IsRunning       =   False
+      LockedInPosition=   False
+      PID             =   0
+      Result          =   ""
+      Scope           =   2
+      TabIndex        =   10
+      TabStop         =   True
+      TimeOut         =   2000
+   End
+   Begin WebProgressWheel ProgressWheel1
+      Colorize        =   True
+      ControlID       =   ""
+      CSSClasses      =   ""
+      Enabled         =   True
+      Height          =   18
+      Index           =   -2147483648
+      Indicator       =   ""
+      Left            =   500
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockHorizontal  =   False
+      LockLeft        =   False
+      LockRight       =   True
+      LockTop         =   True
+      LockVertical    =   False
+      PanelIndex      =   0
+      Scope           =   2
+      SVGColor        =   &c00905100
+      SVGData         =   ""
+      TabIndex        =   10
+      TabStop         =   True
+      Tooltip         =   ""
+      Top             =   105
+      Visible         =   False
+      Width           =   18
       _mPanelIndex    =   -1
    End
 End
@@ -339,144 +324,122 @@ End
 
 #tag WindowCode
 	#tag Event
-		Sub Opening()
-		  RefreshDataTimer.Period = App.ConfigValue("FrontendRefresh.PeriodSec", 5).IntegerValue * 1000
+		Sub Shown()
+		  PopulateData
 		End Sub
 	#tag EndEvent
 
 
 	#tag Method, Flags = &h21
-		Private Function CreateContainerInstance(base as WebContainer) As WebContainer
-		  // a fresh instance is needed because otherwise containers wil 
-		  // not be removed correctly by Self.RemoveControl(ctrl) in EmbedViewContainer() (Xojo Bug?)
-		  Var instance As IEmbeddableViewContainer = IEmbeddableViewContainer(base)
-		  Var type As Introspection.TypeInfo = Introspection.GetType(instance)
-		  Var constr() As Introspection.ConstructorInfo = type.GetConstructors
-		  
-		  If constr.Count = 1 Then
-		    // call parameterless default constructor 
-		    Return constr(0).Invoke()
-		  Else
-		    // call second constructor that needs to have one parameter of type variant
-		    // see interface IPartnerAdminContainer.Data
-		    Var params() As Variant
-		    params.Add(instance.GetParam)
-		    Return constr(1).Invoke(params)
-		  End
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h21
-		Private Sub EmbedViewContainer(cnt as WebContainer, position as Point)
-		  RemoveAllEmbeddableViewContainer()
-		  
-		  Var c As WebContainer = CreateContainerInstance(cnt)
-		  
-		  Var x As Integer = position.X
-		  Var y As Integer = position.Y
-		  Var w As Integer = c.Width
-		  Var h As Integer = c.Height
-		  
-		  c.LockLeft = True
-		  c.LockRight = True
-		  c.LockTop = True
-		  c.LockBottom = True
-		  c.EmbedWithin(Self, x, y, w, h)
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h21
-		Private Sub RemoveAllEmbeddableViewContainer()
-		  For Each ctrl As WebUiControl In Self.Controls
-		    If ctrl IsA IEmbeddableViewContainer Then
-		      Self.RemoveControl(ctrl)
-		    End
-		  Next 
+		Private Sub PopulateData()
+		  ProgressWheel1.Visible = True
+		  Shell1.Execute(ShellCommand.Replace("{filter}", Filter).Replace("{limit}", Limit))
 		End Sub
 	#tag EndMethod
 
 
-	#tag Constant, Name = kStationListMaxWidth, Type = Double, Dynamic = False, Default = \"220", Scope = Private
-	#tag EndConstant
+	#tag ComputedProperty, Flags = &h21
+		#tag Getter
+			Get
+			  return tbSearch.Text.Left(1000)
+			End Get
+		#tag EndGetter
+		Private Filter As String
+	#tag EndComputedProperty
 
-	#tag Constant, Name = kStationListMinWidth, Type = Double, Dynamic = False, Default = \"53", Scope = Private
-	#tag EndConstant
+	#tag Property, Flags = &h21
+		Private LastSelectedDataIndex As Integer
+	#tag EndProperty
+
+	#tag ComputedProperty, Flags = &h21
+		#tag Getter
+			Get
+			  return cbLoadRows.SelectedRowText.left(4)
+			End Get
+		#tag EndGetter
+		Private Limit As String
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h21
+		#tag Getter
+			Get
+			  Return App.ConfigValue("Systemlog.ShellCommand", "journalctl -n {limit} -r --no-pager --no-hostname -q | grep '{filter}'").StringValue
+			End Get
+		#tag EndGetter
+		Private ShellCommand As String
+	#tag EndComputedProperty
 
 
 #tag EndWindowCode
 
-#tag Events StationListContainer1
+#tag Events lbData
 	#tag Event
-		Sub SelectedStationChanged(station as StationModel)
-		  StationViewContainer1.SetStation(station)
-		  
-		  // update url with selected station
-		  Var hashtag As String = DecodeURLComponent(Session.Hashtag)
-		  If Not hashtag.Contains(",") Then
-		    Session.Hashtag = hashtag + "," + station.Uid
-		  Else
-		    Session.Hashtag = hashtag.NthField(",", 1) + "," + station.Uid
-		  End
-		  
+		Sub SelectionChanged(rows() As Integer)
+		  LastSelectedDataIndex = me.SelectedRowIndex
 		End Sub
 	#tag EndEvent
 	#tag Event
-		Sub ChangeSizeClicked()
-		  Var w As Integer = kStationListMaxWidth
-		  
-		  If Me.Width > kStationListMinWidth Then
-		    w = kStationListMinWidth
-		  End
-		  
-		  Me.Width = w
-		  leftPanel.Width = w
-		  StationViewContainer1.Left = w
-		  StationViewContainer1.Width = Self.Width - w
-		End Sub
-	#tag EndEvent
-	#tag Event
-		Sub Shown()
-		  Var station As StationModel = App.DataSvc.GetCachedStationByUid(Session.CurrentSelectedStationUid)
-		  
-		  If station = Nil And app.DataSvc.Stations.Count > 0 Then
-		    station = App.DataSvc.Stations(0)
-		  End
-		  
-		  If station <> Nil Then
-		    Me.SelectStationByUid(station.Uid)
-		    StationViewContainer1.SetStation(station)
-		  end
+		Sub DoublePressed(row As Integer, column As Integer)
+		  Var cellData As String = Me.CellTextAt(row, column)
+		  MessageBox("<raw><div style='font-size:0.9em;word-wrap:anywhere;'>" + cellData + "</div></raw>")
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events btnExport
+#tag Events cbLoadRows
 	#tag Event
-		Sub Pressed()
-		  DialogExport1.Show
+		Sub SelectionChanged(item As WebMenuItem)
+		  PopulateData
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events RefreshDataTimer
+#tag Events Timer1
 	#tag Event
 		Sub Run()
-		  StationListContainer1.RefreshData
-		  StationViewContainer1.RefreshData
+		  PopulateData
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events DialogExport1
+#tag Events swAutoRefresh
 	#tag Event
-		Sub Export(dtFrom as DateTime, dtTo as DateTime, componentTypes() as string, stations() as string)
-		  DialogRunExport1.Show(dtFrom, dtTo, componentTypes, stations)
+		Sub ValueChanged()
+		  Timer1.Enabled = me.Value
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events DialogRunExport1
+#tag Events tbSearch
 	#tag Event
-		Sub ExportDataReady(data as MemoryBlock)
-		  me.Visible = false
-		  Log.Info("Export data received, now showing download dialog.", CurrentMethodName)
-		  DialogExportDownload1.Show(data)
+		Sub Pressed()
+		  PopulateData
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events Shell1
+	#tag Event
+		Sub Completed()
+		  lbData.RemoveAllRows
+		  
+		  Var rows() As String = Me.ReadAll.Split(EndOfLine)
+		  
+		  If rows.Count > 0 Then
+		    For Each row As String In rows
+		      lbData.AddRow()
+		      var style as new WebStyle
+		      If row.Contains(" err") or row.Contains(" fail") Then
+		        style.ForegroundColor = &c94110000
+		      ElseIf row.Contains(" inf") Then
+		        style.ForegroundColor = &c00549300
+		      end
+		      var cr as new WebListBoxStyleRenderer(style, row)
+		      lbData.CellRendererAt(lbData.LastAddedRowIndex, 0) = cr
+		    Next
+		  End
+		  
+		  ProgressWheel1.Visible = False
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub DataAvailable()
+		  me.Close
 		End Sub
 	#tag EndEvent
 #tag EndEvents

@@ -99,14 +99,14 @@ Begin WebContainer ComponentCounterViewContainer Implements IEmbeddableViewConta
    Begin WebButton btnInfo
       AllowAutoDisable=   False
       Cancel          =   False
-      Caption         =   "i"
+      Caption         =   ""
       ControlID       =   ""
-      CSSClasses      =   "border-0"
+      CSSClasses      =   "border-0 bi bi-info-circle text-secondary"
       Default         =   False
       Enabled         =   True
       Height          =   30
       Index           =   -2147483648
-      Indicator       =   0
+      Indicator       =   7
       Left            =   145
       LockBottom      =   False
       LockedInPosition=   True

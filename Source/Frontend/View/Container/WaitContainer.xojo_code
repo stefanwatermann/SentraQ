@@ -100,10 +100,10 @@ Begin WebContainer WaitContainer
             ControlID       =   ""
             CSSClasses      =   ""
             Enabled         =   True
-            Height          =   38
+            Height          =   30
             Index           =   -2147483648
             Indicator       =   ""
-            Left            =   35
+            Left            =   45
             LockBottom      =   False
             LockedInPosition=   True
             LockHorizontal  =   False
@@ -120,9 +120,9 @@ Begin WebContainer WaitContainer
             TabPanelIndex   =   0
             TabStop         =   True
             Tooltip         =   ""
-            Top             =   107
+            Top             =   110
             Visible         =   True
-            Width           =   38
+            Width           =   30
             _mPanelIndex    =   -1
          End
          Begin WebLabel Label1

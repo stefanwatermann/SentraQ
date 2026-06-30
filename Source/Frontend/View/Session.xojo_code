@@ -83,7 +83,7 @@ Inherits WebSession
 		    Self.CurrentSelectedStationUid = ""
 		  End
 		  
-		  return ht
+		  return ht.Lowercase
 		End Function
 	#tag EndMethod
 
@@ -136,7 +136,9 @@ Inherits WebSession
 		  Self.PageHandler.RegisterPage(PageNoAccess, "403")
 		  Self.PageHandler.RegisterPage(PagePasswordReset, "pset")
 		  Self.PageHandler.RegisterPage(PagePasskeyRegistration, "pkreg")
-		  Self.PageHandler.RegisterPage(PageExport, "export")
+		  Self.PageHandler.RegisterPage(PageSupportInfo, "support")
+		  Self.PageHandler.RegisterPage(PageTables, "tables")
+		  Self.PageHandler.RegisterPage(PageSyslog, "syslog")
 		End Sub
 	#tag EndMethod
 
@@ -174,6 +176,12 @@ Inherits WebSession
 		    Self.Logoff
 		    
 		  Else
+		    // page "Tables" requires admin roghts
+		    If (ht = "tables" or ht = "syslog") and Session.Authenticator.CurrentUserRole <> "ADM" Then
+		      Session.CurrentPage = PageNoAccess
+		      return
+		    End
+		    
 		    // navigate to selected page (by hashtag)
 		    Self.PageHandler.ShowPage(ht)
 		    
@@ -205,13 +213,15 @@ Inherits WebSession
 
 	#tag Method, Flags = &h21
 		Private Sub ShowWaitIndicator(visible as Boolean)
-		  For Each ctrl As WebUiControl In Self.CurrentPage.Controls
-		    If ctrl IsA WaitContainer Then
-		      ctrl.Visible = visible
-		      ctrl.UpdateBrowser
-		      Exit
-		    End
-		  Next
+		  if self.CurrentPage <> nil then
+		    For Each ctrl As WebUiControl In Self.CurrentPage.Controls
+		      If ctrl IsA WaitContainer Then
+		        ctrl.Visible = visible
+		        ctrl.UpdateBrowser
+		        Exit
+		      End
+		    Next
+		  end
 		End Sub
 	#tag EndMethod
 
@@ -293,9 +303,30 @@ Inherits WebSession
 		CurrentUser As UserModel
 	#tag EndComputedProperty
 
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  If Session.SessionLocale = Nil then
+			    Session.SessionLocale = New Locale(Session.LanguageCode)
+			  End
+			  return SessionLocale
+			End Get
+		#tag EndGetter
+		Locale As Locale
+	#tag EndComputedProperty
+
 	#tag Property, Flags = &h21
 		Private PageHandler As LobBase.LobWebPageHandler
 	#tag EndProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  return If(Session.Domain = ".", "localhost", Session.Domain)   // Session Domain liefert wegen Cookies für localhost einen Punkt.
+			End Get
+		#tag EndGetter
+		PasskeyDomain As String
+	#tag EndComputedProperty
 
 	#tag Property, Flags = &h21
 		Private SecureSession As SecureBrowserSession
@@ -315,6 +346,10 @@ Inherits WebSession
 	#tag EndComputedProperty
 
 	#tag Property, Flags = &h21
+		Private SessionLocale As Locale
+	#tag EndProperty
+
+	#tag Property, Flags = &h21
 		Private SessionStartDt As DateTime
 	#tag EndProperty
 
@@ -322,6 +357,23 @@ Inherits WebSession
 		UserClientPrefs As UserClientPrefsModel
 	#tag EndProperty
 
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  Return Session.Cookies.Value(kAuthTypeCookieName) = "pk"
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  Session.Cookies.Set(kAuthTypeCookieName, if(value, "pk", "up"), nil, Self.Domain, "/", False, False, WebCookieManager.SameSiteStrength.Strict)
+			End Set
+		#tag EndSetter
+		WasPasskeyAuthentication As Boolean
+	#tag EndComputedProperty
+
+
+	#tag Constant, Name = kAuthTypeCookieName, Type = String, Dynamic = False, Default = \"auth-type", Scope = Private
+	#tag EndConstant
 
 	#tag Constant, Name = kMinClientWidth, Type = Double, Dynamic = False, Default = \"320", Scope = Private, Description = 4D696E696D756D2073697A65206F66207468652065787065637465642062726F777365722077696E646F772E
 	#tag EndConstant
@@ -591,6 +643,22 @@ Inherits WebSession
 			InitialValue=""
 			Type="String"
 			EditorType="MultiLineEditor"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="PasskeyDomain"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="String"
+			EditorType="MultiLineEditor"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="WasPasskeyAuthentication"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

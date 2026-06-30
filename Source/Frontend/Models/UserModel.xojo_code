@@ -30,6 +30,15 @@ Inherits JsonModelBase
 		PasskeyIdent As String
 	#tag EndProperty
 
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  return DecodeBase64(self.PasskeyIdent)
+			End Get
+		#tag EndGetter
+		Attributes( "#JsonIgnore" ) PasskeyIdentDecoded As String
+	#tag EndComputedProperty
+
 	#tag Property, Flags = &h0
 		Role As String = "USR"
 	#tag EndProperty
@@ -136,6 +145,22 @@ Inherits JsonModelBase
 			InitialValue=""
 			Type="String"
 			EditorType="MultiLineEditor"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="HasPasskey"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="Boolean"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="PasskeyIdent"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

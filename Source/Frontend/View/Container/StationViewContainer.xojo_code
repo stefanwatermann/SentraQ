@@ -58,40 +58,7 @@ Begin WebContainer StationViewContainer
       Top             =   5
       Underline       =   False
       Visible         =   True
-      Width           =   470
-      _mPanelIndex    =   -1
-   End
-   Begin ModelBinding.BindableWebPicture StationIcon
-      BindProperty    =   "Icon"
-      BorderColor     =   &c000000
-      BorderRadius    =   6
-      BorderSize      =   0
-      Centered        =   True
-      ControlID       =   ""
-      CSSClasses      =   ""
-      DiffEngineDisabled=   False
-      Enabled         =   True
-      Height          =   25
-      Index           =   -2147483648
-      Indicator       =   ""
-      Left            =   545
-      LockBottom      =   False
-      LockedInPosition=   True
-      LockHorizontal  =   False
-      LockLeft        =   False
-      LockRight       =   True
-      LockTop         =   True
-      LockVertical    =   False
-      PanelIndex      =   0
-      Scaled          =   True
-      Scope           =   2
-      TabIndex        =   1
-      TabStop         =   True
-      Tooltip         =   ""
-      Top             =   17
-      Value           =   0
-      Visible         =   True
-      Width           =   25
+      Width           =   503
       _mPanelIndex    =   -1
    End
    Begin StationViewComponentsContainer StationViewComponentsContainer1
@@ -128,23 +95,23 @@ Begin WebContainer StationViewContainer
    Begin WebButton btnInfo
       AllowAutoDisable=   False
       Cancel          =   False
-      Caption         =   "i"
+      Caption         =   ""
       ControlID       =   ""
-      CSSClasses      =   "border-0"
+      CSSClasses      =   "border-0 bi bi-info-circle text-secondary"
       Default         =   False
       Enabled         =   True
       Height          =   30
       Index           =   -2147483648
-      Indicator       =   0
-      Left            =   510
+      Indicator       =   7
+      Left            =   540
       LockBottom      =   False
-      LockedInPosition=   False
+      LockedInPosition=   True
       LockHorizontal  =   False
       LockLeft        =   False
       LockRight       =   True
       LockTop         =   True
       LockVertical    =   False
-      Outlined        =   True
+      Outlined        =   False
       PanelIndex      =   0
       Scope           =   2
       TabIndex        =   5
@@ -197,7 +164,7 @@ Begin WebContainer StationViewContainer
       Height          =   30
       Index           =   -2147483648
       Indicator       =   5
-      Left            =   260
+      Left            =   280
       LockBottom      =   False
       LockedInPosition=   True
       LockHorizontal  =   False
@@ -213,7 +180,7 @@ Begin WebContainer StationViewContainer
       Tooltip         =   ""
       Top             =   15
       Visible         =   False
-      Width           =   240
+      Width           =   250
       _mPanelIndex    =   -1
    End
    Begin DialogYesNo DialogYesNo1
@@ -274,7 +241,7 @@ End
 		Sub RefreshData()
 		  If MyStation <> Nil Then
 		    lbDisplayName.Text = MyStation.DisplayName
-		    StationIcon.Value = MyStation.CreateIcon
+		    //StationIcon.Value = MyStation.CreateIcon
 		    StationViewComponentsContainer1.RefreshData
 		    btnMaintenanceMode.Visible = MyStation.MaintenanceActive
 		    btnMaintenanceMode.Caption = "Wartung aktiv seit " + MyStation.MaintenanceActivePeriode
@@ -302,8 +269,6 @@ End
 
 #tag EndWindowCode
 
-#tag Events lbDisplayName
-#tag EndEvents
 #tag Events btnInfo
 	#tag Event
 		Sub Pressed()

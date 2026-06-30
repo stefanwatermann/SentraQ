@@ -13,21 +13,52 @@ Protected Module StationModelExtensions
 		    drawingColor  = Color.FromString(station.DisplayColor)
 		  End
 		  
-		  if  station.HasFaults then
-		    drawingColor = &cFF262500
-		  end
-		  
-		  If station.MaintenanceActive Then
-		    drawingColor = &cFFC10700
-		  end
-		  
 		  Var p As New Picture(w, h)
 		  Var g As Graphics = p.Graphics
 		  
-		  DrawPinIcon(g, drawingColor)
+		  If station.HasFaults Then
+		    DrawFaultIcon(g)
+		  elseIf station.MaintenanceActive Then
+		    DrawMaintenanceIcon(g)
+		  Else
+		    DrawPinIcon(g, drawingColor)
+		  End
 		  
 		  Return New WebPicture(p)
 		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Sub DrawFaultIcon(g as Graphics)
+		  Var h As Integer = g.Height 
+		  Var w As Integer = g.Width
+		  
+		  Var fx As New FigureShape
+		  fx.AddLine(0, h, w/2, 0)
+		  fx.AddLine(w/2, 0, w, h)
+		  fx.BorderOpacity = 100 ' opaque border
+		  fx.BorderColor = Color.White
+		  fx.BorderWidth = 3
+		  fx.FillColor = &cFF262500
+		  g.DrawObject(fx)
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Sub DrawMaintenanceIcon(g as Graphics)
+		  Var h As Integer = g.Height * 0.8
+		  Var w As Integer = g.Width * 0.8
+		  Var x As Integer = (g.Width - w) / 2
+		  Var y As Integer = (g.Height - h) / 2
+		  
+		  g.DrawingColor = &cFFC10700
+		  g.FillRectangle(x, y, w, h)
+		  
+		  g.DrawingColor = Color.White
+		  g.PenSize = 3
+		  g.DrawRectangle(x, y, w, h)
+		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
@@ -43,41 +74,6 @@ Protected Module StationModelExtensions
 		  g.DrawingColor = Color.White
 		  g.PenSize = 4
 		  g.DrawOval(x, y, w, h)
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h21
-		Private Sub DrawStationIcon(g as Graphics, drawingColor as Color)
-		  g.AntiAliased = True
-		  g.AntiAliasMode = Graphics.AntiAliasModes.HighQuality
-		  
-		  Var h As Integer = g.Height
-		  Var w As Integer = g.Width
-		  
-		  Var hRoof As Integer = h / 2.2
-		  Var hWall As Integer = h - hRoof
-		  Var dWall As Integer = w * 0.18
-		  Var wWall As Integer = w - 2*dWall
-		  
-		  // Wand
-		  g.DrawingColor = drawingColor
-		  g.FillRectangle(dWall, hRoof, wWall, hWall)
-		  
-		  // Rahmen
-		  g.PenSize = 1
-		  g.DrawingColor = &cFFFFFF00
-		  g.DrawRectangle(dWall, hRoof, wWall, hWall)
-		  
-		  // Dach
-		  Var roof As New FigureShape
-		  roof.AddLine(0, hRoof, w/2, 0)
-		  roof.AddLine(w/2, 0, w, hRoof)
-		  roof.AddLine(w, hRoof, 0, hRoof)
-		  roof.FillColor = drawingColor
-		  roof.BorderColor = &cEBEBEB00 //drawingColor
-		  roof.BorderWidth = 0
-		  g.DrawObject(roof)
-		  
 		End Sub
 	#tag EndMethod
 

@@ -1,55 +1,48 @@
 #tag WebPage
-Begin LobBase.LobWebPage PageExport
-   AllowTabOrderWrap=   True
+Begin WebDialog DialogExport
    Compatibility   =   ""
    ControlCount    =   0
    ControlID       =   ""
    CSSClasses      =   ""
-   Enabled         =   False
-   Height          =   550
-   ImplicitInstance=   True
+   Enabled         =   True
+   Height          =   410
    Index           =   -2147483648
    Indicator       =   0
-   IsImplicitInstance=   False
    LayoutDirection =   0
    LayoutType      =   0
    Left            =   0
    LockBottom      =   False
    LockHorizontal  =   False
-   LockLeft        =   True
+   LockLeft        =   False
    LockRight       =   False
-   LockTop         =   True
+   LockTop         =   False
    LockVertical    =   False
-   MinimumHeight   =   400
-   MinimumWidth    =   600
    PanelIndex      =   0
-   RequiresAuthenticatedUser=   True
-   ScaleFactor     =   0.0
+   Position        =   0
    TabIndex        =   0
-   Title           =   "Export"
    Top             =   0
    Visible         =   True
-   Width           =   800
-   _ImplicitInstance=   False
+   Width           =   740
    _mDesignHeight  =   0
    _mDesignWidth   =   0
+   _mName          =   ""
    _mPanelIndex    =   -1
-   Begin HeaderContainer HeaderContainer1
+   Begin ExportContainer ExportContainer1
       ControlCount    =   0
       ControlID       =   ""
       CSSClasses      =   ""
       Enabled         =   True
-      Height          =   80
+      Height          =   360
       Index           =   -2147483648
       Indicator       =   0
       LayoutDirection =   0
       LayoutType      =   0
-      Left            =   0
+      Left            =   20
       LockBottom      =   False
-      LockedInPosition=   False
+      LockedInPosition=   True
       LockHorizontal  =   False
       LockLeft        =   True
-      LockRight       =   True
+      LockRight       =   False
       LockTop         =   True
       LockVertical    =   False
       PanelIndex      =   0
@@ -58,85 +51,123 @@ Begin LobBase.LobWebPage PageExport
       TabIndex        =   0
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   0
+      Top             =   48
       Visible         =   True
-      Width           =   800
+      Width           =   700
       _mDesignHeight  =   0
       _mDesignWidth   =   0
       _mPanelIndex    =   -1
    End
-   Begin FooterContainer FooterContainer1
-      ControlCount    =   0
+   Begin WebButton btnClose
+      AllowAutoDisable=   False
+      Cancel          =   False
+      Caption         =   "X"
       ControlID       =   ""
-      CSSClasses      =   ""
+      CSSClasses      =   "border-0"
+      Default         =   False
       Enabled         =   True
       Height          =   30
       Index           =   -2147483648
       Indicator       =   0
-      LayoutDirection =   0
-      LayoutType      =   0
-      Left            =   190
-      LockBottom      =   True
-      LockedInPosition=   False
+      Left            =   700
+      LockBottom      =   False
+      LockedInPosition=   True
       LockHorizontal  =   False
-      LockLeft        =   True
+      LockLeft        =   False
       LockRight       =   True
-      LockTop         =   False
+      LockTop         =   True
       LockVertical    =   False
+      Outlined        =   True
       PanelIndex      =   0
       Scope           =   2
-      ScrollDirection =   0
       TabIndex        =   1
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   520
+      Top             =   10
       Visible         =   True
-      Width           =   420
-      _mDesignHeight  =   0
-      _mDesignWidth   =   0
+      Width           =   30
       _mPanelIndex    =   -1
    End
-   Begin ExportContainer ExportContainer1
-      ControlCount    =   0
+   Begin WebLabel lbCaption
+      Bold            =   True
       ControlID       =   ""
       CSSClasses      =   ""
       Enabled         =   True
-      Height          =   400
+      FontName        =   ""
+      FontSize        =   0.0
+      Height          =   40
+      HTMLElement     =   0
       Index           =   -2147483648
       Indicator       =   0
-      LayoutDirection =   0
-      LayoutType      =   0
-      Left            =   100
+      Italic          =   False
+      Left            =   40
       LockBottom      =   False
-      LockedInPosition=   False
-      LockHorizontal  =   True
-      LockLeft        =   False
-      LockRight       =   False
+      LockedInPosition=   True
+      LockHorizontal  =   False
+      LockLeft        =   True
+      LockRight       =   True
       LockTop         =   True
       LockVertical    =   False
+      Multiline       =   False
       PanelIndex      =   0
       Scope           =   2
-      ScrollDirection =   0
       TabIndex        =   2
       TabStop         =   True
+      Text            =   "Daten exportieren"
+      TextAlignment   =   0
+      TextColor       =   &c000000FF
       Tooltip         =   ""
-      Top             =   100
+      Top             =   10
+      Underline       =   False
       Visible         =   True
-      Width           =   600
-      _mDesignHeight  =   0
-      _mDesignWidth   =   0
+      Width           =   532
       _mPanelIndex    =   -1
    End
 End
 #tag EndWebPage
 
 #tag WindowCode
+	#tag Hook, Flags = &h0
+		Event Export(dtFrom as DateTime, dtTo as DateTime, componentTypes() as string, stations() as string)
+	#tag EndHook
+
+
 #tag EndWindowCode
 
+#tag Events ExportContainer1
+	#tag Event
+		Sub ExportPressed(dtFrom as DateTime, dtTo as DateTime, types() as string, stations() as String)
+		  Self.close
+		  RaiseEvent Export(dtFrom, dtTo, types, stations)
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events btnClose
+	#tag Event
+		Sub Pressed()
+		  self.Close
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events lbCaption
+	#tag Event
+		Sub Opening()
+		  me.Text = "<raw><i class='bi bi-download'></i>&nbsp;</raw>Daten exportieren"
+		End Sub
+	#tag EndEvent
+#tag EndEvents
 #tag ViewBehavior
 	#tag ViewProperty
+		Name="PanelIndex"
+		Visible=false
+		Group="Behavior"
+		InitialValue=""
+		Type="Integer"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
 		Name="Index"
-		Visible=true
+		Visible=false
 		Group="ID"
 		InitialValue="-2147483648"
 		Type="Integer"
@@ -175,142 +206,16 @@ End
 		EditorType=""
 	#tag EndViewProperty
 	#tag ViewProperty
-		Name="Height"
+		Name="Position"
 		Visible=true
-		Group="Behavior"
-		InitialValue="400"
-		Type="Integer"
-		EditorType=""
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="LayoutType"
-		Visible=true
-		Group="Behavior"
-		InitialValue="LayoutTypes.Fixed"
-		Type="LayoutTypes"
+		Group="Position"
+		InitialValue="0"
+		Type="WebDialog.Positions"
 		EditorType="Enum"
 		#tag EnumValues
-			"0 - Fixed"
-			"1 - Flex"
+			"0 - Top"
+			"1 - Center"
 		#tag EndEnumValues
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="LockBottom"
-		Visible=true
-		Group="Behavior"
-		InitialValue="False"
-		Type="Boolean"
-		EditorType=""
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="LockHorizontal"
-		Visible=true
-		Group="Behavior"
-		InitialValue="False"
-		Type="Boolean"
-		EditorType=""
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="LockLeft"
-		Visible=true
-		Group="Behavior"
-		InitialValue="True"
-		Type="Boolean"
-		EditorType=""
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="LockRight"
-		Visible=true
-		Group="Behavior"
-		InitialValue="False"
-		Type="Boolean"
-		EditorType=""
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="LockTop"
-		Visible=true
-		Group="Behavior"
-		InitialValue="True"
-		Type="Boolean"
-		EditorType=""
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="LockVertical"
-		Visible=true
-		Group="Behavior"
-		InitialValue="False"
-		Type="Boolean"
-		EditorType=""
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="MinimumHeight"
-		Visible=true
-		Group="Behavior"
-		InitialValue="400"
-		Type="Integer"
-		EditorType=""
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="MinimumWidth"
-		Visible=true
-		Group="Behavior"
-		InitialValue="600"
-		Type="Integer"
-		EditorType=""
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="Title"
-		Visible=true
-		Group="Behavior"
-		InitialValue="Untitled"
-		Type="String"
-		EditorType="MultiLineEditor"
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="Width"
-		Visible=true
-		Group="Behavior"
-		InitialValue="600"
-		Type="Integer"
-		EditorType=""
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="RequiresAuthenticatedUser"
-		Visible=true
-		Group="Behavior"
-		InitialValue="False"
-		Type="Boolean"
-		EditorType=""
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="TabIndex"
-		Visible=true
-		Group="Visual Controls"
-		InitialValue=""
-		Type="Integer"
-		EditorType=""
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="LayoutDirection"
-		Visible=true
-		Group="WebView"
-		InitialValue="LayoutDirections.LeftToRight"
-		Type="LayoutDirections"
-		EditorType="Enum"
-		#tag EnumValues
-			"0 - LeftToRight"
-			"1 - RightToLeft"
-			"2 - TopToBottom"
-			"3 - BottomToTop"
-		#tag EndEnumValues
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="PanelIndex"
-		Visible=false
-		Group="Behavior"
-		InitialValue=""
-		Type="Integer"
-		EditorType=""
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="ControlCount"
@@ -338,6 +243,74 @@ End
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="Enabled"
+		Visible=true
+		Group="Behavior"
+		InitialValue="True"
+		Type="Boolean"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="Height"
+		Visible=true
+		Group="Behavior"
+		InitialValue="400"
+		Type="Integer"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="LayoutType"
+		Visible=true
+		Group="Behavior"
+		InitialValue="LayoutTypes.Fixed"
+		Type="LayoutTypes"
+		EditorType="Enum"
+		#tag EnumValues
+			"0 - Fixed"
+			"1 - Flex"
+		#tag EndEnumValues
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="LockBottom"
+		Visible=false
+		Group="Behavior"
+		InitialValue=""
+		Type="Boolean"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="LockHorizontal"
+		Visible=false
+		Group="Behavior"
+		InitialValue=""
+		Type="Boolean"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="LockLeft"
+		Visible=false
+		Group="Behavior"
+		InitialValue=""
+		Type="Boolean"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="LockRight"
+		Visible=false
+		Group="Behavior"
+		InitialValue=""
+		Type="Boolean"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="LockTop"
+		Visible=false
+		Group="Behavior"
+		InitialValue=""
+		Type="Boolean"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="LockVertical"
 		Visible=false
 		Group="Behavior"
 		InitialValue=""
@@ -348,16 +321,16 @@ End
 		Name="Visible"
 		Visible=false
 		Group="Behavior"
-		InitialValue="True"
+		InitialValue=""
 		Type="Boolean"
 		EditorType=""
 	#tag EndViewProperty
 	#tag ViewProperty
-		Name="_ImplicitInstance"
-		Visible=false
+		Name="Width"
+		Visible=true
 		Group="Behavior"
-		InitialValue=""
-		Type="Boolean"
+		InitialValue="600"
+		Type="Integer"
 		EditorType=""
 	#tag EndViewProperty
 	#tag ViewProperty
@@ -385,19 +358,11 @@ End
 		EditorType="MultiLineEditor"
 	#tag EndViewProperty
 	#tag ViewProperty
-		Name="IsImplicitInstance"
-		Visible=false
-		Group="Behavior"
+		Name="TabIndex"
+		Visible=true
+		Group="Visual Controls"
 		InitialValue=""
-		Type="Boolean"
-		EditorType=""
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="AllowTabOrderWrap"
-		Visible=false
-		Group="Behavior"
-		InitialValue="True"
-		Type="Boolean"
+		Type="Integer"
 		EditorType=""
 	#tag EndViewProperty
 	#tag ViewProperty
@@ -421,11 +386,17 @@ End
 		#tag EndEnumValues
 	#tag EndViewProperty
 	#tag ViewProperty
-		Name="ScaleFactor"
-		Visible=false
-		Group="Behavior"
-		InitialValue=""
-		Type="Double"
-		EditorType=""
+		Name="LayoutDirection"
+		Visible=true
+		Group="WebView"
+		InitialValue="LayoutDirections.LeftToRight"
+		Type="LayoutDirections"
+		EditorType="Enum"
+		#tag EnumValues
+			"0 - LeftToRight"
+			"1 - RightToLeft"
+			"2 - TopToBottom"
+			"3 - BottomToTop"
+		#tag EndEnumValues
 	#tag EndViewProperty
 #tag EndViewBehavior

@@ -1,11 +1,11 @@
 #tag WebContainerControl
-Begin WebContainer ComponentMessageViewContainer Implements IEmbeddableViewContainer
+Begin WebContainer SelectableStationListContainer
    Compatibility   =   ""
    ControlCount    =   0
    ControlID       =   ""
-   CSSClasses      =   "component-tile"
+   CSSClasses      =   ""
    Enabled         =   True
-   Height          =   110
+   Height          =   340
    Indicator       =   0
    LayoutDirection =   0
    LayoutType      =   0
@@ -21,307 +21,205 @@ Begin WebContainer ComponentMessageViewContainer Implements IEmbeddableViewConta
    TabIndex        =   0
    Top             =   0
    Visible         =   True
-   Width           =   450
+   Width           =   280
    _mDesignHeight  =   0
    _mDesignWidth   =   0
    _mPanelIndex    =   -1
-   Begin WebLabel lbDisplayName
-      BindProperty    =   "DisplayName"
-      Bold            =   False
+   Begin WebListBox ListBox1
+      AllowRowReordering=   False
+      ColumnCount     =   2
+      ColumnWidths    =   "60, *"
       ControlID       =   ""
-      CSSClasses      =   "component-title"
+      CSSClasses      =   ""
+      DefaultRowHeight=   30
       Enabled         =   True
-      FontName        =   ""
-      FontSize        =   0.0
-      Height          =   30
-      HTMLElement     =   0
+      GridLineStyle   =   0
+      HasBorder       =   False
+      HasHeader       =   False
+      HeaderHeight    =   0
+      Height          =   290
+      HighlightSortedColumn=   True
       Index           =   -2147483648
       Indicator       =   0
-      Italic          =   False
-      Left            =   20
+      InitialValue    =   ""
+      LastAddedRowIndex=   0
+      LastColumnIndex =   0
+      LastRowIndex    =   0
+      Left            =   0
       LockBottom      =   False
       LockedInPosition=   True
       LockHorizontal  =   False
       LockLeft        =   True
-      LockRight       =   True
+      LockRight       =   False
       LockTop         =   True
       LockVertical    =   False
-      Multiline       =   False
+      NoRowsMessage   =   ""
       PanelIndex      =   0
+      ProcessingMessage=   ""
+      RowCount        =   0
+      RowSelectionType=   0
       Scope           =   2
+      SearchCriteria  =   ""
+      SelectedRowColor=   &c0d6efd
+      SelectedRowIndex=   0
       TabIndex        =   0
       TabStop         =   True
-      Text            =   "Meldungen und Störungen"
-      TextAlignment   =   0
-      TextColor       =   &c000000FF
       Tooltip         =   ""
-      Top             =   5
-      Underline       =   False
+      Top             =   0
       Visible         =   True
       Width           =   280
       _mPanelIndex    =   -1
    End
-   Begin WebLabel lbValue
-      Bold            =   False
-      ControlID       =   ""
-      CSSClasses      =   "component-label-overlay"
-      Enabled         =   True
-      FontName        =   ""
-      FontSize        =   0.0
-      Height          =   68
-      HTMLElement     =   0
-      Index           =   -2147483648
-      Indicator       =   0
-      Italic          =   False
-      Left            =   20
-      LockBottom      =   False
-      LockedInPosition=   True
-      LockHorizontal  =   False
-      LockLeft        =   True
-      LockRight       =   True
-      LockTop         =   True
-      LockVertical    =   False
-      Multiline       =   True
-      PanelIndex      =   0
-      Scope           =   2
-      TabIndex        =   1
-      TabStop         =   True
-      Text            =   "..."
-      TextAlignment   =   1
-      TextColor       =   &c000000FF
-      Tooltip         =   ""
-      Top             =   40
-      Underline       =   False
-      Visible         =   True
-      Width           =   430
-      _mPanelIndex    =   -1
-   End
-   Begin WebButton btnClear
+   Begin WebButton bntOk
       AllowAutoDisable=   False
       Cancel          =   False
-      Caption         =   "Quittieren..."
+      Caption         =   "OK"
       ControlID       =   ""
       CSSClasses      =   ""
       Default         =   False
       Enabled         =   True
       Height          =   30
       Index           =   -2147483648
-      Indicator       =   5
-      Left            =   270
-      LockBottom      =   False
+      Indicator       =   0
+      Left            =   10
+      LockBottom      =   True
       LockedInPosition=   True
       LockHorizontal  =   False
-      LockLeft        =   False
-      LockRight       =   True
-      LockTop         =   True
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   False
       LockVertical    =   False
       Outlined        =   False
       PanelIndex      =   0
       Scope           =   2
-      TabIndex        =   3
+      TabIndex        =   1
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   5
-      Visible         =   False
-      Width           =   140
-      _mPanelIndex    =   -1
-   End
-   Begin DialogYesNo DialogYesNo1
-      ControlCount    =   0
-      ControlID       =   ""
-      CSSClasses      =   ""
-      Enabled         =   True
-      Height          =   230
-      Index           =   -2147483648
-      Indicator       =   0
-      LayoutDirection =   0
-      LayoutType      =   0
-      Left            =   0
-      LockBottom      =   False
-      LockedInPosition=   False
-      LockHorizontal  =   False
-      LockLeft        =   False
-      LockRight       =   False
-      LockTop         =   False
-      LockVertical    =   False
-      PanelIndex      =   0
-      Position        =   0
-      Scope           =   2
-      TabIndex        =   4
-      TabStop         =   True
-      Tooltip         =   ""
-      Top             =   0
+      Top             =   300
       Visible         =   True
-      Width           =   400
-      _mDesignHeight  =   0
-      _mDesignWidth   =   0
+      Width           =   80
       _mPanelIndex    =   -1
    End
-   Begin WebButton btnInfo
+   Begin WebButton bntToggleCheck
       AllowAutoDisable=   False
       Cancel          =   False
       Caption         =   ""
       ControlID       =   ""
-      CSSClasses      =   "border-0 bi bi-water text-secondary"
+      CSSClasses      =   "bi bi-toggles no-border"
       Default         =   False
       Enabled         =   True
       Height          =   30
       Index           =   -2147483648
       Indicator       =   7
-      Left            =   415
-      LockBottom      =   False
+      Left            =   226
+      LockBottom      =   True
       LockedInPosition=   True
       LockHorizontal  =   False
       LockLeft        =   False
       LockRight       =   True
-      LockTop         =   True
+      LockTop         =   False
       LockVertical    =   False
       Outlined        =   True
       PanelIndex      =   0
       Scope           =   2
-      TabIndex        =   5
+      TabIndex        =   2
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   5
+      Top             =   300
       Visible         =   True
-      Width           =   30
+      Width           =   44
       _mPanelIndex    =   -1
    End
 End
 #tag EndWebContainerControl
 
 #tag WindowCode
+	#tag Method, Flags = &h21
+		Private Sub Constructor()
+		  // Calling the overridden superclass constructor.
+		  // Note that this may need modifications if there are multiple constructor choices.
+		  // Possible constructor calls:
+		  // Constructor() -- From WebView
+		  // Constructor() -- From WebUIControl
+		  // Constructor() -- From WebControl
+		  Super.Constructor
+		  
+		End Sub
+	#tag EndMethod
+
 	#tag Method, Flags = &h0
-		Sub Add(component as ComponentModel)
-		  Self.Components.Add(component)
+		Sub Constructor(selectedStationUids() as String)
+		  System.DebugLog(CurrentMethodName)
+		  
+		  Self.MySelectedStationUids = selectedStationUids
+		  
+		  Super.Constructor
 		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
-		Private Sub ClearAlert()
-		  // clear alert on station level
-		  App.DataSvc.ClearAlert(Station.Uid, Session.Authenticator.CurrentUserName)
-		  App.DataSvc.ReadAndCacheStationsAndComponents
-		  Self.UpdateControls
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Sub Constructor()
-		  Self.Components.RemoveAll
-		  self.Style.Value("width") = "100%"
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h21
-		Private Function GetMessage(component as ComponentModel) As string
-		  return component.DisplayName
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Function GetParam() As Variant
-		  // Part of the IEmbeddableViewContainer interface.
-		  return self.Components
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Sub UpdateControls()
-		  Var messages() As String
-		  For Each component As ComponentModel In Self.Components
-		    If component.CurrentValue.IntegerValue <> 0 Then
-		      messages.Add(GetMessage(component))
-		    End
+		Private Sub PopulateList()
+		  ListBox1.RemoveAllRows
+		  ListBox1.ColumnTypeAt(0) = WebListBox.CellTypes.CheckBox
+		  
+		  For Each station As StationModel In App.DataSvc.Stations
+		    ListBox1.AddRow("", station.ShortName)
+		    ListBox1.RowTagAt(ListBox1.LastAddedRowIndex) = station
+		    If Self.MySelectedStationUids.IndexOf(station.Uid) >= 0 Then
+		      ListBox1.CellCheckBoxValueAt(ListBox1.LastAddedRowIndex, 0) = true
+		    end
 		  Next
-		  
-		  If messages.Count = 0 Then
-		    lbValue.Text = "Keine Störungen."
-		    lbValue.TextColor = &c00905100
-		  Else
-		    lbValue.Text = String.FromArray(messages, EndOfLine)
-		    lbValue.TextColor = &cFF260000
-		  End
-		  
-		  // TODO tritt ein Fault auf, so ist zwar die Komponente aktualisiert, aber die Station (noch) nicht
-		  //            daher wird der Quittieren Button verzögert angezeigt.
-		  btnClear.Visible = If(Station <> Nil, Station.HasActiveAlert, False) And messages.Count <> 0
-		  btnClear.Enabled = true
 		End Sub
 	#tag EndMethod
+
+
+	#tag Hook, Flags = &h0
+		Event OkPressed(selectedStationsUid() as String)
+	#tag EndHook
 
 
 	#tag Property, Flags = &h21
-		Private Components() As ComponentModel
+		Private MySelectedStationUids() As String
 	#tag EndProperty
-
-	#tag ComputedProperty, Flags = &h21
-		#tag Getter
-			Get
-			  Var s() As String
-			  For Each component As ComponentModel In Self.Components
-			    s.Add(component.ShortName + ": " + component.HardwareId)
-			  Next
-			  If s.Count = 0 Then
-			    s.add("Dieser Station sind keine Strörungskomponenten (Typ Fault) zugewiesen.")
-			  End
-			  Return String.FromArray(s, EndOfLine + "<br/>")
-			End Get
-		#tag EndGetter
-		Private GetInfos As String
-	#tag EndComputedProperty
-
-	#tag ComputedProperty, Flags = &h21
-		#tag Getter
-			Get
-			  If Self.Components.Count > 0 Then
-			    Return App.DataSvc.GetCachedStationByUid(Self.Components(0).StationUid)
-			  End
-			End Get
-		#tag EndGetter
-		Private Station As StationModel
-	#tag EndComputedProperty
-
-
-	#tag Constant, Name = kComponentInforHtmlTemplate, Type = String, Dynamic = False, Default = \"<raw>\n  <div style\x3D\'margin: 0 20px;\'>\n    <div style\x3D\'font-weight: bold;\'>St\xC3\xB6rung-IDs dieser Station</div>\n    <div style\x3D\'font-size: 0.8em;\'>\n      #data#\n    </div>\n  </div>\n</raw>", Scope = Private
-	#tag EndConstant
 
 
 #tag EndWindowCode
 
-#tag Events lbValue
+#tag Events ListBox1
 	#tag Event
-		Sub Pressed()
-		  //MessageBox(lbValue.Text)
+		Sub Pressed(row As Integer, column As Integer)
+		  //Me.CellCheckBoxValueAt(row, 0) = Not Me.CellCheckBoxValueAt(row, 0)
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub Shown()
+		  Self.PopulateList
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events btnClear
+#tag Events bntOk
 	#tag Event
 		Sub Pressed()
-		  me.Enabled = false
-		  DialogYesNo1.Show("Möchten Sie diese Störung quittieren? Die Störung bleibt bestehen, weitere Alarm Nachrichten werden ausgesetzt.")
+		  MySelectedStationUids.RemoveAll
+		  For i As Integer = 0 To ListBox1.RowCount - 1
+		    If ListBox1.CellCheckBoxValueAt(i, 0) Then
+		      Var station As StationModel = ListBox1.RowTagAt(i)
+		      MySelectedStationUids.Add(station.Uid)
+		    end
+		  Next
+		  
+		  Self.Close
+		  RaiseEvent OkPressed(MySelectedStationUids)
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events DialogYesNo1
-	#tag Event
-		Sub YesClicked(tag as Variant)
-		  ClearAlert()
-		End Sub
-	#tag EndEvent
-	#tag Event
-		Sub NoClicked(tag as Variant)
-		  btnClear.Enabled = true
-		End Sub
-	#tag EndEvent
-#tag EndEvents
-#tag Events btnInfo
+#tag Events bntToggleCheck
 	#tag Event
 		Sub Pressed()
-		  Var container As New AlertInfoContainer
-		  container.Render(Station)
-		  container.ShowPopover(Self)
+		  var b as Boolean = ListBox1.CellCheckBoxValueAt(0, 0)
+		  For i As Integer = 0 To ListBox1.RowCount - 1
+		    ListBox1.CellCheckBoxValueAt(i, 0) = not b
+		  Next
 		End Sub
 	#tag EndEvent
 #tag EndEvents

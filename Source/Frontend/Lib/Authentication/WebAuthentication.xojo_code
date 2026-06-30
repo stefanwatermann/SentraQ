@@ -34,6 +34,13 @@ Protected Class WebAuthentication
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub SetCurrentUser(hash as String, sessionOnly as Boolean = false)
+		  // save sessionHash in Browser cookie
+		  Session.Cookies.Set(Self.CookieName, hash, if(sessionOnly, nil, Self.CookieExpires), Self.Domain, "/", False, False, WebCookieManager.SameSiteStrength.Strict)
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub SetCurrentUser(user as String, pwd as String)
 		  // save sessionHash in Browser cookie
 		  Var hash As String = CreateUserHash(user, pwd)

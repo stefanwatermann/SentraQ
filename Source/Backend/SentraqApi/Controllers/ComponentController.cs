@@ -56,6 +56,19 @@ public class ComponentController(
 
         return ComponentMapper.Map(componentView);
     }
+
+    /// <summary>
+    /// Set value of a component. Triggers an MQTT message to the component.
+    /// </summary>
+    /// <param name="hardwareId"></param>
+    /// <param name="value"></param>
+    /// <param name="changedBy"></param>
+    [RequireAuthorizationKey]
+    [HttpPost("setValue/{hardwareId}")]
+    public void SetValue(string hardwareId, [FromBody] string value, [FromHeader(Name = "X-LOGIN")] string changedBy)
+    {
+        componentService.SetValue(hardwareId, value, changedBy);
+    }
     
     /// <summary>
     /// Update existing Component

@@ -77,6 +77,12 @@ Inherits LobBase.LobWebApplication
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h0
+		Function GetAlertMessage(message as string, caption as string = "Fehler", captionColor as string = "danger") As string
+		  return kAlertMessageTemplate.Replace("{message}", message).Replace("{caption}", caption).Replace("{caption-color}", captionColor)
+		End Function
+	#tag EndMethod
+
 	#tag Method, Flags = &h21
 		Private Sub HandleApiRequests(request as WebRequest, response as WebResponse)
 		  Try
@@ -285,6 +291,10 @@ Inherits LobBase.LobWebApplication
 	#tag Property, Flags = &h21
 		Private UserSessions As Dictionary
 	#tag EndProperty
+
+
+	#tag Constant, Name = kAlertMessageTemplate, Type = String, Dynamic = False, Default = \"<raw><div class\x3D\'mx-5\'><div class\x3D\'text-{caption-color} fs-5 mb-2\'>{caption}</div><div style\x3D\'word-wrap: break-word;\'>{message}</div></div></raw>", Scope = Private
+	#tag EndConstant
 
 
 	#tag ViewBehavior

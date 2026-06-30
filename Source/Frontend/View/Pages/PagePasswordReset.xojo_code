@@ -106,7 +106,7 @@ Begin LobBase.LobWebPage PagePasswordReset
       Enabled         =   True
       FillColor       =   &cFFFFFF
       HasFillColor    =   True
-      Height          =   390
+      Height          =   340
       Index           =   -2147483648
       Indicator       =   ""
       LayoutDirection =   "LayoutDirections.LeftToRight"
@@ -424,43 +424,6 @@ Begin LobBase.LobWebPage PagePasswordReset
          Width           =   190
          _mPanelIndex    =   -1
       End
-      Begin WebLabel lbErrorHint
-         Bold            =   False
-         ControlID       =   ""
-         CSSClasses      =   ""
-         Enabled         =   True
-         FontName        =   ""
-         FontSize        =   14.0
-         Height          =   70
-         HTMLElement     =   0
-         Index           =   -2147483648
-         Indicator       =   ""
-         Italic          =   False
-         Left            =   125
-         LockBottom      =   False
-         LockedInPosition=   True
-         LockHorizontal  =   False
-         LockLeft        =   True
-         LockRight       =   False
-         LockTop         =   True
-         LockVertical    =   False
-         Multiline       =   True
-         PanelIndex      =   0
-         Parent          =   "rectPset"
-         Scope           =   2
-         TabIndex        =   9
-         TabPanelIndex   =   0
-         TabStop         =   True
-         Text            =   "-"
-         TextAlignment   =   0
-         TextColor       =   &cDD260000
-         Tooltip         =   ""
-         Top             =   440
-         Underline       =   False
-         Visible         =   False
-         Width           =   350
-         _mPanelIndex    =   -1
-      End
       Begin WebLabel Label5
          Bold            =   False
          ControlID       =   ""
@@ -546,10 +509,10 @@ End
 
 	#tag Method, Flags = &h21
 		Private Sub ShowHint(msg as string)
-		  lbErrorHint.Text = msg
-		  lbErrorHint.Visible = msg <> ""
-		  lbErrorHint.UpdateBrowser()
-		  Thread.SleepCurrent(250)
+		  If msg.Trim <> "" Then
+		    MessageBox(App.GetAlertMessage(msg))
+		  End
+		  
 		End Sub
 	#tag EndMethod
 

@@ -37,9 +37,16 @@ public class LogService(
         ComponentChanged,
         ComponentRemoved,
         AlertAction,
-        ActorCounterRestart
+        ActorCounterRestart,
+        DataExportRequested
     }
 
+    public void SaveInfo(Event evt, string msg = "")
+    {
+        Add(evt, Severity.Info, msg);
+        dbContext.SaveChanges();
+    }
+    
     public void AddInfo(Event evt, string msg = "")
     {
         Add(evt, Severity.Info, msg);

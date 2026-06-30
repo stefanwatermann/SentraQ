@@ -64,14 +64,14 @@ Begin WebContainer ComponentActorViewContainer Implements IEmbeddableViewContain
    Begin WebButton btnInfo
       AllowAutoDisable=   False
       Cancel          =   False
-      Caption         =   "i"
+      Caption         =   ""
       ControlID       =   ""
-      CSSClasses      =   "border-0"
+      CSSClasses      =   "border-0 bi bi-info-circle text-secondary"
       Default         =   False
       Enabled         =   True
       Height          =   30
       Index           =   -2147483648
-      Indicator       =   0
+      Indicator       =   7
       Left            =   145
       LockBottom      =   False
       LockedInPosition=   True
@@ -160,6 +160,41 @@ Begin WebContainer ComponentActorViewContainer Implements IEmbeddableViewContain
       _mDesignWidth   =   "0"
       _mPanelIndex    =   -1
    End
+   Begin WebLabel lbWaitForResponse
+      Bold            =   False
+      ControlID       =   ""
+      CSSClasses      =   ""
+      Enabled         =   True
+      FontName        =   ""
+      FontSize        =   10.0
+      Height          =   12
+      HTMLElement     =   0
+      Index           =   -2147483648
+      Indicator       =   ""
+      Italic          =   False
+      Left            =   23
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockHorizontal  =   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      LockVertical    =   False
+      Multiline       =   False
+      PanelIndex      =   0
+      Scope           =   2
+      TabIndex        =   6
+      TabStop         =   True
+      Text            =   "Warte auf Antwort..."
+      TextAlignment   =   0
+      TextColor       =   &c79797900
+      Tooltip         =   ""
+      Top             =   86
+      Underline       =   False
+      Visible         =   False
+      Width           =   140
+      _mPanelIndex    =   -1
+   End
 End
 #tag EndWebContainerControl
 
@@ -184,19 +219,73 @@ End
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h21
+		Private Sub ToggleValue(value as Boolean)
+		  If Not Switch1.Indeterminate = True Then
+		    
+		    // Switch in den Wartezustand versetzen, um auf Bestätigung des zu Warten
+		    Switch1.Indeterminate = True
+		    Switch1.Enabled = False
+		    lbWaitForResponse.Visible = true
+		    
+		    // Wert senden
+		    App.DataSvc.SetComponentValue(MyComponent.HardwareId, if(value, "1", "0"), Session.CurrentUser.Login)
+		    
+		    // TODO Messager erzeugen
+		    if not WasBackendChange then
+		      MessageBox("Hinweis: Diese Funktion noch nicht vollständig umgesetzt, es findet keine Kommunikation mit dem Backend statt.")
+		    End
+		    
+		  end
+		End Sub
+	#tag EndMethod
+
 	#tag Method, Flags = &h0
 		Sub UpdateControls()
-		  lbDisplayName.Text = MyComponent.ShortName
-		  
-		  Var v As Boolean = If (Self.MyComponent.CurrentValue.IntegerValue = 0, False, True)
-		  SetSwitchLabel(v)
-		  Switch1.Value = v
+		  Try 
+		    
+		    lbDisplayName.Text = MyComponent.ShortName
+		    
+		    // Da der ValueChanged Event des WebSwitch nicht zwischen 
+		    // User-Click und ändern des Value durch Code unterschiedet,
+		    // muss hier die Hilfsvariable WasBackendChange helfen. 
+		    Self.WasBackendChange = True
+		    
+		    Var v As Boolean = If (Self.MyComponent.CurrentValue.IntegerValue = 0, False, True)
+		    SetSwitchLabel(v)
+		    Switch1.Value = v
+		    Switch1.Indeterminate = False
+		    lbWaitForResponse.Visible = false
+		    Switch1.Enabled = Session.WasPasskeyAuthentication And Not MyStation.MaintenanceActive
+		    
+		  Finally
+		    // nur Fianlly erforderlich, um die Hilfsvariable immer zurück zu setzen
+		    Self.WasBackendChange = False
+		    
+		  end
 		End Sub
 	#tag EndMethod
 
 
 	#tag Property, Flags = &h21
 		Private MyComponent As ComponentModel
+	#tag EndProperty
+
+	#tag ComputedProperty, Flags = &h21
+		#tag Getter
+			Get
+			  if MyComponent <> nil then
+			    Return App.DataSvc.GetCachedStationByUid(MyComponent.StationUid)
+			  Else
+			    Return Nil
+			  end
+			End Get
+		#tag EndGetter
+		Private MyStation As StationModel
+	#tag EndComputedProperty
+
+	#tag Property, Flags = &h21
+		Private WasBackendChange As Boolean = False
 	#tag EndProperty
 
 
@@ -208,6 +297,18 @@ End
 		  Var container As New ComponentInfoChartContainer
 		  container.Render(MyComponent)
 		  container.ShowPopover(Me)
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events Switch1
+	#tag Event
+		Sub Shown()
+		  Me.Enabled = Session.WasPasskeyAuthentication And Not MyStation.MaintenanceActive
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub ValueChanged()
+		  ToggleValue(me.Value)
 		End Sub
 	#tag EndEvent
 #tag EndEvents

@@ -16,6 +16,11 @@ public class ComponentService(
             .Components
             .FirstOrDefault(c => c.HardwareId == uid);
     }
+
+    public void SetValue(string hardwareId, string value, string changedBy)
+    {
+        // TODO
+    }
     
     public void WriteComponent(Component component, string changedBy)
     {

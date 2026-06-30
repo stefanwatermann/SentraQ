@@ -69,6 +69,30 @@ Protected Class BackendApiControllerClient
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h0
+		Function Post(path as string, data as string, executingLogin as string = "") As String
+		  path = If(path.BeginsWith("/"), path, "/" + path)
+		  
+		  Var url As String = Self.ControllerApiUrl + "/api" + path
+		  
+		  If data <> "" Then
+		    Self.MyUrlConnection.SetRequestContent("""" + data.ReplaceAll("""", "\""") + """", "application/json")
+		  End
+		  
+		  If executingLogin <> "" Then
+		    self.MyUrlConnection.RequestHeader("X-LOGIN") = executingLogin
+		  End
+		  
+		  Var response As String = Self.MyUrlConnection.SendSync("POST", url)
+		  
+		  If Self.HTTPStatusCode <> 200 and Self.HTTPStatusCode <> 204 Then
+		    Raise New RuntimeException("POST request to '" + url + "'failed: [" + Str(Self.HttpStatusCode) + "] " + response)
+		  End
+		  
+		  Return response
+		End Function
+	#tag EndMethod
+
 
 	#tag ComputedProperty, Flags = &h21
 		#tag Getter

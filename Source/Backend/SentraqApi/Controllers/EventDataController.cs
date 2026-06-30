@@ -1,8 +1,10 @@
+using System.Text.Json.Nodes;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SentraqApi.Attributes;
 using SentraqCommon.Context;
 using SentraqCommon.Extensions;
+using SentraqCommon.Services;
 using SentraqModels.Mapper;
 using Api = SentraqModels.Api;
 
@@ -11,6 +13,8 @@ namespace SentraqApi.Controllers;
 [ApiController]
 [Route("api/eventData")]
 public class EventDataController(
+    ILogger<EventDataController> logger,
+    LogService logService,
     DatabaseContext dbContext) : ControllerBase
 {
     [RequireAuthorizationKey]
@@ -44,27 +48,38 @@ public class EventDataController(
     }
     
     [RequireAuthorizationKey]
-    [HttpGet("export")]
-    public IQueryable<Api.EventDataExport> Export(
-        [FromQuery] string? uid, 
-        [FromQuery] string? type, 
-        [FromQuery] DateTime? from, 
-        [FromQuery] DateTime? to)
+    [HttpPost("export")]
+    public IQueryable<Api.EventDataExport> Export([FromBody] JsonObject filter, [FromHeader(Name = "X-LOGIN")] string changedBy)
     {
-        var stationUids = uid == null ? new string[0] : uid.Sanitize(1000).Split(',');
-        var componentTypes = type == null ? new string[0] : type.Sanitize(1000).Split(',');
-        var receivedFrom = from ?? DateTime.MinValue;
-        var receivedTo = to ?? DateTime.MaxValue;
+        var uids = filter.FirstOrDefault(j => j.Key == "uid").Value;
+        var types = filter.FirstOrDefault(j => j.Key == "type").Value;
+        var from = filter.FirstOrDefault(j => j.Key == "from").Value;
+        var to = filter.FirstOrDefault(j => j.Key == "to").Value;
+        
+        var stationUids = uids == null ? Array.Empty<string>() : uids.ToString().Sanitize(5000).Split(',');
+        var componentTypes = types == null ? Array.Empty<string>() : types.ToString().Sanitize(5000).Split(',');
+        var receivedFrom = from?.GetValue<DateTime>() ?? DateTime.MinValue;
+        var receivedTo = to?.GetValue<DateTime>() ?? DateTime.MaxValue;
+
+        var exportInfo = $"stations={string.Join(',', stationUids)}, components={string.Join(',', componentTypes)}, receivedFrom={receivedFrom}, receivedTo={receivedTo}";
+        
+        logger.LogInformation("Export started: {exportInfo}", exportInfo);
         
         var eventData = dbContext
             .EventDataExports
+            .AsNoTracking()
             .Where(e => 
-                (stationUids.Length == 0 || stationUids.Contains(e.StationUid)) &&
-                (componentTypes.Length == 0 || componentTypes.Contains(e.ComponentType)) &&
+                stationUids.Contains(e.StationUid) &&
+                componentTypes.Contains(e.ComponentType) &&
                 e.Received >= receivedFrom &&
                 e.Received <= receivedTo)
-            .OrderByDescending(e => e.Received)
+            .Distinct()
+            .OrderByDescending(e => e.StationName)
+            .ThenBy(e => e.HardwareId)
+            .ThenByDescending(e => e.Received)
             .Select(e => EventDataMapper.Map(e));
+        
+        logService.SaveInfo(LogService.Event.DataExportRequested, $"{changedBy.Sanitize(10)} exported {eventData.Count()} rows for {exportInfo}");
         
         return eventData;
     }

@@ -13,6 +13,9 @@ public class Alert
     [MaxLength(36)]
     public required string StationUid { get; init; } = string.Empty;
     
+    [MaxLength(50)]
+    public string StationShortName { get; init; } = string.Empty;
+    
     public DateTime? ConfirmedAt { get; set; }
     
     [MaxLength(100)]

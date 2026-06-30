@@ -15,7 +15,7 @@ Protected Module DateTimeExtensions
 		  If dt = Nil Then
 		    Return ""
 		  Else
-		    Return dt.ToString(DateTime.FormatStyles.Long, DateTime.FormatStyles.None)
+		    Return dt.ToString(Session.Locale, DateTime.FormatStyles.Long, DateTime.FormatStyles.None)
 		  end
 		End Function
 	#tag EndMethod

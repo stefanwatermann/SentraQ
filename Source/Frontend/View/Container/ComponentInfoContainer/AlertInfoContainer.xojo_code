@@ -54,7 +54,7 @@ Begin WebContainer AlertInfoContainer
       TextAlignment   =   0
       TextColor       =   &c000000FF
       Tooltip         =   ""
-      Top             =   15
+      Top             =   10
       Underline       =   False
       Visible         =   True
       Width           =   540
@@ -72,7 +72,7 @@ Begin WebContainer AlertInfoContainer
       HasBorder       =   False
       HasHeader       =   False
       HeaderHeight    =   0
-      Height          =   297
+      Height          =   300
       HighlightSortedColumn=   False
       Index           =   -2147483648
       Indicator       =   0
@@ -88,7 +88,7 @@ Begin WebContainer AlertInfoContainer
       LockRight       =   True
       LockTop         =   True
       LockVertical    =   False
-      NoRowsMessage   =   "Lade Daten..."
+      NoRowsMessage   =   "Störungen werden gesucht..."
       PanelIndex      =   0
       ProcessingMessage=   ""
       RowCount        =   0
@@ -100,7 +100,7 @@ Begin WebContainer AlertInfoContainer
       TabIndex        =   3
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   53
+      Top             =   50
       Visible         =   True
       Width           =   600
       _mPanelIndex    =   -1
@@ -134,7 +134,7 @@ Begin WebContainer AlertInfoContainer
       TextAlignment   =   2
       TextColor       =   &c000000FF
       Tooltip         =   ""
-      Top             =   5
+      Top             =   10
       Underline       =   False
       Visible         =   True
       Width           =   30
@@ -159,7 +159,7 @@ End
 	#tag Constant, Name = kAlertConfirmedListRowTemplate, Type = String, Dynamic = False, Default = \"<raw>\n<div class\x3D\"m-2\" style\x3D\"white-space: collapse !important;\">\n<div class\x3D\"fault-list-date\">{date}</div>\n<div class\x3D\"fault-list-type\">{type}</div>\n<div class\x3D\"small\">Dauer {duration} bis {until}\x2C quittiert {confermed} von {user}</div>\n</div>\n</raw>", Scope = Private
 	#tag EndConstant
 
-	#tag Constant, Name = kAlertListRowTemplate, Type = String, Dynamic = False, Default = \"<raw>\n<div class\x3D\"m-2\" style\x3D\"white-space: collapse !important;\">\n<div class\x3D\"fault-list-date\">{date}</div>\n<div class\x3D\"fault-list-type\">{type}</div>\n<div class\x3D\"small\">Dauer {duration} bis {until}</div>\n</div>\n</raw>", Scope = Private
+	#tag Constant, Name = kAlertListRowTemplate, Type = String, Dynamic = False, Default = \"<raw>\n<div class\x3D\"m-2\" style\x3D\"white-space: collapse !important;\">\n<div class\x3D\"fault-list-date\">{date}</div>\n<div class\x3D\"fault-list-type my-1\">{type}</div>\n<div class\x3D\"small\">Dauer {duration} bis {until}</div>\n</div>\n</raw>", Scope = Private
 	#tag EndConstant
 
 
@@ -175,10 +175,10 @@ End
 		    var duration as DateInterval = alert.LastEventTs - alert.FirstEventTs
 		    Var row As String = If(alert.ConfirmedAt <> Nil, kAlertConfirmedListRowTemplate, kAlertListRowTemplate)
 		    row = row _
-		    .Replace("{date}", alert.FirstEventTs.ToString(DateTime.FormatStyles.Full, DateTime.FormatStyles.Short)) _
+		    .Replace("{date}", alert.FirstEventTs.ToString(Session.Locale, DateTime.FormatStyles.Full, DateTime.FormatStyles.Short)) _
 		    .Replace("{duration}", str(duration.Days * 24 + duration.Hours) + " Std. " + str(duration.Minutes) + " Min.") _
-		    .Replace("{until}", alert.LastEventTs.ToString(DateTime.FormatStyles.Medium, DateTime.FormatStyles.Short)) _
-		    .Replace("{confermed}", if(alert.ConfirmedAt <> nil, alert.ConfirmedAt.ToString(DateTime.FormatStyles.Medium, DateTime.FormatStyles.Short), "-")) _
+		    .Replace("{until}", alert.LastEventTs.ToString(Session.Locale, DateTime.FormatStyles.Medium, DateTime.FormatStyles.Short)) _
+		    .Replace("{confermed}", if(alert.ConfirmedAt <> nil, alert.ConfirmedAt.ToString(Session.Locale, DateTime.FormatStyles.Medium, DateTime.FormatStyles.Short), "-")) _
 		    .Replace("{user}", alert.ConfirmedBy) _
 		    .Replace("{type}", alert.Faults)
 		    me.AddRow(row)

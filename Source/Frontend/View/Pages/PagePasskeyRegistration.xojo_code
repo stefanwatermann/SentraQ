@@ -23,7 +23,7 @@ Begin LobBase.LobWebPage PagePasskeyRegistration
    MinimumHeight   =   600
    MinimumWidth    =   800
    PanelIndex      =   0
-   RequiresAuthenticatedUser=   True
+   RequiresAuthenticatedUser=   False
    ScaleFactor     =   0.0
    TabIndex        =   0
    Title           =   "Untitled"
@@ -106,7 +106,7 @@ Begin LobBase.LobWebPage PagePasskeyRegistration
       Enabled         =   True
       FillColor       =   &cFFFFFF
       HasFillColor    =   True
-      Height          =   420
+      Height          =   340
       Index           =   -2147483648
       Indicator       =   0
       LayoutDirection =   "LayoutDirections.LeftToRight"
@@ -130,56 +130,19 @@ Begin LobBase.LobWebPage PagePasskeyRegistration
       _mDesignHeight  =   0
       _mDesignWidth   =   0
       _mPanelIndex    =   -1
-      Begin WebLabel Label2
-         Bold            =   False
-         ControlID       =   ""
-         CSSClasses      =   ""
-         Enabled         =   True
-         FontName        =   ""
-         FontSize        =   15.0
-         Height          =   38
-         HTMLElement     =   0
-         Index           =   -2147483648
-         Indicator       =   0
-         Italic          =   False
-         Left            =   230
-         LockBottom      =   False
-         LockedInPosition=   True
-         LockHorizontal  =   False
-         LockLeft        =   True
-         LockRight       =   False
-         LockTop         =   True
-         LockVertical    =   False
-         Multiline       =   False
-         PanelIndex      =   0
-         Parent          =   "rectPset"
-         Scope           =   2
-         TabIndex        =   2
-         TabPanelIndex   =   -1
-         TabStop         =   True
-         Text            =   "E-Mail Code"
-         TextAlignment   =   0
-         TextColor       =   &c000000FF
-         Tooltip         =   ""
-         Top             =   310
-         Underline       =   False
-         Visible         =   True
-         Width           =   120
-         _mPanelIndex    =   -1
-      End
       Begin WebTextField tbCode1
          AllowAutoComplete=   False
          AllowSpellChecking=   False
          Caption         =   ""
          ControlID       =   ""
-         CSSClasses      =   ""
+         CSSClasses      =   "text-uppercase"
          Enabled         =   True
          FieldType       =   0
          Height          =   38
          Hint            =   ""
          Index           =   -2147483648
          Indicator       =   0
-         Left            =   367
+         Left            =   230
          LockBottom      =   False
          LockedInPosition=   True
          LockHorizontal  =   False
@@ -196,9 +159,9 @@ Begin LobBase.LobWebPage PagePasskeyRegistration
          TabPanelIndex   =   -1
          TabStop         =   True
          Text            =   ""
-         TextAlignment   =   0
+         TextAlignment   =   2
          Tooltip         =   ""
-         Top             =   310
+         Top             =   300
          Visible         =   True
          Width           =   80
          _mPanelIndex    =   -1
@@ -215,7 +178,7 @@ Begin LobBase.LobWebPage PagePasskeyRegistration
          Index           =   -2147483648
          Indicator       =   0
          Italic          =   False
-         Left            =   447
+         Left            =   310
          LockBottom      =   False
          LockedInPosition=   True
          LockHorizontal  =   False
@@ -234,7 +197,7 @@ Begin LobBase.LobWebPage PagePasskeyRegistration
          TextAlignment   =   2
          TextColor       =   &c000000FF
          Tooltip         =   ""
-         Top             =   310
+         Top             =   300
          Underline       =   False
          Visible         =   True
          Width           =   30
@@ -245,14 +208,14 @@ Begin LobBase.LobWebPage PagePasskeyRegistration
          AllowSpellChecking=   False
          Caption         =   ""
          ControlID       =   ""
-         CSSClasses      =   ""
+         CSSClasses      =   "text-uppercase"
          Enabled         =   True
          FieldType       =   0
          Height          =   38
          Hint            =   ""
          Index           =   -2147483648
          Indicator       =   0
-         Left            =   477
+         Left            =   340
          LockBottom      =   False
          LockedInPosition=   True
          LockHorizontal  =   False
@@ -269,9 +232,9 @@ Begin LobBase.LobWebPage PagePasskeyRegistration
          TabPanelIndex   =   -1
          TabStop         =   True
          Text            =   ""
-         TextAlignment   =   0
+         TextAlignment   =   2
          Tooltip         =   ""
-         Top             =   310
+         Top             =   300
          Visible         =   True
          Width           =   80
          _mPanelIndex    =   -1
@@ -345,43 +308,6 @@ Begin LobBase.LobWebPage PagePasskeyRegistration
          Width           =   340
          _mPanelIndex    =   -1
       End
-      Begin WebLabel lbErrorHint
-         Bold            =   False
-         ControlID       =   ""
-         CSSClasses      =   ""
-         Enabled         =   True
-         FontName        =   ""
-         FontSize        =   14.0
-         Height          =   100
-         HTMLElement     =   0
-         Index           =   -2147483648
-         Indicator       =   0
-         Italic          =   False
-         Left            =   230
-         LockBottom      =   False
-         LockedInPosition=   True
-         LockHorizontal  =   False
-         LockLeft        =   True
-         LockRight       =   False
-         LockTop         =   True
-         LockVertical    =   False
-         Multiline       =   True
-         PanelIndex      =   0
-         Parent          =   "rectPset"
-         Scope           =   2
-         TabIndex        =   7
-         TabPanelIndex   =   -1
-         TabStop         =   True
-         Text            =   "-"
-         TextAlignment   =   0
-         TextColor       =   &cDD260000
-         Tooltip         =   ""
-         Top             =   440
-         Underline       =   False
-         Visible         =   False
-         Width           =   340
-         _mPanelIndex    =   -1
-      End
       Begin WebLabel Label4
          Bold            =   False
          ControlID       =   ""
@@ -407,6 +333,7 @@ Begin LobBase.LobWebPage PagePasskeyRegistration
          Parent          =   "rectPset"
          Scope           =   2
          TabIndex        =   0
+         TabPanelIndex   =   0
          TabStop         =   True
          Text            =   "Passkey Registrierung"
          TextAlignment   =   0
@@ -428,8 +355,6 @@ Begin LobBase.LobWebPage PagePasskeyRegistration
       LockedInPosition=   False
       PanelIndex      =   0
       Scope           =   2
-      TabIndex        =   8
-      TabStop         =   True
       Timeout         =   60000
       _mPanelIndex    =   -1
    End
@@ -446,23 +371,47 @@ End
 
 	#tag Method, Flags = &h21
 		Private Sub ShowHint(msg as string)
-		  lbErrorHint.Text = msg
-		  lbErrorHint.Visible = msg <> ""
-		  lbErrorHint.UpdateBrowser()
-		  Thread.SleepCurrent(250)
+		  If msg.Trim <> "" Then
+		    MessageBox(App.GetAlertMessage(msg))
+		  End
 		End Sub
 	#tag EndMethod
 
 
 #tag EndWindowCode
 
+#tag Events tbCode1
+	#tag Event
+		Sub TextChanged()
+		  If Me.Text.Length >= 4 Then
+		    tbCode2.SetFocus
+		  end
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events tbCode2
+	#tag Event
+		Sub TextChanged()
+		  If Me.Text.Length >= 4 Then
+		    btnSet.SetFocus
+		  end
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub FocusReceived()
+		  me.SelectAll
+		End Sub
+	#tag EndEvent
+#tag EndEvents
 #tag Events btnSet
 	#tag Event
 		Sub Pressed()
 		  Try
 		    ShowHint("")
 		    
-		    Var resetCode As String = tbCode1.Text + tbCode2.Text + Session.URLParameter("r")
+		    Var resetCode As String = tbCode1.Text.Uppercase + tbCode2.Text.Uppercase + Session.URLParameter("r")
+		    
+		    Log.Info("Passkey reset-code: " + resetCode, CurrentMethodName)
 		    
 		    Var user As UserModel = App.DataSvc.GetUserByPasskeyRequestCode(resetCode)
 		    
@@ -479,7 +428,7 @@ End
 #tag Events PasskeyAuthentication
 	#tag Event
 		Sub Error(message As String)
-		  ShowHint("Die Passkey Registrierung hat nicht geklappt. Bitte versuchen Sie es später noch einmal. Fehler: " + message)
+		  ShowHint("Die Passkey Registrierung hat nicht geklappt. Bitte versuchen Sie es später noch einmal.<br/><br/><span class='xsmall'>Fehler: " + message + "</span>")
 		End Sub
 	#tag EndEvent
 	#tag Event
@@ -491,12 +440,14 @@ End
 		  
 		  // reload chached user
 		  Call App.DataSvc.GetUsers(True) 
+		  
+		  GoToURL("/#")
 		End Sub
 	#tag EndEvent
 	#tag Event
 		Sub Opening()
 		  Me.ApplicationName = App.AppHeaderTitle
-		  Me.Domain = if(Session.Domain = ".", "localhost", Session.Domain)   // Session Domain liefert wegen Cookies für localhost einen Punkt.
+		  Me.Domain = Session.PasskeyDomain
 		End Sub
 	#tag EndEvent
 #tag EndEvents

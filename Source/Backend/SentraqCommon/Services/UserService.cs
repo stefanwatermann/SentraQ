@@ -17,9 +17,9 @@ public class UserService(
             .Where(u => !u.Removed);
     }
 
-    public void LoggedOn(string login)
+    public void LoggedOn(string login, string method)
     {
-        logService.AddInfo(LogService.Event.UserLogon, login);
+        logService.AddInfo(LogService.Event.UserLogon, $"{login} using {method}");
         dbContext.SaveChanges();
     }
 

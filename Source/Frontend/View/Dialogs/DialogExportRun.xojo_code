@@ -1,11 +1,11 @@
 #tag WebPage
-Begin WebDialog DialogYesNo
+Begin WebDialog DialogExportRun
    Compatibility   =   ""
    ControlCount    =   0
    ControlID       =   ""
    CSSClasses      =   ""
    Enabled         =   True
-   Height          =   230
+   Height          =   140
    Index           =   -2147483648
    Indicator       =   0
    LayoutDirection =   0
@@ -26,18 +26,15 @@ Begin WebDialog DialogYesNo
    _mDesignHeight  =   0
    _mDesignWidth   =   0
    _mPanelIndex    =   -1
-   Begin WebButton btnOk
-      AllowAutoDisable=   False
-      Cancel          =   False
-      Caption         =   "Ja"
+   Begin WebProgressWheel ProgressWheel1
+      Colorize        =   False
       ControlID       =   ""
-      CSSClasses      =   "small"
-      Default         =   True
+      CSSClasses      =   ""
       Enabled         =   True
-      Height          =   30
+      Height          =   40
       Index           =   -2147483648
-      Indicator       =   1
-      Left            =   95
+      Indicator       =   ""
+      Left            =   55
       LockBottom      =   False
       LockedInPosition=   True
       LockHorizontal  =   False
@@ -45,62 +42,33 @@ Begin WebDialog DialogYesNo
       LockRight       =   False
       LockTop         =   True
       LockVertical    =   False
-      Outlined        =   False
       PanelIndex      =   0
       Scope           =   2
-      TabIndex        =   0
-      TabStop         =   True
-      Tooltip         =   ""
-      Top             =   175
-      Visible         =   True
-      Width           =   100
-      _mPanelIndex    =   -1
-   End
-   Begin WebButton btnCancel
-      AllowAutoDisable=   False
-      Cancel          =   True
-      Caption         =   "Nein"
-      ControlID       =   ""
-      CSSClasses      =   "small"
-      Default         =   False
-      Enabled         =   True
-      Height          =   30
-      Index           =   -2147483648
-      Indicator       =   0
-      Left            =   205
-      LockBottom      =   False
-      LockedInPosition=   True
-      LockHorizontal  =   False
-      LockLeft        =   True
-      LockRight       =   False
-      LockTop         =   True
-      LockVertical    =   False
-      Outlined        =   False
-      PanelIndex      =   0
-      Scope           =   2
+      SVGColor        =   &c00000000
+      SVGData         =   ""
       TabIndex        =   1
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   175
+      Top             =   50
       Visible         =   True
-      Width           =   100
+      Width           =   40
       _mPanelIndex    =   -1
    End
-   Begin WebLabel lbMessage
+   Begin WebLabel lbInfo
       Bold            =   False
       ControlID       =   ""
-      CSSClasses      =   "small"
+      CSSClasses      =   "small align-middle "
       Enabled         =   True
       FontName        =   ""
       FontSize        =   0.0
-      Height          =   120
-      HTMLElement     =   0
+      Height          =   60
+      HTMLElement     =   6
       Index           =   -2147483648
-      Indicator       =   0
+      Indicator       =   ""
       Italic          =   False
-      Left            =   40
+      Left            =   110
       LockBottom      =   False
-      LockedInPosition=   False
+      LockedInPosition=   True
       LockHorizontal  =   False
       LockLeft        =   True
       LockRight       =   False
@@ -111,30 +79,50 @@ Begin WebDialog DialogYesNo
       Scope           =   2
       TabIndex        =   2
       TabStop         =   True
-      Text            =   "Frage?"
-      TextAlignment   =   1
+      Text            =   "Einen Moment bitte, die Daten werden geladen..."
+      TextAlignment   =   0
       TextColor       =   &c000000FF
       Tooltip         =   ""
       Top             =   40
       Underline       =   False
       Visible         =   True
-      Width           =   330
+      Width           =   250
       _mPanelIndex    =   -1
+   End
+   Begin WebThread Thread1
+      DebugIdentifier =   ""
+      Enabled         =   True
+      Index           =   -2147483648
+      LockedInPosition=   True
+      Priority        =   5
+      Scope           =   2
+      StackSize       =   0
+      ThreadID        =   0
+      ThreadState     =   ""
+      Type            =   0
    End
 End
 #tag EndWebPage
 
 #tag WindowCode
 	#tag Event
-		Sub Dismissed()
-		  If OkClicked Then
-		    RaiseEvent YesClicked(Self.Tag)
-		  Else
-		    RaiseEvent NoClicked(Self.Tag)
-		  End
+		Sub Shown()
+		  Thread1.Start
 		End Sub
 	#tag EndEvent
 
+
+	#tag Method, Flags = &h21
+		Private Sub DataReceived()
+		  Self.Thread1.Stop
+		  
+		  self.UpdateBrowser
+		  
+		  Self.Visible = False
+		  RaiseEvent ExportDataReady(Self.DownloadData)
+		  Self.Close
+		End Sub
+	#tag EndMethod
 
 	#tag Method, Flags = &h21
 		Private Sub Show()
@@ -145,12 +133,11 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub Show(message as string, tag as Variant = "")
-		  btnCancel.Enabled = True
-		  btnOk.Enabled = True
-		  lbMessage.Text = message
-		  Self.Tag = tag
-		  Self.OkClicked = false
+		Sub Show(dtFrom as DateTime, dtTo as DateTime, componentTypes() as string, stations() as string)
+		  Self.DtFrom = dtFrom
+		  Self.DtTo = dtTo
+		  Self.ComponentTypes = componentTypes
+		  Self.Stations = stations
 		  
 		  // Calling the overridden superclass method.
 		  Super.Show()
@@ -159,40 +146,83 @@ End
 
 
 	#tag Hook, Flags = &h0
-		Event NoClicked(tag as Variant)
-	#tag EndHook
-
-	#tag Hook, Flags = &h0
-		Event YesClicked(tag as Variant)
+		Event ExportDataReady(data as MemoryBlock)
 	#tag EndHook
 
 
 	#tag Property, Flags = &h21
-		Private OkClicked As Boolean
+		Private ComponentTypes() As string
 	#tag EndProperty
 
 	#tag Property, Flags = &h21
-		Private Tag As Variant
+		Private DownloadData As MemoryBlock
+	#tag EndProperty
+
+	#tag Property, Flags = &h21
+		Private DownloadThreadResult As Pair
+	#tag EndProperty
+
+	#tag Property, Flags = &h21
+		Private DtFrom As DateTime
+	#tag EndProperty
+
+	#tag Property, Flags = &h21
+		Private DtTo As DateTime
+	#tag EndProperty
+
+	#tag Property, Flags = &h21
+		Private Stations() As String
 	#tag EndProperty
 
 
 #tag EndWindowCode
 
-#tag Events btnOk
+#tag Events Thread1
 	#tag Event
-		Sub Pressed()
-		  btnCancel.Enabled = False
-		  btnOk.Enabled = False
-		  OkClicked = True
-		  Self.Close
+		Sub Run()
+		  Try
+		    
+		    Log.Info("Preparing data-export.", CurrentMethodName)
+		    MyProfiler.Start(CurrentMethodName)
+		    
+		    If Self.ComponentTypes.Count = 1 And Self.ComponentTypes(0) = "FL" Then
+		      // nur Faults/Alerts exportieren
+		      Var data() As AlertModel = App.DataSvc.GetAlerts(Self.Stations, Self.DtFrom, Self.DtTo)
+		      DownloadData = AlertModel.CreateCsvString(data)
+		      
+		    Else
+		      // Components exportieren
+		      Var data() As EventDataExportModel = App.DataSvc.GetEventDataExport(Self.Stations, Self.ComponentTypes, Self.DtFrom, Self.DtTo, Session.CurrentUser.Login)
+		      DownloadData = EventDataExportModel.CreateCsvString(data)
+		      
+		    End
+		    
+		    Log.Info("Export data received.", CurrentMethodName)
+		    MyProfiler.Stop(CurrentMethodName)
+		    
+		    Self.DownloadThreadResult = New Pair("success", "")
+		    
+		  Catch ex As RuntimeException
+		    Self.DownloadThreadResult = New Pair("failed", "Die Datei konnte nicht erzeugt werden. Fehler: " + ex.Message)
+		    
+		  Finally
+		    Me.AddUserInterfaceUpdate()
+		    
+		  End
+		  
+		  
 		End Sub
 	#tag EndEvent
-#tag EndEvents
-#tag Events btnCancel
 	#tag Event
-		Sub Pressed()
-		  OkClicked = False
-		  Self.Close
+		Sub UserInterfaceUpdate(data() As Dictionary)
+		  If Self.DownloadThreadResult.Left = "success" Then
+		    Log.Info("Export ready, " + Str(Self.DownloadData.Size) + " Byte loaded.", CurrentMethodName)
+		    
+		    DataReceived
+		    
+		  Else
+		    MessageBox(Self.DownloadThreadResult.Right)
+		  end
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -202,34 +232,6 @@ End
 		Visible=false
 		Group="Behavior"
 		InitialValue=""
-		Type="Integer"
-		EditorType=""
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="Position"
-		Visible=true
-		Group="Position"
-		InitialValue="0"
-		Type="WebDialog.Positions"
-		EditorType="Enum"
-		#tag EnumValues
-			"0 - Top"
-			"1 - Center"
-		#tag EndEnumValues
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="ControlCount"
-		Visible=false
-		Group="Behavior"
-		InitialValue=""
-		Type="Integer"
-		EditorType=""
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="_mPanelIndex"
-		Visible=false
-		Group="Behavior"
-		InitialValue="-1"
 		Type="Integer"
 		EditorType=""
 	#tag EndViewProperty
@@ -270,6 +272,34 @@ End
 		Visible=true
 		Group="Position"
 		InitialValue="0"
+		Type="Integer"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="Position"
+		Visible=true
+		Group="Position"
+		InitialValue="0"
+		Type="WebDialog.Positions"
+		EditorType="Enum"
+		#tag EnumValues
+			"0 - Top"
+			"1 - Center"
+		#tag EndEnumValues
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="ControlCount"
+		Visible=false
+		Group="Behavior"
+		InitialValue=""
+		Type="Integer"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="_mPanelIndex"
+		Visible=false
+		Group="Behavior"
+		InitialValue="-1"
 		Type="Integer"
 		EditorType=""
 	#tag EndViewProperty

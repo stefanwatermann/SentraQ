@@ -1,48 +1,114 @@
-#tag WebContainerControl
-Begin WebContainer ComponentInfoContainer
+#tag WebPage
+Begin WebDialog DialogExportDownload
    Compatibility   =   ""
    ControlCount    =   0
    ControlID       =   ""
    CSSClasses      =   ""
    Enabled         =   True
-   Height          =   120
+   Height          =   140
+   Index           =   -2147483648
    Indicator       =   0
    LayoutDirection =   0
    LayoutType      =   0
    Left            =   0
    LockBottom      =   False
    LockHorizontal  =   False
-   LockLeft        =   True
+   LockLeft        =   False
    LockRight       =   False
-   LockTop         =   True
+   LockTop         =   False
    LockVertical    =   False
    PanelIndex      =   0
-   ScrollDirection =   0
+   Position        =   0
    TabIndex        =   0
    Top             =   0
    Visible         =   True
-   Width           =   600
+   Width           =   400
    _mDesignHeight  =   0
    _mDesignWidth   =   0
    _mPanelIndex    =   -1
-   Begin WebLabel lbName
-      Bold            =   True
+   Begin WebButton btnDownload
+      AllowAutoDisable=   False
+      Cancel          =   False
+      Caption         =   "Herunterladen"
       ControlID       =   ""
-      CSSClasses      =   ""
+      CSSClasses      =   "small"
+      Default         =   False
+      Enabled         =   True
+      Height          =   30
+      Index           =   -2147483648
+      Indicator       =   9
+      Left            =   100
+      LockBottom      =   False
+      LockedInPosition=   True
+      LockHorizontal  =   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      LockVertical    =   False
+      Outlined        =   False
+      PanelIndex      =   0
+      Scope           =   2
+      TabIndex        =   0
+      TabStop         =   True
+      Tooltip         =   ""
+      Top             =   90
+      Visible         =   True
+      Width           =   200
+      _mPanelIndex    =   -1
+   End
+   Begin WebLabel Label1
+      Bold            =   False
+      ControlID       =   ""
+      CSSClasses      =   "small align-middle "
       Enabled         =   True
       FontName        =   ""
       FontSize        =   0.0
-      Height          =   30
+      Height          =   60
+      HTMLElement     =   6
+      Index           =   -2147483648
+      Indicator       =   ""
+      Italic          =   False
+      Left            =   110
+      LockBottom      =   False
+      LockedInPosition=   True
+      LockHorizontal  =   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      LockVertical    =   False
+      Multiline       =   True
+      PanelIndex      =   0
+      Scope           =   2
+      TabIndex        =   1
+      TabStop         =   True
+      Text            =   "Die Datei wurde erzeugt und kann nun heruntergeladen werden."
+      TextAlignment   =   0
+      TextColor       =   &c000000FF
+      Tooltip         =   ""
+      Top             =   30
+      Underline       =   False
+      Visible         =   True
+      Width           =   250
+      _mPanelIndex    =   -1
+   End
+   Begin WebLabel lbCheck
+      Bold            =   False
+      ControlID       =   ""
+      CSSClasses      =   "bi bi-check-lg text-success"
+      Enabled         =   True
+      FontName        =   ""
+      FontSize        =   40.0
+      Height          =   40
       HTMLElement     =   0
       Index           =   -2147483648
       Indicator       =   0
       Italic          =   False
-      Left            =   20
+      Left            =   55
       LockBottom      =   False
-      LockedInPosition=   False
+      LockedInPosition=   True
       LockHorizontal  =   False
       LockLeft        =   True
-      LockRight       =   True
+      LockRight       =   False
       LockTop         =   True
       LockVertical    =   False
       Multiline       =   False
@@ -50,99 +116,28 @@ Begin WebContainer ComponentInfoContainer
       Scope           =   2
       TabIndex        =   2
       TabStop         =   True
-      Text            =   "Untitled"
+      Text            =   ""
       TextAlignment   =   0
       TextColor       =   &c000000FF
       Tooltip         =   ""
-      Top             =   15
+      Top             =   40
       Underline       =   False
       Visible         =   True
-      Width           =   540
+      Width           =   40
       _mPanelIndex    =   -1
    End
-   Begin WebLabel lbLastValueTs
-      Bold            =   False
+   Begin WebButton btnClose
+      AllowAutoDisable=   False
+      Cancel          =   False
+      Caption         =   "X"
       ControlID       =   ""
-      CSSClasses      =   ""
+      CSSClasses      =   "border-0"
+      Default         =   False
       Enabled         =   True
-      FontName        =   ""
-      FontSize        =   0.0
-      Height          =   25
-      HTMLElement     =   0
-      Index           =   -2147483648
-      Indicator       =   0
-      Italic          =   False
-      Left            =   20
-      LockBottom      =   False
-      LockedInPosition=   False
-      LockHorizontal  =   False
-      LockLeft        =   True
-      LockRight       =   True
-      LockTop         =   True
-      LockVertical    =   False
-      Multiline       =   False
-      PanelIndex      =   0
-      Scope           =   2
-      TabIndex        =   3
-      TabStop         =   True
-      Text            =   "Untitled"
-      TextAlignment   =   0
-      TextColor       =   &c000000FF
-      Tooltip         =   ""
-      Top             =   45
-      Underline       =   False
-      Visible         =   True
-      Width           =   560
-      _mPanelIndex    =   -1
-   End
-   Begin WebLabel lbDisplayUnit
-      Bold            =   False
-      ControlID       =   ""
-      CSSClasses      =   ""
-      Enabled         =   True
-      FontName        =   ""
-      FontSize        =   0.0
-      Height          =   25
-      HTMLElement     =   0
-      Index           =   -2147483648
-      Indicator       =   0
-      Italic          =   False
-      Left            =   20
-      LockBottom      =   False
-      LockedInPosition=   False
-      LockHorizontal  =   False
-      LockLeft        =   True
-      LockRight       =   True
-      LockTop         =   True
-      LockVertical    =   False
-      Multiline       =   False
-      PanelIndex      =   0
-      Scope           =   2
-      TabIndex        =   4
-      TabStop         =   True
-      Text            =   "Untitled"
-      TextAlignment   =   0
-      TextColor       =   &c000000FF
-      Tooltip         =   ""
-      Top             =   70
-      Underline       =   False
-      Visible         =   True
-      Width           =   560
-      _mPanelIndex    =   -1
-   End
-   Begin WebLabel btnClose
-      Bold            =   False
-      ControlID       =   ""
-      CSSClasses      =   "cursor-pointer"
-      Enabled         =   True
-      FontName        =   ""
-      FontSize        =   0.0
       Height          =   30
-      HTMLElement     =   0
       Index           =   -2147483648
       Indicator       =   0
-      Italic          =   False
-      Left            =   565
+      Left            =   365
       LockBottom      =   False
       LockedInPosition=   True
       LockHorizontal  =   False
@@ -150,64 +145,64 @@ Begin WebContainer ComponentInfoContainer
       LockRight       =   True
       LockTop         =   True
       LockVertical    =   False
-      Multiline       =   False
+      Outlined        =   True
       PanelIndex      =   0
-      Scope           =   0
-      TabIndex        =   5
+      Scope           =   2
+      TabIndex        =   3
       TabStop         =   True
-      Text            =   "X"
-      TextAlignment   =   2
-      TextColor       =   &c000000FF
       Tooltip         =   ""
-      Top             =   5
-      Underline       =   False
+      Top             =   3
       Visible         =   True
       Width           =   30
       _mPanelIndex    =   -1
    End
 End
-#tag EndWebContainerControl
+#tag EndWebPage
 
 #tag WindowCode
+	#tag Method, Flags = &h21
+		Private Sub Show()
+		  // Calling the overridden superclass method.
+		  Super.Show()
+		  
+		End Sub
+	#tag EndMethod
+
 	#tag Method, Flags = &h0
-		Sub Render(component as ComponentModel)
-		  Self.Component = component
-		  Self.lbName.Text = Self.Component.DisplayName + " (" + Self.Component.HardwareId + ")"
-		  Self.lbLastValueTs.Text = "Letzter Wert " + LastValue + " empfangen " + LastReceived
-		  Self.lbDisplayUnit.Text = "Einheit: " + Self.Component.DisplayUnit
+		Sub Show(data as MemoryBlock)
+		  Self.DownloadFile = New WebFile
+		  Self.DownloadFile.Data = data
+		  Self.DownloadFile.Filename = "Export_" + DateTime.Now.SQLDate + ".csv"
+		  Self.DownloadFile.MIMEType = "text/csv"
+		  
+		  // Calling the overridden superclass method.
+		  Super.Show()
+		  
+		  Log.Info("Shown", CurrentMethodName)
 		End Sub
 	#tag EndMethod
 
 
 	#tag Property, Flags = &h21
-		Private Component As ComponentModel
+		Private DownloadFile As WebFile
 	#tag EndProperty
-
-	#tag ComputedProperty, Flags = &h21
-		#tag Getter
-			Get
-			  return  If(Self.Component.LastReceivedTs <> Nil, Self.Component.LastReceivedTs.ToString(DateTime.FormatStyles.Full, DateTime.FormatStyles.Long), "-")
-			End Get
-		#tag EndGetter
-		Private LastReceived As String
-	#tag EndComputedProperty
-
-	#tag ComputedProperty, Flags = &h21
-		#tag Getter
-			Get
-			  return Str(Self.Component.CurrentValue, "###,###.###")
-			End Get
-		#tag EndGetter
-		Private LastValue As String
-	#tag EndComputedProperty
 
 
 #tag EndWindowCode
 
+#tag Events btnDownload
+	#tag Event
+		Sub Pressed()
+		  Self.DownloadFile.ForceDownload = True
+		  GoToURL(Self.DownloadFile.URL)
+		  Self.Close
+		End Sub
+	#tag EndEvent
+#tag EndEvents
 #tag Events btnClose
 	#tag Event
 		Sub Pressed()
-		  Self.Close
+		  self.Close
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -221,18 +216,10 @@ End
 		EditorType=""
 	#tag EndViewProperty
 	#tag ViewProperty
-		Name="_mPanelIndex"
+		Name="Index"
 		Visible=false
-		Group="Behavior"
-		InitialValue="-1"
-		Type="Integer"
-		EditorType=""
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="ControlCount"
-		Visible=false
-		Group="Behavior"
-		InitialValue=""
+		Group="ID"
+		InitialValue="-2147483648"
 		Type="Integer"
 		EditorType=""
 	#tag EndViewProperty
@@ -269,6 +256,34 @@ End
 		EditorType=""
 	#tag EndViewProperty
 	#tag ViewProperty
+		Name="Position"
+		Visible=true
+		Group="Position"
+		InitialValue="0"
+		Type="WebDialog.Positions"
+		EditorType="Enum"
+		#tag EnumValues
+			"0 - Top"
+			"1 - Center"
+		#tag EndEnumValues
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="ControlCount"
+		Visible=false
+		Group="Behavior"
+		InitialValue=""
+		Type="Integer"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="_mPanelIndex"
+		Visible=false
+		Group="Behavior"
+		InitialValue="-1"
+		Type="Integer"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
 		Name="ControlID"
 		Visible=false
 		Group="Behavior"
@@ -285,59 +300,87 @@ End
 		EditorType=""
 	#tag EndViewProperty
 	#tag ViewProperty
-		Name="LockBottom"
+		Name="Height"
 		Visible=true
 		Group="Behavior"
-		InitialValue="False"
+		InitialValue="400"
+		Type="Integer"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="LayoutType"
+		Visible=true
+		Group="Behavior"
+		InitialValue="LayoutTypes.Fixed"
+		Type="LayoutTypes"
+		EditorType="Enum"
+		#tag EnumValues
+			"0 - Fixed"
+			"1 - Flex"
+		#tag EndEnumValues
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="LockBottom"
+		Visible=false
+		Group="Behavior"
+		InitialValue=""
 		Type="Boolean"
 		EditorType=""
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="LockHorizontal"
-		Visible=true
+		Visible=false
 		Group="Behavior"
-		InitialValue="False"
+		InitialValue=""
 		Type="Boolean"
 		EditorType=""
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="LockLeft"
-		Visible=true
+		Visible=false
 		Group="Behavior"
-		InitialValue="True"
+		InitialValue=""
 		Type="Boolean"
 		EditorType=""
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="LockRight"
-		Visible=true
+		Visible=false
 		Group="Behavior"
-		InitialValue="False"
+		InitialValue=""
 		Type="Boolean"
 		EditorType=""
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="LockTop"
-		Visible=true
+		Visible=false
 		Group="Behavior"
-		InitialValue="True"
+		InitialValue=""
 		Type="Boolean"
 		EditorType=""
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="LockVertical"
-		Visible=true
+		Visible=false
 		Group="Behavior"
-		InitialValue="False"
+		InitialValue=""
 		Type="Boolean"
 		EditorType=""
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="Visible"
-		Visible=true
+		Visible=false
 		Group="Behavior"
 		InitialValue=""
 		Type="Boolean"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="Width"
+		Visible=true
+		Group="Behavior"
+		InitialValue="600"
+		Type="Integer"
 		EditorType=""
 	#tag EndViewProperty
 	#tag ViewProperty
@@ -363,20 +406,6 @@ End
 		InitialValue=""
 		Type="String"
 		EditorType="MultiLineEditor"
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="ScrollDirection"
-		Visible=true
-		Group="Behavior"
-		InitialValue="ScrollDirections.None"
-		Type="WebContainer.ScrollDirections"
-		EditorType="Enum"
-		#tag EnumValues
-			"0 - None"
-			"1 - Horizontal"
-			"2 - Vertical"
-			"3 - Both"
-		#tag EndEnumValues
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="TabIndex"
@@ -407,21 +436,9 @@ End
 		#tag EndEnumValues
 	#tag EndViewProperty
 	#tag ViewProperty
-		Name="LayoutType"
-		Visible=true
-		Group="View"
-		InitialValue="LayoutTypes.Fixed"
-		Type="LayoutTypes"
-		EditorType="Enum"
-		#tag EnumValues
-			"0 - Fixed"
-			"1 - Flex"
-		#tag EndEnumValues
-	#tag EndViewProperty
-	#tag ViewProperty
 		Name="LayoutDirection"
 		Visible=true
-		Group="View"
+		Group="WebView"
 		InitialValue="LayoutDirections.LeftToRight"
 		Type="LayoutDirections"
 		EditorType="Enum"
@@ -431,21 +448,5 @@ End
 			"2 - TopToBottom"
 			"3 - BottomToTop"
 		#tag EndEnumValues
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="Width"
-		Visible=false
-		Group=""
-		InitialValue="250"
-		Type="Integer"
-		EditorType=""
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="Height"
-		Visible=false
-		Group=""
-		InitialValue="250"
-		Type="Integer"
-		EditorType=""
 	#tag EndViewProperty
 #tag EndViewBehavior

@@ -1,11 +1,11 @@
 #tag WebContainerControl
-Begin WebContainer ComponentInfoChartContainer
+Begin WebContainer ComponentInfoContainer
    Compatibility   =   ""
    ControlCount    =   0
    ControlID       =   ""
    CSSClasses      =   ""
    Enabled         =   True
-   Height          =   350
+   Height          =   120
    Indicator       =   0
    LayoutDirection =   0
    LayoutType      =   0
@@ -25,37 +25,6 @@ Begin WebContainer ComponentInfoChartContainer
    _mDesignHeight  =   0
    _mDesignWidth   =   0
    _mPanelIndex    =   -1
-   Begin BarChartContainer BarChartContainer1
-      ControlCount    =   0
-      ControlID       =   ""
-      CSSClasses      =   ""
-      Enabled         =   True
-      Height          =   250
-      Index           =   -2147483648
-      Indicator       =   0
-      LayoutDirection =   0
-      LayoutType      =   0
-      Left            =   0
-      LockBottom      =   False
-      LockedInPosition=   True
-      LockHorizontal  =   False
-      LockLeft        =   True
-      LockRight       =   True
-      LockTop         =   True
-      LockVertical    =   False
-      PanelIndex      =   0
-      Scope           =   2
-      ScrollDirection =   0
-      TabIndex        =   0
-      TabStop         =   True
-      Tooltip         =   ""
-      Top             =   100
-      Visible         =   True
-      Width           =   600
-      _mDesignHeight  =   0
-      _mDesignWidth   =   0
-      _mPanelIndex    =   -1
-   End
    Begin WebLabel lbName
       Bold            =   True
       ControlID       =   ""
@@ -66,11 +35,11 @@ Begin WebContainer ComponentInfoChartContainer
       Height          =   30
       HTMLElement     =   0
       Index           =   -2147483648
-      Indicator       =   ""
+      Indicator       =   0
       Italic          =   False
       Left            =   20
       LockBottom      =   False
-      LockedInPosition=   True
+      LockedInPosition=   False
       LockHorizontal  =   False
       LockLeft        =   True
       LockRight       =   True
@@ -101,11 +70,11 @@ Begin WebContainer ComponentInfoChartContainer
       Height          =   25
       HTMLElement     =   0
       Index           =   -2147483648
-      Indicator       =   ""
+      Indicator       =   0
       Italic          =   False
       Left            =   20
       LockBottom      =   False
-      LockedInPosition=   True
+      LockedInPosition=   False
       LockHorizontal  =   False
       LockLeft        =   True
       LockRight       =   True
@@ -140,7 +109,7 @@ Begin WebContainer ComponentInfoChartContainer
       Italic          =   False
       Left            =   20
       LockBottom      =   False
-      LockedInPosition=   True
+      LockedInPosition=   False
       LockHorizontal  =   False
       LockLeft        =   True
       LockRight       =   True
@@ -203,11 +172,9 @@ End
 	#tag Method, Flags = &h0
 		Sub Render(component as ComponentModel)
 		  Self.Component = component
-		  Self.BarChartContainer1.Render(Self.Component)
 		  Self.lbName.Text = Self.Component.DisplayName + " (" + Self.Component.HardwareId + ")"
-		  Self.lbLastValueTs.Text = "Letzter Wert: " + LastValue + "  empfangen " + LastReceived
-		  self.lbDisplayUnit.text = "Einheit: " + Self.Component.DisplayUnit
-		  
+		  Self.lbLastValueTs.Text = "Letzter Wert " + LastValue + " empfangen " + LastReceived
+		  Self.lbDisplayUnit.Text = "Einheit: " + Self.Component.DisplayUnit
 		End Sub
 	#tag EndMethod
 
@@ -219,7 +186,7 @@ End
 	#tag ComputedProperty, Flags = &h21
 		#tag Getter
 			Get
-			  return  If(Self.Component.LastReceivedTs <> Nil, Self.Component.LastReceivedTs.ToString(DateTime.FormatStyles.Full, DateTime.FormatStyles.Long), "-")
+			  return  If(Self.Component.LastReceivedTs <> Nil, Self.Component.LastReceivedTs.ToString(Session.Locale, DateTime.FormatStyles.Full, DateTime.FormatStyles.Long), "-")
 			End Get
 		#tag EndGetter
 		Private LastReceived As String
@@ -228,7 +195,7 @@ End
 	#tag ComputedProperty, Flags = &h21
 		#tag Getter
 			Get
-			  return Str(Self.Component.CurrentValue, "###,###")
+			  return Str(Self.Component.CurrentValue, "###,###.###")
 			End Get
 		#tag EndGetter
 		Private LastValue As String

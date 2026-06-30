@@ -13,13 +13,13 @@ Protected Class MapStation
 		#tag Getter
 			Get
 			  If Self.Station <> Nil Then
+			    var s as string = Self.Station.DisplayNameAscii
 			    If Self.Station.HasFaults Then
-			      Return"Stoerung in Station " + Self.Station.DisplayNameAscii
+			      s = s + EndOfLine + " - STOERUNG"
 			    ElseIf Self.Station.MaintenanceActive Then
-			      Return"Wartung aktiv in Station " + Self.Station.DisplayNameAscii
-			    Else
-			      Return Self.Station.DisplayNameAscii
-			    End
+			      s = s + EndOfLine + " - WARTUNG AKTIV" 
+			    end
+			    Return s
 			  End
 			End Get
 		#tag EndGetter

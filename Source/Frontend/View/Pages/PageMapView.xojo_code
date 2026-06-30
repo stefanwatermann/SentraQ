@@ -172,7 +172,7 @@ Begin LobBase.LobWebPage PageMapView
       TabStop         =   True
       Tooltip         =   ""
       Top             =   367
-      Visible         =   True
+      Visible         =   False
       Width           =   60
       _mPanelIndex    =   -1
    End
@@ -234,15 +234,26 @@ End
 		Sub Opening()
 		  Me.RemoveAllLocations
 		  
+		  Var locationsWithFaults() As WebMapLocation
+		  
 		  For Each station As StationModel In App.DataSvc.Stations
 		    Var location As New WebMapLocation(station.Latitude, station.Longitude)
 		    Var ms As New MapStation(station, location)
 		    location.Icon = station.CreateIcon()
 		    location.Title = ms.DisplayTitle
 		    location.Tag = ms
-		    Me.AddLocation(location)
+		    if not station.HasFaults then
+		      Me.AddLocation(location)
+		    Else
+		      locationsWithFaults.Add(location)
+		    end
 		  Next
 		  
+		  // ensures that locations with faults are shown over all others locations on the map
+		  // sorting impacts the list of stations, therefore this approach is used
+		  For Each location As WebMapLocation In locationsWithFaults
+		    Me.AddLocation(location)
+		  next
 		End Sub
 	#tag EndEvent
 	#tag Event

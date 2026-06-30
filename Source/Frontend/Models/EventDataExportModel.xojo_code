@@ -1,6 +1,31 @@
 #tag Class
 Protected Class EventDataExportModel
 Inherits JsonModelBase
+	#tag Method, Flags = &h0
+		Shared Function CreateCsvString(data() as EventDataExportModel, fieldSeparator as string = ";") As string
+		  Var header As String = "Stationsname,Stations-ID,Komponentenname,Komponenten-ID,Komponenten-Typ,Zeitpunkt,Einheit,Wert"
+		  
+		  Var s() As String
+		  s.Add(header.ReplaceAll(",", fieldSeparator))
+		  
+		  For Each ed As EventDataExportModel In data
+		    Var l() As String
+		    l.Add(ed.StationName)
+		    l.Add(ed.StationUid)
+		    l.Add(ed.ComponentName)
+		    l.Add(ed.HardwareId)
+		    l.Add(ed.ComponentType)
+		    l.Add(ed.Received.ToString("yyyy-MM-dd HH:mm"))
+		    l.Add(ed.Unit)
+		    l.Add(str(ed.Value))
+		    s.Add(string.FromArray(l, fieldSeparator))
+		  Next
+		  
+		  return string.FromArray(s, EndOfLine)
+		End Function
+	#tag EndMethod
+
+
 	#tag Property, Flags = &h0
 		ComponentName As String
 	#tag EndProperty
@@ -80,7 +105,55 @@ Inherits JsonModelBase
 			Visible=false
 			Group="Behavior"
 			InitialValue=""
-			Type="Integer"
+			Type="String"
+			EditorType="MultiLineEditor"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="ComponentName"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="String"
+			EditorType="MultiLineEditor"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="ComponentType"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="String"
+			EditorType="MultiLineEditor"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="HardwareId"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="String"
+			EditorType="MultiLineEditor"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="StationUid"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="String"
+			EditorType="MultiLineEditor"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Unit"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="String"
+			EditorType="MultiLineEditor"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Value"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="Double"
 			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior

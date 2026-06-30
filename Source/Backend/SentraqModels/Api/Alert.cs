@@ -4,6 +4,8 @@ public class Alert
 {
     public required string StationUid { get; init; } = string.Empty;
     
+    public string StationShortName { get; init; } = string.Empty;
+    
     public DateTime? ConfirmedAt { get; set; }
     
     public string? ConfirmedBy { get; set; }

@@ -12,6 +12,7 @@
 					FolderItem = Li4vSHRtbC8=
 					FolderItem = Li4vU2VudHJhcUZyb250ZW5kLmNvbmZpZw==
 					FolderItem = Li4vU2VudHJhcUZyb250ZW5kLnNlcnZpY2U=
+					FolderItem = Li4vU2VudHJhcUZyb250ZW5kLnRlc3Quc2VydmljZQ==
 				End
 			End
 			Begin BuildStepList Mac OS X

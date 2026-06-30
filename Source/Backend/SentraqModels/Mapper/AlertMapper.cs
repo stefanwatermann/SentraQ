@@ -7,6 +7,7 @@ public static class AlertMapper
         return new Api.Alert()
         {
             StationUid = alert.StationUid,
+            StationShortName = alert.StationShortName,
             ConfirmedBy = alert.ConfirmedBy,
             ConfirmedAt = alert.ConfirmedAt,
             IsActive = alert.IsActive == "Y",
