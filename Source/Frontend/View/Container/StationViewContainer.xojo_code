@@ -117,7 +117,7 @@ Begin WebContainer StationViewContainer
       TabIndex        =   5
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   15
+      Top             =   20
       Visible         =   True
       Width           =   30
       _mPanelIndex    =   -1
@@ -178,7 +178,7 @@ Begin WebContainer StationViewContainer
       TabIndex        =   7
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   15
+      Top             =   20
       Visible         =   False
       Width           =   250
       _mPanelIndex    =   -1

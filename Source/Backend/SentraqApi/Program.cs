@@ -3,13 +3,13 @@
 // Copyright (c) 2026, Stefan Watermann, Watermann IT, Germany (www.watermann-it.de)
 // Licensed under the GPL 3.0 license. See LICENSE file in the project root for details.
 // #######################################################################################
-
 using System.Reflection;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.EntityFrameworkCore;
 using SentraqApi.Filters;
 using SentraqCommon.Context;
 using SentraqCommon.Converters;
+using SentraqCommon.MqttSender;
 using SentraqCommon.Security;
 using SentraqCommon.Services;
 
@@ -55,6 +55,7 @@ internal static class Program
             builder.Services.AddScoped<LogService>();
             builder.Services.AddScoped<UserService>();
             builder.Services.AddScoped<StatusFileService>();
+            builder.Services.AddScoped<SiemensLogo8MqttSender>();
             builder.Services.AddScoped<RequireAuthorizationKeyAuthFilter>();
 
             builder.Services.AddLogging(b =>

@@ -4,10 +4,10 @@ using MQTTnet;
 using MQTTnet.Extensions.TopicTemplate;
 using SentraqCommon.Context;
 using SentraqCommon.Converters;
+using SentraqCommon.MqttParser;
 using SentraqCommon.Security;
 using SentraqCommon.Services;
 using SentraqController.MessageHandler;
-using SentraqController.MqttParser;
 using SentraqModels.Mapper;
 using SentraqModels.Mqtt;
 
@@ -44,6 +44,7 @@ public class MqttSubscriberWorkerService(
     {
         try
         {
+            settings.Validate();
             componentCacheService.Init();
 
             _mqttClient = _mqttFactory.CreateMqttClient();
@@ -56,13 +57,16 @@ public class MqttSubscriberWorkerService(
 
             while (!stoppingToken.IsCancellationRequested)
             {
+                if (!_mqttClient.IsConnected)
+                    await Connect();
+                
                 // keep service running
                 await Task.Delay(1_000, stoppingToken);
             }
         }
         catch (Exception e)
         {
-            logger.LogError(e, $"Error in main-loop of MqttSubscriberWorkerService: {e}");
+            logger.LogError(e, "Error in main-loop of MqttSubscriberWorkerService: {m}", e.Message);
             throw;
         }
     }
@@ -127,6 +131,7 @@ public class MqttSubscriberWorkerService(
 
                 foreach (var payload in payloads)
                 {
+                    
                     if (!componentCacheService.ComponentExists(payload))
                         continue;
 
@@ -136,7 +141,7 @@ public class MqttSubscriberWorkerService(
 
                     SaveToDatabase(payload);
 
-                    SendToFrontend(payload);
+                    SendToFrontendAsync(payload);
                 }
             }
         }
@@ -173,19 +178,18 @@ public class MqttSubscriberWorkerService(
     {
         try
         {
-            logger.LogDebug("MqttSubscriberWorkerService: dbContextId={ctxid}, hid={hid}", dbContext.ContextId,
-                payload.Hid);
+            logger.LogDebug("dbContextId={ctxid}, hid={hid}", dbContext.ContextId, payload.Hid);
             dbContext.Add(EventDataMapper.Map(payload));
             dbContext.SaveChanges(true);
             logger.LogInformation("Message saved for {uid}.", payload.Hid);
         }
         catch (Exception e)
         {
-            logger.LogError("Message for {uid} failed writing to database: {e}", payload.Hid, e);
+            logger.LogError("Message for {uid} failed writing to database: {e}", payload.Hid, e.Message);
         }
     }
 
-    private void SendToFrontend(MqttPayload payload)
+    private async void SendToFrontendAsync(MqttPayload payload)
     {
         try
         {
@@ -193,19 +197,22 @@ public class MqttSubscriberWorkerService(
             var apiAuthKeyValue = settings.ControllerFrontendApiApiAuthKey;
             var url = $"{frontendApiUrl}{payload.Hid}";
 
-            var serializerOptions = new JsonSerializerOptions();
-            serializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+            var serializerOptions = new JsonSerializerOptions
+            {
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+            };
             serializerOptions.Converters.Add(new SimpleDateTimeConverter());
 
+            logger.LogDebug("Sending message for {uid} to frontend: {url}", payload.Hid, url);
+            
             var httpClient = new HttpClient();
             httpClient.DefaultRequestHeaders.Add("X-AUTH-KEY", apiAuthKeyValue);
-            httpClient.PostAsJsonAsync(url, payload, serializerOptions).Result.EnsureSuccessStatusCode();
-
-            logger.LogDebug("Message for {uid} successfully sent to frontend: {url}", payload.Hid, url);
+            var response = await httpClient.PostAsJsonAsync(url, payload, serializerOptions);
+            response.EnsureSuccessStatusCode();
         }
         catch (Exception e)
         {
-            logger.LogError("Message for {uid} failed sending to frontend: {e}", payload.Hid, e);
+            logger.LogError("Message for {uid} failed sending to frontend: {e}", payload.Hid, e.Message);
         }
     }
 }

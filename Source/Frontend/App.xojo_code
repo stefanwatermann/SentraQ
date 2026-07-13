@@ -14,7 +14,7 @@ Inherits LobBase.LobWebApplication
 	#tag Event
 		Sub Opening(args() as String)
 		  // initialize app, logging, etc (Status API-KEY shall not contain $ because this breaks the HTTP-Header value)
-		  InitApp("Sentraq-Platform", "Watermann IT, Germany", App.ApiAuthKeyValue)
+		  InitApp("SentraqFrontend", "Watermann IT, Germany", App.ApiAuthKeyValue)
 		  
 		  InitAppServices()
 		End Sub
@@ -105,18 +105,20 @@ Inherits LobBase.LobWebApplication
 		        
 		      Else
 		        // invalid request
+		        Log.Warning("Unsupported (400) request to path: " + request.Path + "", CurrentMethodName)
 		        response.Status = 400
 		        
 		      End
 		      
 		    Else
 		      // unauthorized
+		      Log.Warning("Unautorized (401) request to path: " + request.Path + "", CurrentMethodName)
 		      response.Status = 401
 		      
 		    End
 		    
 		  Catch e As RuntimeException
-		    Log.Error("Error while processing api request to '" + request.Path + "': [" + Str(e.ErrorNumber) + "] " + e.Message + " (" + String.FromArray(e.Stack, "; "), CurrentMethodName)
+		    Log.Error("Error (500) while processing api request to '" + request.Path + "': [" + Str(e.ErrorNumber) + "] " + e.Message + " (" + String.FromArray(e.Stack, "; "), CurrentMethodName)
 		    response.Status = 500
 		    
 		  End
@@ -174,8 +176,8 @@ Inherits LobBase.LobWebApplication
 		    End
 		    Return 400
 		  Catch error As RuntimeException
-		    Log.Error("[" + Str(error.ErrorNumber) + "] " + error.Message + " | " + String.FromArray(error.Stack, "; "), CurrentMethodName)
-		    Return 500
+		    Log.Error("Error on path=" + request.Path + " [" + Str(error.ErrorNumber) + "] " + error.Message + " | " + String.FromArray(error.Stack, "; "), CurrentMethodName)
+		    Return 501
 		  End
 		End Function
 	#tag EndMethod

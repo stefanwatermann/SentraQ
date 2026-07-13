@@ -3,16 +3,15 @@
 // Copyright (c) 2026, Stefan Watermann, Watermann IT, Germany (www.watermann-it.de)
 // Licensed under the GPL 3.0 license. See LICENSE file in the project root for details.
 // #######################################################################################
-
 using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 using SentraqCommon.Context;
 using SentraqCommon.Loggers;
+using SentraqCommon.MqttParser;
 using SentraqCommon.Security;
 using SentraqCommon.Services;
 using SentraqController.MessageHandler;
 using SentraqController.MessageHandler.Handler;
-using SentraqController.MqttParser;
 using SentraqController.Services;
 
 [assembly: AssemblyVersion("1.1.0.*")]
@@ -46,7 +45,6 @@ internal static class Program
             builder.Services.AddSingleton<IConfiguration>(configuration);
             builder.Services.AddSingleton<SettingService>();
             builder.Services.AddScoped<MailService>();
-            builder.Services.AddScoped<SmsService>();
             builder.Services.AddScoped<LogService>();
             builder.Services.AddScoped<MqttParserFactory>();
             builder.Services.AddScoped<AlertMessageHandler>();
@@ -58,7 +56,7 @@ internal static class Program
             builder.Services.AddSingleton<CacheService>();
             builder.Services.AddHostedService<MqttSubscriberWorkerService>();
             builder.Services.AddHostedService<MaintenanceWorkerService>();
-
+            
             var errorFilename = configuration.GetValue<string>("ErrorLogFilename") ?? "errors.log";
 
             builder.Services.AddLogging(b =>
@@ -75,7 +73,7 @@ internal static class Program
             {
                 options.UseNpgsql(Decrypt.PasswordInConnectionString(connStr, Secrets.EncryptionPwd));
             }, ServiceLifetime.Transient);
-
+            
             var host = builder.Build();
 
             host.Run();

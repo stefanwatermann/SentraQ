@@ -26,7 +26,7 @@ public class PasswordService(
             .Replace("{PasskeyCode}", $"{code[..4]}-{code[4..8]}")
             .Replace("{PasswordResetCodeLifetimeMinutes}", Convert.ToString(settings.PasswordResetCodeLifetimeMinutes));
         
-        mailService.Send(user.Email, settings.PasskeyRequestMailSubject, body);
+        mailService.SendAsync(user.Email, settings.PasskeyRequestMailSubject, body).RunSynchronously();
 
         user.PasskeyRequestCode = code;
         user.PasskeyRequestTs = DateTime.Now;
@@ -48,7 +48,7 @@ public class PasswordService(
             .Replace("{PasswordResetCode}", $"{resetCode[..4]}-{resetCode[4..8]}")
             .Replace("{PasswordResetCodeLifetimeMinutes}", Convert.ToString(settings.PasswordResetCodeLifetimeMinutes));
         
-        mailService.Send(user.Email, settings.PasswordResetMailSubject, body);
+        mailService.SendAsync(user.Email, settings.PasswordResetMailSubject, body).RunSynchronously();
 
         user.PasswordResetCode = resetCode;
         user.PasswordResetTs = DateTime.Now;

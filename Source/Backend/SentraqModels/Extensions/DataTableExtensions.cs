@@ -2,7 +2,7 @@ using System.Data;
 
 namespace SentraqModels.Extensions;
 
-public static class DataTableExtension
+public static class DataTableExtensions
 {
     public static string[] AsCsv(this DataTable dt, string fieldSeparator = ";")
     {

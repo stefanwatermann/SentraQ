@@ -430,7 +430,7 @@ End
 	#tag EndComputedProperty
 
 
-	#tag Constant, Name = kAllTableNames, Type = String, Dynamic = False, Default = \"Alert\x2CvAlert\x2CComponent\x2C\x2CCounter\x2CEventData\x2CLog\x2CStation", Scope = Private
+	#tag Constant, Name = kAllTableNames, Type = String, Dynamic = False, Default = \"Alert\x2CvAlert\x2CComponent\x2CCounter\x2CEventData\x2CLog\x2CStation", Scope = Private, Description = 436F6D6D6120736570617261746564206C697374206F66207461626C657320746F2073686F772E205368616C6C204E4F5420696E636C756465207461626C657320636F6E7461696E696E672073656E73697469766520646174612C206C696B652055736572206F722053657474696E672E
 	#tag EndConstant
 
 	#tag Constant, Name = kFieldSeparator, Type = String, Dynamic = False, Default = \"~", Scope = Private

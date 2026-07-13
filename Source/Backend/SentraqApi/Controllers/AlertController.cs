@@ -9,6 +9,11 @@ using Api = SentraqModels.Api;
 
 namespace SentraqApi.Controllers;
 
+/// <summary>
+/// Provides information from the Alert table.
+/// Used by the Frontend to show or export alerts.
+/// </summary>
+/// <param name="dbContext"></param>
 [ApiController]
 [Route("api/alert")]
 public class AlertController(
@@ -16,13 +21,13 @@ public class AlertController(
 {
     [RequireAuthorizationKey]
     [HttpPost("")]
-    public IQueryable<Api.Alert> Get([FromBody] JsonObject filter, [FromQuery] DateTime from, DateTime to)
+    public IQueryable<Api.Alert> Read([FromBody] JsonObject filter, [FromQuery] DateTime from, DateTime to)
     {
         var uids = filter.FirstOrDefault(j => j.Key == "uid").Value;
         var stationUids = uids == null ? Array.Empty<string>() : uids.ToString().Sanitize(5000).Split(',');
         
         var alerts = dbContext
-            .Alerts
+            .AlertsView
             .Where(a => a.FirstEventTs >= from && a.FirstEventTs <= to && stationUids.Contains(a.StationUid))
             .AsNoTracking()
             .OrderByDescending(e => e.Id)
@@ -36,7 +41,7 @@ public class AlertController(
     public IQueryable<Api.Alert> GetLast(string stationUid, [FromQuery] int take = 100)
     {
         var alerts = dbContext
-            .Alerts
+            .AlertsView
             .Where(a => a.StationUid == stationUid.Sanitize(36))
             .AsNoTracking()
             .OrderByDescending(e => e.Id)

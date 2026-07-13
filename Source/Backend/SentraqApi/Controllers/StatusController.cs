@@ -9,6 +9,14 @@ using SentraqModels.Api;
 
 namespace SentraqApi.Controllers;
 
+/// <summary>
+/// Provides status information of the plattform services.
+/// Used by the Frontend to show status information.
+/// </summary>
+/// <param name="logger"></param>
+/// <param name="configuration"></param>
+/// <param name="dbContext"></param>
+/// <param name="statusFileService"></param>
 [ApiController]
 [Route("api/status")]
 public class StatusController(
@@ -36,9 +44,8 @@ public class StatusController(
     {
         try
         {
-            var assemblyPath = configuration.GetValue<string>("Controller:AssemblyPath") ?? "../controller";
-            var name = AssemblyLoadContext.GetAssemblyName($"{assemblyPath}/SentraqController.dll");
-            return name.Version != null ? name.Version.ToString() : "unknown";
+            var version = statusFileService.GetVersion("Controller");
+            return version;
         }
         catch (Exception e)
         {
@@ -51,9 +58,8 @@ public class StatusController(
     {
         try
         {
-            var assemblyPath = configuration.GetValue<string>("Watchdog:AssemblyPath") ?? "../watchdog";
-            var name = AssemblyLoadContext.GetAssemblyName($"{assemblyPath}/SentraqWatchdog.dll");
-            return name.Version != null ? name.Version.ToString() : "unknown";
+            var version = statusFileService.GetVersion("Watchdog");
+            return version;
         }
         catch (Exception e)
         {
@@ -67,7 +73,7 @@ public class StatusController(
         try
         {
             var lastTs = statusFileService.GetLastTimestamp("Controller");
-            return lastTs > DateTime.Now.AddSeconds(-15);
+            return lastTs > DateTime.Now.AddSeconds(-20);
         }
         catch (Exception e)
         {
@@ -81,7 +87,7 @@ public class StatusController(
         try
         {
             var lastTs = statusFileService.GetLastTimestamp("Watchdog");
-            return lastTs > DateTime.Now.AddSeconds(-15);
+            return lastTs > DateTime.Now.AddSeconds(-20);
         }
         catch (Exception e)
         {

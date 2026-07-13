@@ -166,8 +166,8 @@ Begin WebContainer ComponentActorViewContainer Implements IEmbeddableViewContain
       CSSClasses      =   ""
       Enabled         =   True
       FontName        =   ""
-      FontSize        =   10.0
-      Height          =   12
+      FontSize        =   11.0
+      Height          =   15
       HTMLElement     =   0
       Index           =   -2147483648
       Indicator       =   ""
@@ -185,14 +185,14 @@ Begin WebContainer ComponentActorViewContainer Implements IEmbeddableViewContain
       Scope           =   2
       TabIndex        =   6
       TabStop         =   True
-      Text            =   "Warte auf Antwort..."
+      Text            =   "Warte auf Komponente..."
       TextAlignment   =   0
       TextColor       =   &c79797900
       Tooltip         =   ""
       Top             =   86
       Underline       =   False
       Visible         =   False
-      Width           =   140
+      Width           =   150
       _mPanelIndex    =   -1
    End
 End
@@ -223,17 +223,17 @@ End
 		Private Sub ToggleValue(value as Boolean)
 		  If Not Switch1.Indeterminate = True Then
 		    
-		    // Switch in den Wartezustand versetzen, um auf Bestätigung des zu Warten
-		    Switch1.Indeterminate = True
-		    Switch1.Enabled = False
-		    lbWaitForResponse.Visible = true
-		    
-		    // Wert senden
-		    App.DataSvc.SetComponentValue(MyComponent.HardwareId, if(value, "1", "0"), Session.CurrentUser.Login)
-		    
-		    // TODO Messager erzeugen
-		    if not WasBackendChange then
-		      MessageBox("Hinweis: Diese Funktion noch nicht vollständig umgesetzt, es findet keine Kommunikation mit dem Backend statt.")
+		    If Not WasBackendChange Then
+		      
+		      // Switch in den Wartezustand versetzen, um auf Bestätigung des zu Warten
+		      Switch1.Enabled = False
+		      lbWaitForResponse.Visible = True
+		      MyComponent.CurrentValue = If(value, 1, 0)
+		      LastChangedByUser = DateTime.Now
+		      
+		      // Wert senden
+		      App.DataSvc.SetComponentValue(MyComponent.HardwareId, if(value, "1", "0"), Session.CurrentUser.Login)
+		      
 		    End
 		    
 		  end
@@ -251,21 +251,30 @@ End
 		    // muss hier die Hilfsvariable WasBackendChange helfen. 
 		    Self.WasBackendChange = True
 		    
-		    Var v As Boolean = If (Self.MyComponent.CurrentValue.IntegerValue = 0, False, True)
-		    SetSwitchLabel(v)
-		    Switch1.Value = v
-		    Switch1.Indeterminate = False
-		    lbWaitForResponse.Visible = false
-		    Switch1.Enabled = Session.WasPasskeyAuthentication And Not MyStation.MaintenanceActive
+		    If LastChangedByUser <> Nil And Self.MyComponent.LastReceivedTs > LastChangedByUser Then
+		      LastChangedByUser = Nil
+		    End
+		    
+		    if LastChangedByUser = nil then 
+		      Var v As Boolean = If (Self.MyComponent.CurrentValue.IntegerValue = 0, False, True)
+		      SetSwitchLabel(v)
+		      Switch1.Value = v
+		      lbWaitForResponse.Visible = false
+		      Switch1.Enabled = Session.WasPasskeyAuthentication And Not MyStation.MaintenanceActive And MyComponent.TypeDef = Enums.ComponentTypes.Switch
+		    end
 		    
 		  Finally
-		    // nur Fianlly erforderlich, um die Hilfsvariable immer zurück zu setzen
+		    // nur Finally erforderlich, um die Hilfsvariable immer zurück zu setzen
 		    Self.WasBackendChange = False
 		    
 		  end
 		End Sub
 	#tag EndMethod
 
+
+	#tag Property, Flags = &h21
+		Private LastChangedByUser As DateTime
+	#tag EndProperty
 
 	#tag Property, Flags = &h21
 		Private MyComponent As ComponentModel
@@ -303,7 +312,7 @@ End
 #tag Events Switch1
 	#tag Event
 		Sub Shown()
-		  Me.Enabled = Session.WasPasskeyAuthentication And Not MyStation.MaintenanceActive
+		  Me.Enabled = Session.WasPasskeyAuthentication And Not MyStation.MaintenanceActive And MyComponent.TypeDef = Enums.ComponentTypes.Switch
 		End Sub
 	#tag EndEvent
 	#tag Event

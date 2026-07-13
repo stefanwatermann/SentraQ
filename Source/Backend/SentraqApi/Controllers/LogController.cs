@@ -8,6 +8,10 @@ using Api = SentraqModels.Api;
 
 namespace SentraqApi.Controllers;
 
+/// <summary>
+/// Provides information from the Log table.
+/// </summary>
+/// <param name="dbContext"></param>
 [ApiController]
 [Route("api/log")]
 public class LogController(

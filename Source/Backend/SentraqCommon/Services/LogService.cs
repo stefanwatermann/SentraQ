@@ -36,6 +36,7 @@ public class LogService(
         StationMaintenanceStopped,
         ComponentChanged,
         ComponentRemoved,
+        ComponentValueSet,
         AlertAction,
         ActorCounterRestart,
         DataExportRequested
@@ -47,7 +48,7 @@ public class LogService(
         dbContext.SaveChanges();
     }
     
-    public void AddInfo(Event evt, string msg = "")
+    public void AddInfoNoSave(Event evt, string msg = "")
     {
         Add(evt, Severity.Info, msg);
     }

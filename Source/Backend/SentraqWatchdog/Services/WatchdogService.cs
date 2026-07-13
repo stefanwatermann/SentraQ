@@ -7,7 +7,7 @@ using SentraqWatchdog.Models;
 namespace SentraqWatchdog.Services;
 
 /// <summary>
-/// SentraQ Watchdog service. Sends fault (type=FL) messages for Stations with configured WatchdogId.
+/// SentraQ Watchdog service. Is sending fault messages (type=FL) for Stations with configured WatchdogId.
 /// Sends 0 if messages are being received frequently and 1 if no new messages have arrived
 /// within the configured time periode (WatchdogAlertAfterSeconds).
 /// </summary>

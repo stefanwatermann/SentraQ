@@ -7,7 +7,8 @@ Protected Module Enums
 		  Sensor
 		  FillLevel
 		  Fault
-		Divider
+		  Divider
+		Switch = 7
 	#tag EndEnum
 
 	#tag Enum, Name = StationTypes, Type = Integer, Flags = &h0

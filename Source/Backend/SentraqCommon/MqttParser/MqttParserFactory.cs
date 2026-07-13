@@ -1,8 +1,12 @@
-using SentraqController.MqttParser.Parsers;
-using SentraqController.Services;
+using Microsoft.Extensions.Logging;
+using SentraqCommon.MqttParser.Parsers;
 
-namespace SentraqController.MqttParser;
+namespace SentraqCommon.MqttParser;
 
+/// <summary>
+/// Factory to return the matching parser for a JSON message.
+/// </summary>
+/// <param name="logger"></param>
 public class MqttParserFactory(
     ILogger<MqttParserFactory> logger)
 {
@@ -11,7 +15,7 @@ public class MqttParserFactory(
         if (string.IsNullOrWhiteSpace(payloadText))
             throw new ArgumentNullException(nameof(payloadText));
 
-        // Siemens LOGO sendet ähnlich: {"state":{"reported":{"0001":{"desc":"M-bit-1-1","value":[1]}}}}
+        // Siemens LOGO sends similar: {"state":{"reported":{"0001":{"desc":"M-bit-1-1","value":[1]}}}}
         if (payloadText.Contains("state", StringComparison.InvariantCultureIgnoreCase) && 
             payloadText.Contains("reported", StringComparison.InvariantCultureIgnoreCase))
             return new SiemensLogoParser(payloadText);

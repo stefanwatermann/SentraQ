@@ -18,12 +18,13 @@ public class DatabaseContext : DbContext
     public DbSet<ComponentView> ComponentsView { get; init; }
     public DbSet<Setting> Settings { get; init; }
     public DbSet<Alert> Alerts { get; init; }
+    public DbSet<AlertView> AlertsView { get; init; }
     public DbSet<User> Users { get; init; }
     public DbSet<Log> Logs { get; init; }
     public DbSet<Counter> Counters { get; init; }
     public DbSet<Aggregation> Aggregations { get; init; }
     public DbSet<EventDataExport> EventDataExports { get; init; }
-    
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     { }
 }

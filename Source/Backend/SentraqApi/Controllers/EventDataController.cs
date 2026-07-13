@@ -10,6 +10,12 @@ using Api = SentraqModels.Api;
 
 namespace SentraqApi.Controllers;
 
+/// <summary>
+/// Provides information from the EventData table.
+/// </summary>
+/// <param name="logger"></param>
+/// <param name="logService"></param>
+/// <param name="dbContext"></param>
 [ApiController]
 [Route("api/eventData")]
 public class EventDataController(

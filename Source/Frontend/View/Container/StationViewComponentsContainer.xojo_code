@@ -101,7 +101,7 @@ End
 		      container = New ComponentDividerViewContainer(component)
 		      maxWidth = True
 		      
-		    ElseIf component.TypeDef = Enums.ComponentTypes.Actor Then
+		    ElseIf component.TypeDef = Enums.ComponentTypes.Actor or component.TypeDef = Enums.ComponentTypes.Switch Then
 		      container = New ComponentActorViewContainer(component)
 		      
 		    Else

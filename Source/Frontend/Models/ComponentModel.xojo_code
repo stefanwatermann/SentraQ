@@ -61,6 +61,9 @@ Inherits JsonModelBase
 			  Case "AC"
 			    Return Enums.ComponentTypes.Actor
 			    
+			  Case "SW"
+			    Return Enums.ComponentTypes.Switch
+			    
 			  Case "FL"
 			    Return Enums.ComponentTypes.Fault
 			    
@@ -92,6 +95,9 @@ Inherits JsonModelBase
 			    
 			  Case Enums.ComponentTypes.Actor
 			    Return "Aktor"
+			    
+			  Case Enums.ComponentTypes.Switch
+			    Return "Aktor (schaltbar)"
 			    
 			  Case Enums.ComponentTypes.Counter
 			    Return "Zähler"

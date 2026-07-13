@@ -10,7 +10,7 @@ public sealed class Worker(
 {
     protected override Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        mailService.Send(settingService.AlertMailFrom, "SentraQ Test-Mail", "SentraQ Test-Mail");
+        mailService.SendAsync(settingService.AlertMailFrom, "SentraQ Test-Mail", "SentraQ Test-Mail");
         Console.WriteLine("Mail sent.");
         hostApplicationLifetime.StopApplication();
         return Task.CompletedTask;

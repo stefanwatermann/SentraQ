@@ -5,7 +5,7 @@ Begin WebDialog DialogExport
    ControlID       =   ""
    CSSClasses      =   ""
    Enabled         =   True
-   Height          =   410
+   Height          =   460
    Index           =   -2147483648
    Indicator       =   0
    LayoutDirection =   0
@@ -25,7 +25,6 @@ Begin WebDialog DialogExport
    Width           =   740
    _mDesignHeight  =   0
    _mDesignWidth   =   0
-   _mName          =   ""
    _mPanelIndex    =   -1
    Begin ExportContainer ExportContainer1
       ControlCount    =   0
@@ -51,7 +50,7 @@ Begin WebDialog DialogExport
       TabIndex        =   0
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   48
+      Top             =   90
       Visible         =   True
       Width           =   700
       _mDesignHeight  =   0
@@ -117,10 +116,45 @@ Begin WebDialog DialogExport
       TextAlignment   =   0
       TextColor       =   &c000000FF
       Tooltip         =   ""
-      Top             =   10
+      Top             =   15
       Underline       =   False
       Visible         =   True
       Width           =   532
+      _mPanelIndex    =   -1
+   End
+   Begin WebLabel Label1
+      Bold            =   False
+      ControlID       =   ""
+      CSSClasses      =   "small"
+      Enabled         =   True
+      FontName        =   ""
+      FontSize        =   0.0
+      Height          =   30
+      HTMLElement     =   0
+      Index           =   -2147483648
+      Indicator       =   ""
+      Italic          =   False
+      Left            =   40
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockHorizontal  =   False
+      LockLeft        =   True
+      LockRight       =   True
+      LockTop         =   True
+      LockVertical    =   False
+      Multiline       =   False
+      PanelIndex      =   0
+      Scope           =   2
+      TabIndex        =   3
+      TabStop         =   True
+      Text            =   "Empfangene Daten oder Störungen im Semikolon separierten Format exportieren. "
+      TextAlignment   =   0
+      TextColor       =   &c5E5E5E00
+      Tooltip         =   ""
+      Top             =   50
+      Underline       =   False
+      Visible         =   True
+      Width           =   665
       _mPanelIndex    =   -1
    End
 End

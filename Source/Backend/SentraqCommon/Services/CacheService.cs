@@ -52,16 +52,13 @@ public class CacheService(
         if (GetComponent(payload) != null)
             return true;
         
-        logger.LogDebug("Payload invalid, unknown hardware ID: {payload}", payload.Hid);
+        logger.LogDebug("Payload invalid, unknown component hardware ID: {payload}", payload.Hid);
         return false;
     }
     
     public bool CounterExists(MqttPayload payload)
     {
-        if (GetCounter(payload) != null)
-            return true;
-        logger.LogDebug("Payload invalid, unknown hardware ID: {payload}", payload.Hid);
-        return false;
+        return GetCounter(payload) != null;
     }
     
     public Counter? GetCounter(MqttPayload payload)

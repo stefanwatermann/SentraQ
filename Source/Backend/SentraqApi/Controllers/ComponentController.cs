@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SentraqApi.Attributes;
@@ -65,6 +66,7 @@ public class ComponentController(
     /// <param name="changedBy"></param>
     [RequireAuthorizationKey]
     [HttpPost("setValue/{hardwareId}")]
+    [Experimental("SiemensLogo8MqttSender")]
     public void SetValue(string hardwareId, [FromBody] string value, [FromHeader(Name = "X-LOGIN")] string changedBy)
     {
         componentService.SetValue(hardwareId, value, changedBy);
@@ -97,6 +99,6 @@ public class ComponentController(
     [HttpDelete("{hardwareId}")]
     public void Remove(string hardwareId, [FromHeader(Name = "X-LOGIN")] string changedBy)
     {
-        componentService.Removecomponent(hardwareId.Sanitize(36), changedBy.Sanitize(10));
+        componentService.RemoveComponent(hardwareId.Sanitize(36), changedBy.Sanitize(10));
     }
 }

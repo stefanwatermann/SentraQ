@@ -2,7 +2,7 @@ namespace SentraqModels.Mapper;
 
 public static class AlertMapper
 {
-    public static Api.Alert Map(Data.Alert alert)
+    public static Api.Alert Map(Data.AlertView alert)
     {
         return new Api.Alert()
         {

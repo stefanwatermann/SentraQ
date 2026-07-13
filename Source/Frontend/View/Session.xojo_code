@@ -176,7 +176,8 @@ Inherits WebSession
 		    Self.Logoff
 		    
 		  Else
-		    // page "Tables" requires admin roghts
+		    
+		    // pages "Tables" and "Syslog" require admin rights
 		    If (ht = "tables" or ht = "syslog") and Session.Authenticator.CurrentUserRole <> "ADM" Then
 		      Session.CurrentPage = PageNoAccess
 		      return

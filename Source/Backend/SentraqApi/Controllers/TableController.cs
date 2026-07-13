@@ -9,6 +9,11 @@ using SentraqModels.Extensions;
 
 namespace SentraqApi.Controllers;
 
+/// <summary>
+/// Provides generic read access to the database tables.
+/// </summary>
+/// <param name="configuration"></param>
+/// <param name="dbContext"></param>
 [ApiController]
 [Route("api/table")]
 public class TableController(

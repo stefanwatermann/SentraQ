@@ -25,6 +25,7 @@ Begin WebDialog DialogExportRun
    Width           =   400
    _mDesignHeight  =   0
    _mDesignWidth   =   0
+   _mName          =   ""
    _mPanelIndex    =   -1
    Begin WebProgressWheel ProgressWheel1
       Colorize        =   False

@@ -18,6 +18,8 @@ public class MaintenanceWorkerService(
 {
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
+        statusFileService.WriteVersionFile("Controller");
+        
         while (!stoppingToken.IsCancellationRequested)
         {
             // Update status-file every 10 seconds 
@@ -26,7 +28,7 @@ public class MaintenanceWorkerService(
 
             // check every 60 seconds if alert for "maintenance mode still active" needs to be sent for any station
             if (DateTime.Now.Second == 0)
-                stationService.EvaluateStationsMaintenanceModeActiveStatus();
+                stationService.EvaluateAndAlertStationMaintenanceModeActive();
 
             await Task.Delay(1000, stoppingToken);
         }
