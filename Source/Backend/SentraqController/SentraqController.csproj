@@ -38,6 +38,7 @@
       </None>
       <None Remove="version.txt" />
       <None Remove="status-file.txt" />
+      <None Remove="errors.log" />
     </ItemGroup>
 
     <ItemGroup>
