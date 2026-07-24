@@ -38,7 +38,7 @@ Begin WebContainer BarChartContainer
       HasLegend       =   False
       Height          =   200
       Index           =   -2147483648
-      Indicator       =   ""
+      Indicator       =   0
       IsGridVisible   =   False
       IsXAxisVisible  =   False
       IsYAxisVisible  =   False
@@ -69,7 +69,7 @@ Begin WebContainer BarChartContainer
       Top             =   10
       Visible         =   True
       Width           =   560
-      _mMode          =   ""
+      _mMode          =   0
       _mPanelIndex    =   -1
    End
    Begin WebSegmentedButton sbPeriode

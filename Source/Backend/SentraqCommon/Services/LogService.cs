@@ -11,7 +11,7 @@ namespace SentraqCommon.Services;
 /// <param name="logger"></param>
 /// <param name="dbContext"></param>
 public class LogService(
-    ILogger<CacheService> logger,
+    ILogger<LogService> logger,
     DatabaseContext dbContext)
 {
     public enum Severity

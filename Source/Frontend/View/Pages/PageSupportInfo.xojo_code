@@ -43,7 +43,7 @@ Begin WebPage PageSupportInfo
       Height          =   38
       HTMLElement     =   4
       Index           =   -2147483648
-      Indicator       =   ""
+      Indicator       =   0
       Italic          =   False
       Left            =   80
       LockBottom      =   False
@@ -78,7 +78,7 @@ Begin WebPage PageSupportInfo
       Height          =   30
       HTMLElement     =   0
       Index           =   -2147483648
-      Indicator       =   ""
+      Indicator       =   0
       Italic          =   False
       Left            =   80
       LockBottom      =   False
@@ -113,7 +113,7 @@ Begin WebPage PageSupportInfo
       Height          =   30
       HTMLElement     =   0
       Index           =   -2147483648
-      Indicator       =   ""
+      Indicator       =   0
       Italic          =   False
       Left            =   210
       LockBottom      =   False

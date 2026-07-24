@@ -17,14 +17,14 @@ public class SiemensLogo8MqttSender(
     ILogger<SiemensLogo8MqttSender> logger,
     SettingService settings)
 {
-    private const string _messageTemplate = "{\"state\":{\"{harwareId}\":{\"value\":[{value}]}}}";
+    private const string _messageTemplate = @"{""state"":{""{hardwareId}"":{""value"":[{value}]}}}";
     private readonly MqttTopicTemplate _topicTemplate = new("/client/receive/{clientTopic}/{stationUid}");
     
     public async void Send(Component component, string value)
     {
         var payload = _messageTemplate
-            .Replace("{hardwareId}", component.HardwareId)
-            .Replace($"{value}", value);
+            .Replace($"{{hardwareId}}", component.HardwareId)
+            .Replace($"{{value}}", value);
 
         var topic = _topicTemplate
             .WithParameter("clientTopic", settings.ControllerMqttClientTopic)
@@ -46,7 +46,7 @@ public class SiemensLogo8MqttSender(
 
         var applicationMessage = new MqttApplicationMessageBuilder()
             .WithTopicTemplate(topic)
-            .WithPayload(JsonSerializer.Serialize(payload, serializerOptions))
+            .WithPayload(payload)
             .Build();
 
         logger.LogDebug("MQTT client connecting to {brokerHostname} ...", settings.ControllerMqttBrokerHostname);

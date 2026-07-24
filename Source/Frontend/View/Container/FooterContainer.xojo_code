@@ -35,7 +35,7 @@ Begin WebContainer FooterContainer
       Height          =   30
       HTMLElement     =   0
       Index           =   -2147483648
-      Indicator       =   ""
+      Indicator       =   0
       Italic          =   False
       Left            =   0
       LockBottom      =   True

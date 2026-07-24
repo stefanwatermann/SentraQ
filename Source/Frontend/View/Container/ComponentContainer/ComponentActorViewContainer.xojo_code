@@ -101,7 +101,7 @@ Begin WebContainer ComponentActorViewContainer Implements IEmbeddableViewContain
       Height          =   35
       HTMLElement     =   0
       Index           =   -2147483648
-      Indicator       =   ""
+      Indicator       =   0
       Italic          =   False
       Left            =   80
       LockBottom      =   False
@@ -170,7 +170,7 @@ Begin WebContainer ComponentActorViewContainer Implements IEmbeddableViewContain
       Height          =   15
       HTMLElement     =   0
       Index           =   -2147483648
-      Indicator       =   ""
+      Indicator       =   0
       Italic          =   False
       Left            =   23
       LockBottom      =   False
@@ -229,7 +229,7 @@ End
 		      Switch1.Enabled = False
 		      lbWaitForResponse.Visible = True
 		      MyComponent.CurrentValue = If(value, 1, 0)
-		      LastChangedByUser = DateTime.Now
+		      LastChangedByUser = DateTime.Now.SubtractInterval(0,0,0,0,0,1)   // eine Sekunde abziehen, da die Anwtwort von der Steuerung schnell kommen kann.
 		      
 		      // Wert senden
 		      App.DataSvc.SetComponentValue(MyComponent.HardwareId, if(value, "1", "0"), Session.CurrentUser.Login)

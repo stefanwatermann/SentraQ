@@ -311,7 +311,7 @@ Begin LobBase.LobWebPage PageLogon
       Height          =   38
       HTMLElement     =   0
       Index           =   -2147483648
-      Indicator       =   ""
+      Indicator       =   0
       Italic          =   False
       Left            =   250
       LockBottom      =   False

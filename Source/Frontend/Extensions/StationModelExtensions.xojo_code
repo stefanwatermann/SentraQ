@@ -78,17 +78,6 @@ Protected Module StationModelExtensions
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function GetInfos(extends station as StationModel) As String
-		  Return kStationInforHtmlTemplate _
-		  .Replace("#UId#", station.Uid) _
-		  .Replace("#ShortName#", station.ShortName) _
-		  .Replace("#Type#", station.Type) _
-		  .Replace("#Location#", str(Station.Latitude) + " / " + str(station.Longitude))
-		  
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
 		Function HasFaults(extends station as StationModel) As Boolean
 		  For Each component As ComponentModel In station.Components
 		    If component.TypeDef = Enums.ComponentTypes.Fault And component.CurrentValue.IntegerValue <> 0 Then
@@ -98,10 +87,6 @@ Protected Module StationModelExtensions
 		  Return False
 		End Function
 	#tag EndMethod
-
-
-	#tag Constant, Name = kStationInforHtmlTemplate, Type = String, Dynamic = False, Default = \"<raw>\n  <div style\x3D\'margin: 0 20px;\'>\n    <div style\x3D\'font-weight: bold;\'>Stationsinfo</div>\n    <div style\x3D\'font-size: 0.8em;\'>\n      <div>UId: #UId#</div>\n      <div>Kurzname: #ShortName#</div>\n      <div>Typ: #Type#</div>\n      <div>L\xC3\xA4nge/Breite: #Location#</div>\n    </div>\n  </div>\n</raw>", Scope = Private
-	#tag EndConstant
 
 
 	#tag ViewBehavior

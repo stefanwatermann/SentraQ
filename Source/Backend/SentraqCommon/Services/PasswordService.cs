@@ -8,7 +8,7 @@ using Data = SentraqModels.Data;
 namespace SentraqCommon.Services;
 
 public class PasswordService(
-        ILogger<CacheService> logger,
+        ILogger<PasswordService> logger,
         DatabaseContext dbContext,
         LogService logService,
         MailService mailService,
@@ -26,7 +26,7 @@ public class PasswordService(
             .Replace("{PasskeyCode}", $"{code[..4]}-{code[4..8]}")
             .Replace("{PasswordResetCodeLifetimeMinutes}", Convert.ToString(settings.PasswordResetCodeLifetimeMinutes));
         
-        mailService.SendAsync(user.Email, settings.PasskeyRequestMailSubject, body).RunSynchronously();
+        _ = mailService.SendAsync(user.Email, settings.PasskeyRequestMailSubject, body);
 
         user.PasskeyRequestCode = code;
         user.PasskeyRequestTs = DateTime.Now;
@@ -48,7 +48,7 @@ public class PasswordService(
             .Replace("{PasswordResetCode}", $"{resetCode[..4]}-{resetCode[4..8]}")
             .Replace("{PasswordResetCodeLifetimeMinutes}", Convert.ToString(settings.PasswordResetCodeLifetimeMinutes));
         
-        mailService.SendAsync(user.Email, settings.PasswordResetMailSubject, body).RunSynchronously();
+        _ = mailService.SendAsync(user.Email, settings.PasswordResetMailSubject, body);
 
         user.PasswordResetCode = resetCode;
         user.PasswordResetTs = DateTime.Now;

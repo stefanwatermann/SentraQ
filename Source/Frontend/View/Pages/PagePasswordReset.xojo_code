@@ -108,9 +108,9 @@ Begin LobBase.LobWebPage PagePasswordReset
       HasFillColor    =   True
       Height          =   340
       Index           =   -2147483648
-      Indicator       =   ""
-      LayoutDirection =   "LayoutDirections.LeftToRight"
-      LayoutType      =   "LayoutTypes.Fixed"
+      Indicator       =   0
+      LayoutDirection =   0
+      LayoutType      =   0
       Left            =   90
       LockBottom      =   False
       LockedInPosition=   True
@@ -140,7 +140,7 @@ Begin LobBase.LobWebPage PagePasswordReset
          Height          =   38
          HTMLElement     =   0
          Index           =   -2147483648
-         Indicator       =   ""
+         Indicator       =   0
          InitialParent   =   "rectPset"
          Italic          =   False
          Left            =   125
@@ -179,7 +179,7 @@ Begin LobBase.LobWebPage PagePasswordReset
          Height          =   38
          Hint            =   ""
          Index           =   -2147483648
-         Indicator       =   ""
+         Indicator       =   0
          InitialParent   =   "rectPset"
          Left            =   267
          LockBottom      =   False
@@ -215,7 +215,7 @@ Begin LobBase.LobWebPage PagePasswordReset
          Height          =   38
          HTMLElement     =   0
          Index           =   -2147483648
-         Indicator       =   ""
+         Indicator       =   0
          InitialParent   =   "rectPset"
          Italic          =   False
          Left            =   347
@@ -254,7 +254,7 @@ Begin LobBase.LobWebPage PagePasswordReset
          Height          =   38
          Hint            =   ""
          Index           =   -2147483648
-         Indicator       =   ""
+         Indicator       =   0
          InitialParent   =   "rectPset"
          Left            =   377
          LockBottom      =   False
@@ -323,7 +323,7 @@ Begin LobBase.LobWebPage PagePasswordReset
          Height          =   38
          HTMLElement     =   0
          Index           =   -2147483648
-         Indicator       =   ""
+         Indicator       =   0
          InitialParent   =   "rectPset"
          Italic          =   False
          Left            =   125
@@ -361,7 +361,7 @@ Begin LobBase.LobWebPage PagePasswordReset
          Height          =   38
          HTMLElement     =   0
          Index           =   -2147483648
-         Indicator       =   ""
+         Indicator       =   0
          Italic          =   False
          Left            =   125
          LockBottom      =   False
@@ -399,7 +399,7 @@ Begin LobBase.LobWebPage PagePasswordReset
          Height          =   38
          Hint            =   ""
          Index           =   -2147483648
-         Indicator       =   ""
+         Indicator       =   0
          Left            =   267
          LockBottom      =   False
          LockedInPosition=   True
@@ -434,7 +434,7 @@ Begin LobBase.LobWebPage PagePasswordReset
          Height          =   20
          HTMLElement     =   0
          Index           =   -2147483648
-         Indicator       =   ""
+         Indicator       =   0
          Italic          =   False
          Left            =   125
          LockBottom      =   False

@@ -71,11 +71,11 @@ Begin LobBase.LobWebPage PageMapView
       ControlID       =   ""
       CSSClasses      =   ""
       Enabled         =   True
-      HasScaleIndicator=   False
+      HasScaleIndicator=   True
       Height          =   320
       Index           =   -2147483648
       Indicator       =   0
-      Latitude        =   52.0809832057653352421767
+      Latitude        =   52.0799999999999982946974
       Left            =   0
       LockBottom      =   True
       LockedInPosition=   True
@@ -84,7 +84,7 @@ Begin LobBase.LobWebPage PageMapView
       LockRight       =   True
       LockTop         =   True
       LockVertical    =   False
-      Longitude       =   9.2608853879107364548418
+      Longitude       =   9.2599999999999997868372
       MapType         =   0
       Mode            =   3
       ModeData        =   ""
@@ -273,6 +273,8 @@ End
 #tag Events RefreshIconsTimer
 	#tag Event
 		Sub Run()
+		  Log.Debug(CurrentMethodName, CurrentMethodName)
+		  
 		  For Each station As StationModel In App.DataSvc.Stations
 		    Var location As WebMapLocation = MapViewer1.GetLocationByStationsUid(station.Uid)
 		    If location <> Nil Then
@@ -280,9 +282,10 @@ End
 		      If ms.LastFaultValue <> ms.Station.HasFaults Then
 		        ms.LastFaultValue = ms.Station.HasFaults
 		        MapViewer1.RemoveLocation(ms.MapLocation)
+		        ms.MapLocation = location
 		        location.Icon = station.CreateIcon()
 		        location.Title = ms.DisplayTitle
-		        ms.MapLocation = location
+		        location.Tag = ms
 		        MapViewer1.AddLocation(ms.MapLocation)
 		      End
 		    End

@@ -134,7 +134,7 @@ public class SettingService
         AlertSendEmail = GetValue<bool>("Alert:Send:Mail", true);
         
         MaintenanceActiveAlertAfterHours = GetValue<int>("Maintenance:Active:AlertAfterHours", 12);
-        MaintenanceActiveMailAlertMessage = GetValue<string>("Maintenance:Active:MailAlertMessage", "<div>Hinweis: Station {Station.DisplayName} befindet sich seit mehr als {Maintenance.Hours} Stunden im Wartungsmodus.</div>");
+        MaintenanceActiveMailAlertMessage = GetValue<string>("Maintenance:Active:MailAlertMessage", "<div>Hinweis: Station {Station.DisplayName} befindet sich seit {Maintenance.Hours} Stunden im Wartungsmodus.</div>");
         MaintenanceActiveMailAlertSubject = GetValue<string>("Maintenance:Active:MailAlertSubject", "Wartungsmodus für Station {Station.DisplayName} aktiv");
         
         WatchdogAlertAfterSeconds = GetValue<int>("Watchdog:Alert:AfterSeconds", 300);

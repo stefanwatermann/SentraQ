@@ -20,6 +20,16 @@ Protected Module DateTimeExtensions
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h0
+		Function AsLongDateTimeString(Extends dt as Datetime) As String
+		  If dt = Nil Then
+		    Return ""
+		  Else
+		    Return dt.ToString(Session.Locale, DateTime.FormatStyles.Long, DateTime.FormatStyles.Short)
+		  end
+		End Function
+	#tag EndMethod
+
 
 	#tag ViewBehavior
 		#tag ViewProperty

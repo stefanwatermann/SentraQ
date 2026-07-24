@@ -66,7 +66,7 @@ Begin WebDialog DialogExportDownload
       Height          =   60
       HTMLElement     =   6
       Index           =   -2147483648
-      Indicator       =   ""
+      Indicator       =   0
       Italic          =   False
       Left            =   110
       LockBottom      =   False

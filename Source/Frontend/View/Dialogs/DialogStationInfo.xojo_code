@@ -32,7 +32,7 @@ Begin WebDialog DialogStationInfo
       Enabled         =   True
       Height          =   475
       Index           =   -2147483648
-      Indicator       =   ""
+      Indicator       =   0
       Left            =   0
       LockBottom      =   True
       LockedInPosition=   True
@@ -94,9 +94,9 @@ Begin WebDialog DialogStationInfo
       HasFillColor    =   False
       Height          =   1
       Index           =   -2147483648
-      Indicator       =   ""
-      LayoutDirection =   "LayoutDirections.LeftToRight"
-      LayoutType      =   "LayoutTypes.Fixed"
+      Indicator       =   0
+      LayoutDirection =   0
+      LayoutType      =   0
       Left            =   1
       LockBottom      =   True
       LockedInPosition=   True
@@ -316,8 +316,8 @@ Begin WebDialog DialogStationInfo
       Height          =   1
       Index           =   -2147483648
       Indicator       =   0
-      LayoutDirection =   "LayoutDirections.LeftToRight"
-      LayoutType      =   "LayoutTypes.Fixed"
+      LayoutDirection =   0
+      LayoutType      =   0
       Left            =   0
       LockBottom      =   False
       LockedInPosition=   False

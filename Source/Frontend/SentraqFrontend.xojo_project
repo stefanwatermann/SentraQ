@@ -1,7 +1,7 @@
 Type=Web2
 RBProjectVersion=2026.012
 MinIDEVersion=20200200
-OrigIDEVersion=20260101
+OrigIDEVersion=20260102
 Class=App;App.xojo_code;&h000000006527EFFF;&h0000000000000000;false
 BuildSteps=Build Automation;Build Automation.xojo_code;&h0000000056303FFF;&h0000000000000000;false
 Folder=View;View;&h000000007D594FFF;&h0000000000000000;false
@@ -134,7 +134,7 @@ DefaultWindow=PageStationView
 MajorVersion=1
 MinorVersion=1
 SubVersion=0
-NonRelease=117
+NonRelease=122
 Release=3
 InfoVersion=SentraQ Monitoring and Alerting Solution
 LongVersion=Copyright (c) 2026 Stefan Watermann, Germany

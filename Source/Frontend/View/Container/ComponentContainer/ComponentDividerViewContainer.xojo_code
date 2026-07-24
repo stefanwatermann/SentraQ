@@ -35,7 +35,7 @@ Begin WebContainer ComponentDividerViewContainer Implements IEmbeddableViewConta
       Height          =   20
       HTMLElement     =   0
       Index           =   -2147483648
-      Indicator       =   ""
+      Indicator       =   0
       Italic          =   False
       Left            =   10
       LockBottom      =   True

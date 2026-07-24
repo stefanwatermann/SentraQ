@@ -46,9 +46,9 @@ Begin LobBase.LobWebPage PageStationView
       HasFillColor    =   True
       Height          =   520
       Index           =   -2147483648
-      Indicator       =   ""
-      LayoutDirection =   "LayoutDirections.LeftToRight"
-      LayoutType      =   "LayoutTypes.Fixed"
+      Indicator       =   0
+      LayoutDirection =   0
+      LayoutType      =   0
       Left            =   0
       LockBottom      =   True
       LockedInPosition=   True

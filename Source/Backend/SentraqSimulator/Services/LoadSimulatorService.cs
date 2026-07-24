@@ -13,6 +13,7 @@ public class LoadSimulatorService(
     private readonly List<MqttSenderService> _mqttClients = [];
     private int _totalSendCount = 0;
     private int _simulationDelayMSec;
+    private readonly string[] _componentTypes = ["AC","SW","FI"];
     
     public void Init(int simulationDelayMSec)
     {
@@ -22,7 +23,7 @@ public class LoadSimulatorService(
         
         var components = dbContext
             .Components
-            .Where(c => c.Station != null);
+            .Where(c => _componentTypes.Contains(c.Type));
 
         foreach (var component in components)
         {

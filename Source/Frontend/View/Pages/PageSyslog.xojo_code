@@ -287,8 +287,6 @@ Begin LobBase.LobWebPage PageSyslog
       PID             =   0
       Result          =   ""
       Scope           =   2
-      TabIndex        =   10
-      TabStop         =   True
       TimeOut         =   2000
    End
    Begin WebProgressWheel ProgressWheel1
@@ -298,7 +296,7 @@ Begin LobBase.LobWebPage PageSyslog
       Enabled         =   True
       Height          =   18
       Index           =   -2147483648
-      Indicator       =   ""
+      Indicator       =   0
       Left            =   500
       LockBottom      =   False
       LockedInPosition=   False

@@ -36,7 +36,7 @@ Begin WebDialog DialogPasskeyMessage
       Height          =   38
       HTMLElement     =   4
       Index           =   -2147483648
-      Indicator       =   ""
+      Indicator       =   0
       Italic          =   False
       Left            =   50
       LockBottom      =   False
@@ -71,7 +71,7 @@ Begin WebDialog DialogPasskeyMessage
       Height          =   100
       HTMLElement     =   0
       Index           =   -2147483648
-      Indicator       =   ""
+      Indicator       =   0
       Italic          =   False
       Left            =   50
       LockBottom      =   False
@@ -166,7 +166,7 @@ Begin WebDialog DialogPasskeyMessage
       Height          =   50
       HTMLElement     =   0
       Index           =   -2147483648
-      Indicator       =   ""
+      Indicator       =   0
       Italic          =   False
       Left            =   50
       LockBottom      =   False

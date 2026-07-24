@@ -9,12 +9,10 @@ namespace SentraqController.MessageHandler.Handler;
 /// Actor Messages verarbeiten.
 /// </summary>
 /// <param name="dbContext"></param>
-/// <param name="settings"></param>
 /// <param name="cacheService"></param>
 /// <param name="logger"></param>
 public class ActorMessageHandler(
     DatabaseContext dbContext,
-    SettingService settings,
     CacheService cacheService,
     LogService logService,
     ILogger<ActorMessageHandler> logger) : IMessageHandler
@@ -70,7 +68,7 @@ public class ActorMessageHandler(
         counter.LastValue = payloadValue;
         counter.LastTs = DateTime.Now;
         
-        //logger.LogDebug("ActorMessageHandler: dbContextId={ctxid}, hid={hid}", dbContext.ContextId, payload.Hid);
-        //dbContext.SaveChanges(true);
+        logger.LogDebug("ActorMessageHandler: dbContextId={ctxid}, hid={hid}", dbContext.ContextId, payload.Hid);
+        dbContext.SaveChanges(true);
     }
 }

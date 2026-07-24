@@ -37,9 +37,9 @@ Begin WebContainer WaitContainer
       HasFillColor    =   True
       Height          =   250
       Index           =   -2147483648
-      Indicator       =   ""
-      LayoutDirection =   "LayoutDirections.LeftToRight"
-      LayoutType      =   "LayoutTypes.Fixed"
+      Indicator       =   0
+      LayoutDirection =   0
+      LayoutType      =   0
       Left            =   0
       LockBottom      =   True
       LockedInPosition=   True
@@ -71,9 +71,9 @@ Begin WebContainer WaitContainer
          HasFillColor    =   True
          Height          =   77
          Index           =   -2147483648
-         Indicator       =   ""
-         LayoutDirection =   "LayoutDirections.LeftToRight"
-         LayoutType      =   "LayoutTypes.Fixed"
+         Indicator       =   0
+         LayoutDirection =   0
+         LayoutType      =   0
          Left            =   20
          LockBottom      =   False
          LockedInPosition=   True
@@ -102,7 +102,7 @@ Begin WebContainer WaitContainer
             Enabled         =   True
             Height          =   30
             Index           =   -2147483648
-            Indicator       =   ""
+            Indicator       =   0
             Left            =   45
             LockBottom      =   False
             LockedInPosition=   True
@@ -135,7 +135,7 @@ Begin WebContainer WaitContainer
             Height          =   38
             HTMLElement     =   0
             Index           =   -2147483648
-            Indicator       =   ""
+            Indicator       =   0
             Italic          =   False
             Left            =   85
             LockBottom      =   False

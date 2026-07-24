@@ -228,6 +228,7 @@ Inherits JsonModelBase
 				"4 - FillLevel"
 				"5 - Fault"
 				"6 - Divider"
+				"7 - Switch"
 			#tag EndEnumValues
 		#tag EndViewProperty
 		#tag ViewProperty

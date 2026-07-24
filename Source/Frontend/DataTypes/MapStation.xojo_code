@@ -17,7 +17,7 @@ Protected Class MapStation
 			    If Self.Station.HasFaults Then
 			      s = s + EndOfLine + " - STOERUNG"
 			    ElseIf Self.Station.MaintenanceActive Then
-			      s = s + EndOfLine + " - WARTUNG AKTIV" 
+			      s = s + EndOfLine + " - WARTUNG AKTIV"
 			    end
 			    Return s
 			  End

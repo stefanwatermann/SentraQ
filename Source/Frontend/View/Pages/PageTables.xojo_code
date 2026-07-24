@@ -299,7 +299,7 @@ Begin LobBase.LobWebPage PageTables
       Height          =   38
       HTMLElement     =   0
       Index           =   -2147483648
-      Indicator       =   ""
+      Indicator       =   0
       Italic          =   False
       Left            =   590
       LockBottom      =   False

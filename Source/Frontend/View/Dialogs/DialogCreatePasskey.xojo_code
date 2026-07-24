@@ -72,7 +72,7 @@ Begin WebDialog DialogCreatePasskey
       Height          =   62
       Hint            =   ""
       Index           =   -2147483648
-      Indicator       =   ""
+      Indicator       =   0
       Left            =   50
       LockBottom      =   False
       LockedInPosition=   True
@@ -106,7 +106,7 @@ Begin WebDialog DialogCreatePasskey
       Height          =   62
       Hint            =   ""
       Index           =   -2147483648
-      Indicator       =   ""
+      Indicator       =   0
       Left            =   50
       LockBottom      =   False
       LockedInPosition=   True
@@ -199,7 +199,7 @@ Begin WebDialog DialogCreatePasskey
       Height          =   85
       HTMLElement     =   0
       Index           =   -2147483648
-      Indicator       =   ""
+      Indicator       =   0
       Italic          =   False
       Left            =   50
       LockBottom      =   False

@@ -59,11 +59,12 @@ Inherits JsonModelBase
 		#tag Getter
 			Get
 			  If Self.MaintenanceActiveSinceTs <> Nil Then
-			    Var diff As DateInterval = DateTime.Now - Self.MaintenanceActiveSinceTs
-			    If diff.Hours < 1 Then
-			      Return Str(diff.Minutes) + " Minuten" 
-			    else
-			      Return Str(diff.Days * 24 + diff.Hours + diff.Minutes/60, "#.0") + " Stunden" 
+			    If MaitenanceActivePeriodeMinutes < 120 Then
+			      Return Str(MaitenanceActivePeriodeMinutes, "#") + " Minuten"
+			    elseif MaitenanceActivePeriodeMinutes < 48 * 60 then
+			      Return Str(MaitenanceActivePeriodeMinutes / 60, "#") + " Stunden"
+			    Else
+			      Return Str(MaitenanceActivePeriodeMinutes / 60 / 24, "#") + " Tagen"
 			    End
 			  end
 			  return ""
@@ -75,6 +76,15 @@ Inherits JsonModelBase
 	#tag Property, Flags = &h0
 		MaintenanceActiveSinceTs As DateTime
 	#tag EndProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  return (DateTime.Now.SecondsFrom1970 - Self.MaintenanceActiveSinceTs.SecondsFrom1970) / 60
+			End Get
+		#tag EndGetter
+		MaitenanceActivePeriodeMinutes As Integer
+	#tag EndComputedProperty
 
 	#tag Property, Flags = &h0
 		ShortName As String
@@ -290,6 +300,22 @@ Inherits JsonModelBase
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="DisplayNameAscii"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="String"
+			EditorType="MultiLineEditor"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="MaintenanceActive"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="Boolean"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="MaintenanceActivePeriode"
 			Visible=false
 			Group="Behavior"
 			InitialValue=""

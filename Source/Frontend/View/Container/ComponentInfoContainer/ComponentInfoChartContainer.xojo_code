@@ -66,7 +66,7 @@ Begin WebContainer ComponentInfoChartContainer
       Height          =   30
       HTMLElement     =   0
       Index           =   -2147483648
-      Indicator       =   ""
+      Indicator       =   0
       Italic          =   False
       Left            =   20
       LockBottom      =   False
@@ -101,7 +101,7 @@ Begin WebContainer ComponentInfoChartContainer
       Height          =   25
       HTMLElement     =   0
       Index           =   -2147483648
-      Indicator       =   ""
+      Indicator       =   0
       Italic          =   False
       Left            =   20
       LockBottom      =   False

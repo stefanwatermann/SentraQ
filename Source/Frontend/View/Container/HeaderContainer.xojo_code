@@ -37,9 +37,9 @@ Begin WebContainer HeaderContainer
       HasFillColor    =   True
       Height          =   80
       Index           =   -2147483648
-      Indicator       =   ""
-      LayoutDirection =   "LayoutDirections.LeftToRight"
-      LayoutType      =   "LayoutTypes.Fixed"
+      Indicator       =   0
+      LayoutDirection =   0
+      LayoutType      =   0
       Left            =   0
       LockBottom      =   True
       LockedInPosition=   True
@@ -71,7 +71,7 @@ Begin WebContainer HeaderContainer
          Enabled         =   True
          Height          =   40
          Index           =   -2147483648
-         Indicator       =   ""
+         Indicator       =   0
          Left            =   30
          LockBottom      =   False
          LockedInPosition=   False
@@ -104,7 +104,7 @@ Begin WebContainer HeaderContainer
          Height          =   80
          HTMLElement     =   0
          Index           =   -2147483648
-         Indicator       =   ""
+         Indicator       =   0
          Italic          =   False
          Left            =   80
          LockBottom      =   True

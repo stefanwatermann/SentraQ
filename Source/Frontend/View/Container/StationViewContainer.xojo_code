@@ -36,7 +36,7 @@ Begin WebContainer StationViewContainer
       Height          =   50
       HTMLElement     =   0
       Index           =   -2147483648
-      Indicator       =   ""
+      Indicator       =   0
       Italic          =   False
       Left            =   27
       LockBottom      =   False
@@ -272,7 +272,6 @@ End
 #tag Events btnInfo
 	#tag Event
 		Sub Pressed()
-		  //MessageBox(MyStation.GetInfos)
 		  DialogStationInfo1.Show(MyStation)
 		End Sub
 	#tag EndEvent

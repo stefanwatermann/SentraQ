@@ -25,7 +25,6 @@ Begin WebDialog DialogExportRun
    Width           =   400
    _mDesignHeight  =   0
    _mDesignWidth   =   0
-   _mName          =   ""
    _mPanelIndex    =   -1
    Begin WebProgressWheel ProgressWheel1
       Colorize        =   False
@@ -34,7 +33,7 @@ Begin WebDialog DialogExportRun
       Enabled         =   True
       Height          =   40
       Index           =   -2147483648
-      Indicator       =   ""
+      Indicator       =   0
       Left            =   55
       LockBottom      =   False
       LockedInPosition=   True
@@ -65,7 +64,7 @@ Begin WebDialog DialogExportRun
       Height          =   60
       HTMLElement     =   6
       Index           =   -2147483648
-      Indicator       =   ""
+      Indicator       =   0
       Italic          =   False
       Left            =   110
       LockBottom      =   False
@@ -99,7 +98,7 @@ Begin WebDialog DialogExportRun
       Scope           =   2
       StackSize       =   0
       ThreadID        =   0
-      ThreadState     =   ""
+      ThreadState     =   0
       Type            =   0
    End
 End

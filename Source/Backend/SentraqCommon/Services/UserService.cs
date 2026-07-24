@@ -5,7 +5,7 @@ using SentraqModels.Data;
 namespace SentraqCommon.Services;
 
 public class UserService(
-    ILogger<CacheService> logger,
+    ILogger<UserService> logger,
     LogService logService,
     AuthorizationService authorizationService,
     DatabaseContext dbContext)

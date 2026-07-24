@@ -24,7 +24,6 @@ Begin WebContainer UserInfoContainer
    Width           =   300
    _mDesignHeight  =   0
    _mDesignWidth   =   0
-   _mName          =   ""
    _mPanelIndex    =   -1
    Begin WebLabel lbUserRole
       Bold            =   False
@@ -36,7 +35,7 @@ Begin WebContainer UserInfoContainer
       Height          =   30
       HTMLElement     =   0
       Index           =   -2147483648
-      Indicator       =   ""
+      Indicator       =   0
       Italic          =   False
       Left            =   40
       LockBottom      =   False
@@ -101,7 +100,7 @@ Begin WebContainer UserInfoContainer
       Height          =   25
       HTMLElement     =   0
       Index           =   -2147483648
-      Indicator       =   ""
+      Indicator       =   0
       Italic          =   False
       Left            =   40
       LockBottom      =   False

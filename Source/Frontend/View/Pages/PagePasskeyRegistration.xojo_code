@@ -109,8 +109,8 @@ Begin LobBase.LobWebPage PagePasskeyRegistration
       Height          =   340
       Index           =   -2147483648
       Indicator       =   0
-      LayoutDirection =   "LayoutDirections.LeftToRight"
-      LayoutType      =   "LayoutTypes.Fixed"
+      LayoutDirection =   0
+      LayoutType      =   0
       Left            =   190
       LockBottom      =   False
       LockedInPosition=   True
@@ -318,7 +318,7 @@ Begin LobBase.LobWebPage PagePasskeyRegistration
          Height          =   38
          HTMLElement     =   0
          Index           =   -2147483648
-         Indicator       =   ""
+         Indicator       =   0
          Italic          =   False
          Left            =   230
          LockBottom      =   False

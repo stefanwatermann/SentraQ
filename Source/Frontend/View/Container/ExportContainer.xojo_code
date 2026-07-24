@@ -35,7 +35,7 @@ Begin WebContainer ExportContainer
       Height          =   38
       HTMLElement     =   0
       Index           =   -2147483648
-      Indicator       =   ""
+      Indicator       =   0
       Italic          =   False
       Left            =   30
       LockBottom      =   False
@@ -70,7 +70,7 @@ Begin WebContainer ExportContainer
       Height          =   38
       HTMLElement     =   0
       Index           =   -2147483648
-      Indicator       =   ""
+      Indicator       =   0
       Italic          =   False
       Left            =   170
       LockBottom      =   False
@@ -104,7 +104,7 @@ Begin WebContainer ExportContainer
       Enabled         =   True
       Height          =   38
       Index           =   -2147483648
-      Indicator       =   ""
+      Indicator       =   0
       InitialValue    =   ""
       LatestDate      =   ""
       Left            =   230
@@ -135,7 +135,7 @@ Begin WebContainer ExportContainer
       Height          =   38
       HTMLElement     =   0
       Index           =   -2147483648
-      Indicator       =   ""
+      Indicator       =   0
       Italic          =   False
       Left            =   420
       LockBottom      =   False
@@ -169,7 +169,7 @@ Begin WebContainer ExportContainer
       Enabled         =   True
       Height          =   38
       Index           =   -2147483648
-      Indicator       =   ""
+      Indicator       =   0
       InitialValue    =   ""
       LatestDate      =   ""
       Left            =   480
@@ -200,7 +200,7 @@ Begin WebContainer ExportContainer
       Height          =   38
       HTMLElement     =   0
       Index           =   -2147483648
-      Indicator       =   ""
+      Indicator       =   0
       Italic          =   False
       Left            =   30
       LockBottom      =   False
@@ -266,7 +266,7 @@ Begin WebContainer ExportContainer
       Height          =   38
       HTMLElement     =   0
       Index           =   -2147483648
-      Indicator       =   ""
+      Indicator       =   0
       Italic          =   False
       Left            =   30
       LockBottom      =   False
@@ -332,7 +332,7 @@ Begin WebContainer ExportContainer
       Height          =   38
       HTMLElement     =   0
       Index           =   -2147483648
-      Indicator       =   ""
+      Indicator       =   0
       Italic          =   False
       Left            =   30
       LockBottom      =   False
@@ -532,7 +532,10 @@ End
 		  If sgFaults.SegmentAt(0).Selected Then
 		    SelectedComponentTypes.Add("FL")
 		  else
-		    If sgComponents.SegmentAt(0).Selected Then SelectedComponentTypes.Add("AC")
+		    If sgComponents.SegmentAt(0).Selected Then 
+		      SelectedComponentTypes.Add("AC") 
+		      SelectedComponentTypes.Add("SW")
+		    end
 		    If sgComponents.SegmentAt(1).Selected Then SelectedComponentTypes.Add("CO")
 		    If sgComponents.SegmentAt(2).Selected Then SelectedComponentTypes.Add("FI")
 		    If sgComponents.SegmentAt(3).Selected Then SelectedComponentTypes.Add("SE")
