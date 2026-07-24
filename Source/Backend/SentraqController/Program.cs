@@ -3,34 +3,34 @@
 // Copyright (c) 2026, Stefan Watermann, Watermann IT, Germany (www.watermann-it.de)
 // Licensed under the GPL 3.0 license. See LICENSE file in the project root for details.
 // #######################################################################################
-
 using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 using SentraqCommon.Context;
 using SentraqCommon.Loggers;
+using SentraqCommon.MqttParser;
 using SentraqCommon.Security;
 using SentraqCommon.Services;
 using SentraqController.MessageHandler;
 using SentraqController.MessageHandler.Handler;
-using SentraqController.MqttParser;
 using SentraqController.Services;
 
-[assembly: AssemblyVersion("1.0.3.*")]
+[assembly: AssemblyVersion("1.1.0.*")]
 
 namespace SentraqController;
 
 /// <summary>
-/// Singulärer MQTT Subscriber Service.
+/// MQTT Subscriber Service.
 /// Wartet auf eingehende MQTT Nachrichten, parst diese und
 /// speichert das Payload in der Datenbank. 
 /// </summary>
-class Program
+internal static class Program
 {
-    static void Main(string[] args)
+    private static void Main(string[] args)
     {
         try
         {
-            Console.WriteLine($"*** SentraQ Controller Worker - v{Assembly.GetExecutingAssembly().GetName()?.Version?.ToString()} ***");
+            Console.WriteLine($"*** SentraQ Controller Service ***");
+            Console.WriteLine($"Version: {Assembly.GetExecutingAssembly().GetName().Version}");
             Console.WriteLine($"CurrentDirectory: {Directory.GetCurrentDirectory()}");
 
             var configuration = new ConfigurationBuilder()
@@ -45,16 +45,18 @@ class Program
             builder.Services.AddSingleton<IConfiguration>(configuration);
             builder.Services.AddSingleton<SettingService>();
             builder.Services.AddScoped<MailService>();
-            builder.Services.AddScoped<SmsService>();
             builder.Services.AddScoped<LogService>();
             builder.Services.AddScoped<MqttParserFactory>();
             builder.Services.AddScoped<AlertMessageHandler>();
             builder.Services.AddScoped<ActorMessageHandler>();
             builder.Services.AddScoped<StatusFileService>();
+            builder.Services.AddScoped<StationService>();
+            builder.Services.AddScoped<AuthorizationService>();
             builder.Services.AddSingleton<MessageHandlerFactory>();
             builder.Services.AddSingleton<CacheService>();
             builder.Services.AddHostedService<MqttSubscriberWorkerService>();
-
+            builder.Services.AddHostedService<MaintenanceWorkerService>();
+            
             var errorFilename = configuration.GetValue<string>("ErrorLogFilename") ?? "errors.log";
 
             builder.Services.AddLogging(b =>
@@ -70,8 +72,8 @@ class Program
             builder.Services.AddDbContext<DatabaseContext>(options =>
             {
                 options.UseNpgsql(Decrypt.PasswordInConnectionString(connStr, Secrets.EncryptionPwd));
-            });
-
+            }, ServiceLifetime.Transient);
+            
             var host = builder.Build();
 
             host.Run();

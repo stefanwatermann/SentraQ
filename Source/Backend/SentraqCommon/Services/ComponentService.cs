@@ -1,12 +1,16 @@
+using System.Diagnostics.CodeAnalysis;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using SentraqCommon.Context;
+using SentraqCommon.MqttSender;
 using SentraqModels.Data;
 
 namespace SentraqCommon.Services;
 
 public class ComponentService(
-    ILogger<CacheService> logger,
+    ILogger<ComponentService> logger,
     LogService logService,
+    SiemensLogo8MqttSender siemensLogo8MqttSender,
     AuthorizationService authorizationService,
     DatabaseContext dbContext)
 {
@@ -14,7 +18,23 @@ public class ComponentService(
     {
         return dbContext
             .Components
+            .Include(c => c.Station)
             .FirstOrDefault(c => c.HardwareId == uid);
+    }
+    
+    public void SetValue(string hardwareId, string value, string changedBy)
+    {
+        var component = GetComponentByUid(hardwareId);
+        
+        if (component == null)
+            throw new Exception($"Component with uid '{hardwareId}' not found");
+        
+        siemensLogo8MqttSender.Send(component, value);
+        
+        logService.Add(
+            LogService.Event.ComponentValueSet, 
+            LogService.Severity.Info, 
+            $"Component '{hardwareId}' has been set to {value} by user {changedBy}");
     }
     
     public void WriteComponent(Component component, string changedBy)
@@ -43,11 +63,11 @@ public class ComponentService(
             dbContext.Add(component);
         }
 
-        logService.AddInfo(LogService.Event.ComponentChanged, $"Component {component.ShortName} ({component.HardwareId}) changed by {changedBy}.");
+        logService.AddInfoNoSave(LogService.Event.ComponentChanged, $"Component {component.ShortName} ({component.HardwareId}) changed by {changedBy}.");
         dbContext.SaveChanges();
     }
 
-    public void Removecomponent(string hardwareId, string changedBy)
+    public void RemoveComponent(string hardwareId, string changedBy)
     {
         authorizationService.ThrowWhenChangedByUserNotAdmin(changedBy);
 
@@ -58,7 +78,7 @@ public class ComponentService(
 
         component.Removed = true;
         
-        logService.AddInfo(LogService.Event.ComponentRemoved, $"Component {component.ShortName} ({component.HardwareId}) removed by {changedBy}.");
+        logService.AddInfoNoSave(LogService.Event.ComponentRemoved, $"Component {component.ShortName} ({component.HardwareId}) removed by {changedBy}.");
         dbContext.SaveChanges();
     }
 }

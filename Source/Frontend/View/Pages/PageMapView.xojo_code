@@ -33,7 +33,6 @@ Begin LobBase.LobWebPage PageMapView
    _ImplicitInstance=   False
    _mDesignHeight  =   0
    _mDesignWidth   =   0
-   _mName          =   ""
    _mPanelIndex    =   -1
    Begin HeaderContainer HeaderContainer1
       ControlCount    =   0
@@ -72,11 +71,11 @@ Begin LobBase.LobWebPage PageMapView
       ControlID       =   ""
       CSSClasses      =   ""
       Enabled         =   True
-      HasScaleIndicator=   False
+      HasScaleIndicator=   True
       Height          =   320
       Index           =   -2147483648
       Indicator       =   0
-      Latitude        =   52.0809832057653352421767
+      Latitude        =   52.0799999999999982946974
       Left            =   0
       LockBottom      =   True
       LockedInPosition=   True
@@ -85,7 +84,7 @@ Begin LobBase.LobWebPage PageMapView
       LockRight       =   True
       LockTop         =   True
       LockVertical    =   False
-      Longitude       =   9.2608853879107364548418
+      Longitude       =   9.2599999999999997868372
       MapType         =   0
       Mode            =   3
       ModeData        =   ""
@@ -147,6 +146,36 @@ Begin LobBase.LobWebPage PageMapView
       Scope           =   2
       _mPanelIndex    =   -1
    End
+   Begin WebButton btnToggleMapView
+      AllowAutoDisable=   False
+      Cancel          =   False
+      Caption         =   "Satellit"
+      ControlID       =   ""
+      CSSClasses      =   "verysmall"
+      Default         =   False
+      Enabled         =   True
+      Height          =   23
+      Index           =   -2147483648
+      Indicator       =   0
+      Left            =   10
+      LockBottom      =   True
+      LockedInPosition=   False
+      LockHorizontal  =   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   False
+      LockVertical    =   False
+      Outlined        =   False
+      PanelIndex      =   0
+      Scope           =   2
+      TabIndex        =   3
+      TabStop         =   True
+      Tooltip         =   ""
+      Top             =   367
+      Visible         =   False
+      Width           =   60
+      _mPanelIndex    =   -1
+   End
 End
 #tag EndWebPage
 
@@ -156,6 +185,17 @@ End
 		  RefreshIconsTimer.Period = App.ConfigValue("FrontendRefresh.PeriodSec", 5).IntegerValue * 1000
 		End Sub
 	#tag EndEvent
+
+
+	#tag Method, Flags = &h21
+		Private Sub SetCaptionToggleMapButton()
+		  If MapViewer1.MapType = WebMapViewer.MapTypes.RoadMap Then
+		    btnToggleMapView.Caption = "Satellit"
+		  Else
+		    btnToggleMapView.Caption = "Karte"
+		  End
+		End Sub
+	#tag EndMethod
 
 
 	#tag Property, Flags = &h21
@@ -194,15 +234,26 @@ End
 		Sub Opening()
 		  Me.RemoveAllLocations
 		  
+		  Var locationsWithFaults() As WebMapLocation
+		  
 		  For Each station As StationModel In App.DataSvc.Stations
 		    Var location As New WebMapLocation(station.Latitude, station.Longitude)
 		    Var ms As New MapStation(station, location)
 		    location.Icon = station.CreateIcon()
 		    location.Title = ms.DisplayTitle
 		    location.Tag = ms
-		    Me.AddLocation(location)
+		    if not station.HasFaults then
+		      Me.AddLocation(location)
+		    Else
+		      locationsWithFaults.Add(location)
+		    end
 		  Next
 		  
+		  // ensures that locations with faults are shown over all others locations on the map
+		  // sorting impacts the list of stations, therefore this approach is used
+		  For Each location As WebMapLocation In locationsWithFaults
+		    Me.AddLocation(location)
+		  next
 		End Sub
 	#tag EndEvent
 	#tag Event
@@ -222,6 +273,8 @@ End
 #tag Events RefreshIconsTimer
 	#tag Event
 		Sub Run()
+		  Log.Debug(CurrentMethodName, CurrentMethodName)
+		  
 		  For Each station As StationModel In App.DataSvc.Stations
 		    Var location As WebMapLocation = MapViewer1.GetLocationByStationsUid(station.Uid)
 		    If location <> Nil Then
@@ -229,9 +282,10 @@ End
 		      If ms.LastFaultValue <> ms.Station.HasFaults Then
 		        ms.LastFaultValue = ms.Station.HasFaults
 		        MapViewer1.RemoveLocation(ms.MapLocation)
+		        ms.MapLocation = location
 		        location.Icon = station.CreateIcon()
 		        location.Title = ms.DisplayTitle
-		        ms.MapLocation = location
+		        location.Tag = ms
 		        MapViewer1.AddLocation(ms.MapLocation)
 		      End
 		    End
@@ -243,6 +297,24 @@ End
 		    SaveClientPrefsRequired = false
 		    Session.SaveUserClientPrefs
 		  end
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events btnToggleMapView
+	#tag Event
+		Sub Pressed()
+		  If MapViewer1.MapType = WebMapViewer.MapTypes.RoadMap Then
+		    MapViewer1.MapType = WebMapViewer.MapTypes.Satellite
+		  Else
+		    MapViewer1.MapType = WebMapViewer.MapTypes.RoadMap
+		  End
+		  MapViewer1.UpdateBrowser
+		  SetCaptionToggleMapButton
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub Opening()
+		  SetCaptionToggleMapButton
 		End Sub
 	#tag EndEvent
 #tag EndEvents

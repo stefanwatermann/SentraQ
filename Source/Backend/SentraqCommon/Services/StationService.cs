@@ -1,15 +1,38 @@
 using Microsoft.Extensions.Logging;
 using SentraqCommon.Context;
-using SentraqModels.Data;
+using Data = SentraqModels.Data;
 
 namespace SentraqCommon.Services;
 
 public class StationService(
     ILogger<StationService> logger,
     LogService logService,
+    MailService mailService,
+    SettingService settingService,
     AuthorizationService authorizationService,
     DatabaseContext dbContext)
 {
+    public IEnumerable<Data.Station> GetStations()
+    {
+        return dbContext
+            .Stations
+            .OrderBy(s => s.DisplayOrder);
+    }
+    
+    public IEnumerable<Data.StationView> GetStationsView()
+    {
+        return dbContext
+            .StationsView
+            .OrderBy(s => s.DisplayOrder);
+    }
+    
+    public Data.StationView? GetStationView(string stationUid)
+    {
+        return dbContext
+            .StationsView
+            .FirstOrDefault(s => s.Uid == stationUid);
+    }
+    
     public void ClearAlert(string stationUid, string user)
     {
         var alert = dbContext
@@ -22,12 +45,12 @@ public class StationService(
         alert.ConfirmedAt = DateTime.Now;
         alert.ConfirmedBy = user;
         
-        logService.AddInfo(LogService.Event.AlertAction,$"Alert for station {stationUid} cleared by {user}");
+        logService.AddInfoNoSave(LogService.Event.AlertAction,$"Alert for station {stationUid} cleared by {user}");
         
         dbContext.SaveChanges(true);
     }
     
-    public void WriteStation(Station station, string changedBy)
+    public void WriteStation(Data.Station station, string changedBy)
     {
         authorizationService.ThrowWhenChangedByUserNotAdmin(changedBy);
 
@@ -54,7 +77,7 @@ public class StationService(
             dbContext.Add(station);
         }
 
-        logService.AddInfo(LogService.Event.StationChanged, $"Station {station.ShortName} ({station.Uid}) changed by {changedBy}.");
+        logService.AddInfoNoSave(LogService.Event.StationChanged, $"{station.ShortName} ({station.Uid}) changed by {changedBy}.");
         dbContext.SaveChanges();
     }
 
@@ -69,7 +92,43 @@ public class StationService(
 
         station.Removed = true;
         
-        logService.AddInfo(LogService.Event.StationRemoved, $"Station {station.ShortName} ({station.Uid}) removed by {changedBy}.");
+        logService.AddInfoNoSave(LogService.Event.StationRemoved, $"{station.ShortName} ({station.Uid}) removed by {changedBy}.");
         dbContext.SaveChanges();
+    }
+
+    public void SetMaintenanceMode(string uid, DateTime? startTs, string changedBy)
+    {
+        var station = dbContext
+                          .Stations
+                          .SingleOrDefault(s => s.Uid == uid) ??
+                      throw new KeyNotFoundException($"Station {uid} not found.");
+
+        station.MaintenanceActiveSinceTs = startTs;
+        
+        if (startTs != null)
+            logService.AddInfoNoSave(LogService.Event.StationMaintenanceStarted, $"{station.ShortName} ({station.Uid}) maintenance mode started by {changedBy}.");
+        else
+            logService.AddInfoNoSave(LogService.Event.StationMaintenanceStopped, $"{station.ShortName} ({station.Uid}) maintenance mode cleared by {changedBy}.");
+        
+        dbContext.SaveChanges();
+    }
+
+    public void EvaluateAndAlertStationMaintenanceModeActive()
+    {
+        foreach (var station in GetStations().ToList())
+        {
+            dbContext.Entry(station).Reload();
+            
+            if (station.MaintenanceActiveSinceTs.HasValue &&
+                station.MaintenanceActiveSinceTs.Value.AddHours(settingService.MaintenanceActiveAlertAfterHours) <= DateTime.Now &&
+                (!station.MaintenanceActiveAlertSentTs.HasValue || 
+                 station.MaintenanceActiveAlertSentTs.Value.AddHours(settingService.MaintenanceActiveAlertAfterHours) <= DateTime.Now))
+            {
+                logger.LogInformation($"Station {station.ShortName} ({station.Uid}) maintenance mode active for more than {settingService.MaintenanceActiveAlertAfterHours:F0} hours.");
+                mailService.SendMaintenanceActiveMessage(station);
+                station.MaintenanceActiveAlertSentTs = DateTime.Now;
+                dbContext.SaveChanges();
+            }
+        }
     }
 }

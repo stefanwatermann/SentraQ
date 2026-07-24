@@ -9,6 +9,15 @@ Inherits JsonModelBase
 		Hash As String
 	#tag EndProperty
 
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  return self.PasskeyIdent.Trim.Length > 0
+			End Get
+		#tag EndGetter
+		Attributes( "#JsonIgnore" ) HasPasskey As Boolean
+	#tag EndComputedProperty
+
 	#tag Property, Flags = &h0
 		Login As String
 	#tag EndProperty
@@ -16,6 +25,19 @@ Inherits JsonModelBase
 	#tag Property, Flags = &h0
 		Name As String
 	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		PasskeyIdent As String
+	#tag EndProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  return DecodeBase64(self.PasskeyIdent)
+			End Get
+		#tag EndGetter
+		Attributes( "#JsonIgnore" ) PasskeyIdentDecoded As String
+	#tag EndComputedProperty
 
 	#tag Property, Flags = &h0
 		Role As String = "USR"
@@ -104,7 +126,7 @@ Inherits JsonModelBase
 			Name="Role"
 			Visible=false
 			Group="Behavior"
-			InitialValue=""
+			InitialValue="USR"
 			Type="String"
 			EditorType="MultiLineEditor"
 		#tag EndViewProperty
@@ -118,6 +140,30 @@ Inherits JsonModelBase
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="RoleName"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="String"
+			EditorType="MultiLineEditor"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="HasPasskey"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="Boolean"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="PasskeyIdent"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="String"
+			EditorType="MultiLineEditor"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="PasskeyIdentDecoded"
 			Visible=false
 			Group="Behavior"
 			InitialValue=""

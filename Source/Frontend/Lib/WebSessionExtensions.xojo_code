@@ -2,11 +2,15 @@
  Attributes ( "@Guid" = "D5423704-BF1C-4128-9F7D-132DD08C2AF2", "@Author" = "Stefan Watermann", "@Copyright" = "(c)2025 Stefan Watermann", "@Version" = "1.1.1", "@Description" = "Extensions to the WebSession class." ) Protected Module WebSessionExtensions
 	#tag Method, Flags = &h0
 		Function Domain(extends s as WebSession) As string
-		  If s.FQDN.Contains(":") Then
+		  If s.FQDN.Contains("localhost") Then
 		    Return "." // localhost hack(??)
 		  Else
-		    Return s.FQDN
-		  End
+		    if s.FQDN.Contains(":") Then
+		      Return s.FQDN.NthField(":", 1)
+		    Else
+		      Return s.FQDN
+		    End
+		  end
 		End Function
 	#tag EndMethod
 

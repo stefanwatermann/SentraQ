@@ -1,10 +1,8 @@
-using Microsoft.Extensions.Logging;
 using SentraqCommon.Context;
 
 namespace SentraqCommon.Services;
 
 public class AuthorizationService(
-    ILogger<StationService> logger,
     DatabaseContext dbContext)
 {
     public void ThrowWhenChangedByUserNotAdmin(string changedBy)

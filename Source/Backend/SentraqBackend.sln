@@ -14,6 +14,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Encrypt", "Encrypt\Encrypt.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SentraqWatchdog", "SentraqWatchdog\SentraqWatchdog.csproj", "{5B31DBAA-4D2C-4D21-BCD6-D753EA9845EF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MailHelper", "MailHelper\MailHelper.csproj", "{7FED5428-BEC3-4BBA-9C83-550092F5E561}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -48,5 +50,9 @@ Global
 		{5B31DBAA-4D2C-4D21-BCD6-D753EA9845EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5B31DBAA-4D2C-4D21-BCD6-D753EA9845EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5B31DBAA-4D2C-4D21-BCD6-D753EA9845EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7FED5428-BEC3-4BBA-9C83-550092F5E561}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7FED5428-BEC3-4BBA-9C83-550092F5E561}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7FED5428-BEC3-4BBA-9C83-550092F5E561}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7FED5428-BEC3-4BBA-9C83-550092F5E561}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

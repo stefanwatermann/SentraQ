@@ -10,7 +10,8 @@ public static class UserMapper
             Name = user.Name,
             Hash = user.Hash,
             Role = user.Role,
-            Email = user.Email
+            Email = user.Email,
+            PasskeyIdent = user.PasskeyIdent ?? string.Empty,
         };
     }
 
@@ -22,7 +23,8 @@ public static class UserMapper
             Name = user.Name,
             Email = user.Email,
             Hash = user.Hash,
-            Role = user.Role
+            Role = user.Role,
+            PasskeyIdent = user.PasskeyIdent
         };
     }
 }

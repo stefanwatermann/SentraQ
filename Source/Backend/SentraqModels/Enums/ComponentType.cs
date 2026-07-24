@@ -25,7 +25,10 @@ public enum ComponentType
     Fault = 5,
     
     // Hilfskomponente um Komponenten im UI zu gruppieren
-    Divider = 6
+    Divider = 6,
+    
+    // Schaltbarer Aktor
+    Switch = 7
 }
 
 public static class ComponentTypeExtensions
@@ -37,6 +40,7 @@ public static class ComponentTypeExtensions
             "FI" => ComponentType.FillLevel,
             "FL" => ComponentType.Fault,
             "AC" => ComponentType.Actor,
+            "SW" => ComponentType.Switch,
             "CO" => ComponentType.Counter,
             "SE" => ComponentType.Sensor,
             "DI" => ComponentType.Divider,

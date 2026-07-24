@@ -15,6 +15,8 @@ public class WatchdogWorkerService(
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
+        statusFileService.WriteVersionFile("Watchdog");
+        
         while (!stoppingToken.IsCancellationRequested)
         {
             // Update status-file every 10 seconds 

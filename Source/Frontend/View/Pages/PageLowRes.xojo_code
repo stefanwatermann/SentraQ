@@ -42,6 +42,7 @@ Begin LobBase.LobWebPage PageLowRes
       FontName        =   ""
       FontSize        =   0.0
       Height          =   370
+      HTMLElement     =   0
       Index           =   -2147483648
       Indicator       =   0
       Italic          =   False

@@ -2,7 +2,7 @@
  Attributes ( "@Guid" = "9E7DF961-AF36-445E-8626-C61FC3B0B3FB", "@Copyright" = "XOJO Inc", "@Version" = "1.0", "@Description" = "Non-Visuelles Control für aus dem Web-SDK" ) Protected Class CallbackControl
 Inherits WebSDKControl
 	#tag Event
-		Function ExecuteEvent(name As string, parameters As JSONItem) As Boolean
+		Function ExecuteEvent(name As String, parameters As JSONItem) As Boolean
 		  // convert the data from base64 back into a string
 		  parameters.Value("data") = DecodeBase64(parameters.Value("data"))
 		  RaiseEvent BrowserCallback(name, parameters)

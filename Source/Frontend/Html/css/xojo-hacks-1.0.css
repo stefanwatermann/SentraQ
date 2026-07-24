@@ -1,6 +1,7 @@
 #XojoDisconnect .modal-content {
 	background-color: #fffef1;
 	border: 1px solid #ccd7cb;
+	border-radius: 6px;
 }
 
 .form-check-input:checked {
@@ -10,7 +11,7 @@
 
 .form-check-input {
 	width: 40px !important;
-	height: 23px !important;
+	height: 20px !important;
 }
 
 .XojoTextField > label {
@@ -27,6 +28,23 @@ table > tbody > tr.selected > * {
 
 .XojoRadioGroup>div>.form-check {
 	font-size: 0.8em;
+}
+
+.btn-white {
+    --bs-btn-color: #000;
+    --bs-btn-bg: #fff;
+    --bs-btn-border-color: #f8f9fa;
+    --bs-btn-hover-color: #000;
+    --bs-btn-hover-bg: #d3d4d5;
+    --bs-btn-hover-border-color: #c6c7c8;
+    --bs-btn-focus-shadow-rgb: 211,212,213;
+    --bs-btn-active-color: #000;
+    --bs-btn-active-bg: #c6c7c8;
+    --bs-btn-active-border-color: #babbbc;
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: #000;
+    --bs-btn-disabled-bg: #f8f9fa;
+    --bs-btn-disabled-border-color: #f8f9fa;
 }
 
 .search>input, .search>button {
@@ -47,7 +65,8 @@ div.modal-footer {
 }
 
 div.modal-content {
-	border-radius: 0px !important;
+	border-radius: 6px !important;
+	box-shadow: var(--bs-box-shadow-sm)!important;
 }
 
 .XojoTextArea>textarea.no-wrap {
@@ -63,6 +82,10 @@ div.modal-content {
 .XojoListBox table.table-gls-none tbody td {
 	border-radius: 0px;
 	margin: 5px 0px;
+}
+
+.XojoButton .btn:focus-visible {
+	box-shadow: none !important;
 }
 
 div.maplibregl-marker {

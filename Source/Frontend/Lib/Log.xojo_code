@@ -1,66 +1,37 @@
 #tag Module
 Protected Module Log
+	#tag Method, Flags = &h21
+		Private Function CreateMessage(msg as string, origin as string) As string
+		  return AppIdent + " [" + origin + "] " + msg
+		End Function
+	#tag EndMethod
+
 	#tag Method, Flags = &h0
 		Sub Critical(msg as string, origin as string = "default")
 		  // critical wird unabhängig vom LogLevel ausgegeben
-		  
-		  Var m As String = "CRL [" + origin + "]: " + msg
-		  
-		  Enqueue(m, "CRITICAL")
-		  
-		  System.Log(System.LogLevelCritical, m)
+		  System.Log(System.LogLevelCritical, CreateMessage(msg, origin))
 		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
 		Sub Debug(msg as string, origin as string = "default")
 		  If Level = Log.LogLevel.DEBUG Then
-		    
-		    Var m As String = "DBG [" + origin + "]: " + msg
-		    
-		    Enqueue(m, "DEBUG")
-		    
-		    If Not PrintOnly Then
-		      System.Log(System.LogLevelDebug, m)
-		    End
-		    
+		    System.Log(System.LogLevelDebug, CreateMessage(msg, origin))
 		  End
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h21
-		Private Sub Enqueue(m as string, lvl as string)
-		  // Not used
-		  Return
 		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
 		Sub Error(msg as string, origin as string = "default")
-		  // critical wird unabhängig vom LogLevel ausgegeben
-		  
-		  Var m As String = "ERR [" + origin + "]: " + msg
-		  
-		  Enqueue(m, "ERROR")
-		  
-		  If Not PrintOnly Then
-		    System.Log(System.LogLevelError, m)
-		  End
+		  // error wird unabhängig vom LogLevel ausgegeben
+		  System.Log(System.LogLevelError, CreateMessage(msg, origin))
 		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
 		Sub Info(msg as string, origin as string = "default")
 		  If Level = Log.LogLevel.DEBUG Or Level = Log.LogLevel.INFO Then
-		    
-		    Var m As String = "INF [" + origin + "]: " + msg
-		    
-		    Enqueue(m, "INFO")
-		    
-		    If Not PrintOnly Then
-		      System.Log(System.LogLevelInformation, m)
-		    End
-		    
+		    System.Log(System.LogLevelInformation, CreateMessage(msg, origin))
 		  End
 		End Sub
 	#tag EndMethod
@@ -137,15 +108,7 @@ Protected Module Log
 	#tag Method, Flags = &h0
 		Sub Warning(msg as string, origin as string = "default")
 		  If Level = Log.LogLevel.DEBUG Or Level = Log.LogLevel.INFO Or Level = Log.LogLevel.WARN Then
-		    
-		    Var m As String = "WRN [" + origin + "]: " + msg
-		    
-		    Enqueue(m, "WARN")
-		    
-		    If Not PrintOnly Then
-		      System.Log(System.LogLevelWarning, m)
-		    End
-		    
+		    System.Log(System.LogLevelWarning, CreateMessage(msg, origin))
 		  End
 		End Sub
 	#tag EndMethod
@@ -226,19 +189,6 @@ Protected Module Log
 	#tag Property, Flags = &h21
 		Private Level As Log.LogLevel
 	#tag EndProperty
-
-	#tag ComputedProperty, Flags = &h21
-		#tag Getter
-			Get
-			  #If DebugBuild Then
-			    Return false
-			  #Else
-			    Return False
-			  #EndIf
-			End Get
-		#tag EndGetter
-		Private PrintOnly As Boolean
-	#tag EndComputedProperty
 
 
 	#tag Enum, Name = LogLevel, Type = Integer, Flags = &h0

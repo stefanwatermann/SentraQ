@@ -25,7 +25,6 @@ Begin WebDialog DialogErrorMessage
    Width           =   560
    _mDesignHeight  =   0
    _mDesignWidth   =   0
-   _mName          =   ""
    _mPanelIndex    =   -1
    Begin WebLabel lbTitle
       Bold            =   False
@@ -35,6 +34,7 @@ Begin WebDialog DialogErrorMessage
       FontName        =   ""
       FontSize        =   24.0
       Height          =   38
+      HTMLElement     =   0
       Index           =   -2147483648
       Indicator       =   0
       Italic          =   False
@@ -99,6 +99,7 @@ Begin WebDialog DialogErrorMessage
       FontName        =   ""
       FontSize        =   0.0
       Height          =   120
+      HTMLElement     =   0
       Index           =   -2147483648
       Indicator       =   0
       Italic          =   False
@@ -163,6 +164,7 @@ Begin WebDialog DialogErrorMessage
       FontName        =   ""
       FontSize        =   14.0
       Height          =   40
+      HTMLElement     =   0
       Index           =   -2147483648
       Indicator       =   0
       Italic          =   False

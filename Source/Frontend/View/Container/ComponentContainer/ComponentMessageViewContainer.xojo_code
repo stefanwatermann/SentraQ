@@ -34,6 +34,7 @@ Begin WebContainer ComponentMessageViewContainer Implements IEmbeddableViewConta
       FontName        =   ""
       FontSize        =   0.0
       Height          =   30
+      HTMLElement     =   0
       Index           =   -2147483648
       Indicator       =   0
       Italic          =   False
@@ -68,6 +69,7 @@ Begin WebContainer ComponentMessageViewContainer Implements IEmbeddableViewConta
       FontName        =   ""
       FontSize        =   0.0
       Height          =   68
+      HTMLElement     =   0
       Index           =   -2147483648
       Indicator       =   0
       Italic          =   False
@@ -105,7 +107,7 @@ Begin WebContainer ComponentMessageViewContainer Implements IEmbeddableViewConta
       Height          =   30
       Index           =   -2147483648
       Indicator       =   5
-      Left            =   300
+      Left            =   270
       LockBottom      =   False
       LockedInPosition=   True
       LockHorizontal  =   False
@@ -153,6 +155,36 @@ Begin WebContainer ComponentMessageViewContainer Implements IEmbeddableViewConta
       Width           =   400
       _mDesignHeight  =   0
       _mDesignWidth   =   0
+      _mPanelIndex    =   -1
+   End
+   Begin WebButton btnInfo
+      AllowAutoDisable=   False
+      Cancel          =   False
+      Caption         =   ""
+      ControlID       =   ""
+      CSSClasses      =   "border-0 bi bi-water text-secondary"
+      Default         =   False
+      Enabled         =   True
+      Height          =   30
+      Index           =   -2147483648
+      Indicator       =   7
+      Left            =   415
+      LockBottom      =   False
+      LockedInPosition=   True
+      LockHorizontal  =   False
+      LockLeft        =   False
+      LockRight       =   True
+      LockTop         =   True
+      LockVertical    =   False
+      Outlined        =   True
+      PanelIndex      =   0
+      Scope           =   2
+      TabIndex        =   5
+      TabStop         =   True
+      Tooltip         =   ""
+      Top             =   5
+      Visible         =   True
+      Width           =   30
       _mPanelIndex    =   -1
    End
 End
@@ -281,6 +313,15 @@ End
 	#tag Event
 		Sub NoClicked(tag as Variant)
 		  btnClear.Enabled = true
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events btnInfo
+	#tag Event
+		Sub Pressed()
+		  Var container As New AlertInfoContainer
+		  container.Render(Station)
+		  container.ShowPopover(Self)
 		End Sub
 	#tag EndEvent
 #tag EndEvents

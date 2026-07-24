@@ -6,7 +6,7 @@ Begin LobBase.LobWebPage PageLogon
    ControlID       =   ""
    CSSClasses      =   ""
    Enabled         =   False
-   Height          =   500
+   Height          =   550
    ImplicitInstance=   True
    Index           =   -2147483648
    Indicator       =   0
@@ -20,13 +20,13 @@ Begin LobBase.LobWebPage PageLogon
    LockRight       =   False
    LockTop         =   True
    LockVertical    =   False
-   MinimumHeight   =   500
+   MinimumHeight   =   550
    MinimumWidth    =   320
    PanelIndex      =   0
    RequiresAuthenticatedUser=   False
    ScaleFactor     =   0.0
    TabIndex        =   0
-   Title           =   "Logon"
+   Title           =   "Login"
    Top             =   0
    Visible         =   True
    Width           =   600
@@ -39,15 +39,15 @@ Begin LobBase.LobWebPage PageLogon
       Cancel          =   False
       Caption         =   "Anmelden"
       ControlID       =   ""
-      CSSClasses      =   ""
+      CSSClasses      =   "small"
       Default         =   True
       Enabled         =   True
       Height          =   38
       Index           =   -2147483648
-      Indicator       =   1
+      Indicator       =   2
       Left            =   200
       LockBottom      =   False
-      LockedInPosition=   True
+      LockedInPosition=   False
       LockHorizontal  =   True
       LockLeft        =   False
       LockRight       =   False
@@ -59,7 +59,7 @@ Begin LobBase.LobWebPage PageLogon
       TabIndex        =   2
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   250
+      Top             =   350
       Visible         =   True
       Width           =   200
       _mPanelIndex    =   -1
@@ -69,7 +69,7 @@ Begin LobBase.LobWebPage PageLogon
       AllowSpellChecking=   False
       Caption         =   ""
       ControlID       =   ""
-      CSSClasses      =   ""
+      CSSClasses      =   "small"
       Enabled         =   True
       FieldType       =   0
       Height          =   38
@@ -78,7 +78,7 @@ Begin LobBase.LobWebPage PageLogon
       Indicator       =   0
       Left            =   160
       LockBottom      =   False
-      LockedInPosition=   True
+      LockedInPosition=   False
       LockHorizontal  =   True
       LockLeft        =   False
       LockRight       =   False
@@ -93,7 +93,7 @@ Begin LobBase.LobWebPage PageLogon
       Text            =   ""
       TextAlignment   =   2
       Tooltip         =   ""
-      Top             =   120
+      Top             =   245
       Visible         =   True
       Width           =   280
       _mPanelIndex    =   -1
@@ -103,7 +103,7 @@ Begin LobBase.LobWebPage PageLogon
       AllowSpellChecking=   False
       Caption         =   ""
       ControlID       =   ""
-      CSSClasses      =   ""
+      CSSClasses      =   "small"
       Enabled         =   True
       FieldType       =   1
       Height          =   38
@@ -112,7 +112,7 @@ Begin LobBase.LobWebPage PageLogon
       Indicator       =   0
       Left            =   160
       LockBottom      =   False
-      LockedInPosition=   True
+      LockedInPosition=   False
       LockHorizontal  =   True
       LockLeft        =   False
       LockRight       =   False
@@ -127,41 +127,7 @@ Begin LobBase.LobWebPage PageLogon
       Text            =   ""
       TextAlignment   =   2
       Tooltip         =   ""
-      Top             =   170
-      Visible         =   True
-      Width           =   280
-      _mPanelIndex    =   -1
-   End
-   Begin WebLabel lbHint
-      Bold            =   False
-      ControlID       =   ""
-      CSSClasses      =   ""
-      Enabled         =   True
-      FontName        =   ""
-      FontSize        =   14.0
-      Height          =   110
-      Index           =   -2147483648
-      Indicator       =   0
-      Italic          =   False
-      Left            =   161
-      LockBottom      =   True
-      LockedInPosition=   True
-      LockHorizontal  =   True
-      LockLeft        =   False
-      LockRight       =   False
-      LockTop         =   True
-      LockVertical    =   False
-      Multiline       =   True
-      PanelIndex      =   0
-      Scope           =   2
-      TabIndex        =   5
-      TabStop         =   True
-      Text            =   "Fehler"
-      TextAlignment   =   0
-      TextColor       =   &c94110000
-      Tooltip         =   ""
-      Top             =   360
-      Underline       =   False
+      Top             =   295
       Visible         =   True
       Width           =   280
       _mPanelIndex    =   -1
@@ -174,6 +140,7 @@ Begin LobBase.LobWebPage PageLogon
       FontName        =   ""
       FontSize        =   22.0
       Height          =   38
+      HTMLElement     =   0
       Index           =   -2147483648
       Indicator       =   0
       Italic          =   False
@@ -205,7 +172,7 @@ Begin LobBase.LobWebPage PageLogon
       Cancel          =   False
       Caption         =   "Passwort vergessen"
       ControlID       =   ""
-      CSSClasses      =   "small"
+      CSSClasses      =   "xsmall"
       Default         =   False
       Enabled         =   True
       Height          =   38
@@ -213,7 +180,7 @@ Begin LobBase.LobWebPage PageLogon
       Indicator       =   9
       Left            =   200
       LockBottom      =   False
-      LockedInPosition=   True
+      LockedInPosition=   False
       LockHorizontal  =   True
       LockLeft        =   False
       LockRight       =   False
@@ -225,7 +192,7 @@ Begin LobBase.LobWebPage PageLogon
       TabIndex        =   7
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   310
+      Top             =   390
       Visible         =   True
       Width           =   200
       _mPanelIndex    =   -1
@@ -254,7 +221,7 @@ Begin LobBase.LobWebPage PageLogon
       TabIndex        =   9
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   20
+      Top             =   45
       Visible         =   True
       Width           =   400
       _mDesignHeight  =   0
@@ -285,9 +252,148 @@ Begin LobBase.LobWebPage PageLogon
       TabIndex        =   10
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   470
+      Top             =   520
       Visible         =   True
       Width           =   560
+      _mDesignHeight  =   0
+      _mDesignWidth   =   0
+      _mPanelIndex    =   -1
+   End
+   Begin WebUserAuthentication PasskeyAuthentication
+      ApplicationName =   "Example Application"
+      ControlID       =   ""
+      Domain          =   "example.com"
+      Enabled         =   True
+      Index           =   -2147483648
+      LockedInPosition=   False
+      PanelIndex      =   0
+      Scope           =   2
+      Timeout         =   60000
+      _mPanelIndex    =   -1
+   End
+   Begin WebButton btnPasskeyLogon
+      AllowAutoDisable=   False
+      Cancel          =   False
+      Caption         =   "Mit Passkey anmelden"
+      ControlID       =   ""
+      CSSClasses      =   ""
+      Default         =   True
+      Enabled         =   True
+      Height          =   50
+      Index           =   -2147483648
+      Indicator       =   1
+      Left            =   161
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockHorizontal  =   True
+      LockLeft        =   False
+      LockRight       =   False
+      LockTop         =   True
+      LockVertical    =   False
+      Outlined        =   False
+      PanelIndex      =   0
+      Scope           =   2
+      TabIndex        =   11
+      TabStop         =   True
+      Tooltip         =   ""
+      Top             =   120
+      Visible         =   True
+      Width           =   279
+      _mPanelIndex    =   -1
+   End
+   Begin WebLabel Label1
+      Bold            =   False
+      ControlID       =   ""
+      CSSClasses      =   "small"
+      Enabled         =   True
+      FontName        =   ""
+      FontSize        =   0.0
+      Height          =   38
+      HTMLElement     =   0
+      Index           =   -2147483648
+      Indicator       =   0
+      Italic          =   False
+      Left            =   250
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockHorizontal  =   True
+      LockLeft        =   False
+      LockRight       =   False
+      LockTop         =   True
+      LockVertical    =   False
+      Multiline       =   False
+      PanelIndex      =   0
+      Scope           =   2
+      TabIndex        =   12
+      TabStop         =   True
+      Text            =   "oder"
+      TextAlignment   =   2
+      TextColor       =   &c000000FF
+      Tooltip         =   ""
+      Top             =   200
+      Underline       =   False
+      Visible         =   True
+      Width           =   100
+      _mPanelIndex    =   -1
+   End
+   Begin DialogPasskeyMessage DialogPasskeyMessage1
+      ControlCount    =   0
+      ControlID       =   ""
+      CSSClasses      =   ""
+      Enabled         =   True
+      Height          =   400
+      Index           =   -2147483648
+      Indicator       =   0
+      LayoutDirection =   0
+      LayoutType      =   0
+      Left            =   0
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockHorizontal  =   False
+      LockLeft        =   False
+      LockRight       =   False
+      LockTop         =   False
+      LockVertical    =   False
+      PanelIndex      =   0
+      Position        =   0
+      Scope           =   2
+      TabIndex        =   13
+      TabStop         =   True
+      Tooltip         =   ""
+      Top             =   0
+      Visible         =   True
+      Width           =   600
+      _mDesignHeight  =   0
+      _mDesignWidth   =   0
+      _mPanelIndex    =   -1
+   End
+   Begin DialogCreatePasskey DialogCreatePasskey1
+      ControlCount    =   0
+      ControlID       =   ""
+      CSSClasses      =   ""
+      Enabled         =   True
+      Height          =   400
+      Index           =   -2147483648
+      Indicator       =   0
+      LayoutDirection =   0
+      LayoutType      =   0
+      Left            =   0
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockHorizontal  =   False
+      LockLeft        =   False
+      LockRight       =   False
+      LockTop         =   False
+      LockVertical    =   False
+      PanelIndex      =   0
+      Position        =   0
+      Scope           =   2
+      TabIndex        =   14
+      TabStop         =   True
+      Tooltip         =   ""
+      Top             =   0
+      Visible         =   True
+      Width           =   600
       _mDesignHeight  =   0
       _mDesignWidth   =   0
       _mPanelIndex    =   -1
@@ -316,7 +422,7 @@ End
 	#tag Method, Flags = &h21
 		Private Sub ShowHint(msg as string)
 		  If msg.Trim <> "" Then
-		    MessageBox("<raw><div class='text-center text-danger fs-5 mb-2'>Fehler</div><div class='text-center'>" + msg + "</div></raw>")
+		    MessageBox(App.GetAlertMessage(msg))
 		  End
 		  
 		End Sub
@@ -352,8 +458,9 @@ End
 		      Session.Authenticator.SetCurrentUser(tbUserName.Text, tbPassword.Text)
 		      
 		      If Session.Authenticator.IsAuthenticatedUser Then
+		        Session.WasPasskeyAuthentication = False
 		        Log.Info("User logged on: " + Session.Authenticator.CurrentUserName, Session.SecureSessionId)
-		        App.DataSvc.UserLoggedOn(Session.Authenticator.CurrentUserName)
+		        App.DataSvc.UserLoggedOn(Session.Authenticator.CurrentUserName, "up")
 		        If Session.CurrentAction <> "" Then
 		          GoToURL("#" + Session.CurrentAction)
 		        Else
@@ -377,13 +484,6 @@ End
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events lbHint
-	#tag Event
-		Sub Opening()
-		  me.text = ""
-		End Sub
-	#tag EndEvent
-#tag EndEvents
 #tag Events btnNewPwd
 	#tag Event
 		Sub Pressed()
@@ -399,6 +499,118 @@ End
 	#tag Event
 		Sub YesClicked(tag as Variant)
 		  App.DataSvc.UserRequestPasswordReset(tbUserName.Text)
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events PasskeyAuthentication
+	#tag Event
+		Sub AuthenticationSucceeded(userId As String, credentialId As String, authenticationAttempts As Integer)
+		  var currentUser as UserModel = App.DataSvc.GetCachedUserByLogin(userId)
+		  Session.Authenticator.SetCurrentUser(currentUser.Hash, true)
+		  
+		  If Session.Authenticator.IsAuthenticatedUser Then
+		    
+		    Session.WasPasskeyAuthentication = True
+		    Log.Info("User logged on: " + Session.Authenticator.CurrentUserName, Session.SecureSessionId)
+		    App.DataSvc.UserLoggedOn(Session.Authenticator.CurrentUserName, "pk")
+		    
+		    If Session.CurrentAction <> "" Then
+		      GoToURL("#" + Session.CurrentAction)
+		    Else
+		      GoToURL("#station")
+		    End
+		    
+		  Else
+		    ShowHint("Die Anmeldung hat leider nicht geklappt. Bitte prüfen Sie Ihren Passkey oder legen Sie einen neuen Passkey an.")
+		    FailedLogonCount = FailedLogonCount + 1
+		    Log.Warning("User logon failed: invalid passkey (FailedLogonCount=" + Str(FailedLogonCount) + ", User=" + tbUserName.Text + ").", Session.SecureSessionId)
+		  End
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Function CredentialRequested(userId As String, credentialId As String) As WebAuthenticationCredential
+		  for each user as UserModel in App.DataSvc.GetUsers
+		    If user.Login = userId Then
+		      Return user.PasskeyIdentDecoded.ToWebAuthenticationCredential
+		    end
+		  Next
+		  
+		  raise new RuntimeException("Passkey-Anmeldung nicht möglich.")
+		End Function
+	#tag EndEvent
+	#tag Event
+		Sub Error(message As String)
+		  DialogPasskeyMessage1.Show(message)
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub Opening()
+		  Me.ApplicationName = App.AppHeaderTitle
+		  Me.Domain = Session.PasskeyDomain
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events btnPasskeyLogon
+	#tag Event
+		Sub Pressed()
+		  PasskeyAuthentication.Authenticate
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events DialogPasskeyMessage1
+	#tag Event
+		Sub CreatePasskeyPressed()
+		  DialogCreatePasskey1.Show
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events DialogCreatePasskey1
+	#tag Event
+		Sub OkPressed(username as string, password as string)
+		  Try
+		    ShowHint("")
+		    
+		    HandleTooManyLogons
+		    
+		    If username = "" Or password = "" Then
+		      ShowHint("Bitte Benutzernamen und Passwort angeben.")
+		      FailedLogonCount = FailedLogonCount + 1
+		      
+		    Else
+		      Session.Authenticator.SetCurrentUser(username, password)
+		      
+		      If Session.Authenticator.IsAuthenticatedUser Then
+		        Log.Info("User logged on: " + Session.Authenticator.CurrentUserName, Session.SecureSessionId)
+		        App.DataSvc.UserLoggedOn(Session.Authenticator.CurrentUserName, "up")
+		        
+		        // Passkey Code emailen
+		        App.DataSvc.UserRequestPasskey(username)
+		        
+		        MessageBox( _
+		        "<raw><div class='mx-4'>" +_
+		        "<div class='mb-2'>Es wurde eine E-Mail an die hinterlegte E-Mail Adresse versendet. Prüfen Sie nun Ihren Posteingang.</div>" +_
+		        "<div class='small'>Es kann einige Minuten dauern, bis die E-Mail bei Ihnen eintrifft. Prüfen Sie auch Ihren SPAM Ordner.</div>" +_
+		        "</div></raw>")
+		        
+		        Me.Close
+		        
+		      Else
+		        ShowHint("Die Anmeldung hat leider nicht geklappt. Bitte prüfen Sie Ihren Benutzernamen und Ihr Passwort.")
+		        FailedLogonCount = FailedLogonCount + 1
+		        Log.Warning("User logon failed: invalid user/password (FailedLogonCount=" + Str(FailedLogonCount) + ", User=" + username + ").", Session.SecureSessionId)
+		      End
+		      
+		    End
+		    
+		  Catch e As RuntimeException
+		    ShowHint("Es ist ein Fehler aufgetreten. Die Anmeldung hat leider nicht geklappt. Bitte versuchen Sie es später noch einmal.")
+		    FailedLogonCount = FailedLogonCount + 1
+		    Log.Error("User logon failed: " + e.Message + String.FromArray(e.Stack, "; "), Session.SecureSessionId)
+		    
+		  Finally
+		    Session.Authenticator.ClearCurrentUser
+		    
+		  End
 		End Sub
 	#tag EndEvent
 #tag EndEvents

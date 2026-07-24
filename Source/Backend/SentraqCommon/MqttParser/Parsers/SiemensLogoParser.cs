@@ -1,16 +1,14 @@
 using System.Text.Json.Nodes;
 using SentraqModels.Mqtt;
 
-namespace SentraqController.MqttParser.Parsers;
+namespace SentraqCommon.MqttParser.Parsers;
 
+/// <summary>
+/// Parser for the Siemens LOGO8 format, e.g.: {"state":{"reported":{"0001":{"desc":"M-bit-1-1","value":[1]}}}}
+/// Requires "Array-Format" to be used in LOGO8 Cloud Settings.
+/// </summary>
 internal class SiemensLogoParser(string payloadText) : IMqttParser
 {
-    /// <summary>
-    /// Siemens LOGO8 Format, Beispiel: {"state":{"reported":{"0001":{"desc":"M-bit-1-1","value":[1]}}}}
-    /// Daten werden im "Array-Format" erwartet.
-    /// </summary>
-    /// <returns></returns>
-    /// <exception cref="ArgumentNullException"></exception>
     public IEnumerable<MqttPayload> Convert()
     {
         var payloads = new List<MqttPayload>();

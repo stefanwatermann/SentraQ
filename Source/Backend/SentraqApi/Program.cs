@@ -9,78 +9,100 @@ using Microsoft.EntityFrameworkCore;
 using SentraqApi.Filters;
 using SentraqCommon.Context;
 using SentraqCommon.Converters;
+using SentraqCommon.MqttSender;
 using SentraqCommon.Security;
 using SentraqCommon.Services;
 
-[assembly: AssemblyVersion("1.0.3.*")]
+[assembly: AssemblyVersion("1.1.0.*")]
 
-var builder = WebApplication.CreateBuilder(args);
+namespace SentraqApi;
 
-// Add services to the container.
-builder.Services.AddControllers().AddJsonOptions(options =>
+internal static class Program
 {
-    // render json properties with uppercase first letter, important for the XOJO frontend
-    options.JsonSerializerOptions.PropertyNamingPolicy = null;
-    // datetime serialization
-    options.JsonSerializerOptions.Converters.Add(new SimpleDateTimeConverter());
-});
-
-var connStr = builder.Configuration.GetConnectionString("DbConnection") ?? 
-              throw new InvalidOperationException("Could not find connection string in appsettings.json");
-
-builder.Services.AddDbContext<DatabaseContext>(options =>
-    options.UseNpgsql(Decrypt.PasswordInConnectionString(connStr, Secrets.EncryptionPwd)));
-
-builder.Services.AddScoped<SettingService>();
-builder.Services.AddScoped<CacheService>();
-builder.Services.AddScoped<AuthorizationService>();
-builder.Services.AddScoped<StationService>();
-builder.Services.AddScoped<ComponentService>();
-builder.Services.AddScoped<MailService>();
-builder.Services.AddScoped<PasswordResetService>();
-builder.Services.AddScoped<LogService>();
-builder.Services.AddScoped<UserService>();
-builder.Services.AddScoped<StatusFileService>();
-builder.Services.AddScoped<RequireAuthorizationKeyAuthFilter>();
-
-builder.Services.AddLogging(b =>
-{
-    b.ClearProviders();
-    b.AddConfiguration(builder.Configuration.GetSection("Logging"))
-        .AddConsole()
-        .AddDebug();
-});
-
-var app = builder.Build();
-
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.MapOpenApi();
-}
-
-// configure globale exception handler for un-caught exceptions
-app.UseExceptionHandler(options =>
-{
-    options.Run(async context =>
+    private static void Main(string[] args)
     {
-        context.Response.StatusCode = StatusCodes.Status500InternalServerError;
-        context.Response.ContentType = "application/json";
-        
-        var exceptionFeature = context.Features.Get<IExceptionHandlerFeature>();
-        if (exceptionFeature is not null)
+        try
         {
-            // return generic message and log detailed message
-            var genericMessage = new { message = $"An unexpected error occurred" };
-            var detailedMessage = $"path={exceptionFeature.Path}, error={exceptionFeature.Error.Message}";
-            app.Logger.LogError(detailedMessage);
-            await context.Response.WriteAsJsonAsync(genericMessage);
+            Console.WriteLine($"*** SentraQ API Service ***");
+            Console.WriteLine($"Version: {Assembly.GetExecutingAssembly().GetName().Version}");
+            Console.WriteLine($"CurrentDirectory: {Directory.GetCurrentDirectory()}");
+
+            var builder = WebApplication.CreateBuilder(args);
+
+            // Add services to the container.
+            builder.Services.AddControllers().AddJsonOptions(options =>
+            {
+                // render json properties with uppercase first letter, important for the XOJO frontend
+                options.JsonSerializerOptions.PropertyNamingPolicy = null;
+                // datetime serialization
+                options.JsonSerializerOptions.Converters.Add(new SimpleDateTimeConverter());
+            });
+
+            var connStr = builder.Configuration.GetConnectionString("DbConnection") ??
+                          throw new InvalidOperationException("Could not find connection string in appsettings.json");
+
+            builder.Services.AddDbContext<DatabaseContext>(options =>
+                options.UseNpgsql(Decrypt.PasswordInConnectionString(connStr, Secrets.EncryptionPwd)));
+
+            builder.Services.AddScoped<SettingService>();
+            builder.Services.AddScoped<CacheService>();
+            builder.Services.AddScoped<AuthorizationService>();
+            builder.Services.AddScoped<StationService>();
+            builder.Services.AddScoped<AggregationService>();
+            builder.Services.AddScoped<ComponentService>();
+            builder.Services.AddScoped<MailService>();
+            builder.Services.AddScoped<PasswordService>();
+            builder.Services.AddScoped<LogService>();
+            builder.Services.AddScoped<UserService>();
+            builder.Services.AddScoped<StatusFileService>();
+            builder.Services.AddScoped<SiemensLogo8MqttSender>();
+            builder.Services.AddScoped<RequireAuthorizationKeyAuthFilter>();
+
+            builder.Services.AddLogging(b =>
+            {
+                b.ClearProviders();
+                b.AddConfiguration(builder.Configuration.GetSection("Logging"))
+                    .AddConsole()
+                    .AddDebug();
+            });
+
+            var app = builder.Build();
+
+            // Configure the HTTP request pipeline.
+            if (app.Environment.IsDevelopment())
+            {
+                app.MapOpenApi();
+            }
+
+            // configure globale exception handler for un-caught exceptions
+            app.UseExceptionHandler(options =>
+            {
+                options.Run(async context =>
+                {
+                    context.Response.StatusCode = StatusCodes.Status500InternalServerError;
+                    context.Response.ContentType = "application/json";
+
+                    var exceptionFeature = context.Features.Get<IExceptionHandlerFeature>();
+                    if (exceptionFeature is not null)
+                    {
+                        // return generic message and log detailed message
+                        var genericMessage = new { message = $"An unexpected error occurred" };
+                        var detailedMessage = $"path={exceptionFeature.Path}, error={exceptionFeature.Error.Message}";
+                        app.Logger.LogError(detailedMessage);
+                        await context.Response.WriteAsJsonAsync(genericMessage);
+                    }
+                });
+            });
+
+            app.UseHttpsRedirection();
+            app.UseAuthorization();
+            app.MapControllers();
+
+            app.Run();
         }
-    });
-});
-
-app.UseHttpsRedirection();
-app.UseAuthorization();
-app.MapControllers();
-
-app.Run();
+        catch (Exception e)
+        {
+            Console.WriteLine($"FATAL ERROR: App crashed: {e}");
+        }
+    }
+}

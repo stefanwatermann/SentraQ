@@ -33,8 +33,9 @@ Begin WebContainer ServiceStatusInfoContainer
       FontName        =   ""
       FontSize        =   0.0
       Height          =   50
+      HTMLElement     =   0
       Index           =   -2147483648
-      Indicator       =   ""
+      Indicator       =   0
       Italic          =   False
       Left            =   20
       LockBottom      =   False
@@ -67,8 +68,9 @@ Begin WebContainer ServiceStatusInfoContainer
       FontName        =   ""
       FontSize        =   0.0
       Height          =   20
+      HTMLElement     =   0
       Index           =   -2147483648
-      Indicator       =   ""
+      Indicator       =   0
       Italic          =   False
       Left            =   20
       LockBottom      =   False
@@ -101,8 +103,9 @@ Begin WebContainer ServiceStatusInfoContainer
       FontName        =   ""
       FontSize        =   0.0
       Height          =   20
+      HTMLElement     =   0
       Index           =   -2147483648
-      Indicator       =   ""
+      Indicator       =   0
       Italic          =   False
       Left            =   20
       LockBottom      =   False
@@ -135,6 +138,7 @@ Begin WebContainer ServiceStatusInfoContainer
       FontName        =   ""
       FontSize        =   0.0
       Height          =   20
+      HTMLElement     =   0
       Index           =   -2147483648
       Indicator       =   0
       Italic          =   False
@@ -169,6 +173,7 @@ Begin WebContainer ServiceStatusInfoContainer
       FontName        =   ""
       FontSize        =   0.0
       Height          =   20
+      HTMLElement     =   0
       Index           =   -2147483648
       Indicator       =   0
       Italic          =   False

@@ -13,11 +13,13 @@ Protected Class MapStation
 		#tag Getter
 			Get
 			  If Self.Station <> Nil Then
+			    var s as string = Self.Station.DisplayNameAscii
 			    If Self.Station.HasFaults Then
-			      Return"Stoerung in " + Self.Station.DisplayNameAscii
-			    Else
-			      Return Self.Station.DisplayNameAscii
-			    End
+			      s = s + EndOfLine + " - STOERUNG"
+			    ElseIf Self.Station.MaintenanceActive Then
+			      s = s + EndOfLine + " - WARTUNG AKTIV"
+			    end
+			    Return s
 			  End
 			End Get
 		#tag EndGetter
@@ -85,6 +87,14 @@ Protected Class MapStation
 			InitialValue=""
 			Type="Boolean"
 			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="DisplayTitle"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="String"
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

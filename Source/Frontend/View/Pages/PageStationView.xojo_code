@@ -35,7 +35,6 @@ Begin LobBase.LobWebPage PageStationView
    _mDesignWidth   =   0
    _mPanelIndex    =   -1
    Begin WebRectangle leftPanel
-      BackgroundColor =   &cFFFFFF
       BorderColor     =   &c000000FF
       BorderThickness =   0
       ControlCount    =   0
@@ -43,14 +42,13 @@ Begin LobBase.LobWebPage PageStationView
       CornerSize      =   0
       CSSClasses      =   ""
       Enabled         =   True
-      FillColor       =   "&cFFFFFF00"
-      HasBackgroundColor=   True
-      HasFillColor    =   "True"
+      FillColor       =   &cFFFFFF
+      HasFillColor    =   True
       Height          =   520
       Index           =   -2147483648
-      Indicator       =   ""
-      LayoutDirection =   "LayoutDirections.LeftToRight"
-      LayoutType      =   "LayoutTypes.Fixed"
+      Indicator       =   0
+      LayoutDirection =   0
+      LayoutType      =   0
       Left            =   0
       LockBottom      =   True
       LockedInPosition=   True
@@ -75,7 +73,7 @@ Begin LobBase.LobWebPage PageStationView
          ControlID       =   ""
          CSSClasses      =   ""
          Enabled         =   True
-         Height          =   490
+         Height          =   470
          Index           =   -2147483648
          Indicator       =   0
          InitialParent   =   "leftPanel"
@@ -102,6 +100,38 @@ Begin LobBase.LobWebPage PageStationView
          Width           =   220
          _mDesignHeight  =   0
          _mDesignWidth   =   0
+         _mPanelIndex    =   -1
+      End
+      Begin WebButton btnExport
+         AllowAutoDisable=   False
+         Cancel          =   False
+         Caption         =   " Exportieren..."
+         ControlID       =   ""
+         CSSClasses      =   "border-0 small bi bi-download btn-white"
+         Default         =   False
+         Enabled         =   True
+         Height          =   30
+         Index           =   -2147483648
+         Indicator       =   0
+         Left            =   15
+         LockBottom      =   True
+         LockedInPosition=   True
+         LockHorizontal  =   False
+         LockLeft        =   True
+         LockRight       =   False
+         LockTop         =   False
+         LockVertical    =   False
+         Outlined        =   False
+         PanelIndex      =   0
+         Parent          =   "leftPanel"
+         Scope           =   2
+         TabIndex        =   1
+         TabPanelIndex   =   0
+         TabStop         =   True
+         Tooltip         =   ""
+         Top             =   560
+         Visible         =   True
+         Width           =   150
          _mPanelIndex    =   -1
       End
    End
@@ -190,7 +220,7 @@ Begin LobBase.LobWebPage PageStationView
       Indicator       =   0
       LayoutDirection =   0
       LayoutType      =   0
-      Left            =   20
+      Left            =   190
       LockBottom      =   True
       LockedInPosition=   True
       LockHorizontal  =   False
@@ -206,7 +236,100 @@ Begin LobBase.LobWebPage PageStationView
       Tooltip         =   ""
       Top             =   570
       Visible         =   True
-      Width           =   760
+      Width           =   420
+      _mDesignHeight  =   0
+      _mDesignWidth   =   0
+      _mPanelIndex    =   -1
+   End
+   Begin DialogExport DialogExport1
+      ControlCount    =   0
+      ControlID       =   ""
+      CSSClasses      =   ""
+      Enabled         =   True
+      Height          =   420
+      Index           =   -2147483648
+      Indicator       =   0
+      LayoutDirection =   0
+      LayoutType      =   0
+      Left            =   0
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockHorizontal  =   False
+      LockLeft        =   False
+      LockRight       =   False
+      LockTop         =   False
+      LockVertical    =   False
+      PanelIndex      =   0
+      Position        =   1
+      Scope           =   2
+      TabIndex        =   6
+      TabStop         =   True
+      Tooltip         =   ""
+      Top             =   0
+      Visible         =   True
+      Width           =   700
+      _mDesignHeight  =   0
+      _mDesignWidth   =   0
+      _mPanelIndex    =   -1
+   End
+   Begin DialogExportRun DialogRunExport1
+      ControlCount    =   0
+      ControlID       =   ""
+      CSSClasses      =   ""
+      Enabled         =   True
+      Height          =   200
+      Index           =   -2147483648
+      Indicator       =   0
+      LayoutDirection =   0
+      LayoutType      =   0
+      Left            =   0
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockHorizontal  =   False
+      LockLeft        =   False
+      LockRight       =   False
+      LockTop         =   False
+      LockVertical    =   False
+      PanelIndex      =   0
+      Position        =   1
+      Scope           =   2
+      TabIndex        =   7
+      TabStop         =   True
+      Tooltip         =   ""
+      Top             =   0
+      Visible         =   True
+      Width           =   400
+      _mDesignHeight  =   0
+      _mDesignWidth   =   0
+      _mPanelIndex    =   -1
+   End
+   Begin DialogExportDownload DialogExportDownload1
+      ControlCount    =   0
+      ControlID       =   ""
+      CSSClasses      =   ""
+      Enabled         =   True
+      Height          =   140
+      Index           =   -2147483648
+      Indicator       =   0
+      LayoutDirection =   0
+      LayoutType      =   0
+      Left            =   0
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockHorizontal  =   False
+      LockLeft        =   False
+      LockRight       =   False
+      LockTop         =   False
+      LockVertical    =   False
+      PanelIndex      =   0
+      Position        =   1
+      Scope           =   2
+      TabIndex        =   8
+      TabStop         =   True
+      Tooltip         =   ""
+      Top             =   0
+      Visible         =   True
+      Width           =   400
       _mDesignHeight  =   0
       _mDesignWidth   =   0
       _mPanelIndex    =   -1
@@ -326,11 +449,34 @@ End
 		End Sub
 	#tag EndEvent
 #tag EndEvents
+#tag Events btnExport
+	#tag Event
+		Sub Pressed()
+		  DialogExport1.Show
+		End Sub
+	#tag EndEvent
+#tag EndEvents
 #tag Events RefreshDataTimer
 	#tag Event
 		Sub Run()
 		  StationListContainer1.RefreshData
 		  StationViewContainer1.RefreshData
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events DialogExport1
+	#tag Event
+		Sub Export(dtFrom as DateTime, dtTo as DateTime, componentTypes() as string, stations() as string)
+		  DialogRunExport1.Show(dtFrom, dtTo, componentTypes, stations)
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events DialogRunExport1
+	#tag Event
+		Sub ExportDataReady(data as MemoryBlock)
+		  me.Visible = false
+		  Log.Info("Export data received, now showing download dialog.", CurrentMethodName)
+		  DialogExportDownload1.Show(data)
 		End Sub
 	#tag EndEvent
 #tag EndEvents

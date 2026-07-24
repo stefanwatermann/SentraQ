@@ -18,7 +18,8 @@ public static class StationMapper
             DisplayColor = dataStation.DisplayColor,
             DisplayOrder = dataStation.DisplayOrder,
             WatchdogHardwareId = dataStation.WatchdogHardwareId,
-            HasActiveAlert = dataStation.HasActiveAlert
+            HasActiveAlert = dataStation.HasActiveAlert,
+            MaintenanceActiveSinceTs = dataStation.MaintenanceActiveSinceTs
         };
     }
     
@@ -34,7 +35,8 @@ public static class StationMapper
             ShortName = apiStation.ShortName,
             DisplayColor = apiStation.DisplayColor,
             DisplayOrder = apiStation.DisplayOrder,
-            WatchdogHardwareId = apiStation.WatchdogHardwareId
+            WatchdogHardwareId = apiStation.WatchdogHardwareId,
+            MaintenanceActiveSinceTs = apiStation.MaintenanceActiveSinceTs
         };
     }
     
@@ -51,5 +53,6 @@ public static class StationMapper
         toDataStation.DisplayColor = fromApiStation.DisplayColor;
         toDataStation.DisplayOrder = fromApiStation.DisplayOrder;
         toDataStation.WatchdogHardwareId = fromApiStation.WatchdogHardwareId;
+        toDataStation.MaintenanceActiveSinceTs = fromApiStation.MaintenanceActiveSinceTs;
     }
 }

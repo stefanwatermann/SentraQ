@@ -20,4 +20,6 @@ public class Station
     public string? WatchdogHardwareId { get; init; }
     
     public bool HasActiveAlert { get; init; } = false;
+    
+    public DateTime? MaintenanceActiveSinceTs { get; set; }
 }

@@ -11,7 +11,7 @@ namespace SentraqCommon.Services;
 /// <param name="logger"></param>
 /// <param name="dbContext"></param>
 public class LogService(
-    ILogger<CacheService> logger,
+    ILogger<LogService> logger,
     DatabaseContext dbContext)
 {
     public enum Severity
@@ -26,17 +26,29 @@ public class LogService(
         UserLogon,
         UserPasswordResetRequested,
         UserPasswordChanged,
+        UserPasskeyRequested,
+        UserPasskeyChanged,
         UserChanged,
         UserRemoved,
         StationChanged,
         StationRemoved,
+        StationMaintenanceStarted,
+        StationMaintenanceStopped,
         ComponentChanged,
         ComponentRemoved,
+        ComponentValueSet,
         AlertAction,
-        ActorCounterRestart
+        ActorCounterRestart,
+        DataExportRequested
     }
 
-    public void AddInfo(Event evt, string msg = "")
+    public void SaveInfo(Event evt, string msg = "")
+    {
+        Add(evt, Severity.Info, msg);
+        dbContext.SaveChanges();
+    }
+    
+    public void AddInfoNoSave(Event evt, string msg = "")
     {
         Add(evt, Severity.Info, msg);
     }

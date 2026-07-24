@@ -1,6 +1,10 @@
 #tag Module
- Attributes ( "@Guid" = "A20F6DCD-A5C1-400D-825A-7F960DA22D89", "@Version" = "1.2.0", "@Copyright" = "(c) 2023 Stefan Watermann, Germany", "@Author" = "Stefan Watermann", "@Description" = "Authenticaton for WebApplication projects. Authentication information can be loaded from file, Sqlite or MySql database.", "@Depends" = "File, WebSessionExtensions" ) Protected Module Authentication
+ Attributes ( "@Guid" = "A20F6DCD-A5C1-400D-825A-7F960DA22D89", "@Version" = "1.2.1", "@Copyright" = "(c) 2023 Stefan Watermann, Germany", "@Author" = "Stefan Watermann", "@Description" = "Authenticaton for WebApplication projects. Authentication information can be loaded from file, Sqlite or MySql database.", "@Depends" = "File, WebSessionExtensions" ) Protected Module Authentication
 	#tag Note, Name = History
+		v1.2.1 - 2026-05-29
+		--------------------
+		- New method "SetCurrentUser(hash as string, sessionOnly as boolean = false)
+		
 		v1.2.0 - 2025-12-08
 		--------------------
 		- Introduction of IAuthenticationStoreProvider interface to allow different ways of readign authentication data

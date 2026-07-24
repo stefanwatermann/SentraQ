@@ -24,7 +24,6 @@ Begin WebContainer ComponentCounterViewContainer Implements IEmbeddableViewConta
    Width           =   180
    _mDesignHeight  =   0
    _mDesignWidth   =   0
-   _mName          =   ""
    _mPanelIndex    =   -1
    Begin WebLabel lbDisplayName
       BindProperty    =   "DisplayName"
@@ -35,6 +34,7 @@ Begin WebContainer ComponentCounterViewContainer Implements IEmbeddableViewConta
       FontName        =   ""
       FontSize        =   13.0
       Height          =   20
+      HTMLElement     =   0
       Index           =   -2147483648
       Indicator       =   0
       Italic          =   False
@@ -69,6 +69,7 @@ Begin WebContainer ComponentCounterViewContainer Implements IEmbeddableViewConta
       FontName        =   ""
       FontSize        =   24.0
       Height          =   40
+      HTMLElement     =   0
       Index           =   -2147483648
       Indicator       =   0
       Italic          =   False
@@ -98,14 +99,14 @@ Begin WebContainer ComponentCounterViewContainer Implements IEmbeddableViewConta
    Begin WebButton btnInfo
       AllowAutoDisable=   False
       Cancel          =   False
-      Caption         =   "i"
+      Caption         =   ""
       ControlID       =   ""
-      CSSClasses      =   "border-0"
+      CSSClasses      =   "border-0 bi bi-info-circle text-secondary"
       Default         =   False
       Enabled         =   True
       Height          =   30
       Index           =   -2147483648
-      Indicator       =   0
+      Indicator       =   7
       Left            =   145
       LockBottom      =   False
       LockedInPosition=   True
@@ -133,8 +134,9 @@ Begin WebContainer ComponentCounterViewContainer Implements IEmbeddableViewConta
       FontName        =   ""
       FontSize        =   13.0
       Height          =   20
+      HTMLElement     =   0
       Index           =   -2147483648
-      Indicator       =   ""
+      Indicator       =   0
       Italic          =   False
       Left            =   20
       LockBottom      =   False
@@ -196,7 +198,9 @@ End
 #tag Events btnInfo
 	#tag Event
 		Sub Pressed()
-		  MessageBox(MyComponent.GetInfos)
+		  Var container As New ComponentInfoContainer
+		  container.Render(MyComponent)
+		  container.ShowPopover(Me)
 		End Sub
 	#tag EndEvent
 #tag EndEvents

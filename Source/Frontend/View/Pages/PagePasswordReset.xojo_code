@@ -97,7 +97,6 @@ Begin LobBase.LobWebPage PagePasswordReset
       _mPanelIndex    =   -1
    End
    Begin WebRectangle rectPset
-      BackgroundColor =   &cFFFFFF
       BorderColor     =   &c000000FF
       BorderThickness =   1
       ControlCount    =   0
@@ -105,12 +104,13 @@ Begin LobBase.LobWebPage PagePasswordReset
       CornerSize      =   6
       CSSClasses      =   ""
       Enabled         =   True
-      HasBackgroundColor=   True
-      Height          =   390
+      FillColor       =   &cFFFFFF
+      HasFillColor    =   True
+      Height          =   340
       Index           =   -2147483648
-      Indicator       =   ""
-      LayoutDirection =   "LayoutDirections.LeftToRight"
-      LayoutType      =   "LayoutTypes.Fixed"
+      Indicator       =   0
+      LayoutDirection =   0
+      LayoutType      =   0
       Left            =   90
       LockBottom      =   False
       LockedInPosition=   True
@@ -124,7 +124,7 @@ Begin LobBase.LobWebPage PagePasswordReset
       TabIndex        =   1
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   100
+      Top             =   130
       Visible         =   True
       Width           =   420
       _mDesignHeight  =   0
@@ -138,8 +138,9 @@ Begin LobBase.LobWebPage PagePasswordReset
          FontName        =   ""
          FontSize        =   15.0
          Height          =   38
+         HTMLElement     =   0
          Index           =   -2147483648
-         Indicator       =   ""
+         Indicator       =   0
          InitialParent   =   "rectPset"
          Italic          =   False
          Left            =   125
@@ -161,7 +162,7 @@ Begin LobBase.LobWebPage PagePasswordReset
          TextAlignment   =   0
          TextColor       =   &c000000FF
          Tooltip         =   ""
-         Top             =   200
+         Top             =   230
          Underline       =   False
          Visible         =   True
          Width           =   120
@@ -178,7 +179,7 @@ Begin LobBase.LobWebPage PagePasswordReset
          Height          =   38
          Hint            =   ""
          Index           =   -2147483648
-         Indicator       =   ""
+         Indicator       =   0
          InitialParent   =   "rectPset"
          Left            =   267
          LockBottom      =   False
@@ -199,7 +200,7 @@ Begin LobBase.LobWebPage PagePasswordReset
          Text            =   ""
          TextAlignment   =   0
          Tooltip         =   ""
-         Top             =   200
+         Top             =   230
          Visible         =   True
          Width           =   80
          _mPanelIndex    =   -1
@@ -212,8 +213,9 @@ Begin LobBase.LobWebPage PagePasswordReset
          FontName        =   ""
          FontSize        =   0.0
          Height          =   38
+         HTMLElement     =   0
          Index           =   -2147483648
-         Indicator       =   ""
+         Indicator       =   0
          InitialParent   =   "rectPset"
          Italic          =   False
          Left            =   347
@@ -235,7 +237,7 @@ Begin LobBase.LobWebPage PagePasswordReset
          TextAlignment   =   2
          TextColor       =   &c000000FF
          Tooltip         =   ""
-         Top             =   200
+         Top             =   230
          Underline       =   False
          Visible         =   True
          Width           =   30
@@ -252,7 +254,7 @@ Begin LobBase.LobWebPage PagePasswordReset
          Height          =   38
          Hint            =   ""
          Index           =   -2147483648
-         Indicator       =   ""
+         Indicator       =   0
          InitialParent   =   "rectPset"
          Left            =   377
          LockBottom      =   False
@@ -273,7 +275,7 @@ Begin LobBase.LobWebPage PagePasswordReset
          Text            =   ""
          TextAlignment   =   0
          Tooltip         =   ""
-         Top             =   200
+         Top             =   230
          Visible         =   True
          Width           =   80
          _mPanelIndex    =   -1
@@ -306,7 +308,7 @@ Begin LobBase.LobWebPage PagePasswordReset
          TabPanelIndex   =   0
          TabStop         =   True
          Tooltip         =   ""
-         Top             =   355
+         Top             =   385
          Visible         =   True
          Width           =   130
          _mPanelIndex    =   -1
@@ -319,8 +321,9 @@ Begin LobBase.LobWebPage PagePasswordReset
          FontName        =   ""
          FontSize        =   22.0
          Height          =   38
+         HTMLElement     =   0
          Index           =   -2147483648
-         Indicator       =   ""
+         Indicator       =   0
          InitialParent   =   "rectPset"
          Italic          =   False
          Left            =   125
@@ -342,7 +345,7 @@ Begin LobBase.LobWebPage PagePasswordReset
          TextAlignment   =   0
          TextColor       =   &c000000FF
          Tooltip         =   ""
-         Top             =   140
+         Top             =   170
          Underline       =   False
          Visible         =   True
          Width           =   300
@@ -356,8 +359,9 @@ Begin LobBase.LobWebPage PagePasswordReset
          FontName        =   ""
          FontSize        =   15.0
          Height          =   38
+         HTMLElement     =   0
          Index           =   -2147483648
-         Indicator       =   ""
+         Indicator       =   0
          Italic          =   False
          Left            =   125
          LockBottom      =   False
@@ -378,7 +382,7 @@ Begin LobBase.LobWebPage PagePasswordReset
          TextAlignment   =   0
          TextColor       =   &c000000FF
          Tooltip         =   ""
-         Top             =   260
+         Top             =   290
          Underline       =   False
          Visible         =   True
          Width           =   140
@@ -395,7 +399,7 @@ Begin LobBase.LobWebPage PagePasswordReset
          Height          =   38
          Hint            =   ""
          Index           =   -2147483648
-         Indicator       =   ""
+         Indicator       =   0
          Left            =   267
          LockBottom      =   False
          LockedInPosition=   True
@@ -415,45 +419,9 @@ Begin LobBase.LobWebPage PagePasswordReset
          Text            =   ""
          TextAlignment   =   0
          Tooltip         =   ""
-         Top             =   260
+         Top             =   290
          Visible         =   True
          Width           =   190
-         _mPanelIndex    =   -1
-      End
-      Begin WebLabel lbErrorHint
-         Bold            =   False
-         ControlID       =   ""
-         CSSClasses      =   ""
-         Enabled         =   True
-         FontName        =   ""
-         FontSize        =   14.0
-         Height          =   70
-         Index           =   -2147483648
-         Indicator       =   ""
-         Italic          =   False
-         Left            =   125
-         LockBottom      =   False
-         LockedInPosition=   True
-         LockHorizontal  =   False
-         LockLeft        =   True
-         LockRight       =   False
-         LockTop         =   True
-         LockVertical    =   False
-         Multiline       =   True
-         PanelIndex      =   0
-         Parent          =   "rectPset"
-         Scope           =   2
-         TabIndex        =   9
-         TabPanelIndex   =   0
-         TabStop         =   True
-         Text            =   "-"
-         TextAlignment   =   0
-         TextColor       =   &cDD260000
-         Tooltip         =   ""
-         Top             =   410
-         Underline       =   False
-         Visible         =   False
-         Width           =   350
          _mPanelIndex    =   -1
       End
       Begin WebLabel Label5
@@ -464,8 +432,9 @@ Begin LobBase.LobWebPage PagePasswordReset
          FontName        =   ""
          FontSize        =   11.0
          Height          =   20
+         HTMLElement     =   0
          Index           =   -2147483648
-         Indicator       =   ""
+         Indicator       =   0
          Italic          =   False
          Left            =   125
          LockBottom      =   False
@@ -486,7 +455,7 @@ Begin LobBase.LobWebPage PagePasswordReset
          TextAlignment   =   0
          TextColor       =   &c000000FF
          Tooltip         =   ""
-         Top             =   310
+         Top             =   340
          Underline       =   False
          Visible         =   True
          Width           =   350
@@ -540,10 +509,10 @@ End
 
 	#tag Method, Flags = &h21
 		Private Sub ShowHint(msg as string)
-		  lbErrorHint.Text = msg
-		  lbErrorHint.Visible = msg <> ""
-		  lbErrorHint.UpdateBrowser()
-		  Thread.SleepCurrent(250)
+		  If msg.Trim <> "" Then
+		    MessageBox(App.GetAlertMessage(msg))
+		  End
+		  
 		End Sub
 	#tag EndMethod
 

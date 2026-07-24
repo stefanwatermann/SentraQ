@@ -19,9 +19,12 @@ public class MessageHandlerFactory(
             switch (component.Type.FromString())
             {
                 case ComponentType.Fault:
+                    logger.LogDebug("Creating AlertMessageHandler for received message for {uid}.", payload.Hid);
                     return CreateScopedService<AlertMessageHandler>();
                 
                 case ComponentType.Actor:
+                case ComponentType.Switch:
+                    logger.LogDebug("Creating ActorMessageHandler for received message for {uid}.", payload.Hid);
                     return CreateScopedService<ActorMessageHandler>();
             }
         }

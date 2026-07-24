@@ -1,0 +1,749 @@
+#tag WebPage
+Begin LobBase.LobWebPage PagePasskeyRegistration
+   AllowTabOrderWrap=   True
+   Compatibility   =   ""
+   ControlCount    =   0
+   ControlID       =   ""
+   CSSClasses      =   ""
+   Enabled         =   False
+   Height          =   600
+   ImplicitInstance=   True
+   Index           =   -2147483648
+   Indicator       =   0
+   IsImplicitInstance=   False
+   LayoutDirection =   0
+   LayoutType      =   0
+   Left            =   0
+   LockBottom      =   False
+   LockHorizontal  =   False
+   LockLeft        =   True
+   LockRight       =   False
+   LockTop         =   True
+   LockVertical    =   False
+   MinimumHeight   =   600
+   MinimumWidth    =   800
+   PanelIndex      =   0
+   RequiresAuthenticatedUser=   False
+   ScaleFactor     =   0.0
+   TabIndex        =   0
+   Title           =   "Untitled"
+   Top             =   0
+   Visible         =   True
+   Width           =   800
+   _ImplicitInstance=   False
+   _mDesignHeight  =   0
+   _mDesignWidth   =   0
+   _mPanelIndex    =   -1
+   Begin FooterContainer FooterContainer1
+      ControlCount    =   0
+      ControlID       =   ""
+      CSSClasses      =   ""
+      Enabled         =   True
+      Height          =   30
+      Index           =   -2147483648
+      Indicator       =   0
+      LayoutDirection =   0
+      LayoutType      =   0
+      Left            =   90
+      LockBottom      =   True
+      LockedInPosition=   False
+      LockHorizontal  =   True
+      LockLeft        =   False
+      LockRight       =   False
+      LockTop         =   False
+      LockVertical    =   False
+      PanelIndex      =   0
+      Scope           =   2
+      ScrollDirection =   0
+      TabIndex        =   2
+      TabStop         =   True
+      Tooltip         =   ""
+      Top             =   570
+      Visible         =   True
+      Width           =   620
+      _mDesignHeight  =   0
+      _mDesignWidth   =   0
+      _mPanelIndex    =   -1
+   End
+   Begin HeaderContainer HeaderContainer1
+      ControlCount    =   0
+      ControlID       =   ""
+      CSSClasses      =   ""
+      Enabled         =   True
+      Height          =   80
+      Index           =   -2147483648
+      Indicator       =   0
+      LayoutDirection =   0
+      LayoutType      =   0
+      Left            =   0
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockHorizontal  =   False
+      LockLeft        =   True
+      LockRight       =   True
+      LockTop         =   True
+      LockVertical    =   False
+      PanelIndex      =   0
+      Scope           =   2
+      ScrollDirection =   0
+      TabIndex        =   0
+      TabStop         =   True
+      Tooltip         =   ""
+      Top             =   0
+      Visible         =   True
+      Width           =   800
+      _mDesignHeight  =   0
+      _mDesignWidth   =   0
+      _mPanelIndex    =   -1
+   End
+   Begin WebRectangle rectPset
+      BorderColor     =   &c000000FF
+      BorderThickness =   1
+      ControlCount    =   0
+      ControlID       =   ""
+      CornerSize      =   6
+      CSSClasses      =   ""
+      Enabled         =   True
+      FillColor       =   &cFFFFFF
+      HasFillColor    =   True
+      Height          =   340
+      Index           =   -2147483648
+      Indicator       =   0
+      LayoutDirection =   0
+      LayoutType      =   0
+      Left            =   190
+      LockBottom      =   False
+      LockedInPosition=   True
+      LockHorizontal  =   True
+      LockLeft        =   False
+      LockRight       =   False
+      LockTop         =   True
+      LockVertical    =   False
+      PanelIndex      =   0
+      Scope           =   2
+      TabIndex        =   1
+      TabStop         =   True
+      Tooltip         =   ""
+      Top             =   130
+      Visible         =   True
+      Width           =   420
+      _mDesignHeight  =   0
+      _mDesignWidth   =   0
+      _mPanelIndex    =   -1
+      Begin WebTextField tbCode1
+         AllowAutoComplete=   False
+         AllowSpellChecking=   False
+         Caption         =   ""
+         ControlID       =   ""
+         CSSClasses      =   "text-uppercase"
+         Enabled         =   True
+         FieldType       =   0
+         Height          =   38
+         Hint            =   ""
+         Index           =   -2147483648
+         Indicator       =   0
+         Left            =   230
+         LockBottom      =   False
+         LockedInPosition=   True
+         LockHorizontal  =   False
+         LockLeft        =   True
+         LockRight       =   False
+         LockTop         =   True
+         LockVertical    =   False
+         MaximumCharactersAllowed=   0
+         PanelIndex      =   0
+         Parent          =   "rectPset"
+         ReadOnly        =   False
+         Scope           =   2
+         TabIndex        =   3
+         TabPanelIndex   =   -1
+         TabStop         =   True
+         Text            =   ""
+         TextAlignment   =   2
+         Tooltip         =   ""
+         Top             =   300
+         Visible         =   True
+         Width           =   80
+         _mPanelIndex    =   -1
+      End
+      Begin WebLabel Label3
+         Bold            =   False
+         ControlID       =   ""
+         CSSClasses      =   ""
+         Enabled         =   True
+         FontName        =   ""
+         FontSize        =   0.0
+         Height          =   38
+         HTMLElement     =   0
+         Index           =   -2147483648
+         Indicator       =   0
+         Italic          =   False
+         Left            =   310
+         LockBottom      =   False
+         LockedInPosition=   True
+         LockHorizontal  =   False
+         LockLeft        =   True
+         LockRight       =   False
+         LockTop         =   True
+         LockVertical    =   False
+         Multiline       =   False
+         PanelIndex      =   0
+         Parent          =   "rectPset"
+         Scope           =   2
+         TabIndex        =   4
+         TabPanelIndex   =   -1
+         TabStop         =   True
+         Text            =   "-"
+         TextAlignment   =   2
+         TextColor       =   &c000000FF
+         Tooltip         =   ""
+         Top             =   300
+         Underline       =   False
+         Visible         =   True
+         Width           =   30
+         _mPanelIndex    =   -1
+      End
+      Begin WebTextField tbCode2
+         AllowAutoComplete=   False
+         AllowSpellChecking=   False
+         Caption         =   ""
+         ControlID       =   ""
+         CSSClasses      =   "text-uppercase"
+         Enabled         =   True
+         FieldType       =   0
+         Height          =   38
+         Hint            =   ""
+         Index           =   -2147483648
+         Indicator       =   0
+         Left            =   340
+         LockBottom      =   False
+         LockedInPosition=   True
+         LockHorizontal  =   False
+         LockLeft        =   True
+         LockRight       =   False
+         LockTop         =   True
+         LockVertical    =   False
+         MaximumCharactersAllowed=   0
+         PanelIndex      =   0
+         Parent          =   "rectPset"
+         ReadOnly        =   False
+         Scope           =   2
+         TabIndex        =   5
+         TabPanelIndex   =   -1
+         TabStop         =   True
+         Text            =   ""
+         TextAlignment   =   2
+         Tooltip         =   ""
+         Top             =   300
+         Visible         =   True
+         Width           =   80
+         _mPanelIndex    =   -1
+      End
+      Begin WebButton btnSet
+         AllowAutoDisable=   False
+         Cancel          =   False
+         Caption         =   "OK"
+         ControlID       =   ""
+         CSSClasses      =   ""
+         Default         =   False
+         Enabled         =   True
+         Height          =   38
+         Index           =   -2147483648
+         Indicator       =   1
+         Left            =   230
+         LockBottom      =   False
+         LockedInPosition=   True
+         LockHorizontal  =   False
+         LockLeft        =   True
+         LockRight       =   False
+         LockTop         =   True
+         LockVertical    =   False
+         Outlined        =   False
+         PanelIndex      =   0
+         Parent          =   "rectPset"
+         Scope           =   2
+         TabIndex        =   6
+         TabPanelIndex   =   -1
+         TabStop         =   True
+         Tooltip         =   ""
+         Top             =   380
+         Visible         =   True
+         Width           =   130
+         _mPanelIndex    =   -1
+      End
+      Begin WebLabel Label1
+         Bold            =   False
+         ControlID       =   ""
+         CSSClasses      =   ""
+         Enabled         =   True
+         FontName        =   ""
+         FontSize        =   0.0
+         Height          =   80
+         HTMLElement     =   0
+         Index           =   -2147483648
+         Indicator       =   0
+         Italic          =   False
+         Left            =   230
+         LockBottom      =   False
+         LockedInPosition=   True
+         LockHorizontal  =   False
+         LockLeft        =   True
+         LockRight       =   False
+         LockTop         =   True
+         LockVertical    =   False
+         Multiline       =   True
+         PanelIndex      =   0
+         Parent          =   "rectPset"
+         Scope           =   2
+         TabIndex        =   1
+         TabPanelIndex   =   -1
+         TabStop         =   True
+         Text            =   "Registrieren Sie Ihren individuellen Passkey für die sichere Anmeldung an der Plattform. Geben Sie hier Ihren E-Mail Code ein."
+         TextAlignment   =   0
+         TextColor       =   &c000000FF
+         Tooltip         =   ""
+         Top             =   220
+         Underline       =   False
+         Visible         =   True
+         Width           =   340
+         _mPanelIndex    =   -1
+      End
+      Begin WebLabel Label4
+         Bold            =   False
+         ControlID       =   ""
+         CSSClasses      =   ""
+         Enabled         =   True
+         FontName        =   ""
+         FontSize        =   22.0
+         Height          =   38
+         HTMLElement     =   0
+         Index           =   -2147483648
+         Indicator       =   0
+         Italic          =   False
+         Left            =   230
+         LockBottom      =   False
+         LockedInPosition=   True
+         LockHorizontal  =   False
+         LockLeft        =   True
+         LockRight       =   False
+         LockTop         =   True
+         LockVertical    =   False
+         Multiline       =   False
+         PanelIndex      =   0
+         Parent          =   "rectPset"
+         Scope           =   2
+         TabIndex        =   0
+         TabPanelIndex   =   0
+         TabStop         =   True
+         Text            =   "Passkey Registrierung"
+         TextAlignment   =   0
+         TextColor       =   &c000000FF
+         Tooltip         =   ""
+         Top             =   160
+         Underline       =   False
+         Visible         =   True
+         Width           =   340
+         _mPanelIndex    =   -1
+      End
+   End
+   Begin WebUserAuthentication PasskeyAuthentication
+      ApplicationName =   "Example Application"
+      ControlID       =   ""
+      Domain          =   "example.com"
+      Enabled         =   True
+      Index           =   -2147483648
+      LockedInPosition=   False
+      PanelIndex      =   0
+      Scope           =   2
+      Timeout         =   60000
+      _mPanelIndex    =   -1
+   End
+End
+#tag EndWebPage
+
+#tag WindowCode
+	#tag Event
+		Sub Shown()
+		  tbCode1.SetFocus
+		End Sub
+	#tag EndEvent
+
+
+	#tag Method, Flags = &h21
+		Private Sub ShowHint(msg as string)
+		  If msg.Trim <> "" Then
+		    MessageBox(App.GetAlertMessage(msg))
+		  End
+		End Sub
+	#tag EndMethod
+
+
+#tag EndWindowCode
+
+#tag Events tbCode1
+	#tag Event
+		Sub TextChanged()
+		  If Me.Text.Length >= 4 Then
+		    tbCode2.SetFocus
+		  end
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events tbCode2
+	#tag Event
+		Sub TextChanged()
+		  If Me.Text.Length >= 4 Then
+		    btnSet.SetFocus
+		  end
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub FocusReceived()
+		  me.SelectAll
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events btnSet
+	#tag Event
+		Sub Pressed()
+		  Try
+		    ShowHint("")
+		    
+		    Var resetCode As String = tbCode1.Text.Uppercase + tbCode2.Text.Uppercase + Session.URLParameter("r")
+		    
+		    Log.Info("Passkey reset-code: " + resetCode, CurrentMethodName)
+		    
+		    Var user As UserModel = App.DataSvc.GetUserByPasskeyRequestCode(resetCode)
+		    
+		    PasskeyAuthentication.Register(user.Login, user.Email, user.Name)
+		    
+		  Catch e As RuntimeException
+		    ShowHint("Es konnte kein Passkey erstellt werden. Entweder ist der Code ungültig oder abgelaufen. Bitte fordern Sie einen neuen Code an.")
+		    
+		  End
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events PasskeyAuthentication
+	#tag Event
+		Sub Error(message As String)
+		  ShowHint("Die Passkey Registrierung hat nicht geklappt. Bitte versuchen Sie es später noch einmal.<br/><br/><span class='xsmall'>Fehler: " + message + "</span>")
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub RegistrationSucceeded(userId As String, credential As WebAuthenticationCredential)
+		  // serialize credentials as string
+		  var passkey as String = EncodeBase64(credential.ToString)
+		  
+		  App.DataSvc.UserSetNewPasskey(userId, passkey)
+		  
+		  // reload chached user
+		  Call App.DataSvc.GetUsers(True) 
+		  
+		  GoToURL("/#")
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub Opening()
+		  Me.ApplicationName = App.AppHeaderTitle
+		  Me.Domain = Session.PasskeyDomain
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag ViewBehavior
+	#tag ViewProperty
+		Name="Index"
+		Visible=true
+		Group="ID"
+		InitialValue="-2147483648"
+		Type="Integer"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="Name"
+		Visible=true
+		Group="ID"
+		InitialValue=""
+		Type="String"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="Super"
+		Visible=true
+		Group="ID"
+		InitialValue=""
+		Type="String"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="Left"
+		Visible=true
+		Group="Position"
+		InitialValue="0"
+		Type="Integer"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="Top"
+		Visible=true
+		Group="Position"
+		InitialValue="0"
+		Type="Integer"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="Height"
+		Visible=true
+		Group="Behavior"
+		InitialValue="400"
+		Type="Integer"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="LayoutType"
+		Visible=true
+		Group="Behavior"
+		InitialValue="LayoutTypes.Fixed"
+		Type="LayoutTypes"
+		EditorType="Enum"
+		#tag EnumValues
+			"0 - Fixed"
+			"1 - Flex"
+		#tag EndEnumValues
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="LockBottom"
+		Visible=true
+		Group="Behavior"
+		InitialValue="False"
+		Type="Boolean"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="LockHorizontal"
+		Visible=true
+		Group="Behavior"
+		InitialValue="False"
+		Type="Boolean"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="LockLeft"
+		Visible=true
+		Group="Behavior"
+		InitialValue="True"
+		Type="Boolean"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="LockRight"
+		Visible=true
+		Group="Behavior"
+		InitialValue="False"
+		Type="Boolean"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="LockTop"
+		Visible=true
+		Group="Behavior"
+		InitialValue="True"
+		Type="Boolean"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="LockVertical"
+		Visible=true
+		Group="Behavior"
+		InitialValue="False"
+		Type="Boolean"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="MinimumHeight"
+		Visible=true
+		Group="Behavior"
+		InitialValue="400"
+		Type="Integer"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="MinimumWidth"
+		Visible=true
+		Group="Behavior"
+		InitialValue="600"
+		Type="Integer"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="Title"
+		Visible=true
+		Group="Behavior"
+		InitialValue="Untitled"
+		Type="String"
+		EditorType="MultiLineEditor"
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="Width"
+		Visible=true
+		Group="Behavior"
+		InitialValue="600"
+		Type="Integer"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="RequiresAuthenticatedUser"
+		Visible=true
+		Group="Behavior"
+		InitialValue="False"
+		Type="Boolean"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="TabIndex"
+		Visible=true
+		Group="Visual Controls"
+		InitialValue=""
+		Type="Integer"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="LayoutDirection"
+		Visible=true
+		Group="WebView"
+		InitialValue="LayoutDirections.LeftToRight"
+		Type="LayoutDirections"
+		EditorType="Enum"
+		#tag EnumValues
+			"0 - LeftToRight"
+			"1 - RightToLeft"
+			"2 - TopToBottom"
+			"3 - BottomToTop"
+		#tag EndEnumValues
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="PanelIndex"
+		Visible=false
+		Group="Behavior"
+		InitialValue=""
+		Type="Integer"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="ControlCount"
+		Visible=false
+		Group="Behavior"
+		InitialValue=""
+		Type="Integer"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="_mPanelIndex"
+		Visible=false
+		Group="Behavior"
+		InitialValue="-1"
+		Type="Integer"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="ControlID"
+		Visible=false
+		Group="Behavior"
+		InitialValue=""
+		Type="String"
+		EditorType="MultiLineEditor"
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="Enabled"
+		Visible=false
+		Group="Behavior"
+		InitialValue=""
+		Type="Boolean"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="Visible"
+		Visible=false
+		Group="Behavior"
+		InitialValue="True"
+		Type="Boolean"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="_ImplicitInstance"
+		Visible=false
+		Group="Behavior"
+		InitialValue=""
+		Type="Boolean"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="_mDesignHeight"
+		Visible=false
+		Group="Behavior"
+		InitialValue=""
+		Type="Integer"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="_mDesignWidth"
+		Visible=false
+		Group="Behavior"
+		InitialValue=""
+		Type="Integer"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="_mName"
+		Visible=false
+		Group="Behavior"
+		InitialValue=""
+		Type="String"
+		EditorType="MultiLineEditor"
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="IsImplicitInstance"
+		Visible=false
+		Group="Behavior"
+		InitialValue=""
+		Type="Boolean"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="AllowTabOrderWrap"
+		Visible=false
+		Group="Behavior"
+		InitialValue="True"
+		Type="Boolean"
+		EditorType=""
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="Indicator"
+		Visible=false
+		Group="Visual Controls"
+		InitialValue=""
+		Type="WebUIControl.Indicators"
+		EditorType="Enum"
+		#tag EnumValues
+			"0 - Default"
+			"1 - Primary"
+			"2 - Secondary"
+			"3 - Success"
+			"4 - Danger"
+			"5 - Warning"
+			"6 - Info"
+			"7 - Light"
+			"8 - Dark"
+			"9 - Link"
+		#tag EndEnumValues
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="ScaleFactor"
+		Visible=false
+		Group="Behavior"
+		InitialValue=""
+		Type="Double"
+		EditorType=""
+	#tag EndViewProperty
+#tag EndViewBehavior

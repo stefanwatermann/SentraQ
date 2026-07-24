@@ -5,7 +5,7 @@ Protected Class DataService
 		  Var apiClient As New BackendApiControllerClient
 		  Var data As New JSONItem
 		  data.Value("user") = user
-		  var response as string = apiClient.Post("stations/" + stationUid + "/clearAlert", data)
+		  var response as string = apiClient.Post("station/" + stationUid + "/clearAlert", data)
 		End Sub
 	#tag EndMethod
 
@@ -16,9 +16,15 @@ Protected Class DataService
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function GetAggregations(type as string, hardwareId as string) As AggregationModel()
+		Function GetAggregations(type as string, hardwareId as string, take as integer = 0) As AggregationModel()
+		  Var url As String = "aggregation/" + type + "/" + hardwareId
+		  
+		  If take > 0 Then
+		    url = url + "?take=" + Str(take)
+		  end
+		  
 		  Var apiClient As New BackendApiControllerClient
-		  Var response As String = apiClient.Get("aggregation/" + type + "/" + hardwareId)
+		  Var response As String = apiClient.Get(url)
 		  
 		  Var result() As AggregationModel
 		  
@@ -27,6 +33,55 @@ Protected Class DataService
 		  For Each agg As Dictionary In aggregations
 		    Var a As New AggregationModel
 		    AggregationModel.FromDictionary(agg, a)
+		    result.Add(a)
+		  Next
+		  
+		  Return result
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function GetAlerts(uids() as string, dtFrom as DateTime, dtTo as Datetime) As AlertModel()
+		  Var url As String = "alert?from=" + dtFrom.SQLDate + "&to=" + dtTo.SQLDate
+		  
+		  Var body As New JSONItem
+		  body.Value("uid") = String.FromArray(uids, ",")
+		  
+		  Var apiClient As New BackendApiControllerClient
+		  Var response As String = apiClient.Post(url, body)
+		  
+		  Var result() As AlertModel
+		  
+		  Var alerts() As Variant = ParseJSON(response)
+		  
+		  For Each alert As Dictionary In alerts
+		    Var a As New AlertModel
+		    AlertModel.FromDictionary(alert, a)
+		    result.Add(a)
+		  Next
+		  
+		  Return result
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function GetAlerts(uid as string, take as integer = 0) As AlertModel()
+		  Var url As String = "alert/" + uid
+		  
+		  If take > 0 Then
+		    url = url + "?take=" + Str(take)
+		  end
+		  
+		  Var apiClient As New BackendApiControllerClient
+		  Var response As String = apiClient.Get(url)
+		  
+		  Var result() As AlertModel
+		  
+		  Var alerts() As Variant = ParseJSON(response)
+		  
+		  For Each alert As Dictionary In alerts
+		    Var a As New AlertModel
+		    AlertModel.FromDictionary(alert, a)
 		    result.Add(a)
 		  Next
 		  
@@ -98,18 +153,39 @@ Protected Class DataService
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function GetEventData() As EventDataModel()
+		Function GetEventDataExport(uids() as string, types() as string, dtFrom as DateTime, dtTo as DateTime, executingLogin as string) As EventDataExportModel()
+		  Var url As String = "eventData/export"
+		  
+		  Var body As new JSONItem
+		  body.Value("uid") = String.FromArray(uids, ",")
+		  body.Value("type") = String.FromArray(types, ",")
+		  body.Value("from") = dtFrom.SQLDate
+		  body.Value("to") = dtTo.SQLDate
+		  
 		  Var apiClient As New BackendApiControllerClient
-		  Var response As String = apiClient.Get("eventData")
-		  Return PopulateEventData(response)
+		  Var response As String = apiClient.Post(url, body, executingLogin)
+		  
+		  Var result() As EventDataExportModel
+		  
+		  Var data() As Variant = ParseJSON(response)
+		  
+		  For Each e As Dictionary In data
+		    Var a As New EventDataExportModel
+		    EventDataExportModel.FromDictionary(e, a)
+		    result.Add(a)
+		  Next
+		  
+		  Return result
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function GetEventData(filter as string) As EventDataModel()
+		Function GetUserByPasskeyRequestCode(resetCode as string) As UserModel
 		  Var apiClient As New BackendApiControllerClient
-		  Var response As String = apiClient.Get("eventData/" + filter)
-		  Return PopulateEventData(response)
+		  Var response As String = apiClient.Get("user/byPasskeyRequestCode/" + resetCode)
+		  Var user As New UserModel
+		  UserModel.FromJson(response, user)
+		  Return user
 		End Function
 	#tag EndMethod
 
@@ -154,7 +230,7 @@ Protected Class DataService
 		Sub ReadAndCacheStationsAndComponents()
 		  Var apiClient As New BackendApiControllerClient
 		  
-		  Var r1 As String = apiClient.Get("stations")
+		  Var r1 As String = apiClient.Get("station")
 		  Var stations() As Variant = ParseJSON(r1)
 		  
 		  Var r2 As String = apiClient.Get("/components/last")
@@ -184,7 +260,7 @@ Protected Class DataService
 	#tag Method, Flags = &h0
 		Sub ReadStation(stationUid as string)
 		  Var apiClient As New BackendApiControllerClient
-		  Var response As String = apiClient.Get("stations/" + stationUid)
+		  Var response As String = apiClient.Get("station/" + stationUid)
 		  If response.Length > 0 Then
 		    Var s As StationModel = GetCachedStationByUid(stationUid)
 		    StationModel.FromJson(response, s)
@@ -193,28 +269,29 @@ Protected Class DataService
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub RemoveComponent(component as ComponentModel, executingLogin as string)
+		Function ReadTableData(tableName as string, whereCondition as string, desc as Boolean = false, limit as Integer = 50) As Variant()
 		  Var apiClient As New BackendApiControllerClient
-		  Var response As String = apiClient.Delete("components/" + component.HardwareId, executingLogin)
+		  Var response As String = apiClient.Post("table/" + tableName + "?desc=" + Str(desc).Lowercase + "&limit=" + Str(limit), whereCondition)
+		  return ParseJSON(response)
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub SetComponentValue(hardwareId as string, value as string, executingLogin as string)
+		  Var apiClient As New BackendApiControllerClient
+		  Var response As String = apiClient.Post("components/setValue/" + hardwareId, value, executingLogin)
 		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub RemoveStation(station as stationModel, executingLogin as string)
+		Sub SetMaintenanceMode(station as stationModel, start as boolean, executingLogin as string)
 		  Var apiClient As New BackendApiControllerClient
-		  Var response As String = apiClient.Delete("stations/" + station.Uid, executingLogin)
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Sub RemoveUser(user as UserModel, executingLogin as string)
-		  Var apiClient As New BackendApiControllerClient
-		  Var response As String = apiClient.Delete("user/" + user.Login, executingLogin)
+		  Var response As String = apiClient.Post("station/" + station.Uid + "/" + if(start, "startMaintenance", "endMaintenance"), nil, executingLogin)
 		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
-		Private Function SortUSers(a as UserModel, b as UserModel) As Integer
+		Private Function SortUsers(a as UserModel, b as UserModel) As Integer
 		  If a.Name > b.Name Then Return 1
 		  If a.Name < b.Name Then Return -1
 		  Return 0
@@ -274,9 +351,16 @@ Protected Class DataService
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub UserLoggedOn(login as string)
+		Sub UserLoggedOn(login as string, methode as string)
 		  Var apiClient As New BackendApiControllerClient
-		  Var response As String = apiClient.Post("user/loggedOn/" + login, nil)
+		  Var response As String = apiClient.Post("user/loggedOn/" + methode + "/" + login, nil)
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub UserRequestPasskey(login as string)
+		  Var apiClient As New BackendApiControllerClient
+		  Var response As String = apiClient.Post("user/requestPasskey/" + login, nil)
 		End Sub
 	#tag EndMethod
 
@@ -288,32 +372,20 @@ Protected Class DataService
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub UserSetNewPasskey(login as string, passkeyHash as string)
+		  Var apiClient As New BackendApiControllerClient
+		  Var data As New JSONItem
+		  data.Value("newPasskeyHash") = passkeyHash
+		  Var response As String = apiClient.Post("user/setNewPasskey/" + login, data)
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub UserSetNewPassword(login as string, pwdHash as string)
 		  Var apiClient As New BackendApiControllerClient
 		  Var data As New JSONItem
 		  data.Value("newPwdHash") = pwdHash
 		  Var response As String = apiClient.Post("user/setNewPassword/" + login, data)
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Sub WriteComponent(component as ComponentModel, executingLogin as string)
-		  Var apiClient As New BackendApiControllerClient
-		  Var response As String = apiClient.Post("components", component.ToJson, executingLogin)
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Sub WriteStation(station as StationModel, executingLogin as string)
-		  Var apiClient As New BackendApiControllerClient
-		  Var response As String = apiClient.Post("stations", station.ToJson, executingLogin)
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Sub WriteUser(user as UserModel, executingLogin as string)
-		  Var apiClient As New BackendApiControllerClient
-		  Var response As String = apiClient.Post("user", user.ToJson, executingLogin)
 		End Sub
 	#tag EndMethod
 

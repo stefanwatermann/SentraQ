@@ -5,7 +5,7 @@ using SentraqModels.Data;
 namespace SentraqCommon.Services;
 
 public class UserService(
-    ILogger<CacheService> logger,
+    ILogger<UserService> logger,
     LogService logService,
     AuthorizationService authorizationService,
     DatabaseContext dbContext)
@@ -17,9 +17,9 @@ public class UserService(
             .Where(u => !u.Removed);
     }
 
-    public void LoggedOn(string login)
+    public void LoggedOn(string login, string method)
     {
-        logService.AddInfo(LogService.Event.UserLogon, login);
+        logService.AddInfoNoSave(LogService.Event.UserLogon, $"{login} using {method}");
         dbContext.SaveChanges();
     }
 
@@ -53,7 +53,7 @@ public class UserService(
             dbContext.Add(user);
         }
 
-        logService.AddInfo(LogService.Event.UserChanged, $"User {user.Login} changed by {changedBy}.");
+        logService.AddInfoNoSave(LogService.Event.UserChanged, $"User {user.Login} changed by {changedBy}.");
         dbContext.SaveChanges();
     }
 
@@ -68,7 +68,7 @@ public class UserService(
 
         user.Removed = true;
         
-        logService.AddInfo(LogService.Event.UserRemoved, $"User {login} (id={user.Id}) removed by {changedBy}.");
+        logService.AddInfoNoSave(LogService.Event.UserRemoved, $"User {login} (id={user.Id}) removed by {changedBy}.");
         dbContext.SaveChanges();
     }
 }

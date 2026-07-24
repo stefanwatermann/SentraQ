@@ -25,17 +25,16 @@ Begin WebDialog DialogYesNo
    Width           =   400
    _mDesignHeight  =   0
    _mDesignWidth   =   0
-   _mName          =   ""
    _mPanelIndex    =   -1
    Begin WebButton btnOk
       AllowAutoDisable=   False
       Cancel          =   False
       Caption         =   "Ja"
       ControlID       =   ""
-      CSSClasses      =   ""
+      CSSClasses      =   "small"
       Default         =   True
       Enabled         =   True
-      Height          =   38
+      Height          =   30
       Index           =   -2147483648
       Indicator       =   1
       Left            =   95
@@ -52,7 +51,7 @@ Begin WebDialog DialogYesNo
       TabIndex        =   0
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   160
+      Top             =   175
       Visible         =   True
       Width           =   100
       _mPanelIndex    =   -1
@@ -62,10 +61,10 @@ Begin WebDialog DialogYesNo
       Cancel          =   True
       Caption         =   "Nein"
       ControlID       =   ""
-      CSSClasses      =   ""
+      CSSClasses      =   "small"
       Default         =   False
       Enabled         =   True
-      Height          =   38
+      Height          =   30
       Index           =   -2147483648
       Indicator       =   0
       Left            =   205
@@ -82,7 +81,7 @@ Begin WebDialog DialogYesNo
       TabIndex        =   1
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   160
+      Top             =   175
       Visible         =   True
       Width           =   100
       _mPanelIndex    =   -1
@@ -90,11 +89,12 @@ Begin WebDialog DialogYesNo
    Begin WebLabel lbMessage
       Bold            =   False
       ControlID       =   ""
-      CSSClasses      =   ""
+      CSSClasses      =   "small"
       Enabled         =   True
       FontName        =   ""
       FontSize        =   0.0
-      Height          =   90
+      Height          =   120
+      HTMLElement     =   0
       Index           =   -2147483648
       Indicator       =   0
       Italic          =   False
@@ -112,13 +112,13 @@ Begin WebDialog DialogYesNo
       TabIndex        =   2
       TabStop         =   True
       Text            =   "Frage?"
-      TextAlignment   =   2
+      TextAlignment   =   1
       TextColor       =   &c000000FF
       Tooltip         =   ""
       Top             =   40
       Underline       =   False
       Visible         =   True
-      Width           =   320
+      Width           =   330
       _mPanelIndex    =   -1
    End
 End

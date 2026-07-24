@@ -31,10 +31,10 @@ Begin WebDialog DialogInfoMessage
       Cancel          =   False
       Caption         =   "OK"
       ControlID       =   ""
-      CSSClasses      =   ""
+      CSSClasses      =   "small"
       Default         =   True
       Enabled         =   True
-      Height          =   38
+      Height          =   30
       Index           =   -2147483648
       Indicator       =   1
       Left            =   150
@@ -51,7 +51,7 @@ Begin WebDialog DialogInfoMessage
       TabIndex        =   0
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   160
+      Top             =   170
       Visible         =   True
       Width           =   100
       _mPanelIndex    =   -1
@@ -59,15 +59,16 @@ Begin WebDialog DialogInfoMessage
    Begin WebLabel lbMessage
       Bold            =   False
       ControlID       =   ""
-      CSSClasses      =   ""
+      CSSClasses      =   "small"
       Enabled         =   True
       FontName        =   ""
       FontSize        =   0.0
-      Height          =   120
+      Height          =   130
+      HTMLElement     =   0
       Index           =   -2147483648
       Indicator       =   0
       Italic          =   False
-      Left            =   30
+      Left            =   40
       LockBottom      =   False
       LockedInPosition=   True
       LockHorizontal  =   False
@@ -87,7 +88,7 @@ Begin WebDialog DialogInfoMessage
       Top             =   35
       Underline       =   False
       Visible         =   True
-      Width           =   340
+      Width           =   330
       _mPanelIndex    =   -1
    End
 End

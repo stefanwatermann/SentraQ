@@ -1,6 +1,6 @@
 using SentraqModels.Mqtt;
 
-namespace SentraqController.MqttParser;
+namespace SentraqCommon.MqttParser;
 
 public interface IMqttParser
 {

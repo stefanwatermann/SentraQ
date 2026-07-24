@@ -24,7 +24,6 @@ Begin WebContainer StationViewContainer
    Width           =   600
    _mDesignHeight  =   0
    _mDesignWidth   =   0
-   _mName          =   ""
    _mPanelIndex    =   -1
    Begin WebLabel lbDisplayName
       BindProperty    =   "DisplayName"
@@ -35,8 +34,9 @@ Begin WebContainer StationViewContainer
       FontName        =   ""
       FontSize        =   22.0
       Height          =   50
+      HTMLElement     =   0
       Index           =   -2147483648
-      Indicator       =   ""
+      Indicator       =   0
       Italic          =   False
       Left            =   27
       LockBottom      =   False
@@ -58,40 +58,7 @@ Begin WebContainer StationViewContainer
       Top             =   5
       Underline       =   False
       Visible         =   True
-      Width           =   480
-      _mPanelIndex    =   -1
-   End
-   Begin ModelBinding.BindableWebPicture StationIcon
-      BindProperty    =   "Icon"
-      BorderColor     =   &c000000
-      BorderRadius    =   6
-      BorderSize      =   0
-      Centered        =   True
-      ControlID       =   ""
-      CSSClasses      =   ""
-      DiffEngineDisabled=   False
-      Enabled         =   True
-      Height          =   25
-      Index           =   -2147483648
-      Indicator       =   ""
-      Left            =   545
-      LockBottom      =   False
-      LockedInPosition=   True
-      LockHorizontal  =   False
-      LockLeft        =   False
-      LockRight       =   True
-      LockTop         =   True
-      LockVertical    =   False
-      PanelIndex      =   0
-      Scaled          =   True
-      Scope           =   2
-      TabIndex        =   1
-      TabStop         =   True
-      Tooltip         =   ""
-      Top             =   17
-      Value           =   0
-      Visible         =   True
-      Width           =   25
+      Width           =   503
       _mPanelIndex    =   -1
    End
    Begin StationViewComponentsContainer StationViewComponentsContainer1
@@ -128,29 +95,29 @@ Begin WebContainer StationViewContainer
    Begin WebButton btnInfo
       AllowAutoDisable=   False
       Cancel          =   False
-      Caption         =   "i"
+      Caption         =   ""
       ControlID       =   ""
-      CSSClasses      =   "border-0"
+      CSSClasses      =   "border-0 bi bi-info-circle text-secondary"
       Default         =   False
       Enabled         =   True
       Height          =   30
       Index           =   -2147483648
-      Indicator       =   0
-      Left            =   510
+      Indicator       =   7
+      Left            =   540
       LockBottom      =   False
-      LockedInPosition=   False
+      LockedInPosition=   True
       LockHorizontal  =   False
       LockLeft        =   False
       LockRight       =   True
       LockTop         =   True
       LockVertical    =   False
-      Outlined        =   True
+      Outlined        =   False
       PanelIndex      =   0
       Scope           =   2
       TabIndex        =   5
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   15
+      Top             =   20
       Visible         =   True
       Width           =   30
       _mPanelIndex    =   -1
@@ -186,6 +153,67 @@ Begin WebContainer StationViewContainer
       _mDesignWidth   =   0
       _mPanelIndex    =   -1
    End
+   Begin WebButton btnMaintenanceMode
+      AllowAutoDisable=   False
+      Cancel          =   False
+      Caption         =   "Wartung aktiv"
+      ControlID       =   ""
+      CSSClasses      =   ""
+      Default         =   False
+      Enabled         =   True
+      Height          =   30
+      Index           =   -2147483648
+      Indicator       =   5
+      Left            =   280
+      LockBottom      =   False
+      LockedInPosition=   True
+      LockHorizontal  =   False
+      LockLeft        =   False
+      LockRight       =   True
+      LockTop         =   True
+      LockVertical    =   False
+      Outlined        =   False
+      PanelIndex      =   0
+      Scope           =   2
+      TabIndex        =   7
+      TabStop         =   True
+      Tooltip         =   ""
+      Top             =   20
+      Visible         =   False
+      Width           =   250
+      _mPanelIndex    =   -1
+   End
+   Begin DialogYesNo DialogYesNo1
+      ControlCount    =   0
+      ControlID       =   ""
+      CSSClasses      =   ""
+      Enabled         =   True
+      Height          =   230
+      Index           =   -2147483648
+      Indicator       =   0
+      LayoutDirection =   0
+      LayoutType      =   0
+      Left            =   0
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockHorizontal  =   False
+      LockLeft        =   False
+      LockRight       =   False
+      LockTop         =   False
+      LockVertical    =   False
+      PanelIndex      =   0
+      Position        =   0
+      Scope           =   2
+      TabIndex        =   8
+      TabStop         =   True
+      Tooltip         =   ""
+      Top             =   0
+      Visible         =   True
+      Width           =   400
+      _mDesignHeight  =   0
+      _mDesignWidth   =   0
+      _mPanelIndex    =   -1
+   End
 End
 #tag EndWebContainerControl
 
@@ -213,8 +241,10 @@ End
 		Sub RefreshData()
 		  If MyStation <> Nil Then
 		    lbDisplayName.Text = MyStation.DisplayName
-		    StationIcon.Value = MyStation.CreateIcon
+		    //StationIcon.Value = MyStation.CreateIcon
 		    StationViewComponentsContainer1.RefreshData
+		    btnMaintenanceMode.Visible = MyStation.MaintenanceActive
+		    btnMaintenanceMode.Caption = "Wartung aktiv seit " + MyStation.MaintenanceActivePeriode
 		  End
 		End Sub
 	#tag EndMethod
@@ -242,8 +272,24 @@ End
 #tag Events btnInfo
 	#tag Event
 		Sub Pressed()
-		  //MessageBox(MyStation.GetInfos)
 		  DialogStationInfo1.Show(MyStation)
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events btnMaintenanceMode
+	#tag Event
+		Sub Pressed()
+		  DialogYesNo1.Show("Wartungsmodus dieser Station beenden? Alarme und Aktore werden damit wieder aktiviert.")
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events DialogYesNo1
+	#tag Event
+		Sub YesClicked(tag as Variant)
+		  // end maintenance mode
+		  App.DataSvc.SetMaintenanceMode(MyStation, False, Session.Authenticator.CurrentUserName)
+		  App.DataSvc.ReadAndCacheStationsAndComponents
+		  Self.RefreshData
 		End Sub
 	#tag EndEvent
 #tag EndEvents

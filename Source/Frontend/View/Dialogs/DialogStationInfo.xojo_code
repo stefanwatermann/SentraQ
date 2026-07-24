@@ -30,9 +30,9 @@ Begin WebDialog DialogStationInfo
       ControlID       =   ""
       CSSClasses      =   ""
       Enabled         =   True
-      Height          =   540
+      Height          =   475
       Index           =   -2147483648
-      Indicator       =   ""
+      Indicator       =   0
       Left            =   0
       LockBottom      =   True
       LockedInPosition=   True
@@ -46,7 +46,7 @@ Begin WebDialog DialogStationInfo
       TabIndex        =   0
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   1
+      Top             =   51
       UseSandbox      =   True
       Visible         =   True
       Width           =   798
@@ -77,13 +77,12 @@ Begin WebDialog DialogStationInfo
       TabIndex        =   1
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   555
+      Top             =   550
       Visible         =   True
       Width           =   100
       _mPanelIndex    =   -1
    End
    Begin WebRectangle Rectangle1
-      BackgroundColor =   &cFFFFFF
       BorderColor     =   &cEBEBEB00
       BorderThickness =   1
       ControlCount    =   0
@@ -91,12 +90,13 @@ Begin WebDialog DialogStationInfo
       CornerSize      =   -1
       CSSClasses      =   ""
       Enabled         =   True
-      HasBackgroundColor=   False
+      FillColor       =   &cFFFFFF
+      HasFillColor    =   False
       Height          =   1
       Index           =   -2147483648
-      Indicator       =   ""
-      LayoutDirection =   "LayoutDirections.LeftToRight"
-      LayoutType      =   "LayoutTypes.Fixed"
+      Indicator       =   0
+      LayoutDirection =   0
+      LayoutType      =   0
       Left            =   1
       LockBottom      =   True
       LockedInPosition=   True
@@ -110,7 +110,7 @@ Begin WebDialog DialogStationInfo
       TabIndex        =   2
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   540
+      Top             =   531
       Visible         =   True
       Width           =   797
       _mDesignHeight  =   0
@@ -142,7 +142,7 @@ Begin WebDialog DialogStationInfo
       TabIndex        =   3
       TabStop         =   True
       Tooltip         =   "#kTooltipPrintStationInfo"
-      Top             =   555
+      Top             =   550
       Visible         =   True
       Width           =   100
       _mPanelIndex    =   -1
@@ -172,15 +172,188 @@ Begin WebDialog DialogStationInfo
       TabIndex        =   4
       TabStop         =   True
       Tooltip         =   "#kTooltipLOGO8CSV"
-      Top             =   555
+      Top             =   550
       Visible         =   True
       Width           =   130
+      _mPanelIndex    =   -1
+   End
+   Begin WebButton btnMainenanceMode
+      AllowAutoDisable=   False
+      Cancel          =   False
+      Caption         =   "Wartungsmodus aktivieren"
+      ControlID       =   ""
+      CSSClasses      =   ""
+      Default         =   False
+      Enabled         =   True
+      Height          =   30
+      Index           =   -2147483648
+      Indicator       =   0
+      Left            =   160
+      LockBottom      =   True
+      LockedInPosition=   True
+      LockHorizontal  =   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   False
+      LockVertical    =   False
+      Outlined        =   False
+      PanelIndex      =   0
+      Scope           =   2
+      TabIndex        =   5
+      TabStop         =   True
+      Tooltip         =   ""
+      Top             =   550
+      Visible         =   True
+      Width           =   230
+      _mPanelIndex    =   -1
+   End
+   Begin DialogYesNo DialogYesNo1
+      ControlCount    =   0
+      ControlID       =   ""
+      CSSClasses      =   ""
+      Enabled         =   True
+      Height          =   230
+      Index           =   -2147483648
+      Indicator       =   0
+      LayoutDirection =   0
+      LayoutType      =   0
+      Left            =   0
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockHorizontal  =   False
+      LockLeft        =   False
+      LockRight       =   False
+      LockTop         =   False
+      LockVertical    =   False
+      PanelIndex      =   0
+      Position        =   0
+      Scope           =   2
+      TabIndex        =   6
+      TabStop         =   True
+      Tooltip         =   ""
+      Top             =   0
+      Visible         =   True
+      Width           =   400
+      _mDesignHeight  =   0
+      _mDesignWidth   =   0
+      _mPanelIndex    =   -1
+   End
+   Begin WebLabel Label1
+      Bold            =   True
+      ControlID       =   ""
+      CSSClasses      =   ""
+      Enabled         =   True
+      FontName        =   ""
+      FontSize        =   0.0
+      Height          =   35
+      HTMLElement     =   0
+      Index           =   -2147483648
+      Indicator       =   0
+      Italic          =   False
+      Left            =   40
+      LockBottom      =   False
+      LockedInPosition=   True
+      LockHorizontal  =   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      LockVertical    =   False
+      Multiline       =   False
+      PanelIndex      =   0
+      Scope           =   2
+      TabIndex        =   7
+      TabStop         =   True
+      Text            =   "Stationsübersicht"
+      TextAlignment   =   0
+      TextColor       =   &c000000FF
+      Tooltip         =   ""
+      Top             =   10
+      Underline       =   False
+      Visible         =   True
+      Width           =   450
+      _mPanelIndex    =   -1
+   End
+   Begin WebButton btnClose
+      AllowAutoDisable=   False
+      Cancel          =   False
+      Caption         =   "X"
+      ControlID       =   ""
+      CSSClasses      =   "border-0"
+      Default         =   False
+      Enabled         =   True
+      Height          =   30
+      Index           =   -2147483648
+      Indicator       =   0
+      Left            =   765
+      LockBottom      =   False
+      LockedInPosition=   True
+      LockHorizontal  =   False
+      LockLeft        =   False
+      LockRight       =   True
+      LockTop         =   True
+      LockVertical    =   False
+      Outlined        =   True
+      PanelIndex      =   0
+      Scope           =   2
+      TabIndex        =   8
+      TabStop         =   True
+      Tooltip         =   ""
+      Top             =   5
+      Visible         =   True
+      Width           =   30
+      _mPanelIndex    =   -1
+   End
+   Begin WebRectangle Rectangle2
+      BorderColor     =   &cEBEBEB00
+      BorderThickness =   1
+      ControlCount    =   0
+      ControlID       =   ""
+      CornerSize      =   -1
+      CSSClasses      =   ""
+      Enabled         =   True
+      FillColor       =   &cFFFFFF
+      HasFillColor    =   False
+      Height          =   1
+      Index           =   -2147483648
+      Indicator       =   0
+      LayoutDirection =   0
+      LayoutType      =   0
+      Left            =   0
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockHorizontal  =   False
+      LockLeft        =   True
+      LockRight       =   True
+      LockTop         =   True
+      LockVertical    =   False
+      PanelIndex      =   0
+      Scope           =   2
+      TabIndex        =   9
+      TabStop         =   True
+      Tooltip         =   ""
+      Top             =   50
+      Visible         =   True
+      Width           =   797
+      _mDesignHeight  =   0
+      _mDesignWidth   =   0
       _mPanelIndex    =   -1
    End
 End
 #tag EndWebPage
 
 #tag WindowCode
+	#tag Method, Flags = &h21
+		Private Sub HandleMaintenanceButtonVisuals()
+		  If MyStation.MaintenanceActive Then
+		    btnMainenanceMode.Indicator = WebUIControl.Indicators.Warning
+		    btnMainenanceMode.Caption = "Wartungsmodus beenden"
+		  Else
+		    btnMainenanceMode.Indicator = WebUIControl.Indicators.Default
+		    btnMainenanceMode.Caption = "Wartungsmodus aktivieren"
+		  end
+		End Sub
+	#tag EndMethod
+
 	#tag Method, Flags = &h21
 		Private Function Logo8CompoTypeMapper(ct as Enums.ComponentTypes, i as integer) As string
 		  Select Case ct
@@ -301,6 +474,54 @@ End
 	#tag Event
 		Sub Pressed()
 		  Logo8Export
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events btnMainenanceMode
+	#tag Event
+		Sub Pressed()
+		  Var msg As String
+		  
+		  If MyStation.MaintenanceActive Then
+		    msg = "Wartungsmodus dieser Station beenden? Alarme und Aktore werden damit wieder aktiviert."
+		  Else
+		    msg = "Möchten Sie für diese Station den Wartungsmodus aktivieren? Bei aktivem Wartungsmodus werden keine Alarme versendet und Aktoren können nicht geschaltet werden."
+		  End
+		  
+		  DialogYesNo1.Show(msg)
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub Shown()
+		  HandleMaintenanceButtonVisuals()
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events DialogYesNo1
+	#tag Event
+		Sub YesClicked(tag as Variant)
+		  If MyStation.MaintenanceActive Then
+		    // end maintenance mode
+		    App.DataSvc.SetMaintenanceMode(MyStation, false, Session.Authenticator.CurrentUserName)
+		  else
+		    // start maintenance mode
+		    App.DataSvc.SetMaintenanceMode(MyStation, True, Session.Authenticator.CurrentUserName)
+		  end
+		  
+		  App.DataSvc.ReadAndCacheStationsAndComponents
+		  HandleMaintenanceButtonVisuals()
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub Opening()
+		  Me.Style.Value("margin-top") = "20px"
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events btnClose
+	#tag Event
+		Sub Pressed()
+		  self.Close
 		End Sub
 	#tag EndEvent
 #tag EndEvents

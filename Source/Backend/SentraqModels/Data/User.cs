@@ -33,4 +33,12 @@ public class User
     public DateTime? PasswordResetTs { get; set; }
     
     public bool Removed { get; set; }
+    
+    [MaxLength(1000)]
+    public string? PasskeyIdent { get; set; }
+    
+    [MaxLength(100)]
+    public string? PasskeyRequestCode { get; set; }
+    
+    public DateTime? PasskeyRequestTs { get; set; }
 }

@@ -3,7 +3,7 @@ using SentraqModels.Data;
 
 namespace SentraqModels.Extensions;
 
-public static class ComponentViewExtension
+public static class ComponentViewExtensions
 {
     /// <summary>
     /// Simple AdjustemtFunction.

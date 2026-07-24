@@ -40,7 +40,11 @@ public class MqttSenderService(
         
         var mqttClientOptions = new MqttClientOptionsBuilder()
             .WithClientId(Guid.NewGuid().ToString())
-            .WithTlsOptions(o => { o.UseTls(false); })
+            .WithTlsOptions(o => { 
+                o.UseTls(true); 
+                o.WithAllowUntrustedCertificates(true);
+                o.WithIgnoreCertificateRevocationErrors(true);
+            })
             .WithTcpServer(_brokerHostname, _tcpPort)
             .WithCredentials(_brokerUsername, _brokerPassword)
             .Build();

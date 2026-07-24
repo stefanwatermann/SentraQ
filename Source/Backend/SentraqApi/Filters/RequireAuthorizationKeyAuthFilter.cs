@@ -12,7 +12,6 @@ public class RequireAuthorizationKeyAuthFilter(
     ) : IAuthorizationFilter
 {
     private const string _requestAuthKeyHeaderName = "X-AUTH-KEY";
-    private const string _requiredAuthKeyConfigurationKey = "RequiredAuthKey";
     
     public void OnAuthorization(AuthorizationFilterContext context)
     {

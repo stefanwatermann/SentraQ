@@ -1,8 +1,6 @@
-using System.Collections.Generic;
-using System.Linq;
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 using SentraqApi.Attributes;
 using SentraqApi.Filters;
 using SentraqCommon.Context;
@@ -10,7 +8,6 @@ using SentraqCommon.Extensions;
 using SentraqCommon.Services;
 using SentraqModels.Mapper;
 using Api = SentraqModels.Api;
-using Data = SentraqModels.Data;
 
 namespace SentraqApi.Controllers;
 
@@ -41,7 +38,7 @@ public class ComponentController(
         var components = dbContext
             .Components
             .Include(c => c.Station)
-            .Where(c => c.Station.Uid == stationUid)
+            .Where(c => c.Station.Uid == stationUid && c.Removed == false)
             .OrderBy(c => c.DisplayOrder)
             .Select(c => ComponentMapper.Map(c));
         
@@ -59,6 +56,20 @@ public class ComponentController(
                             throw new KeyNotFoundException("Component not found");
 
         return ComponentMapper.Map(componentView);
+    }
+
+    /// <summary>
+    /// Set value of a component. Triggers an MQTT message to the component.
+    /// </summary>
+    /// <param name="hardwareId"></param>
+    /// <param name="value"></param>
+    /// <param name="changedBy"></param>
+    [RequireAuthorizationKey]
+    [HttpPost("setValue/{hardwareId}")]
+    [Experimental("SiemensLogo8MqttSender")]
+    public void SetValue(string hardwareId, [FromBody] string value, [FromHeader(Name = "X-LOGIN")] string changedBy)
+    {
+        componentService.SetValue(hardwareId, value, changedBy);
     }
     
     /// <summary>
@@ -88,6 +99,6 @@ public class ComponentController(
     [HttpDelete("{hardwareId}")]
     public void Remove(string hardwareId, [FromHeader(Name = "X-LOGIN")] string changedBy)
     {
-        componentService.Removecomponent(hardwareId.Sanitize(36), changedBy.Sanitize(10));
+        componentService.RemoveComponent(hardwareId.Sanitize(36), changedBy.Sanitize(10));
     }
 }

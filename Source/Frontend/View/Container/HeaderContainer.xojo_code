@@ -26,7 +26,6 @@ Begin WebContainer HeaderContainer
    _mDesignWidth   =   0
    _mPanelIndex    =   -1
    Begin WebRectangle Rectangle1
-      BackgroundColor =   &cFFFFFF00
       BorderColor     =   &c000000FF
       BorderThickness =   0
       ControlCount    =   0
@@ -34,14 +33,13 @@ Begin WebContainer HeaderContainer
       CornerSize      =   0
       CSSClasses      =   "header-background"
       Enabled         =   True
-      FillColor       =   "&cF0F2F400"
-      HasBackgroundColor=   True
-      HasFillColor    =   "True"
+      FillColor       =   &cFFFFFF00
+      HasFillColor    =   True
       Height          =   80
       Index           =   -2147483648
-      Indicator       =   ""
-      LayoutDirection =   "LayoutDirections.LeftToRight"
-      LayoutType      =   "LayoutTypes.Fixed"
+      Indicator       =   0
+      LayoutDirection =   0
+      LayoutType      =   0
       Left            =   0
       LockBottom      =   True
       LockedInPosition=   True
@@ -73,7 +71,7 @@ Begin WebContainer HeaderContainer
          Enabled         =   True
          Height          =   40
          Index           =   -2147483648
-         Indicator       =   ""
+         Indicator       =   0
          Left            =   30
          LockBottom      =   False
          LockedInPosition=   False
@@ -104,8 +102,9 @@ Begin WebContainer HeaderContainer
          FontName        =   ""
          FontSize        =   20.0
          Height          =   80
+         HTMLElement     =   0
          Index           =   -2147483648
-         Indicator       =   ""
+         Indicator       =   0
          Italic          =   False
          Left            =   80
          LockBottom      =   True

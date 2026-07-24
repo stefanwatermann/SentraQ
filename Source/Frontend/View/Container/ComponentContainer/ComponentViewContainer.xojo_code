@@ -34,6 +34,7 @@ Begin WebContainer ComponentViewContainer Implements IEmbeddableViewContainer
       FontName        =   ""
       FontSize        =   0.0
       Height          =   30
+      HTMLElement     =   0
       Index           =   -2147483648
       Indicator       =   0
       Italic          =   False
@@ -68,6 +69,7 @@ Begin WebContainer ComponentViewContainer Implements IEmbeddableViewContainer
       FontName        =   ""
       FontSize        =   0.0
       Height          =   50
+      HTMLElement     =   0
       Index           =   -2147483648
       Indicator       =   0
       Italic          =   False
@@ -97,14 +99,14 @@ Begin WebContainer ComponentViewContainer Implements IEmbeddableViewContainer
    Begin WebButton btnInfo
       AllowAutoDisable=   False
       Cancel          =   False
-      Caption         =   "i"
+      Caption         =   ""
       ControlID       =   ""
-      CSSClasses      =   "border-0"
+      CSSClasses      =   "border-0 bi bi-info-circle text-secondary"
       Default         =   False
       Enabled         =   True
       Height          =   30
       Index           =   -2147483648
-      Indicator       =   0
+      Indicator       =   7
       Left            =   345
       LockBottom      =   False
       LockedInPosition=   True

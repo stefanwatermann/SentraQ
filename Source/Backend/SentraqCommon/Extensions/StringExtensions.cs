@@ -27,4 +27,11 @@ public static class StringExtensions
             s = s[..maxLength];
         return HttpUtility.HtmlEncode(s.Replace(Environment.NewLine, ""));
     }
+
+    public static string MaxLength(this string s, int maxLength)
+    {
+        if (maxLength > 0 && s.Length > maxLength)
+            s = s[..maxLength];
+        return s;
+    }
 }
