@@ -182,7 +182,7 @@ End
 		Sub UpdateControls()
 		  lbDisplayName.Text = MyComponent.ShortName
 		  
-		  lbValue.Text = Str(Self.MyComponent.CurrentValue.DoubleValue.ToString(Locale.Current, "#.#")) 
+		  lbValue.Text = Str(Self.MyComponent.CurrentValue.DoubleValue.ToString(Locale.Current, "#,###.#")) 
 		  lbDisplayUnit.Text = Self.MyComponent.DisplayUnit
 		End Sub
 	#tag EndMethod

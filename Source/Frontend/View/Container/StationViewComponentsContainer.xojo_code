@@ -146,6 +146,7 @@ End
 
 	#tag Method, Flags = &h0
 		Sub SetComponents(components() as ComponentModel)
+		  Log.Debug(CurrentMethodName)
 		  Self.Components = components
 		  Self.PopulateComponents
 		  self.RefreshData

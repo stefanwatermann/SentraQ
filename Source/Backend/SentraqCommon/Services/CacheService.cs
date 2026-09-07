@@ -17,7 +17,7 @@ public class CacheService(
 {
     private List<Component> _knownComponents = [];
     private List<Counter> _knownCounters = [];
-    private Dictionary<string, int> _faultCounter = new();
+    private readonly Dictionary<string, int> _faultCounter = new();
 
     public void Init()
     {
@@ -26,6 +26,7 @@ public class CacheService(
             .Components
             .AsNoTracking()
             .Include((c => c.Station))
+            .Where(c => c.Removed == false && c.Station.Removed == false)
             .ToList();
         
         // read all counter at service startup
@@ -33,6 +34,8 @@ public class CacheService(
             .Counters
             .AsNoTracking()
             .ToList();
+        
+        logger.LogInformation($"CacheService initialized for {_knownComponents.Count} components and {_knownCounters.Count} counters.");
     }
 
     public Component? GetComponent(MqttPayload payload)

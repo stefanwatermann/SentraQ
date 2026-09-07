@@ -24,4 +24,10 @@ public class Component
     public required int MaxValue { get; init; }
     
     public int? DisplayOrder { get; init; }
+    
+    public bool Removed { get; set; }
+        
+    public bool Visible { get; set; }
+    
+    public string? AdjustmentFunction { get; init; }
 }

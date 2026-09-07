@@ -2,6 +2,10 @@
 Protected Class ComponentModel
 Inherits JsonModelBase
 	#tag Property, Flags = &h0
+		AdjustmentFunction As String
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
 		CurrentValue As Variant
 	#tag EndProperty
 
@@ -39,6 +43,10 @@ Inherits JsonModelBase
 
 	#tag Property, Flags = &h0
 		MinValue As Integer
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		Removed As Boolean
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
@@ -85,6 +93,37 @@ Inherits JsonModelBase
 			  End
 			End Get
 		#tag EndGetter
+		#tag Setter
+			Set
+			  Select Case value
+			    
+			  Case Enums.ComponentTypes.Actor
+			    Self.Type = "AC"
+			    
+			  Case Enums.ComponentTypes.Switch
+			    Self.Type = "SW"
+			    
+			  Case Enums.ComponentTypes.Counter
+			    Self.Type = "CO"
+			    
+			  Case Enums.ComponentTypes.Divider
+			    Self.Type = "DI"
+			    
+			  Case Enums.ComponentTypes.Fault
+			    Self.Type = "FL"
+			    
+			  Case Enums.ComponentTypes.FillLevel
+			    Self.Type = "FI"
+			    
+			  Case Enums.ComponentTypes.Sensor
+			    Self.Type = "SE"
+			    
+			  Else
+			    Self.Type = ""
+			    
+			  End
+			End Set
+		#tag EndSetter
 		Attributes( "#JsonIgnore" ) TypeDef As Enums.ComponentTypes
 	#tag EndComputedProperty
 
@@ -123,6 +162,10 @@ Inherits JsonModelBase
 		#tag EndGetter
 		Attributes( "#JsonIgnore" ) TypeName As String
 	#tag EndComputedProperty
+
+	#tag Property, Flags = &h0
+		Visible As Boolean = True
+	#tag EndProperty
 
 
 	#tag ViewBehavior
@@ -277,6 +320,30 @@ Inherits JsonModelBase
 			Group="Behavior"
 			InitialValue=""
 			Type="Integer"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Removed"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="Boolean"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Visible"
+			Visible=false
+			Group="Behavior"
+			InitialValue="True"
+			Type="Boolean"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="AdjustmentFunction"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="String"
 			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior

@@ -22,4 +22,10 @@ public class Station
     public bool HasActiveAlert { get; init; } = false;
     
     public DateTime? MaintenanceActiveSinceTs { get; set; }
+    
+    public bool Removed { get; set; }
+    
+    public bool Visible { get; set; }
+    
+    public string? AlertReceiverEmailAddresses { get; init; }
 }

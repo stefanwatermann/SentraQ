@@ -9,11 +9,12 @@ using Microsoft.EntityFrameworkCore;
 using SentraqApi.Filters;
 using SentraqCommon.Context;
 using SentraqCommon.Converters;
+using SentraqCommon.MqttMessageBuilder;
 using SentraqCommon.MqttSender;
 using SentraqCommon.Security;
 using SentraqCommon.Services;
 
-[assembly: AssemblyVersion("1.1.0.*")]
+[assembly: AssemblyVersion("1.1.1.*")]
 
 namespace SentraqApi;
 
@@ -55,7 +56,8 @@ internal static class Program
             builder.Services.AddScoped<LogService>();
             builder.Services.AddScoped<UserService>();
             builder.Services.AddScoped<StatusFileService>();
-            builder.Services.AddScoped<SiemensLogo8MqttSender>();
+            builder.Services.AddScoped<MqttMessageSender>();
+            builder.Services.AddScoped<MqttMessageBuilderFactory>();
             builder.Services.AddScoped<RequireAuthorizationKeyAuthFilter>();
 
             builder.Services.AddLogging(b =>

@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using SentraqModels.Enums;
 
 namespace SentraqModels.Data;
 
@@ -41,6 +42,8 @@ public class Station
         public DateTime? MaintenanceActiveSinceTs { get; set; }
         
         public DateTime? MaintenanceActiveAlertSentTs { get; set; }
+        
+        public StationControllerType? StationControllerTypeName { get; set; }
         
         public ICollection<Component> Components { get; init; } = new List<Component>();
 }

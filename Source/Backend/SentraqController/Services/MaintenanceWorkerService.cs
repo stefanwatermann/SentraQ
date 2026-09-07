@@ -10,9 +10,8 @@ namespace SentraqController.Services;
 /// <param name="logger"></param>
 /// <param name="statusFileService"></param>
 public class MaintenanceWorkerService(
-    ILogger<MaintenanceWorkerService> logger,
+    CacheService cacheService,
     StatusFileService statusFileService,
-    MailService mailService,
     StationService stationService
 ) : BackgroundService
 {
@@ -29,6 +28,10 @@ public class MaintenanceWorkerService(
             // check every 60 seconds if alert for "maintenance mode still active" needs to be sent for any station
             if (DateTime.Now.Second == 0)
                 stationService.EvaluateAndAlertStationMaintenanceModeActive();
+            
+            // re-init cached components every 60 seconds
+            if (DateTime.Now.Second == 0)
+                cacheService.Init();
 
             await Task.Delay(1000, stoppingToken);
         }

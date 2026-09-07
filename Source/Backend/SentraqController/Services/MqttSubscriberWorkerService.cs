@@ -1,15 +1,8 @@
-using System.Net.Http.Json;
-using System.Text.Json;
 using MQTTnet;
 using MQTTnet.Extensions.TopicTemplate;
-using SentraqCommon.Context;
-using SentraqCommon.Converters;
-using SentraqCommon.MqttParser;
+using SentraqCommon.MqttMessageParser;
 using SentraqCommon.Security;
 using SentraqCommon.Services;
-using SentraqController.MessageHandler;
-using SentraqModels.Mapper;
-using SentraqModels.Mqtt;
 
 namespace SentraqController.Services;
 
@@ -25,9 +18,8 @@ public class MqttSubscriberWorkerService(
     ILogger<MqttSubscriberWorkerService> logger,
     CacheService componentCacheService,
     SettingService settings,
-    MqttParserFactory mqttParserFactory,
-    MessageHandlerFactory messageHandlerFactory,
-    DatabaseContext dbContext) : BackgroundService
+    MqttMessageParserFactory mqttMessageParserFactory,
+    PayloadProcessingService payloadProcessingService) : BackgroundService
 {
     private readonly MqttTopicTemplate _topicTemplate = new("/client/send/{clientTopic}");
 
@@ -59,7 +51,7 @@ public class MqttSubscriberWorkerService(
             {
                 if (!_mqttClient.IsConnected)
                     await Connect();
-                
+
                 // keep service running
                 await Task.Delay(1_000, stoppingToken);
             }
@@ -102,9 +94,10 @@ public class MqttSubscriberWorkerService(
 
     private Task OnDisconnectedAsync(MqttClientDisconnectedEventArgs arg)
     {
-        logger.LogInformation("MqttSubscriber disconnected from {brokerHostname}, reason: {reason}, result: {result}. Reconnecting now.",
+        logger.LogInformation(
+            "MqttSubscriber disconnected from {brokerHostname}, reason: {reason}, result: {result}. Reconnecting now.",
             _brokerHostname, arg.Reason, arg.ConnectResult.ResultCode);
-        
+
         return Connect();
     }
 
@@ -112,46 +105,36 @@ public class MqttSubscriberWorkerService(
     {
         e.AutoAcknowledge = true;
 
-        var payloadText = string.Empty;
+        var rawPayload = string.Empty;
 
         try
         {
             if (e.ApplicationMessage.Payload.Length > 0)
             {
-                payloadText = e.ApplicationMessage.ConvertPayloadToString();
+                rawPayload = e.ApplicationMessage.ConvertPayloadToString();
 
-                logger.LogInformation("Message received: {payload}", payloadText);
+                logger.LogInformation("Message received: {payload}", rawPayload);
 
-                var parser = mqttParserFactory.CreateParser(payloadText);
+                var parser = mqttMessageParserFactory.CreateParser(rawPayload);
 
                 if (parser == null)
                     return Task.CompletedTask;
 
-                var payloads = parser.Convert();
+                var payloads = parser.Convert(e.ApplicationMessage.Topic);
 
                 foreach (var payload in payloads)
                 {
-                    
-                    if (!componentCacheService.ComponentExists(payload))
-                        continue;
-
-                    payload.Topic = e.ApplicationMessage.Topic;
-
-                    FindAndExecuteMessageHandler(payload);
-
-                    SaveToDatabase(payload);
-
-                    SendToFrontendAsync(payload);
+                    payloadProcessingService.ProcessPayloads(payload);
                 }
             }
         }
         catch (InvalidDataException exception)
         {
-            logger.LogWarning(exception.Message, "Unexpected data: " + payloadText);
+            logger.LogWarning(exception.Message, "Unexpected data: " + rawPayload);
         }
         catch (Exception exception)
         {
-            logger.LogError(exception, "MQTT client failed while processing message: " + payloadText);
+            logger.LogError(exception, "MQTT client failed while processing message: " + rawPayload);
         }
         finally
         {
@@ -159,60 +142,5 @@ public class MqttSubscriberWorkerService(
         }
 
         return Task.CompletedTask;
-    }
-
-    private void FindAndExecuteMessageHandler(MqttPayload payload)
-    {
-        try
-        {
-            // suche passenden Message Handler und führe ihn aus
-            messageHandlerFactory.CreateHandler(payload)?.HandleMessage(payload);
-        }
-        catch (Exception e)
-        {
-            logger.LogError("Message for {uid} failed to execute message-handler: {e}", payload.Hid, e);
-        }
-    }
-
-    private void SaveToDatabase(MqttPayload payload)
-    {
-        try
-        {
-            logger.LogDebug("dbContextId={ctxid}, hid={hid}", dbContext.ContextId, payload.Hid);
-            dbContext.Add(EventDataMapper.Map(payload));
-            dbContext.SaveChanges(true);
-            logger.LogInformation("Message saved for {uid}.", payload.Hid);
-        }
-        catch (Exception e)
-        {
-            logger.LogError("Message for {uid} failed writing to database: {e}", payload.Hid, e.Message);
-        }
-    }
-
-    private async void SendToFrontendAsync(MqttPayload payload)
-    {
-        try
-        {
-            var frontendApiUrl = settings.ControllerFrontendApiUrl;
-            var apiAuthKeyValue = settings.ControllerFrontendApiApiAuthKey;
-            var url = $"{frontendApiUrl}{payload.Hid}";
-
-            var serializerOptions = new JsonSerializerOptions
-            {
-                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
-            };
-            serializerOptions.Converters.Add(new SimpleDateTimeConverter());
-
-            logger.LogDebug("Sending message for {uid} to frontend: {url}", payload.Hid, url);
-            
-            var httpClient = new HttpClient();
-            httpClient.DefaultRequestHeaders.Add("X-AUTH-KEY", apiAuthKeyValue);
-            var response = await httpClient.PostAsJsonAsync(url, payload, serializerOptions);
-            response.EnsureSuccessStatusCode();
-        }
-        catch (Exception e)
-        {
-            logger.LogError("Message for {uid} failed sending to frontend: {e}", payload.Hid, e.Message);
-        }
     }
 }

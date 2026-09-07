@@ -340,6 +340,7 @@ End
 #tag WindowCode
 	#tag Event
 		Sub Opening()
+		  Log.Debug(CurrentMethodName)
 		  RefreshDataTimer.Period = App.ConfigValue("FrontendRefresh.PeriodSec", 5).IntegerValue * 1000
 		End Sub
 	#tag EndEvent
@@ -459,6 +460,7 @@ End
 #tag Events RefreshDataTimer
 	#tag Event
 		Sub Run()
+		  Log.Debug(CurrentMethodName, CurrentMethodName)
 		  StationListContainer1.RefreshData
 		  StationViewContainer1.RefreshData
 		End Sub

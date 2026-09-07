@@ -7,14 +7,16 @@ using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 using SentraqCommon.Context;
 using SentraqCommon.Loggers;
-using SentraqCommon.MqttParser;
+using SentraqCommon.MqttMessageBuilder;
+using SentraqCommon.MqttMessageParser;
+using SentraqCommon.MqttSender;
 using SentraqCommon.Security;
 using SentraqCommon.Services;
 using SentraqController.MessageHandler;
 using SentraqController.MessageHandler.Handler;
 using SentraqController.Services;
 
-[assembly: AssemblyVersion("1.1.0.*")]
+[assembly: AssemblyVersion("1.1.1.*")]
 
 namespace SentraqController;
 
@@ -46,12 +48,15 @@ internal static class Program
             builder.Services.AddSingleton<SettingService>();
             builder.Services.AddScoped<MailService>();
             builder.Services.AddScoped<LogService>();
-            builder.Services.AddScoped<MqttParserFactory>();
+            builder.Services.AddScoped<MqttMessageParserFactory>();
+            builder.Services.AddScoped<MqttMessageBuilderFactory>();
+            builder.Services.AddScoped<MqttMessageSender>();
             builder.Services.AddScoped<AlertMessageHandler>();
             builder.Services.AddScoped<ActorMessageHandler>();
             builder.Services.AddScoped<StatusFileService>();
             builder.Services.AddScoped<StationService>();
             builder.Services.AddScoped<AuthorizationService>();
+            builder.Services.AddScoped<PayloadProcessingService>();
             builder.Services.AddSingleton<MessageHandlerFactory>();
             builder.Services.AddSingleton<CacheService>();
             builder.Services.AddHostedService<MqttSubscriberWorkerService>();

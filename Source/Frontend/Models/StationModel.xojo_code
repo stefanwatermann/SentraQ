@@ -2,6 +2,10 @@
 Protected Class StationModel
 Inherits JsonModelBase
 	#tag Property, Flags = &h0
+		AlertReceiverEmailAddresses As String
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
 		Attributes( "#JsonIgnore" ) Components() As ComponentModel
 	#tag EndProperty
 
@@ -87,6 +91,10 @@ Inherits JsonModelBase
 	#tag EndComputedProperty
 
 	#tag Property, Flags = &h0
+		Removed As Boolean
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
 		ShortName As String
 	#tag EndProperty
 
@@ -105,8 +113,14 @@ Inherits JsonModelBase
 			  Case "PU"
 			    Return Enums.StationTypes.Pumpstation
 			    
-			  Case "SE"
-			    Return Enums.StationTypes.SewageStation
+			  Case "ME"
+			    Return Enums.StationTypes.MixedWater
+			    
+			  Case "RA"
+			    Return Enums.StationTypes.Rainwater
+			    
+			  Case "SW"
+			    Return Enums.StationTypes.Swimmingbath
 			    
 			  Else
 			    Return Enums.StationTypes.Undefined
@@ -114,6 +128,31 @@ Inherits JsonModelBase
 			  End
 			End Get
 		#tag EndGetter
+		#tag Setter
+			Set
+			  Select Case value
+			    
+			  Case Enums.StationTypes.Waterstation
+			    self.Type = "WA"
+			    
+			  Case Enums.StationTypes.Pumpstation
+			    Self.Type = "PU"
+			    
+			  Case Enums.StationTypes.MixedWater
+			    Self.Type = "ME"
+			    
+			  Case Enums.StationTypes.Rainwater
+			    Self.Type = "RA"
+			    
+			  Case Enums.StationTypes.Swimmingbath
+			    Self.Type = "SW"
+			    
+			  Else
+			    Self.Type = ""
+			    
+			  End
+			End Set
+		#tag EndSetter
 		Attributes( "#JsonIgnore" ) TypeDef As Enums.StationTypes
 	#tag EndComputedProperty
 
@@ -123,13 +162,19 @@ Inherits JsonModelBase
 			  Select Case TypeDef
 			    
 			  Case Enums.StationTypes.Pumpstation
-			    Return "Pumpstation"
+			    Return "Abwasser"
 			    
-			  Case Enums.StationTypes.SewageStation
-			    Return "Abwasserstation"
+			  Case Enums.StationTypes.Mixedwater
+			    Return "Mischwasser"
 			    
 			  Case Enums.StationTypes.Waterstation
 			    Return "Wasserwerk"
+			    
+			  Case Enums.StationTypes.Swimmingbath
+			    Return "Schwimmbad"
+			    
+			  Case Enums.StationTypes.Rainwater
+			    Return "Regenwasser"
 			    
 			  Else
 			    Return "Undefiniert"
@@ -143,6 +188,10 @@ Inherits JsonModelBase
 
 	#tag Property, Flags = &h0
 		Uid As String
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		Visible As Boolean = True
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
@@ -237,20 +286,6 @@ Inherits JsonModelBase
 			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="TypeDef"
-			Visible=false
-			Group="Behavior"
-			InitialValue=""
-			Type="Enums.StationTypes"
-			EditorType="Enum"
-			#tag EnumValues
-				"0 - Undefined"
-				"1 - Waterstation"
-				"2 - Pumpstation"
-				"3 - SewageStation"
-			#tag EndEnumValues
-		#tag EndViewProperty
-		#tag ViewProperty
 			Name="DisplayOrder"
 			Visible=false
 			Group="Behavior"
@@ -321,6 +356,46 @@ Inherits JsonModelBase
 			InitialValue=""
 			Type="String"
 			EditorType="MultiLineEditor"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="MaitenanceActivePeriodeMinutes"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="Integer"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="TypeDef"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="Enums.StationTypes"
+			EditorType="Enum"
+			#tag EnumValues
+				"0 - Undefined"
+				"1 - Waterstation"
+				"2 - Pumpstation"
+				"3 - Mixedwater"
+				"4 - Rainwater"
+				"5 - Swimmingbath"
+			#tag EndEnumValues
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Removed"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="Boolean"
+			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Visible"
+			Visible=false
+			Group="Behavior"
+			InitialValue="True"
+			Type="Boolean"
+			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

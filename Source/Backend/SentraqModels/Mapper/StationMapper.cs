@@ -19,7 +19,31 @@ public static class StationMapper
             DisplayOrder = dataStation.DisplayOrder,
             WatchdogHardwareId = dataStation.WatchdogHardwareId,
             HasActiveAlert = dataStation.HasActiveAlert,
-            MaintenanceActiveSinceTs = dataStation.MaintenanceActiveSinceTs
+            MaintenanceActiveSinceTs = dataStation.MaintenanceActiveSinceTs,
+            AlertReceiverEmailAddresses = dataStation.AlertReceiverEmailAddresses
+        };
+    }
+    
+    public static Api.Station? Map(Data.Station? dataStation)
+    {
+        if (dataStation == null)
+            return null;
+        
+        return new Api.Station()
+        {
+            Uid = dataStation.Uid,
+            Latitude = dataStation.Latitude, 
+            Longitude = dataStation.Longitude,
+            Type = dataStation.Type,
+            DisplayName = dataStation.DisplayName,
+            ShortName = dataStation.ShortName,
+            DisplayColor = dataStation.DisplayColor,
+            DisplayOrder = dataStation.DisplayOrder,
+            WatchdogHardwareId = dataStation.WatchdogHardwareId,
+            MaintenanceActiveSinceTs = dataStation.MaintenanceActiveSinceTs,
+            Visible = dataStation.Visible,
+            Removed = dataStation.Removed,
+            AlertReceiverEmailAddresses = dataStation.AlertReceiverEmailAddresses
         };
     }
     
@@ -36,7 +60,10 @@ public static class StationMapper
             DisplayColor = apiStation.DisplayColor,
             DisplayOrder = apiStation.DisplayOrder,
             WatchdogHardwareId = apiStation.WatchdogHardwareId,
-            MaintenanceActiveSinceTs = apiStation.MaintenanceActiveSinceTs
+            MaintenanceActiveSinceTs = apiStation.MaintenanceActiveSinceTs,
+            Removed = apiStation.Removed,
+            Visible = apiStation.Visible,
+            AlertReceiverEmailAddresses = apiStation.AlertReceiverEmailAddresses
         };
     }
     
@@ -54,5 +81,8 @@ public static class StationMapper
         toDataStation.DisplayOrder = fromApiStation.DisplayOrder;
         toDataStation.WatchdogHardwareId = fromApiStation.WatchdogHardwareId;
         toDataStation.MaintenanceActiveSinceTs = fromApiStation.MaintenanceActiveSinceTs;
+        toDataStation.Removed = fromApiStation.Removed;
+        toDataStation.Visible = fromApiStation.Visible;
+        toDataStation.AlertReceiverEmailAddresses = fromApiStation.AlertReceiverEmailAddresses;
     }
 }

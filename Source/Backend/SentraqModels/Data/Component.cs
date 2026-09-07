@@ -42,4 +42,7 @@ public class Component
     public bool Removed { get; set; }
     
     public bool Visible { get; set; }
+    
+    [MaxLength(36)]
+    public string? ForwardToHardwareId { get; set; }
 }

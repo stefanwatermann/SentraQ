@@ -70,8 +70,10 @@ Inherits LobBase.LobWebApplication
 		  Log.Debug(CurrentMethodName)
 		  MyProfiler.Start(CurrentMethodName)
 		  
-		  // reload stations from controller api
-		  Self.DataSvc.ReadAndCacheStationsAndComponents
+		  // reload stations from controller api 
+		  Self.DataSvc.ReadAndCacheStationsAndComponents()
+		  
+		  log.Info("Station cache reinitialized with " + str(self.DataSvc.Stations.Count) + " stations.", CurrentMethodName)
 		  
 		  MyProfiler.Stop(CurrentMethodName)
 		End Sub
@@ -87,14 +89,20 @@ Inherits LobBase.LobWebApplication
 		Private Sub HandleApiRequests(request as WebRequest, response as WebResponse)
 		  Try
 		    
-		    // handle unauthorized monibot.io requests to monitor service availability
+		    // handle anonymous monibot.io requests to monitor service availability
 		    // response contains a string that can be checked by monibot.io: ControllerUp=True/False
 		    If request.Path = "api/monibot" Then
 		      response.Status = HandleMonibotRequest(request, response)
 		      Return
 		    End
 		    
-		    // all other requests need to have a valid API-KEY (see App.StatusService.ApiKey config value) set
+		    // handle request to management api
+		    If request.Path.BeginsWith(ManagementApiService.ApiBasePath) And request.HeaderNames.IndexOf(ManagementApiService.ApiAuthHeaderName) >= 0 Then
+		      response.Status = HandleManagementRequest(request, response)
+		      Return 
+		    End
+		    
+		    // other requests need to have a valid API-KEY (see App.StatusService.ApiKey config value) set
 		    If request.HeaderNames.IndexOf("X-AUTH-KEY") >= 0 And request.Header("X-AUTH-KEY") = ApiAuthKeyValue Then
 		      
 		      If request.Path.BeginsWith("api/update/realtime/") Then
@@ -123,6 +131,19 @@ Inherits LobBase.LobWebApplication
 		    
 		  End
 		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Function HandleManagementRequest(request as WebRequest, response as WebResponse) As Integer
+		  // handles requests to the management api
+		  Try
+		    Var mgmtSvc As New ManagementApiService
+		    return mgmtSvc.ProcessApiRequest(request, response)
+		  Catch error As RuntimeException
+		    Log.Error("Error on path=" + request.Path + " [" + Str(error.ErrorNumber) + "] " + error.Message + " | " + String.FromArray(error.Stack, "; "), CurrentMethodName)
+		    Return 500
+		  End
+		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
@@ -184,9 +205,11 @@ Inherits LobBase.LobWebApplication
 
 	#tag Method, Flags = &h21
 		Private Sub InitAppServices()
+		  Log.Debug(CurrentMethodName)
+		  
 		  // Initialize sesison services
 		  Self.DataSvc = New DataService
-		  Self.DataSvc.ReadAndCacheStationsAndComponents
+		  Self.DataSvc.ReadAndCacheStationsAndComponents()
 		  
 		  // start data reload timer
 		  Self.DataReloadTimer = New Timer

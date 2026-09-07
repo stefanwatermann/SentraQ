@@ -22,14 +22,29 @@ public class StationController(
     /// <summary>
     /// Returns a list of all stations from StationView (vStation).
     /// </summary>
-    /// <returns>List of stations</returns>
+    /// <returns>List of stations, without non-visible (visible=false)</returns>
     [RequireAuthorizationKey]
     [HttpGet("")]
     public IEnumerable<Api.Station?> Get()
     {
-        logger.LogInformation("Get all stations");
+        logger.LogInformation("Get stations from StationView");
 
         return stationService.GetStationsView()
+            .Select(StationMapper.Map)
+            .ToList();
+    }
+    
+    /// <summary>
+    /// Returns a list of all stations from Station table.
+    /// </summary>
+    /// <returns>List of all stations</returns>
+    [RequireAuthorizationKey]
+    [HttpGet("all")]
+    public IEnumerable<Api.Station?> GetAll()
+    {
+        logger.LogInformation("Get all stations from Station table");
+
+        return stationService.GetStations()
             .Select(StationMapper.Map)
             .ToList();
     }
@@ -75,7 +90,7 @@ public class StationController(
     }
 
     /// <summary>
-    /// Update existing Station
+    /// Add new or update existing Station
     /// </summary>
     /// <param name="station"></param>
     /// <param name="changedBy"></param>

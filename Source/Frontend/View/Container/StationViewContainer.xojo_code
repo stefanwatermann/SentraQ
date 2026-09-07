@@ -241,7 +241,6 @@ End
 		Sub RefreshData()
 		  If MyStation <> Nil Then
 		    lbDisplayName.Text = MyStation.DisplayName
-		    //StationIcon.Value = MyStation.CreateIcon
 		    StationViewComponentsContainer1.RefreshData
 		    btnMaintenanceMode.Visible = MyStation.MaintenanceActive
 		    btnMaintenanceMode.Caption = "Wartung aktiv seit " + MyStation.MaintenanceActivePeriode

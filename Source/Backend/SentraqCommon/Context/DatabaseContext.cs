@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using SentraqModels.Data;
+using SentraqModels.Enums;
 
 namespace SentraqCommon.Context;
 
@@ -26,5 +27,12 @@ public class DatabaseContext : DbContext
     public DbSet<EventDataExport> EventDataExports { get; init; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
-    { }
+    {
+        modelBuilder.Entity<Station>()
+            .Property(s => s.StationControllerTypeName)
+            .HasConversion(
+                c => c.ToString(),
+                c => (StationControllerType)Enum.Parse(typeof(StationControllerType), c)
+                );
+    }
 }

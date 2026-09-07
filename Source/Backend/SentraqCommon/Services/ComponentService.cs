@@ -1,35 +1,31 @@
-using System.Diagnostics.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 using SentraqCommon.Context;
+using SentraqCommon.MqttMessageBuilder;
 using SentraqCommon.MqttSender;
 using SentraqModels.Data;
 
 namespace SentraqCommon.Services;
 
 public class ComponentService(
-    ILogger<ComponentService> logger,
     LogService logService,
-    SiemensLogo8MqttSender siemensLogo8MqttSender,
+    MqttMessageSender mqttMessageSender,
+    MqttMessageBuilderFactory mqttMessageBuilderFactory,
     AuthorizationService authorizationService,
     DatabaseContext dbContext)
 {
-    public Component? GetComponentByUid(string uid)
-    {
-        return dbContext
-            .Components
-            .Include(c => c.Station)
-            .FirstOrDefault(c => c.HardwareId == uid);
-    }
-    
-    public void SetValue(string hardwareId, string value, string changedBy)
+    public void SendValue(string hardwareId, string? value, string changedBy)
     {
         var component = GetComponentByUid(hardwareId);
         
         if (component == null)
             throw new Exception($"Component with uid '{hardwareId}' not found");
+
+        // create message for the target component
+        var messageBuilder = mqttMessageBuilderFactory.CreateMessageBuilder(component.Station.StationControllerTypeName);
+        var payload = messageBuilder.CreatePayloadFor(component, value);
         
-        siemensLogo8MqttSender.Send(component, value);
+        // send data to component
+        mqttMessageSender.SendAsync(payload, component.Station.Uid);
         
         logService.Add(
             LogService.Event.ComponentValueSet, 
@@ -80,5 +76,13 @@ public class ComponentService(
         
         logService.AddInfoNoSave(LogService.Event.ComponentRemoved, $"Component {component.ShortName} ({component.HardwareId}) removed by {changedBy}.");
         dbContext.SaveChanges();
+    }
+    
+    private Component? GetComponentByUid(string uid)
+    {
+        return dbContext
+            .Components
+            .Include(c => c.Station)
+            .FirstOrDefault(c => c.HardwareId == uid);
     }
 }

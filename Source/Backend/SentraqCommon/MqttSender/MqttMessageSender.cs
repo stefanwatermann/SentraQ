@@ -5,30 +5,23 @@ using MQTTnet.Extensions.TopicTemplate;
 using SentraqCommon.Converters;
 using SentraqCommon.Security;
 using SentraqCommon.Services;
-using SentraqModels.Data;
 
 namespace SentraqCommon.MqttSender;
 
 /// <summary>
 /// Used to send values to components, e.g. to turn real switches on or off.
-/// Siemens LOGO8 format only.
 /// </summary>
-public class SiemensLogo8MqttSender(
-    ILogger<SiemensLogo8MqttSender> logger,
+public class MqttMessageSender(
+    ILogger<MqttMessageSender> logger,
     SettingService settings)
 {
-    private const string _messageTemplate = @"{""state"":{""{hardwareId}"":{""value"":[{value}]}}}";
     private readonly MqttTopicTemplate _topicTemplate = new("/client/receive/{clientTopic}/{stationUid}");
     
-    public async void Send(Component component, string value)
+    public async void SendAsync(string payload, string stationUid)
     {
-        var payload = _messageTemplate
-            .Replace($"{{hardwareId}}", component.HardwareId)
-            .Replace($"{{value}}", value);
-
         var topic = _topicTemplate
             .WithParameter("clientTopic", settings.ControllerMqttClientTopic)
-            .WithParameter("stationUid", component.Station.Uid);
+            .WithParameter("stationUid", stationUid);
             
         var mqttFactory = new MqttClientFactory();
 

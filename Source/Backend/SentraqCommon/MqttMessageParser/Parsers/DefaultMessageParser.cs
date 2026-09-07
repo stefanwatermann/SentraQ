@@ -2,7 +2,7 @@ using System.Text.Json;
 using SentraqCommon.Converters;
 using SentraqModels.Mqtt;
 
-namespace SentraqCommon.MqttParser.Parsers;
+namespace SentraqCommon.MqttMessageParser.Parsers;
 
 /// <summary>
 /// Parser for the Sentraq JSON message format.
@@ -13,9 +13,9 @@ namespace SentraqCommon.MqttParser.Parsers;
 /// }
 /// </summary>
 /// <param name="payloadText">JSON payload</param>
-internal class DefaultParser(string payloadText) : IMqttParser
+internal class DefaultMessageParser(string payloadText) : IMqttMessageParser
 {
-    public IEnumerable<MqttPayload> Convert()
+    public IEnumerable<MqttPayload> Convert(string topic)
     {
         var serializerOptions = new JsonSerializerOptions();
         serializerOptions.Converters.Add(new SimpleDateTimeConverter());
@@ -33,6 +33,11 @@ internal class DefaultParser(string payloadText) : IMqttParser
             // single payload received   
             payloads =new [] { JsonSerializer.Deserialize<MqttPayload>(payloadText, serializerOptions) ?? 
                                throw new Exception("Payload is null") };
+        }
+
+        foreach (var payload in payloads)
+        {
+            payload.Topic = topic;
         }
 
         return payloads;

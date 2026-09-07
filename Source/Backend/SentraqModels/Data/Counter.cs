@@ -17,4 +17,8 @@ public class Counter
     public int LastValue { get; set; } = 0;
     
     public long Count { get; set; } = 0;
+    
+    public bool Removed { get; set; }
+    
+    public bool Visible { get; set; }
 }

@@ -40,7 +40,8 @@ public class ComponentController(
             .Include(c => c.Station)
             .Where(c => c.Station.Uid == stationUid && c.Removed == false)
             .OrderBy(c => c.DisplayOrder)
-            .Select(c => ComponentMapper.Map(c));
+            .Select(c => ComponentMapper.Map(c))
+            .ToList();
         
         return components;
     }
@@ -66,14 +67,14 @@ public class ComponentController(
     /// <param name="changedBy"></param>
     [RequireAuthorizationKey]
     [HttpPost("setValue/{hardwareId}")]
-    [Experimental("SiemensLogo8MqttSender")]
-    public void SetValue(string hardwareId, [FromBody] string value, [FromHeader(Name = "X-LOGIN")] string changedBy)
+    [Experimental("MqttMessageSender")]
+    public void SetValue(string hardwareId, [FromBody] string? value, [FromHeader(Name = "X-LOGIN")] string changedBy)
     {
-        componentService.SetValue(hardwareId, value, changedBy);
+        componentService.SendValue(hardwareId, value, changedBy);
     }
     
     /// <summary>
-    /// Update existing Component
+    /// Add new or update existing Component
     /// </summary>
     /// <param name="component"></param>
     /// <param name="changedBy"></param>

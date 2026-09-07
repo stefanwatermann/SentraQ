@@ -11,11 +11,13 @@ Protected Module Enums
 		Switch = 7
 	#tag EndEnum
 
-	#tag Enum, Name = StationTypes, Type = Integer, Flags = &h0
+	#tag Enum, Name = StationTypes, Flags = &h0
 		Undefined
 		  Waterstation
 		  Pumpstation
-		SewageStation
+		  Mixedwater
+		  Rainwater
+		Swimmingbath
 	#tag EndEnum
 
 

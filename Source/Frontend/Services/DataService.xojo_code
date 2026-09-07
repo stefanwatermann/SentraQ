@@ -327,24 +327,32 @@ Protected Class DataService
 
 	#tag Method, Flags = &h21
 		Private Sub UpdateStationsCache(stations() as Variant, components() as Variant)
+		  Var addedOrUpdatedStationUid() As String
+		  
+		  // add and update stations
 		  For Each station As Dictionary In stations
-		    
-		    Var doAdd As Boolean = False
 		    
 		    Var s As StationModel = GetCachedStationByUid(station.Value("Uid"))
 		    If s = Nil Then
 		      s = New StationModel
-		      doAdd = True
+		      StationModel.FromDictionary(station, s)
+		      Self.Stations.Add(s)
+		    Else
+		      StationModel.FromDictionary(station, s)
 		    End
 		    
-		    StationModel.FromDictionary(station, s)
 		    UpdateComponentsCache(s, components)
 		    
-		    If doAdd Then
-		      Self.Stations.Add(s)
-		    End
+		    addedOrUpdatedStationUid.Add(s.Uid)
 		    
 		  Next
+		  
+		  // remove station no longer visible (or removed in db)
+		  For i as integer = Self.Stations.Count - 1 downto 0
+		    If addedOrUpdatedStationUid.IndexOf(Self.Stations(i).Uid) = -1 Then
+		      Self.Stations.RemoveAt(i)
+		    end
+		  next
 		  
 		  Log.Debug(Str(Self.Stations.Count) + " stations in cache.")
 		End Sub

@@ -69,7 +69,8 @@ public class StationService(
             existing.DisplayColor = station.DisplayColor;
             existing.DisplayOrder = station.DisplayOrder;
             existing.AlertReceiverEmailAddresses = station.AlertReceiverEmailAddresses;
-            existing.Removed = false;
+            existing.Removed = station.Removed;
+            existing.Visible = station.Visible;
         }
         else
         {

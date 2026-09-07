@@ -105,16 +105,15 @@ Inherits WebSession
 		  Var authProvider As Authentication.IAuthenticationStoreProvider = New AuthenticationWebApiStoreProvider
 		  authProvider.Init(Nil)
 		  
-		  // Init Authenticator, with 5 days of cookie time
+		  // Init Authenticator, with x days of cookie time
 		  Self.Authenticator = New Authentication.WebAuthentication(AuthenticationSalt, authProvider, DateTime.Now.AddInterval(0, 0, App.ConfigValue("Auth.CookieDurationDays", 1).IntegerValue))
 		  
-		  // example to create valid hashcodes for a list of usernames
-		  //Var users As String = "admin,user,tester,<todo>"
+		  // uncomment follwing lines to create valid hashcodes for a list of usernames
+		  //Var users As String = "admin"
 		  //For Each user As String In users.Split(",")
-		  //Var pwd As String = "<todo>" + CodeGen.GenerateCode(4, True)
+		  //Var pwd As String = CodeGen.GenerateCode(8, false)
 		  //Var h1 As String = Self.Authenticator.CreateUserHash(user, pwd)
-		  //System.DebugLog(user + ":USR:" + h1)
-		  //System.DebugLog("Benutzername: " + user + " Passwort: " + pwd)
+		  //System.DebugLog("Benutzername: " + user + " - Passwort: " + pwd + " - Hash: " + h1)
 		  //Next
 		  //Break
 		End Sub
