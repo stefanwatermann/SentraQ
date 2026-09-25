@@ -39,6 +39,8 @@
       <None Remove="version.txt" />
       <None Remove="status-file.txt" />
       <None Remove="errors.log" />
+      <None Remove="Controller-status-file.txt" />
+      <None Remove="Controller-version.txt" />
     </ItemGroup>
 
     <ItemGroup>
