@@ -37,6 +37,7 @@ public class MqttSubscriberWorkerService(
         try
         {
             settings.Validate();
+            
             componentCacheService.Init();
 
             _mqttClient = _mqttFactory.CreateMqttClient();
@@ -94,10 +95,10 @@ public class MqttSubscriberWorkerService(
 
     private Task OnDisconnectedAsync(MqttClientDisconnectedEventArgs arg)
     {
-        logger.LogInformation(
-            "MqttSubscriber disconnected from {brokerHostname}, reason: {reason}, result: {result}. Reconnecting now.",
-            _brokerHostname, arg.Reason, arg.ConnectResult.ResultCode);
-
+        logger.LogWarning(
+            "MqttSubscriber disconnected from {brokerHostname}, reason: {reason}, result: {result}, exception: {ex}. Reconnecting now.",
+            _brokerHostname, arg.Reason, arg.ConnectResult?.ResultCode, arg.Exception?.Message);
+        
         return Connect();
     }
 
@@ -124,7 +125,7 @@ public class MqttSubscriberWorkerService(
 
                 foreach (var payload in payloads)
                 {
-                    payloadProcessingService.ProcessPayloads(payload);
+                    payloadProcessingService.ProcessPayload(payload);
                 }
             }
         }

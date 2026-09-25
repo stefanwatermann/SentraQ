@@ -30,4 +30,6 @@ public class Component
     public bool Visible { get; set; }
     
     public string? AdjustmentFunction { get; init; }
+    
+    public string? ForwardToHardwareId { get; init; }
 }

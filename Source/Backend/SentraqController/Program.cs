@@ -16,7 +16,7 @@ using SentraqController.MessageHandler;
 using SentraqController.MessageHandler.Handler;
 using SentraqController.Services;
 
-[assembly: AssemblyVersion("1.1.1.*")]
+[assembly: AssemblyVersion("1.2.0.*")]
 
 namespace SentraqController;
 
@@ -53,6 +53,7 @@ internal static class Program
             builder.Services.AddScoped<MqttMessageSender>();
             builder.Services.AddScoped<AlertMessageHandler>();
             builder.Services.AddScoped<ActorMessageHandler>();
+            builder.Services.AddScoped<NotificationService>();
             builder.Services.AddScoped<StatusFileService>();
             builder.Services.AddScoped<StationService>();
             builder.Services.AddScoped<AuthorizationService>();

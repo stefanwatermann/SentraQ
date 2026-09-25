@@ -1,6 +1,8 @@
 using System.Text.Json;
 using SentraqCommon.Context;
 using SentraqCommon.Services;
+using SentraqModels.Data;
+using SentraqModels.Enums;
 using SentraqModels.Mqtt;
 
 namespace SentraqController.MessageHandler.Handler;
@@ -31,20 +33,41 @@ public class ActorMessageHandler(
         if (cacheService.CounterExists(payload))
             HandleCounter(payload);
     }
-
-    // Betriebsstundenzähler: Zählt die Zeit zwischen Events mit dem Wert 1 und addiert diese auf.
-    // In der Tabelle Counter muss dazu für den Actor eine Zeile mit der HardwareId vorhanden sein.
+    
+    // In der Tabelle Counter muss für den Actor eine Zeile mit der HardwareId vorhanden sein.
     private void HandleCounter(MqttPayload payload)
     {
         var counter = dbContext
             .Counters
             .First(c => c.HardwareId == payload.Hid);
         
-        // ensure that latest data has been loaded
+        // ensure that latest counter status has been loaded
         dbContext.Entry(counter).Reload();
         
         logger.LogDebug("reloaded Counter={counter}", JsonSerializer.Serialize(counter));
+
+        switch (counter.Type)
+        {
+            case CounterType.timediff:
+                HandleTimeDiffCounter(counter, payload);
+                break;
+
+            case CounterType.valueadd:
+                HandlePayloadValueAddCounter(counter, payload);
+                break;
+            
+            default:
+                HandleTimeDiffCounter(counter, payload);
+                break;
+        }
         
+        logger.LogDebug("ActorMessageHandler: dbContextId={ctxid}, hid={hid}", dbContext.ContextId, payload.Hid);
+        dbContext.SaveChanges(true);
+    }
+
+    // Betriebsstundenzähler: Zählt die Zeit zwischen Events mit dem Wert 1 und addiert diese auf.
+    private void HandleTimeDiffCounter(Counter counter, MqttPayload payload)
+    {
         counter.LastTs ??= DateTime.Now;
         
         var payloadValue = Convert.ToInt32(payload.Value.ToString() ?? "0");
@@ -67,8 +90,13 @@ public class ActorMessageHandler(
         
         counter.LastValue = payloadValue;
         counter.LastTs = DateTime.Now;
-        
-        logger.LogDebug("ActorMessageHandler: dbContextId={ctxid}, hid={hid}", dbContext.ContextId, payload.Hid);
-        dbContext.SaveChanges(true);
+    }
+
+    private void HandlePayloadValueAddCounter(Counter counter, MqttPayload payload)
+    {
+        var payloadValue = Convert.ToInt32(payload.Value.ToString() ?? "0");
+        counter.Count += payloadValue;
+        counter.LastValue = payloadValue;
+        counter.LastTs = DateTime.Now;
     }
 }

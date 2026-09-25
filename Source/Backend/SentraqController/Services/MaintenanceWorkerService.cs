@@ -1,4 +1,3 @@
-using SentraqCommon.Context;
 using SentraqCommon.Services;
 
 namespace SentraqController.Services;
@@ -7,12 +6,12 @@ namespace SentraqController.Services;
 /// Execute all kind of internal maintenance tasks,
 /// like updating the services status-file, etc.
 /// </summary>
-/// <param name="logger"></param>
 /// <param name="statusFileService"></param>
 public class MaintenanceWorkerService(
     CacheService cacheService,
     StatusFileService statusFileService,
-    StationService stationService
+    StationService stationService,
+    NotificationService notificationService
 ) : BackgroundService
 {
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
@@ -31,7 +30,11 @@ public class MaintenanceWorkerService(
             
             // re-init cached components every 60 seconds
             if (DateTime.Now.Second == 0)
-                cacheService.Init();
+                cacheService.ReInit();
+            
+            // check for notifications (e.g. Alert) and send alerts if needed
+            if (DateTime.Now.Second == 0)
+                notificationService.CheckAndSendNotifications();
 
             await Task.Delay(1000, stoppingToken);
         }

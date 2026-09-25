@@ -14,7 +14,7 @@ using SentraqCommon.Security;
 using SentraqCommon.Services;
 using SentraqWatchdog.Services;
 
-[assembly: AssemblyVersion("1.1.1.*")]
+[assembly: AssemblyVersion("1.2.0.*")]
 
 namespace SentraqWatchdog;
 
@@ -43,7 +43,7 @@ internal static class Program
         
         builder.Services.AddSingleton<IConfiguration>(configuration);
         builder.Services.AddSingleton<SettingService>();
-        builder.Services.AddScoped<MqttSenderService>();
+        builder.Services.AddTransient<MqttSenderService>();
         builder.Services.AddScoped<WatchdogService>();
         builder.Services.AddScoped<StatusFileService>();
         builder.Services.AddHostedService<WatchdogWorkerService>();

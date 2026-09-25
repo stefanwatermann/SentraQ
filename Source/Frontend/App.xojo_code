@@ -97,7 +97,7 @@ Inherits LobBase.LobWebApplication
 		    End
 		    
 		    // handle request to management api
-		    If request.Path.BeginsWith(ManagementApiService.ApiBasePath) And request.HeaderNames.IndexOf(ManagementApiService.ApiAuthHeaderName) >= 0 Then
+		    If request.Path.BeginsWith(ManagementApiService.ApiBasePath) Then
 		      response.Status = HandleManagementRequest(request, response)
 		      Return 
 		    End

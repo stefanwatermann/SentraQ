@@ -10,7 +10,7 @@
       "FormatterName": "simple",
         "FormatterOptions": {
             "SingleLine": true,
-            "IncludeScopes": true,
+            "IncludeScopes": false,
             "TimestampFormat": "HH:mm:ss ",
             "UseUtcTimestamp": true
         }
@@ -23,10 +23,14 @@
       }
     }
   },
-  "Controller": {
-    "AssemblyPath": "../SentraqBackend/SentraqController/bin/Debug/net9.0",
-    "StatusFile": "../SentraqBackend/SentraqController/status-file.txt"
-  },
+  "Controller": 
+      "AssemblyPath": "/var/apps/sentraq/backend/controller",
+      "StatusFile": "/var/apps/sentraq/backend/controller/controller-status.txt"
+    },
+    "Watchdog": {
+      "AssemblyPath": "/var/apps/sentraq/backend/watchdog",
+      "StatusFile": "/var/apps/sentraq/backend/watchdog/watchdog-status.txt"
+    },
   "AllowedHosts": "*",
   "ConnectionStrings": {
     "DbConnection": "Host=<todo>;Database=sentraq;Username=<todo>;Password=<todo>"

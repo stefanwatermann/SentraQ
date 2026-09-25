@@ -25,7 +25,6 @@ public class StatusController(
     DatabaseContext dbContext,
     StatusFileService statusFileService) : ControllerBase
 {
-    [RequireAuthorizationKey]
     [HttpGet("")]
     public StatusInfo Get()
     {
@@ -35,8 +34,7 @@ public class StatusController(
             ControllerVersion = GetControllerVersion(),
             ControllerUp = IsControllerRunning(),
             WatchdogVersion = GetWatchdogVersion(),
-            WatchdogUp = IsWatchdogRunning(),
-            LastLogs = GetLastLogs()
+            WatchdogUp = IsWatchdogRunning()
         };
     }
 
@@ -94,22 +92,5 @@ public class StatusController(
             logger.LogError("Failed to read status of watchdog.");
             return false;
         }
-    }
-
-    private string GetLastLogs()
-    {
-        const int count = 50;
-        
-        var logs = dbContext
-            .Logs
-            .AsNoTracking()
-            .OrderByDescending(l => l.LogTs)
-            .Take(count);
-        
-        return string.Join('\n', logs.Select(l => 
-            l.LogTs.ToString("yyyy-MM-dd HH:mm:ss") + "; " +
-            l.Severity + "; " +
-            l.Event + "; " +
-            l.Message));
     }
 }

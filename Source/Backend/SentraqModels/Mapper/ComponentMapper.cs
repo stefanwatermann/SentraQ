@@ -39,7 +39,8 @@ public static class ComponentMapper
             DisplayOrder = component.DisplayOrder,
             Removed = component.Removed,
             Visible = component.Visible,
-            AdjustmentFunction = component.AdjustmentFunction
+            AdjustmentFunction = component.AdjustmentFunction,
+            ForwardToHardwareId = component.ForwardToHardwareId
         };
     }
     
@@ -58,7 +59,8 @@ public static class ComponentMapper
             DisplayOrder = component.DisplayOrder,
             Removed = component.Removed,
             Visible = component.Visible,
-            AdjustmentFunction = component.AdjustmentFunction
+            AdjustmentFunction = component.AdjustmentFunction,
+            ForwardToHardwareId = component.ForwardToHardwareId
         };
     }
 }

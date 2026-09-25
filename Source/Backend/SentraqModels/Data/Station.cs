@@ -43,7 +43,7 @@ public class Station
         
         public DateTime? MaintenanceActiveAlertSentTs { get; set; }
         
-        public StationControllerType? StationControllerTypeName { get; set; }
+        public StationControllerType? StationControllerType { get; set; }
         
         public ICollection<Component> Components { get; init; } = new List<Component>();
 }

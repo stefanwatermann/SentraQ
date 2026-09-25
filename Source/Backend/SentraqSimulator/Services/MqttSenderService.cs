@@ -41,7 +41,7 @@ public class MqttSenderService(
         var mqttClientOptions = new MqttClientOptionsBuilder()
             .WithClientId(Guid.NewGuid().ToString())
             .WithTlsOptions(o => { 
-                o.UseTls(true); 
+                o.UseTls(false); 
                 o.WithAllowUntrustedCertificates(true);
                 o.WithIgnoreCertificateRevocationErrors(true);
             })

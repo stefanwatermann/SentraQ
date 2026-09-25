@@ -2,7 +2,6 @@ using System.Text.Json;
 using SentraqCommon.Context;
 using SentraqCommon.Services;
 using SentraqModels.Data;
-using SentraqModels.Extensions;
 using SentraqModels.Mqtt;
 
 namespace SentraqController.MessageHandler.Handler;
@@ -10,9 +9,7 @@ namespace SentraqController.MessageHandler.Handler;
 public class AlertMessageHandler(
     DatabaseContext dbContext,
     SettingService settings,
-    MailService mailService,
     CacheService cacheService,
-    LogService logService,
     ILogger<AlertMessageHandler> logger) : IMessageHandler
 {
     public void HandleMessage(MqttPayload payload)
@@ -24,103 +21,59 @@ public class AlertMessageHandler(
         var component = cacheService.GetComponent(payload);
         if (component == null)
             return;
-
+        
         if (!WaitFaultsReceived(payload.Hid, faultValue))
         {
             logger.LogDebug("{hid} MaxWaitFaultsReceived not reached, still waiting before sending alert", payload.Hid);
             return;
         }
 
-        var alert = dbContext
+        var componentsCachedValue = dbContext
+            .Components
+            .Where(cm => cm.Station.Uid == component.Station.Uid && cm.Type == "FL")
+            .ToList()
+            .Select(cm => cacheService.GetPayloadValueCacheByHardwareId(cm.HardwareId));
+        
+        var hasFaults = faultValue != 0 || componentsCachedValue.Any(f => f != null && f.LastPayload == "1");
+
+        var activeAlert = dbContext
             .Alerts
             .FirstOrDefault(a => a.StationUid == component.Station.Uid && a.IsActive == "Y");
 
-        if (alert != null)
+        if (activeAlert != null)
         {
             // ensure that latest data has been loaded
-            dbContext.Entry(alert).Reload();
-            logger.LogDebug("reloaded Alert={alert}", JsonSerializer.Serialize(alert));
+            dbContext.Entry(activeAlert).Reload();
+            logger.LogDebug("reloaded Alert={alert}", JsonSerializer.Serialize(activeAlert));
         }
 
-        if (faultValue != 0)
+        if (hasFaults)
         {
-            if (alert == null)
+            if (activeAlert == null)
             {
                 logger.LogInformation("No active Alert found for {hid}, creating new Alert.", payload.Hid);
-                alert = new Alert()
+                activeAlert = new Alert()
                 {
                     StationUid = component.Station.Uid,
                     FirstEventTs = DateTime.Now
                 };
-                dbContext.Alerts.Add(alert);
+                dbContext.Alerts.Add(activeAlert);
             }
 
-            alert.IsActive = "Y";
-            alert.LastEventTs = DateTime.Now;
+            activeAlert.IsActive = "Y";
+            activeAlert.LastEventTs = DateTime.Now;
         }
         else
         {
-            if (alert != null)
-                alert.IsActive = "N";
-        }
-
-        // Timestamp of last alert-mail for current station
-        var lastMailTs = dbContext
-            .Alerts
-            .Where(a => a.StationUid == component.Station.Uid)
-            .Max(a => a.MailSendAt) ?? DateTime.MinValue;
-
-        logger.LogDebug("lastMailTs={lastMailTs}", lastMailTs);
-
-        if (alert is { ConfirmedAt: null, IsActive: "Y" } && !component.Station.InMaintenance())
-        {
-            if (lastMailTs < DateTime.Now.AddMinutes(-settings.AlertMailResendMinutes))
+            if (activeAlert != null)
             {
-                if (settings.AlertSendEmail)
-                {
-                    SendAlertMailAsync(alert, component);
-                    alert.MailSendAt = DateTime.Now;
-                    logService.AddInfoNoSave(
-                        LogService.Event.AlertAction,
-                        $"E-Mail for alert #{alert.Id} and station {component.Station.ShortName} ({component.Station.Uid}) sent to {component.Station.AlertReceiverEmailAddresses}");
-                }
-                else
-                    logger.LogWarning("E-mail alerts are disabled, no mail has been sent.");
+                activeAlert.IsActive = "N";
+                activeAlert.LastEventTs = DateTime.Now;
             }
         }
-
+        
         logger.LogDebug("dbContextId={ctxId}, hid={hid}", dbContext.ContextId, component.HardwareId);
         dbContext.SaveChanges();
-    }
-
-    private async void SendAlertMailAsync(Alert alert, Component component)
-    {
-        if (string.IsNullOrWhiteSpace(component.Station.AlertReceiverEmailAddresses))
-        {
-            logger.LogWarning(
-                $"Cannot send alert mail, AlertReceiverEmailAddresses for station {component.Station.Uid} not set.");
-            return;
-        }
-
-        await mailService.SendAsync(
-            component.Station.AlertReceiverEmailAddresses,
-            ReplaceVars(settings.AlertMailSubject, alert, component),
-            ReplaceVars(settings.AlertMailBody, alert, component));
-    }
-
-    private string ReplaceVars(string template, Alert alert, Component component)
-    {
-        return component.Station.ReplaceVars(
-                component.ReplaceVars(
-                    alert.ReplaceVars(template)
-                )
-            )
-            .Replace("{FrontendUrl}", settings.AlertMailFrontendUrl);
-    }
-
-    private static string GetTs(DateTime? ts, string defaultValue)
-    {
-        return ts.HasValue ? ts.Value.ToString("yyyy-MM-dd HH:mm:ss") : defaultValue;
     }
 
     private bool WaitFaultsReceived(string hid, int faultValue)

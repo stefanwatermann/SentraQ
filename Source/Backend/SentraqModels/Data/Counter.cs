@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using SentraqModels.Enums;
 
 namespace SentraqModels.Data;
 
@@ -21,4 +22,6 @@ public class Counter
     public bool Removed { get; set; }
     
     public bool Visible { get; set; }
+    
+    public CounterType Type { get; set; }
 }

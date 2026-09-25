@@ -14,7 +14,7 @@ using SentraqCommon.MqttSender;
 using SentraqCommon.Security;
 using SentraqCommon.Services;
 
-[assembly: AssemblyVersion("1.1.1.*")]
+[assembly: AssemblyVersion("1.2.0.*")]
 
 namespace SentraqApi;
 
@@ -66,6 +66,11 @@ internal static class Program
                 b.AddConfiguration(builder.Configuration.GetSection("Logging"))
                     .AddConsole()
                     .AddDebug();
+            });
+            
+            builder.Logging.Configure(options =>
+            {
+                options.ActivityTrackingOptions = ActivityTrackingOptions.None;
             });
 
             var app = builder.Build();

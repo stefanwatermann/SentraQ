@@ -13,7 +13,7 @@ namespace SentraqController.Services;
 
 public class PayloadProcessingService(
     ILogger<PayloadProcessingService> logger,
-    CacheService componentCacheService,
+    CacheService cacheService,
     SettingService settings,
     MessageHandlerFactory messageHandlerFactory,
     DatabaseContext dbContext,
@@ -25,18 +25,21 @@ public class PayloadProcessingService(
     /// MQTT message payload processing pipeline.
     /// </summary>
     /// <param name="payload"></param>
-    public void ProcessPayloads(MqttPayload payload)
+    public void ProcessPayload(MqttPayload payload)
     {
-        if (!componentCacheService.ComponentExists(payload))
+        if (!cacheService.ComponentExists(payload))
             return;
 
-        FindAndExecuteMessageHandler(payload);
-
         SaveToDatabase(payload);
+        
+        // add or update last payload for the component
+        cacheService.SetPayloadValueCache(payload);
 
-        SendToFrontendAsync(payload);
-
+        FindAndExecuteMessageHandler(payload);
+        
         FindAndExecuteMessageForwarder(payload);
+        
+        SendToFrontendAsync(payload);
     }
 
     private void FindAndExecuteMessageHandler(MqttPayload payload)
@@ -63,7 +66,7 @@ public class PayloadProcessingService(
             logger.LogDebug("dbContextId={ctxid}, hid={hid}", dbContext.ContextId, payload.Hid);
             dbContext.Add(EventDataMapper.Map(payload));
             dbContext.SaveChanges(true);
-            logger.LogInformation("Message saved for {uid}.", payload.Hid);
+            logger.LogDebug("Message saved for {uid}.", payload.Hid);
         }
         catch (Exception e)
         {
@@ -79,6 +82,10 @@ public class PayloadProcessingService(
     {
         try
         {
+            var component = cacheService.GetComponent(payload.Hid);
+            if (component is null || !component.Visible || component.Removed)
+                return;
+            
             var frontendApiUrl = settings.ControllerFrontendApiUrl;
             var apiAuthKeyValue = settings.ControllerFrontendApiApiAuthKey;
             var url = $"{frontendApiUrl}{payload.Hid}";
@@ -112,19 +119,19 @@ public class PayloadProcessingService(
         {
             var value = Convert.ToString(receivedPayload.Value);
             
-            var receivingComponent = componentCacheService.GetComponent(receivedPayload.Hid);
+            var receivingComponent = cacheService.GetComponent(receivedPayload.Hid);
             
             if (receivingComponent is null ||
                 string.IsNullOrWhiteSpace(receivingComponent.ForwardToHardwareId) ||
                 string.IsNullOrWhiteSpace(value))
                 return;
 
-            var sendToComponent = componentCacheService
+            var sendToComponent = cacheService
                                       .GetComponent(receivingComponent.ForwardToHardwareId) ??
                                   throw new NullReferenceException();
 
             var messageBuilder = mqttMessageBuilderFactory
-                .CreateMessageBuilder(sendToComponent.Station.StationControllerTypeName);
+                .CreateMessageBuilder(sendToComponent.Station.StationControllerType);
 
             var payload = messageBuilder
                 .CreatePayloadFor(sendToComponent, value);

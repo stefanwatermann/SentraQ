@@ -17,7 +17,7 @@ public class StatusFileService(
 {
     public void Keepalive(string cfg)
     {
-        var filePathName = configuration["{cfg}:StatusFile".Replace("{cfg}", cfg)] ?? $"{cfg}-status-file.txt";
+        var filePathName = configuration["{cfg}:StatusFile".Replace("{cfg}", cfg)] ?? $"{cfg.ToLower()}-status.txt";
         try
         {
             File.WriteAllText(filePathName, DateTime.Now.ToString("yyyyMMdd-HHmmss"));
@@ -35,7 +35,7 @@ public class StatusFileService(
     /// <param name="cfg"></param>
     public void WriteVersionFile(string cfg)
     {
-        var filePathName = configuration["{cfg}:VersionFile".Replace("{cfg}", cfg)] ?? $"{cfg}-version.txt";
+        var filePathName = configuration["{cfg}:VersionFile".Replace("{cfg}", cfg)] ?? $"{cfg.ToLower()}-version.txt";
         try
         {
             var version = Assembly.GetEntryAssembly()?.GetName().Version?.ToString() ?? "unknown";
@@ -54,7 +54,7 @@ public class StatusFileService(
     /// <returns></returns>
     public string GetVersion(string cfg)
     {
-        var filePathName = configuration["{cfg}:VersionFile".Replace("{cfg}", cfg)] ?? $"{cfg}-version.txt";
+        var filePathName = configuration["{cfg}:VersionFile".Replace("{cfg}", cfg)] ?? $"{cfg.ToLower()}-version.txt";
         if (!File.Exists(filePathName))
             return "missing";
         var data = File.ReadAllText(filePathName);
@@ -63,7 +63,7 @@ public class StatusFileService(
     
     public DateTime GetLastTimestamp(string cfg)
     {
-        var filePathName = configuration["{cfg}:StatusFile".Replace("{cfg}", cfg)] ?? $"{cfg}-status-file.txt";
+        var filePathName = configuration["{cfg}:StatusFile".Replace("{cfg}", cfg)] ?? $"{cfg.ToLower()}-status.txt";
         if (!File.Exists(filePathName))
             return DateTime.MinValue;
         var data = File.ReadAllText(filePathName);

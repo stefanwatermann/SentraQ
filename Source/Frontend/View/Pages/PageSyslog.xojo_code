@@ -332,6 +332,7 @@ End
 		Private Sub PopulateData()
 		  ProgressWheel1.Visible = True
 		  Shell1.Execute(ShellCommand.Replace("{filter}", Filter).Replace("{limit}", Limit))
+		  shell1.Poll
 		End Sub
 	#tag EndMethod
 

@@ -12,6 +12,14 @@ using Api = SentraqModels.Api;
 
 namespace SentraqApi.Controllers;
 
+/// <summary>
+/// Controller for access to Stations.
+/// Used by the regular Frontend UI.
+/// Shall not contain management-api code.
+/// </summary>
+/// <param name="logger"></param>
+/// <param name="stationService"></param>
+/// <param name="dbContext"></param>
 [ApiController]
 [Route("api/station")]
 public class StationController(
@@ -30,21 +38,6 @@ public class StationController(
         logger.LogInformation("Get stations from StationView");
 
         return stationService.GetStationsView()
-            .Select(StationMapper.Map)
-            .ToList();
-    }
-    
-    /// <summary>
-    /// Returns a list of all stations from Station table.
-    /// </summary>
-    /// <returns>List of all stations</returns>
-    [RequireAuthorizationKey]
-    [HttpGet("all")]
-    public IEnumerable<Api.Station?> GetAll()
-    {
-        logger.LogInformation("Get all stations from Station table");
-
-        return stationService.GetStations()
             .Select(StationMapper.Map)
             .ToList();
     }
@@ -88,33 +81,6 @@ public class StationController(
 
         return r;
     }
-
-    /// <summary>
-    /// Add new or update existing Station
-    /// </summary>
-    /// <param name="station"></param>
-    /// <param name="changedBy"></param>
-    /// <exception cref="KeyNotFoundException"></exception>
-    [RequireAuthorizationKey]
-    [NotAllowedExceptionFilter]
-    [HttpPost()]
-    public void Write([FromBody] Api.Station station, [FromHeader(Name = "X-LOGIN")] string changedBy)
-    {
-        stationService.WriteStation(StationMapper.Map(station), changedBy.Sanitize(10));
-    }
-
-    /// <summary>
-    /// Delete Station.
-    /// </summary>
-    /// <param name="uid"></param>
-    /// <param name="changedBy"></param>
-    [RequireAuthorizationKey]
-    [NotAllowedExceptionFilter]
-    [HttpDelete("{uid}")]
-    public void Remove(string uid, [FromHeader(Name = "X-LOGIN")] string changedBy)
-    {
-        stationService.RemoveStation(uid.Sanitize(36), changedBy.Sanitize(10));
-    }
     
     /// <summary>
     /// Clear active alert of the given station.
@@ -142,4 +108,48 @@ public class StationController(
     {
         stationService.SetMaintenanceMode(uid, null, changedBy);
     }
+    
+    // ### To be moved to separate management api controller
+    
+    /// <summary>
+    /// Returns a list of all stations from Station table.
+    /// </summary>
+    /// <returns>List of all stations</returns>
+    [HttpGet]
+    public IEnumerable<Api.Station?> Stations()
+    {
+        logger.LogInformation("Get all stations from Station table");
+        return stationService.GetStations()
+            .Select(StationMapper.Map)
+            .ToList();
+    }
+    
+    /// <summary>
+    /// Add new or update existing Station
+    /// </summary>
+    /// <param name="station"></param>
+    /// <param name="changedBy"></param>
+    /// <exception cref="KeyNotFoundException"></exception>
+    [RequireAuthorizationKey]
+    [NotAllowedExceptionFilter]
+    [HttpPost()]
+    public void Write([FromBody] Api.Station station, [FromHeader(Name = "X-LOGIN")] string changedBy)
+    {
+        stationService.WriteStation(StationMapper.Map(station), changedBy.Sanitize(10));
+    }
+
+    /// <summary>
+    /// Delete Station.
+    /// </summary>
+    /// <param name="uid"></param>
+    /// <param name="changedBy"></param>
+    [RequireAuthorizationKey]
+    [NotAllowedExceptionFilter]
+    [HttpDelete("{uid}")]
+    public void Remove(string uid, [FromHeader(Name = "X-LOGIN")] string changedBy)
+    {
+        stationService.RemoveStation(uid.Sanitize(36), changedBy.Sanitize(10));
+    }
+    
+    // ### To be moved to separate management api controller
 }

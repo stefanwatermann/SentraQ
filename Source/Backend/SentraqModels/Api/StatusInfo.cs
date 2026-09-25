@@ -7,5 +7,4 @@ public class StatusInfo
     public bool ControllerUp { get; set; }
     public string? WatchdogVersion { get; set; }
     public bool WatchdogUp { get; set; }
-    public string? LastLogs { get; set; }
 }

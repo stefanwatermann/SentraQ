@@ -26,6 +26,10 @@ Inherits JsonModelBase
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
+		ForwardToHardwareId As String
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
 		HardwareId As String
 	#tag EndProperty
 
@@ -344,7 +348,7 @@ Inherits JsonModelBase
 			Group="Behavior"
 			InitialValue=""
 			Type="String"
-			EditorType=""
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

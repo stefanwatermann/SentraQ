@@ -21,7 +21,7 @@ public class ComponentService(
             throw new Exception($"Component with uid '{hardwareId}' not found");
 
         // create message for the target component
-        var messageBuilder = mqttMessageBuilderFactory.CreateMessageBuilder(component.Station.StationControllerTypeName);
+        var messageBuilder = mqttMessageBuilderFactory.CreateMessageBuilder(component.Station.StationControllerType);
         var payload = messageBuilder.CreatePayloadFor(component, value);
         
         // send data to component
@@ -52,6 +52,9 @@ public class ComponentService(
             existing.MaxValue = component.MaxValue;
             existing.MinValue = component.MinValue;
             existing.Removed = false;
+            existing.Type = component.Type;
+            existing.Visible = component.Visible;
+            existing.ForwardToHardwareId = component.ForwardToHardwareId;
         }
         else
         {

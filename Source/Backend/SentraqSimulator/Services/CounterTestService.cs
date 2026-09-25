@@ -16,7 +16,7 @@ public class CounterTestService(
     private List<Counter> _counters = [];
     private List<Tuple<Counter, byte[]>> _counterData = [];
 
-    private const int _sendDelayMSec = 60000;
+    private const int _sendDelayMSec = 500;
     private const int _counterCount = 840;
     private bool _simulationActive = false;
     
@@ -44,13 +44,13 @@ public class CounterTestService(
         
         foreach (var cd in _counterData)
         {
-            StartSimulationAsync(cd);
+            StartSimulationAsync(cd).Wait();
         }
 
         _simulationActive = true;
     }
 
-    private async void StartSimulationAsync(Tuple<Counter, byte[]> cd)
+    private async Task StartSimulationAsync(Tuple<Counter, byte[]> cd)
     {
         await Task.Run(() =>
         {

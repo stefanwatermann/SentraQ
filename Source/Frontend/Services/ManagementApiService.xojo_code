@@ -2,20 +2,59 @@
 Protected Class ManagementApiService
 	#tag Method, Flags = &h21
 		Private Function Authorized() As Boolean
-		  // TODO Implement authorization for the management api, based on the provided ApiAuthHeader (SharedProp) value.
-		  Var authHeaderValue As String = CurrentRequest.Header(ApiAuthHeaderName).Trim
-		  Var requiredApiKeyValue As String = app.ConfigValue("App.ManagementService.ApiKey").StringValue.Trim
+		  // authorization for the management api, based on the provided ApiAuthHeader (SharedProp) value.
 		  
-		  If requiredApiKeyValue = "" Then
+		  // get configiured mgmt key value
+		  Var requiredMgmtValue As String = app.ConfigValue("App.ManagementService.ApiKey").StringValue.Trim
+		  If requiredMgmtValue = "" Then
 		    Raise New RuntimeException("App.ManagementService.ApiKey not set in app-config.")
 		  End
 		  
-		  return requiredApiKeyValue = authHeaderValue
+		  // read provided mgmt http-header value
+		  Var username As String = CurrentRequest.Header("X-LOGIN").Trim
+		  
+		  // read provided mgmt http-header value
+		  Var sentMgmtValue As String = CurrentRequest.Header("X-MGMT-KEY").Trim
+		  
+		  // read provided user auth-key 
+		  Var sentUserAuthValue As String = CurrentRequest.Header("X-AUTH-KEY").Trim
+		  
+		  return sentMgmtValue = requiredMgmtValue and IsAuthenticatedUser(username, requiredMgmtValue, sentUserAuthValue)
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Function IsAuthenticatedUser(username as string, mgmtKey as string, authKey as string) As Boolean
+		  // validate value of encrypted authkey sent by the management client
+		  
+		  Var t As String = Str(DateTime.Now.DayOfYear)
+		  Var k As String = username + t + mgmtKey.Right(56 - username.Length - t.Length)
+		  Var d As String = DecodeBase64(authkey)
+		  Var s As String = DecodeHex(Crypto.BlowFishDecrypt(k, d))
+		  
+		  Var authProvider As Authentication.IAuthenticationStoreProvider = New AuthenticationWebApiStoreProvider
+		  authProvider.Init(Nil)
+		  
+		  var salt as string = App.ConfigValue("Session.AuthenticationSalt")
+		  var aw as new Authentication.WebAuthentication(salt, authProvider, nil)
+		  Var hash As String =  aw.CreateUserHash(s.NthField(":", 1), s.NthField(":", 2))
+		  
+		  Var isAuthenticated As Boolean
+		  For Each user As UserModel In App.DataSvc.GetUsers
+		    If user.Login = username And user.Hash = hash And user.Role = "ADM" Then
+		      isAuthenticated = True
+		      exit For
+		    end
+		  Next
+		  
+		  return isAuthenticated
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
 		Function ProcessApiRequest(request as WebRequest, response as WebResponse) As Integer
+		  Log.Info(request.Method + " call to management-api path=" + request.Path, CurrentMethodName)
+		  
 		  Self.CurrentRequest = request
 		  Self.CurrentResponse = response
 		  return RouteRequest
@@ -95,6 +134,7 @@ Protected Class ManagementApiService
 		Private Function RouteRequest() As Integer
 		  If Not Authorized Then
 		    // access to the recource is not allowd
+		    Log.Warning("Unauthorized " + self.CurrentRequest.Method + " call to management-api, path=" + Self.CurrentRequest.Path, CurrentMethodName)
 		    Return 403
 		  End
 		  
@@ -113,6 +153,7 @@ Protected Class ManagementApiService
 		  End
 		  
 		  // no handler found, invalid request
+		  Log.Warning(Self.CurrentRequest.Method + " call to not existing management-api path=" + Self.CurrentRequest.Path, CurrentMethodName)
 		  return 404
 		End Function
 	#tag EndMethod
@@ -121,19 +162,20 @@ Protected Class ManagementApiService
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
-			  Return "X-MGMT-KEY"
-			End Get
-		#tag EndGetter
-		Shared ApiAuthHeaderName As String
-	#tag EndComputedProperty
-
-	#tag ComputedProperty, Flags = &h0
-		#tag Getter
-			Get
-			  Return "api/manage/"
+			  Return "api/" + ApiUrlKey + "/manage/"
 			End Get
 		#tag EndGetter
 		Shared ApiBasePath As String
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h21
+		#tag Getter
+			Get
+			  var a as string = app.ConfigValue("App.ManagementService.ApiKey").StringValue.Trim
+			  return a.Left(a.Length / 2)
+			End Get
+		#tag EndGetter
+		Private Shared ApiUrlKey As String
 	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h21

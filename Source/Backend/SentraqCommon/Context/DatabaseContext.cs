@@ -29,10 +29,17 @@ public class DatabaseContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Station>()
-            .Property(s => s.StationControllerTypeName)
+            .Property(e => e.StationControllerType)
             .HasConversion(
                 c => c.ToString(),
                 c => (StationControllerType)Enum.Parse(typeof(StationControllerType), c)
                 );
+        
+        modelBuilder.Entity<Counter>()
+            .Property(e => e.Type)
+            .HasConversion(
+                c => c.ToString(),
+                c => (CounterType)Enum.Parse(typeof(CounterType), c)
+            );
     }
 }

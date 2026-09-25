@@ -60,7 +60,7 @@ public class WatchdogService(
             TS = DateTime.Now
         };
 
-        mqttSenderService.Send(mqttPayload);
+        mqttSenderService.Send(mqttPayload).Wait();
     }
 
     /// <summary>
