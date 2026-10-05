@@ -37,7 +37,7 @@ public class NotificationService(
             .Components
             .Where(cm => cm.Station.Uid == station.Uid && cm.Type == "FL")
             .ToList()
-            .Select(cm => cacheService.GetPayloadValueCacheByHardwareId(cm.HardwareId))
+            .Select(cm => cacheService.GetLastPayloadValueCacheByHardwareId(cm.HardwareId))
             .Where(c => c is { LastPayload: "1" });
 
         var componentsWithFaults = dbContext

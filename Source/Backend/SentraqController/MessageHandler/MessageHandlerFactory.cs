@@ -20,23 +20,17 @@ public class MessageHandlerFactory(
             {
                 case ComponentType.Fault:
                     logger.LogDebug("Creating AlertMessageHandler for received message for {uid}.", payload.Hid);
-                    return CreateScopedService<AlertMessageHandler>();
+                    return ActivatorUtilities.CreateInstance<AlertMessageHandler>(serviceProvider);
                 
                 case ComponentType.Actor:
                 case ComponentType.Switch:
                     logger.LogDebug("Creating ActorMessageHandler for received message for {uid}.", payload.Hid);
-                    return CreateScopedService<ActorMessageHandler>();
+                    return ActivatorUtilities.CreateInstance<ActorMessageHandler>(serviceProvider);
             }
         }
 
         // no handler found for message-type.
         logger.LogDebug("No message-handler available for received message for {uid}.", payload.Hid);
         return null;
-    }
-
-    private T CreateScopedService<T>() where T : notnull
-    {
-        var service = serviceProvider.CreateScope().ServiceProvider.GetRequiredService<T>();
-        return service;
     }
 }

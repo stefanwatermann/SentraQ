@@ -19,7 +19,7 @@ public class CacheService(
     private readonly Dictionary<string, int> _faultCounter = new();
     private List<Component> _knownComponents = [];
     private List<Counter> _knownCounters = [];
-    private List<PayloadLastValueCache> _payloadValueCache = [];
+    private List<PayloadLastValueCache> _lastPayloadValueCache = [];
 
     // Cache Components, Counters and last Payloads of Components
     public void Init()
@@ -31,7 +31,7 @@ public class CacheService(
         InitCounterCache();
         
         // read last payloads
-        InitPayLoadValueCache();
+        InitLastPayloadValueCache();
         
         logger.LogInformation($"CacheService initialized for {_knownComponents.Count} components/payloads and {_knownCounters.Count} counters.");
     }
@@ -48,9 +48,9 @@ public class CacheService(
         logger.LogInformation($"CacheService reinitialized for {_knownComponents.Count} components and {_knownCounters.Count} counters.");
     }
 
-    private void InitPayLoadValueCache()
+    private void InitLastPayloadValueCache()
     {
-        _payloadValueCache = dbContext
+        _lastPayloadValueCache = dbContext
             .ComponentsView
             .AsNoTracking()
             .Select(c => new PayloadLastValueCache()
@@ -128,14 +128,14 @@ public class CacheService(
         return _faultCounter.GetValueOrDefault(hid, 0);
     }
 
-    public void SetPayloadValueCache(MqttPayload payload)
+    public void SetLastPayloadValueCache(MqttPayload payload)
     {
-        var cachedPayloadValue = _payloadValueCache
+        var cachedPayloadValue = _lastPayloadValueCache
             .FirstOrDefault(c => c.HardwareId == payload.Hid);
         
         if (cachedPayloadValue is null)
         {
-            _payloadValueCache.Add(new PayloadLastValueCache()
+            _lastPayloadValueCache.Add(new PayloadLastValueCache()
             {
                 HardwareId = payload.Hid,
                 LastPayload = Convert.ToString(payload.Value) ?? string.Empty,
@@ -149,8 +149,8 @@ public class CacheService(
         }
     }
     
-    public PayloadLastValueCache? GetPayloadValueCacheByHardwareId(string hardwareId)
+    public PayloadLastValueCache? GetLastPayloadValueCacheByHardwareId(string hardwareId)
     {
-        return _payloadValueCache.FirstOrDefault(c => c.HardwareId == hardwareId);
+        return _lastPayloadValueCache.FirstOrDefault(c => c.HardwareId == hardwareId);
     }
 }

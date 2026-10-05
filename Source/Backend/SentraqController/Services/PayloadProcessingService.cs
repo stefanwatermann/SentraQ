@@ -33,7 +33,7 @@ public class PayloadProcessingService(
         SaveToDatabase(payload);
         
         // add or update last payload for the component
-        cacheService.SetPayloadValueCache(payload);
+        cacheService.SetLastPayloadValueCache(payload);
 
         FindAndExecuteMessageHandler(payload);
         
@@ -105,7 +105,7 @@ public class PayloadProcessingService(
         }
         catch (Exception e)
         {
-            logger.LogError("Message for {uid} failed sending to frontend: {e}", payload.Hid, e.Message);
+            logger.LogWarning("Message for {uid} failed sending to frontend: {e}", payload.Hid, e.Message);
         }
     }
 

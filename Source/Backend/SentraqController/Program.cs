@@ -13,10 +13,9 @@ using SentraqCommon.MqttSender;
 using SentraqCommon.Security;
 using SentraqCommon.Services;
 using SentraqController.MessageHandler;
-using SentraqController.MessageHandler.Handler;
 using SentraqController.Services;
 
-[assembly: AssemblyVersion("1.2.0.*")]
+[assembly: AssemblyVersion("1.2.1.*")]
 
 namespace SentraqController;
 
@@ -46,20 +45,18 @@ internal static class Program
             var builder = Host.CreateApplicationBuilder(args);
             builder.Services.AddSingleton<IConfiguration>(configuration);
             builder.Services.AddSingleton<SettingService>();
+            builder.Services.AddSingleton<MessageHandlerFactory>();
+            builder.Services.AddSingleton<CacheService>();
             builder.Services.AddScoped<MailService>();
             builder.Services.AddScoped<LogService>();
             builder.Services.AddScoped<MqttMessageParserFactory>();
             builder.Services.AddScoped<MqttMessageBuilderFactory>();
             builder.Services.AddScoped<MqttMessageSender>();
-            builder.Services.AddScoped<AlertMessageHandler>();
-            builder.Services.AddScoped<ActorMessageHandler>();
             builder.Services.AddScoped<NotificationService>();
             builder.Services.AddScoped<StatusFileService>();
             builder.Services.AddScoped<StationService>();
             builder.Services.AddScoped<AuthorizationService>();
             builder.Services.AddScoped<PayloadProcessingService>();
-            builder.Services.AddSingleton<MessageHandlerFactory>();
-            builder.Services.AddSingleton<CacheService>();
             builder.Services.AddHostedService<MqttSubscriberWorkerService>();
             builder.Services.AddHostedService<MaintenanceWorkerService>();
             

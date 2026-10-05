@@ -6,4 +6,9 @@ public class MqttPayload
     public object Value { get; set; }
     public DateTime TS { get; set; }
     public string Hid { get; set; }
+
+    public override string ToString()
+    {
+        return $"Topic={Topic}, Value={Value}, TS={TS}, Hid={Hid}";
+    }
 }
