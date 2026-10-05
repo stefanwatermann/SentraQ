@@ -22,4 +22,6 @@ appSettings*.json
 *.nginx
 *.service
 launchSettings.json
-status-file.txt
+*status.txt
+*version.txt
+*.log
