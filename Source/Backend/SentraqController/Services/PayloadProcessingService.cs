@@ -6,6 +6,7 @@ using SentraqCommon.MqttMessageBuilder;
 using SentraqCommon.MqttSender;
 using SentraqCommon.Services;
 using SentraqController.MessageHandler;
+using SentraqModels.Helper;
 using SentraqModels.Mapper;
 using SentraqModels.Mqtt;
 
@@ -85,6 +86,9 @@ public class PayloadProcessingService(
             var component = cacheService.GetComponent(payload.Hid);
             if (component is null || !component.Visible || component.Removed)
                 return;
+            
+            // adjust payload value if component has an AdjustmentFunction
+            payload.Value = AdjustmentFunctionCalculator.Calc(component.AdjustmentFunction, payload.Value);
             
             var frontendApiUrl = settings.ControllerFrontendApiUrl;
             var apiAuthKeyValue = settings.ControllerFrontendApiApiAuthKey;
