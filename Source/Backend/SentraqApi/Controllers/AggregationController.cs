@@ -8,6 +8,7 @@ using Api = SentraqModels.Api;
 namespace SentraqApi.Controllers;
 
 [ApiController]
+[RequireAuthorizationKey]
 [Route("api/aggregation")]
 public class AggregationController(
     AggregationService aggregationService) : ControllerBase
@@ -19,7 +20,6 @@ public class AggregationController(
     /// <param name="hwId">HardwareId of the component to aggregate over</param>
     /// <param name="take">Number of records to return</param>
     /// <returns></returns>
-    [RequireAuthorizationKey]
     [HttpGet("{postfix}/{hwId}")]
     public IEnumerable<Api.Aggregation> GetAggregation(string postfix, string hwId, [FromQuery] int take = 100)
     {

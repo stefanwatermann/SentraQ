@@ -13,11 +13,11 @@ namespace SentraqApi.Controllers;
 /// </summary>
 /// <param name="dbContext"></param>
 [ApiController]
+[RequireAuthorizationKey]
 [Route("api/log")]
 public class LogController(
     DatabaseContext dbContext) : ControllerBase
 {
-    [RequireAuthorizationKey]
     [HttpGet("")]
     public IQueryable<Api.Log> GetLast100()
     {
@@ -31,7 +31,6 @@ public class LogController(
         return logs;
     }
     
-    [RequireAuthorizationKey]
     [HttpGet("{evnt}")]
     public IQueryable<Api.Log> GetLast100(string evnt)
     {

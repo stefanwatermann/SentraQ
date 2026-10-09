@@ -14,7 +14,7 @@ using SentraqCommon.MqttSender;
 using SentraqCommon.Security;
 using SentraqCommon.Services;
 
-[assembly: AssemblyVersion("1.2.0.*")]
+[assembly: AssemblyVersion("1.2.1.*")]
 
 namespace SentraqApi;
 

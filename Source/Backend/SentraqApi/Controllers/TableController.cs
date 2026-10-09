@@ -15,12 +15,12 @@ namespace SentraqApi.Controllers;
 /// <param name="configuration"></param>
 /// <param name="dbContext"></param>
 [ApiController]
+[RequireAuthorizationKey]
 [Route("api/table")]
 public class TableController(
     IConfiguration configuration,
     DatabaseContext dbContext) : ControllerBase
 {
-    [RequireAuthorizationKey]
     [HttpPost("{tableName}")]
     public object? Post(string tableName, [FromBody] string whereCondition, [FromQuery] bool desc = false, [FromQuery] string orderBy = "", [FromQuery] int limit = 10)
     {

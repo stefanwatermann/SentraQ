@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SentraqApi.Attributes;
-using SentraqApi.Filters;
 using SentraqCommon.Context;
 using SentraqCommon.Extensions;
 using SentraqCommon.Services;
@@ -21,6 +20,7 @@ namespace SentraqApi.Controllers;
 /// <param name="stationService"></param>
 /// <param name="dbContext"></param>
 [ApiController]
+[RequireAuthorizationKey]
 [Route("api/station")]
 public class StationController(
     ILogger<StationController> logger,
@@ -31,7 +31,6 @@ public class StationController(
     /// Returns a list of all stations from StationView (vStation).
     /// </summary>
     /// <returns>List of stations, without non-visible (visible=false)</returns>
-    [RequireAuthorizationKey]
     [HttpGet("")]
     public IEnumerable<Api.Station?> Get()
     {
@@ -47,7 +46,6 @@ public class StationController(
     /// </summary>
     /// <param name="stationUid"></param>
     /// <returns></returns>
-    [RequireAuthorizationKey]
     [HttpGet("{stationUid}")]
     public Api.Station? GetStation(string stationUid)
     {
@@ -63,7 +61,6 @@ public class StationController(
     /// </summary>
     /// <param name="stationUid">Uid of station</param>
     /// <returns>List of components</returns>
-    [RequireAuthorizationKey]
     [HttpGet("{stationUid}/components/")]
     public IEnumerable<Api.Component> GetComponents(string stationUid)
     {
@@ -86,7 +83,6 @@ public class StationController(
     /// Clear active alert of the given station.
     /// </summary>
     /// <param name="uid"></param>
-    [RequireAuthorizationKey]
     [HttpPost("{uid}/clearAlert")]
     public void ClearAlert(string uid)
     {
@@ -95,61 +91,15 @@ public class StationController(
         stationService.ClearAlert(uid, user);
     }
     
-    [RequireAuthorizationKey]
     [HttpPost("{uid}/startMaintenance")]
     public void StartMaintenanceMode(string uid, [FromHeader(Name = "X-LOGIN")] string changedBy)
     {
         stationService.SetMaintenanceMode(uid, DateTime.Now, changedBy);
     }
     
-    [RequireAuthorizationKey]
     [HttpPost("{uid}/endMaintenance")]
     public void EndMaintenanceMode(string uid, [FromHeader(Name = "X-LOGIN")] string changedBy)
     {
         stationService.SetMaintenanceMode(uid, null, changedBy);
     }
-    
-    // ### To be moved to separate management api controller
-    
-    /// <summary>
-    /// Returns a list of all stations from Station table.
-    /// </summary>
-    /// <returns>List of all stations</returns>
-    [HttpGet]
-    public IEnumerable<Api.Station?> Stations()
-    {
-        logger.LogInformation("Get all stations from Station table");
-        return stationService.GetStations()
-            .Select(StationMapper.Map)
-            .ToList();
-    }
-    
-    /// <summary>
-    /// Add new or update existing Station
-    /// </summary>
-    /// <param name="station"></param>
-    /// <param name="changedBy"></param>
-    /// <exception cref="KeyNotFoundException"></exception>
-    [RequireAuthorizationKey]
-    [NotAllowedExceptionFilter]
-    [HttpPost()]
-    public void Write([FromBody] Api.Station station, [FromHeader(Name = "X-LOGIN")] string changedBy)
-    {
-        stationService.WriteStation(StationMapper.Map(station), changedBy.Sanitize(10));
-    }
-
-    /// <summary>
-    /// Delete Station.
-    /// </summary>
-    /// <param name="uid"></param>
-    /// <param name="changedBy"></param>
-    [RequireAuthorizationKey]
-    [NotAllowedExceptionFilter]
-    [HttpDelete("{uid}")]
-    public void Remove(string uid, [FromHeader(Name = "X-LOGIN")] string changedBy)
-    {
-        stationService.RemoveStation(uid.Sanitize(36), changedBy.Sanitize(10));
-    }
-    
-    // ### To be moved to separate management api controller
 }

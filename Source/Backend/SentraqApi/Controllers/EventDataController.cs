@@ -17,13 +17,13 @@ namespace SentraqApi.Controllers;
 /// <param name="logService"></param>
 /// <param name="dbContext"></param>
 [ApiController]
+[RequireAuthorizationKey]
 [Route("api/eventData")]
 public class EventDataController(
     ILogger<EventDataController> logger,
     LogService logService,
     DatabaseContext dbContext) : ControllerBase
 {
-    [RequireAuthorizationKey]
     [HttpGet("")]
     public IQueryable<Api.EventData> GetLast100()
     {
@@ -37,7 +37,6 @@ public class EventDataController(
         return eventData;
     }
     
-    [RequireAuthorizationKey]
     [HttpGet("{hid}")]
     public IQueryable<Api.EventData> GetLast100(string hid)
     {
@@ -53,7 +52,6 @@ public class EventDataController(
         return eventData;
     }
     
-    [RequireAuthorizationKey]
     [HttpPost("export")]
     public IQueryable<Api.EventDataExport> Export([FromBody] JsonObject filter, [FromHeader(Name = "X-LOGIN")] string changedBy)
     {

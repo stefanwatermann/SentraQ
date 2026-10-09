@@ -12,13 +12,13 @@ using Api = SentraqModels.Api;
 namespace SentraqApi.Controllers;
 
 [ApiController]
+[RequireAuthorizationKey]
 [Route("api/components")]
 public class ComponentController(
     DatabaseContext dbContext,
     ComponentService componentService,
     ILogger<ComponentController> logger) : ControllerBase
 {
-    [RequireAuthorizationKey]
     [HttpGet("last")]
     public IEnumerable<Api.Component> GetComponentsLast()
     {
@@ -31,7 +31,6 @@ public class ComponentController(
         return components;
     }
     
-    [RequireAuthorizationKey]
     [HttpGet("station/{stationUid}")]
     public IEnumerable<Api.Component> GetByStation(string stationUid)
     {
@@ -65,41 +64,10 @@ public class ComponentController(
     /// <param name="hardwareId"></param>
     /// <param name="value"></param>
     /// <param name="changedBy"></param>
-    [RequireAuthorizationKey]
     [HttpPost("setValue/{hardwareId}")]
     [Experimental("MqttMessageSender")]
     public void SetValue(string hardwareId, [FromBody] string? value, [FromHeader(Name = "X-LOGIN")] string changedBy)
     {
         componentService.SendValue(hardwareId, value, changedBy);
-    }
-    
-    /// <summary>
-    /// Add new or update existing Component
-    /// </summary>
-    /// <param name="component"></param>
-    /// <param name="changedBy"></param>
-    /// <exception cref="KeyNotFoundException"></exception>
-    [RequireAuthorizationKey]
-    [NotAllowedExceptionFilter]
-    [HttpPost()]
-    public void Write([FromBody] Api.Component component, [FromHeader(Name = "X-LOGIN")] string changedBy)
-    {
-        var station = dbContext.Stations.SingleOrDefault(s => s.Uid == component.StationUid) ??
-                      throw new KeyNotFoundException($"Station {component.StationUid} of given Component not found.");
-        
-        componentService.WriteComponent(ComponentMapper.Map(component, station.Id), changedBy.Sanitize(10));
-    }
-
-    /// <summary>
-    /// Delete Component.
-    /// </summary>
-    /// <param name="hardwareId"></param>
-    /// <param name="changedBy"></param>
-    [RequireAuthorizationKey]
-    [NotAllowedExceptionFilter]
-    [HttpDelete("{hardwareId}")]
-    public void Remove(string hardwareId, [FromHeader(Name = "X-LOGIN")] string changedBy)
-    {
-        componentService.RemoveComponent(hardwareId.Sanitize(36), changedBy.Sanitize(10));
     }
 }

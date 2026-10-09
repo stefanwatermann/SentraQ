@@ -15,11 +15,11 @@ namespace SentraqApi.Controllers;
 /// </summary>
 /// <param name="dbContext"></param>
 [ApiController]
+[RequireAuthorizationKey]
 [Route("api/alert")]
 public class AlertController(
     DatabaseContext dbContext) : ControllerBase
 {
-    [RequireAuthorizationKey]
     [HttpPost("")]
     public IQueryable<Api.Alert> Read([FromBody] JsonObject filter, [FromQuery] DateTime from, DateTime to)
     {
@@ -36,7 +36,6 @@ public class AlertController(
         return alerts;
     }
     
-    [RequireAuthorizationKey]
     [HttpGet("{stationUid}")]
     public IQueryable<Api.Alert> GetLast(string stationUid, [FromQuery] int take = 100)
     {
