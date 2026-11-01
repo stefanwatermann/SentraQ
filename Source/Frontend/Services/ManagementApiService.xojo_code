@@ -67,7 +67,7 @@ Protected Class ManagementApiService
 		  
 		  If HttpMethod = "GET" Then
 		    // get components of station (of param second)
-		    CurrentResponse.Write(apiClient.Get("components/station/" + Second))
+		    CurrentResponse.Write(apiClient.Get("management/component/bystation/" + Second))
 		    CurrentResponse.MIMEType = "application/json"
 		    Return 200
 		  End
@@ -76,13 +76,13 @@ Protected Class ManagementApiService
 		    // save component
 		    Var component As New ComponentModel
 		    ComponentModel.FromJson(CurrentRequest.Body, component)
-		    CurrentResponse.Write(apiClient.Post("components", component.ToJson, CurrentRequest.Header("X-LOGIN")))
+		    CurrentResponse.Write(apiClient.Post("management/component", component.ToJson, CurrentRequest.Header("X-LOGIN")))
 		    Return 200
 		  End
 		  
 		  If HttpMethod = "DELETE" Then
 		    // delete component of station (of param first)
-		    CurrentResponse.Write(apiClient.Delete("components/" + First, CurrentRequest.Header("X-LOGIN")))
+		    CurrentResponse.Write(apiClient.Delete("management/component/" + First, CurrentRequest.Header("X-LOGIN")))
 		    Return 200
 		  End
 		  
@@ -97,7 +97,7 @@ Protected Class ManagementApiService
 		  
 		  if HttpMethod = "GET" then
 		    // return list of stations
-		    CurrentResponse.Write(apiClient.Get("station/all"))
+		    CurrentResponse.Write(apiClient.Get("management/station"))
 		    CurrentResponse.MIMEType = "application/json"
 		    Return 200
 		  End
@@ -106,13 +106,13 @@ Protected Class ManagementApiService
 		    // save station
 		    Var station As New StationModel
 		    StationModel.FromJson(CurrentRequest.Body, station)
-		    CurrentResponse.Write(apiClient.Post("station", station.ToJson, CurrentRequest.Header("X-LOGIN")))
+		    CurrentResponse.Write(apiClient.Post("management/station", station.ToJson, CurrentRequest.Header("X-LOGIN")))
 		    return 200
 		  end
 		  
 		  If HttpMethod = "DELETE" Then
 		    // delete station of station (of param first)
-		    CurrentResponse.Write(apiClient.Delete("station/" + First, CurrentRequest.Header("X-LOGIN")))
+		    CurrentResponse.Write(apiClient.Delete("management/station/" + First, CurrentRequest.Header("X-LOGIN")))
 		    Return 200
 		  End
 		  

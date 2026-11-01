@@ -39,7 +39,9 @@ public class LogService(
         ComponentValueSet,
         AlertAction,
         ActorCounterRestart,
-        DataExportRequested
+        DataExportRequested,
+        CounterChanged,
+        CounterRemoved
     }
 
     public void SaveInfo(Event evt, string msg = "")

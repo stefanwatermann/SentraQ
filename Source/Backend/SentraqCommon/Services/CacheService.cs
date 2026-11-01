@@ -11,10 +11,9 @@ namespace SentraqCommon.Services;
 /// Keeps components and counters in cache.
 /// </summary>
 /// <param name="logger"></param>
-/// <param name="dbContext"></param>
 public class CacheService(
     ILogger<CacheService> logger,
-    DatabaseContext dbContext)
+    IDbContextFactory<DatabaseContext> dbContextFactory)
 {
     private readonly Dictionary<string, int> _faultCounter = new();
     private List<Component> _knownComponents = [];
@@ -50,6 +49,7 @@ public class CacheService(
 
     private void InitLastPayloadValueCache()
     {
+        using var dbContext = dbContextFactory.CreateDbContext();
         _lastPayloadValueCache = dbContext
             .ComponentsView
             .AsNoTracking()
@@ -64,6 +64,7 @@ public class CacheService(
     
     private void InitCounterCache()
     {
+        using var dbContext = dbContextFactory.CreateDbContext();
         _knownCounters = dbContext
             .Counters
             .AsNoTracking()
@@ -72,6 +73,7 @@ public class CacheService(
 
     private void InitComponentCache()
     {
+        using var dbContext = dbContextFactory.CreateDbContext();
         _knownComponents = dbContext
             .Components
             .AsNoTracking()

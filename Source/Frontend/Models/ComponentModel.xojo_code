@@ -80,7 +80,10 @@ Inherits JsonModelBase
 			    Return Enums.ComponentTypes.Fault
 			    
 			  Case "CO"
-			    Return Enums.ComponentTypes.Counter
+			    Return Enums.ComponentTypes.CounterTimeDiff
+			    
+			  Case "CV"
+			    Return Enums.ComponentTypes.CounterValueAdd
 			    
 			  Case "FI"
 			    Return Enums.ComponentTypes.FillLevel
@@ -107,8 +110,11 @@ Inherits JsonModelBase
 			  Case Enums.ComponentTypes.Switch
 			    Self.Type = "SW"
 			    
-			  Case Enums.ComponentTypes.Counter
+			  Case Enums.ComponentTypes.CounterTimeDiff
 			    Self.Type = "CO"
+			    
+			  Case Enums.ComponentTypes.CounterValueAdd
+			    Self.Type = "CV"
 			    
 			  Case Enums.ComponentTypes.Divider
 			    Self.Type = "DI"
@@ -142,8 +148,11 @@ Inherits JsonModelBase
 			  Case Enums.ComponentTypes.Switch
 			    Return "Aktor (schaltbar)"
 			    
-			  Case Enums.ComponentTypes.Counter
-			    Return "Zähler"
+			  Case Enums.ComponentTypes.CounterTimeDiff
+			    Return "Zähler (Zeit)"
+			    
+			  Case Enums.ComponentTypes.CounterValueAdd
+			    Return "Zähler (Wert)"
 			    
 			  Case Enums.ComponentTypes.Divider
 			    Return "Trenner (UI)"
@@ -349,6 +358,14 @@ Inherits JsonModelBase
 			InitialValue=""
 			Type="String"
 			EditorType="MultiLineEditor"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="ForwardToHardwareId"
+			Visible=false
+			Group="Behavior"
+			InitialValue=""
+			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

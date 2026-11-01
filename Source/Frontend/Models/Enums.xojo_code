@@ -3,12 +3,13 @@ Protected Module Enums
 	#tag Enum, Name = ComponentTypes, Type = Integer, Flags = &h0
 		Undefined
 		  Actor
-		  Counter
+		  CounterTimeDiff
 		  Sensor
 		  FillLevel
 		  Fault
 		  Divider
-		Switch = 7
+		  Switch = 7
+		CounterValueAdd
 	#tag EndEnum
 
 	#tag Enum, Name = StationTypes, Flags = &h0

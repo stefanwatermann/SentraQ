@@ -51,6 +51,7 @@ internal static class Program
             builder.Services.AddScoped<StationService>();
             builder.Services.AddScoped<AggregationService>();
             builder.Services.AddScoped<ComponentService>();
+            builder.Services.AddScoped<CounterService>();
             builder.Services.AddScoped<MailService>();
             builder.Services.AddScoped<PasswordService>();
             builder.Services.AddScoped<LogService>();

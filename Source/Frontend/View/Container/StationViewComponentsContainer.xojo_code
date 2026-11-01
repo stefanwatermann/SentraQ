@@ -90,7 +90,8 @@ End
 		    If component.TypeDef = Enums.ComponentTypes.FillLevel Then
 		      container = New ComponentViewFillLevelContainer(component)
 		      
-		    ElseIf component.TypeDef = Enums.ComponentTypes.Counter Then
+		    ElseIf component.TypeDef = Enums.ComponentTypes.CounterTimeDiff Or _
+		      component.TypeDef = Enums.ComponentTypes.CounterValueAdd Then
 		      container = New ComponentCounterViewContainer(component)
 		      
 		    ElseIf component.TypeDef = Enums.ComponentTypes.Fault Then

@@ -377,7 +377,8 @@ End
 		  
 		  For Each c As ComponentModel In MyStation.Components
 		    If c.TypeDef <> Enums.ComponentTypes.Divider And _
-		      c.TypeDef <> Enums.ComponentTypes.Counter Then  
+		      (c.TypeDef <> Enums.ComponentTypes.CounterTimeDiff Or _
+		      c.TypeDef <> Enums.ComponentTypes.CounterValueAdd) Then  
 		      Var elems() As String
 		      elems.Add(c.HardwareId)
 		      elems.add(Logo8CompoTypeMapper(c.TypeDef, index))

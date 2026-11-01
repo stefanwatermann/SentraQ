@@ -12,8 +12,8 @@ public enum ComponentType
     // Schalter oder ähnliches
     Actor = 1,
     
-    // Zähler, z.B. Betriebsstunden
-    Counter = 2,
+    // Zähler Zeitdifferenz, z.B. Betriebsstunden
+    CounterTimeDiff = 2,
     
     // Liefert einen Messwert
     Sensor = 3,
@@ -28,7 +28,10 @@ public enum ComponentType
     Divider = 6,
     
     // Schaltbarer Aktor
-    Switch = 7
+    Switch = 7,
+    
+    // Zähler Aufsummierung, z.B. Mengen
+    CounterValueAdd = 8
 }
 
 public static class ComponentTypeExtensions
@@ -41,7 +44,8 @@ public static class ComponentTypeExtensions
             "FL" => ComponentType.Fault,
             "AC" => ComponentType.Actor,
             "SW" => ComponentType.Switch,
-            "CO" => ComponentType.Counter,
+            "CO" => ComponentType.CounterTimeDiff,
+            "CV" => ComponentType.CounterValueAdd,
             "SE" => ComponentType.Sensor,
             "DI" => ComponentType.Divider,
             _ => ComponentType.Undefined

@@ -36,7 +36,8 @@ public class StationController(
     {
         logger.LogInformation("Get stations from StationView");
 
-        return stationService.GetStationsView()
+        return stationService
+            .GetStationsView()
             .Select(StationMapper.Map)
             .ToList();
     }

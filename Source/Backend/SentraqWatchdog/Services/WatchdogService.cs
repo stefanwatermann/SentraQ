@@ -64,7 +64,7 @@ public class WatchdogService(
     }
 
     /// <summary>
-    /// Get list of Stations with Watchdog set and at least on message received.
+    /// Get list of Stations with Watchdog set and at least one message received.
     /// </summary>
     /// <returns></returns>
     private List<WatchdogStation> GetWatchdogStations()

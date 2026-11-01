@@ -77,6 +77,12 @@ internal static class Program
                 options.UseNpgsql(Decrypt.PasswordInConnectionString(connStr, Secrets.EncryptionPwd));
             }, ServiceLifetime.Transient);
             
+            // Singleton services should use the DbContextFactory to ensure to use fresh DbContext always
+            builder.Services.AddDbContextFactory<DatabaseContext>(options =>
+            {
+                options.UseNpgsql(Decrypt.PasswordInConnectionString(connStr, Secrets.EncryptionPwd));
+            });
+            
             var host = builder.Build();
 
             host.Run();

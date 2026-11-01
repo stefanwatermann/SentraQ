@@ -6,13 +6,13 @@ using SentraqModels.Mqtt;
 namespace SentraqController.MessageHandler;
 
 public class MessageHandlerFactory(
-    CacheService componentCacheService,
+    CacheService cacheService,
     IServiceProvider serviceProvider,
     ILogger<MessageHandlerFactory> logger)
 {
     public IMessageHandler? CreateHandler(MqttPayload payload)
     {
-        var component = componentCacheService.GetComponent(payload);
+        var component = cacheService.GetComponent(payload);
         
         if (component != null)
         {
