@@ -1,9 +1,15 @@
+// #######################################################################################
+// Sentraq Plattform
+// Copyright (c) 2026, Stefan Watermann, Watermann IT, Germany (www.watermann-it.de)
+// Licensed under the GPL 3.0 license. See LICENSE file in the project root for details.
+// #######################################################################################
 using Microsoft.Extensions.Logging;
 
 namespace SentraqCommon.Loggers;
 
 /// <summary>
-/// Additional logger to log errors to file.
+/// Specialized logger implementation to log error messages
+/// (log-level error or critical) to a local error-file.
 /// </summary>
 /// <param name="category"></param>
 /// <param name="logfileName"></param>

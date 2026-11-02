@@ -1,3 +1,8 @@
+// #######################################################################################
+// Sentraq Plattform
+// Copyright (c) 2026, Stefan Watermann, Watermann IT, Germany (www.watermann-it.de)
+// Licensed under the GPL 3.0 license. See LICENSE file in the project root for details.
+// #######################################################################################
 using System.Text.Json;
 using Microsoft.Extensions.Logging;
 using MQTTnet;
@@ -9,7 +14,8 @@ using SentraqCommon.Services;
 namespace SentraqCommon.MqttSender;
 
 /// <summary>
-/// Used to send values to components, e.g. to turn real switches on or off.
+/// Used to send values to components via MQTT messages, e.g. to turn real switches on or off.
+/// This service is using a static send topic of "/client/receive/{clientTopic}/{stationUid}".
 /// </summary>
 public class MqttMessageSender(
     ILogger<MqttMessageSender> logger,

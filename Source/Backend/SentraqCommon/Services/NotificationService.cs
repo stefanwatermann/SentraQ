@@ -1,4 +1,8 @@
-using Microsoft.EntityFrameworkCore;
+// #######################################################################################
+// Sentraq Plattform
+// Copyright (c) 2026, Stefan Watermann, Watermann IT, Germany (www.watermann-it.de)
+// Licensed under the GPL 3.0 license. See LICENSE file in the project root for details.
+// #######################################################################################
 using Microsoft.Extensions.Logging;
 using SentraqCommon.Context;
 using SentraqModels.Data;
@@ -6,6 +10,17 @@ using SentraqModels.Extensions;
 
 namespace SentraqCommon.Services;
 
+/// <summary>
+/// Manage the notification process.
+/// Method CheckAndSendNotifications() is frequently called
+/// and checks and decides to send alert messages.
+/// </summary>
+/// <param name="logger"></param>
+/// <param name="logService"></param>
+/// <param name="settings"></param>
+/// <param name="cacheService"></param>
+/// <param name="mailService"></param>
+/// <param name="dbContext"></param>
 public class NotificationService(
     ILogger<NotificationService> logger,
     LogService logService,

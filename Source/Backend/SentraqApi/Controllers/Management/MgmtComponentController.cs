@@ -12,6 +12,7 @@ using Api = SentraqModels.Api;
 namespace SentraqApi.Controllers.Management;
 
 /// <summary>
+/// API used by the Sentraq management tool (Desktop App).
 /// Manages Components and Counters.
 /// </summary>
 /// <param name="logger"></param>
@@ -94,12 +95,12 @@ public class MgmtComponentController(
         var hid = hardwareId.Sanitize(36);
         var cb = changedBy.Sanitize(10);
         
-        var component = dbContext.Components.FirstOrDefault(c => c.HardwareId == hid) ??
+        var component = dbContext.ComponentsView.FirstOrDefault(c => c.HardwareId == hid) ??
                         throw new KeyNotFoundException($"Component/Counter {hid} not found.");
         
         if (component.Type.FromString() == ComponentType.CounterTimeDiff || 
             component.Type.FromString() == ComponentType.CounterValueAdd)
-            counterService.RemoveCounter(hid, cb);
+            counterService.RemoveCounter(hid.Replace("#", ""), cb);
         else
             componentService.RemoveComponent(hid, cb);
     }

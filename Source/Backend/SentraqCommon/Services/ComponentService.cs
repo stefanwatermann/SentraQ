@@ -1,3 +1,8 @@
+// #######################################################################################
+// Sentraq Plattform
+// Copyright (c) 2026, Stefan Watermann, Watermann IT, Germany (www.watermann-it.de)
+// Licensed under the GPL 3.0 license. See LICENSE file in the project root for details.
+// #######################################################################################
 using Microsoft.EntityFrameworkCore;
 using SentraqCommon.Context;
 using SentraqCommon.MqttMessageBuilder;
@@ -6,11 +11,19 @@ using SentraqModels.Data;
 
 namespace SentraqCommon.Services;
 
+/// <summary>
+/// Manager access to components stored in table Component.
+/// </summary>
+/// <param name="logService"></param>
+/// <param name="mqttMessageSender"></param>
+/// <param name="mqttMessageBuilderFactory"></param>
+/// <param name="userService"></param>
+/// <param name="dbContext"></param>
 public class ComponentService(
     LogService logService,
     MqttMessageSender mqttMessageSender,
     MqttMessageBuilderFactory mqttMessageBuilderFactory,
-    AuthorizationService authorizationService,
+    UserService userService,
     DatabaseContext dbContext)
 {
     public void SendValue(string hardwareId, string? value, string changedBy)
@@ -35,7 +48,7 @@ public class ComponentService(
     
     public void WriteComponent(Component component, string changedBy)
     {
-        authorizationService.ThrowWhenChangedByUserNotAdmin(changedBy);
+        userService.ThrowWhenChangedByUserNotAdmin(changedBy);
 
         var existing = dbContext
             .Components
@@ -68,7 +81,7 @@ public class ComponentService(
 
     public void RemoveComponent(string hardwareId, string changedBy)
     {
-        authorizationService.ThrowWhenChangedByUserNotAdmin(changedBy);
+        userService.ThrowWhenChangedByUserNotAdmin(changedBy);
 
         var component = dbContext
                           .Components

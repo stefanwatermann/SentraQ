@@ -1,13 +1,20 @@
-using Microsoft.Extensions.Logging;
+// #######################################################################################
+// Sentraq Plattform
+// Copyright (c) 2026, Stefan Watermann, Watermann IT, Germany (www.watermann-it.de)
+// Licensed under the GPL 3.0 license. See LICENSE file in the project root for details.
+// #######################################################################################
 using SentraqCommon.Context;
 using SentraqModels.Data;
 
 namespace SentraqCommon.Services;
 
+/// <summary>
+/// Manage access to User data stored in table User.
+/// </summary>
+/// <param name="logService"></param>
+/// <param name="dbContext"></param>
 public class UserService(
-    ILogger<UserService> logger,
     LogService logService,
-    AuthorizationService authorizationService,
     DatabaseContext dbContext)
 {
     public IQueryable<User> GetUsers()
@@ -23,6 +30,15 @@ public class UserService(
         dbContext.SaveChanges();
     }
 
+    public void ThrowWhenChangedByUserNotAdmin(string changedBy)
+    {
+        var user = dbContext
+                       .Users
+                       .SingleOrDefault(u => u.Login == changedBy && u.Role == "ADM") ??
+                   throw new UnauthorizedAccessException(
+                       $"ChangedBy user {changedBy} not found or does not have role ADM.");
+    }
+    
     /// <summary>
     /// Save the use to database.
     /// HINT: does not update the Hash value, since this can be update only by the PasswordRestService.
@@ -32,7 +48,7 @@ public class UserService(
     /// <exception cref="KeyNotFoundException"></exception>
     public void WriteUser(User user, string changedBy)
     {
-        authorizationService.ThrowWhenChangedByUserNotAdmin(changedBy);
+        ThrowWhenChangedByUserNotAdmin(changedBy);
 
         var existingUser = dbContext
                                .Users
@@ -59,7 +75,7 @@ public class UserService(
 
     public void RemoveUser(string login, string changedBy)
     {
-        authorizationService.ThrowWhenChangedByUserNotAdmin(changedBy);
+        ThrowWhenChangedByUserNotAdmin(changedBy);
 
         var user = dbContext
                        .Users

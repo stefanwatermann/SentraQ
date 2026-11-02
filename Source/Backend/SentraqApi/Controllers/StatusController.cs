@@ -1,9 +1,5 @@
 using System.Reflection;
-using System.Runtime.Loader;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using SentraqApi.Attributes;
-using SentraqCommon.Context;
 using SentraqCommon.Services;
 using SentraqModels.Api;
 
@@ -21,8 +17,6 @@ namespace SentraqApi.Controllers;
 [Route("api/status")]
 public class StatusController(
     ILogger<StationController> logger,
-    IConfiguration configuration,
-    DatabaseContext dbContext,
     StatusFileService statusFileService) : ControllerBase
 {
     [HttpGet("")]

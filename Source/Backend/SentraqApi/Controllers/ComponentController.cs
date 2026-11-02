@@ -2,7 +2,6 @@ using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SentraqApi.Attributes;
-using SentraqApi.Filters;
 using SentraqCommon.Context;
 using SentraqCommon.Extensions;
 using SentraqCommon.Services;
@@ -16,8 +15,7 @@ namespace SentraqApi.Controllers;
 [Route("api/components")]
 public class ComponentController(
     DatabaseContext dbContext,
-    ComponentService componentService,
-    ILogger<ComponentController> logger) : ControllerBase
+    ComponentService componentService) : ControllerBase
 {
     [HttpGet("last")]
     public IEnumerable<Api.Component> GetComponentsLast()

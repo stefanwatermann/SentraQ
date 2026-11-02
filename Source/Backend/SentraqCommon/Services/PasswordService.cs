@@ -1,3 +1,8 @@
+// #######################################################################################
+// Sentraq Plattform
+// Copyright (c) 2026, Stefan Watermann, Watermann IT, Germany (www.watermann-it.de)
+// Licensed under the GPL 3.0 license. See LICENSE file in the project root for details.
+// #######################################################################################
 using System.Security.Cryptography;
 using System.Text;
 using Microsoft.Extensions.Logging;
@@ -7,6 +12,14 @@ using Data = SentraqModels.Data;
 
 namespace SentraqCommon.Services;
 
+/// <summary>
+/// Handles password management requests, like password-reset or passkey requests.
+/// </summary>
+/// <param name="logger"></param>
+/// <param name="dbContext"></param>
+/// <param name="logService"></param>
+/// <param name="mailService"></param>
+/// <param name="settings"></param>
 public class PasswordService(
         ILogger<PasswordService> logger,
         DatabaseContext dbContext,

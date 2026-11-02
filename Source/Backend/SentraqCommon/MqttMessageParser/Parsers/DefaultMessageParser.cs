@@ -1,3 +1,8 @@
+// #######################################################################################
+// Sentraq Plattform
+// Copyright (c) 2026, Stefan Watermann, Watermann IT, Germany (www.watermann-it.de)
+// Licensed under the GPL 3.0 license. See LICENSE file in the project root for details.
+// #######################################################################################
 using System.Text.Json;
 using SentraqCommon.Converters;
 using SentraqModels.Mqtt;
@@ -5,7 +10,7 @@ using SentraqModels.Mqtt;
 namespace SentraqCommon.MqttMessageParser.Parsers;
 
 /// <summary>
-/// Parser for the Sentraq JSON message format.
+/// Parser for Sentraq JSON message format:
 /// {
 ///  "Value": 1,
 ///  "Hid": "[hardwareId]",

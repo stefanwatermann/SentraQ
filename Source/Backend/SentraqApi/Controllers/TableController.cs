@@ -2,7 +2,6 @@ using System.Data;
 using Microsoft.AspNetCore.Mvc;
 using Npgsql;
 using SentraqApi.Attributes;
-using SentraqCommon.Context;
 using SentraqCommon.Extensions;
 using SentraqCommon.Security;
 using SentraqModels.Extensions;
@@ -13,13 +12,11 @@ namespace SentraqApi.Controllers;
 /// Provides generic read access to the database tables.
 /// </summary>
 /// <param name="configuration"></param>
-/// <param name="dbContext"></param>
 [ApiController]
 [RequireAuthorizationKey]
 [Route("api/table")]
 public class TableController(
-    IConfiguration configuration,
-    DatabaseContext dbContext) : ControllerBase
+    IConfiguration configuration) : ControllerBase
 {
     [HttpPost("{tableName}")]
     public object? Post(string tableName, [FromBody] string whereCondition, [FromQuery] bool desc = false, [FromQuery] string orderBy = "", [FromQuery] int limit = 10)

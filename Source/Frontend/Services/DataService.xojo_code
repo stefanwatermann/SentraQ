@@ -227,7 +227,11 @@ Protected Class DataService
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub ReadAndCacheStationsAndComponents()
+		Sub ReadAndCacheStationsAndComponents(withClear as Boolean = false)
+		  If withClear then
+		    self.Stations.RemoveAll
+		  End
+		  
 		  Var apiClient As New BackendApiControllerClient
 		  
 		  Var r1 As String = apiClient.Get("station")

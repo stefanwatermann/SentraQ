@@ -92,6 +92,29 @@ Protected Class ManagementApiService
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
+		Private Function ProcessPlattformCommand() As Integer
+		  If HttpMethod = "POST" Then
+		    
+		    If first = "command" Then
+		      
+		      var cmd as string = CurrentRequest.Body.Left(30).Trim.ReplaceAll("""", "")
+		      
+		      If cmd = "resetFrontend" Then
+		        // clear list of Stations and reload all Stations and Components from backend
+		        App.DataSvc.ReadAndCacheStationsAndComponents(true)
+		        return 200
+		      End
+		      
+		    End
+		    
+		  End
+		  
+		  // request not supported
+		  Return 400
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
 		Private Function ProcessStation() As Integer
 		  Var apiClient As New BackendApiControllerClient
 		  
@@ -149,6 +172,9 @@ Protected Class ManagementApiService
 		    
 		  Case "status"
 		    Return ProcessStatus
+		    
+		  Case "plattform"
+		    return ProcessPlattformCommand
 		    
 		  End
 		  

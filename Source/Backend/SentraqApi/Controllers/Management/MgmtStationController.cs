@@ -8,6 +8,11 @@ using Api = SentraqModels.Api;
 
 namespace SentraqApi.Controllers.Management;
 
+/// <summary>
+/// API used by the Sentraq management tool (Desktop App).
+/// </summary>
+/// <param name="logger"></param>
+/// <param name="stationService"></param>
 [ApiController]
 [RequireAuthorizationKey]
 [Route("api/management/station")]

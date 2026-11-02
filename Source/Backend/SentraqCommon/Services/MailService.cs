@@ -1,3 +1,8 @@
+// #######################################################################################
+// Sentraq Plattform
+// Copyright (c) 2026, Stefan Watermann, Watermann IT, Germany (www.watermann-it.de)
+// Licensed under the GPL 3.0 license. See LICENSE file in the project root for details.
+// #######################################################################################
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using MimeKit;
@@ -8,6 +13,12 @@ using SmtpClient = MailKit.Net.Smtp.SmtpClient;
 
 namespace SentraqCommon.Services;
 
+/// <summary>
+/// Manages Mail messages to be sent to alert receivers.
+/// </summary>
+/// <param name="config"></param>
+/// <param name="logger"></param>
+/// <param name="settings"></param>
 public class MailService(
     IConfiguration config,
     ILogger<MailService> logger,

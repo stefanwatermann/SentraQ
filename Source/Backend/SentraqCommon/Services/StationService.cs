@@ -1,15 +1,29 @@
+// #######################################################################################
+// Sentraq Plattform
+// Copyright (c) 2026, Stefan Watermann, Watermann IT, Germany (www.watermann-it.de)
+// Licensed under the GPL 3.0 license. See LICENSE file in the project root for details.
+// #######################################################################################
 using Microsoft.Extensions.Logging;
 using SentraqCommon.Context;
 using Data = SentraqModels.Data;
 
 namespace SentraqCommon.Services;
 
+/// <summary>
+/// Manage Station data stored in table Station.
+/// </summary>
+/// <param name="logger"></param>
+/// <param name="logService"></param>
+/// <param name="mailService"></param>
+/// <param name="settingService"></param>
+/// <param name="userService"></param>
+/// <param name="dbContext"></param>
 public class StationService(
     ILogger<StationService> logger,
     LogService logService,
     MailService mailService,
     SettingService settingService,
-    AuthorizationService authorizationService,
+    UserService userService,
     DatabaseContext dbContext)
 {
     public IEnumerable<Data.Station> GetStations()
@@ -52,7 +66,7 @@ public class StationService(
     
     public void WriteStation(Data.Station station, string changedBy)
     {
-        authorizationService.ThrowWhenChangedByUserNotAdmin(changedBy);
+        userService.ThrowWhenChangedByUserNotAdmin(changedBy);
 
         var existing = dbContext
             .Stations
@@ -84,7 +98,7 @@ public class StationService(
 
     public void RemoveStation(string uid, string changedBy)
     {
-        authorizationService.ThrowWhenChangedByUserNotAdmin(changedBy);
+        userService.ThrowWhenChangedByUserNotAdmin(changedBy);
 
         var station = dbContext
                        .Stations

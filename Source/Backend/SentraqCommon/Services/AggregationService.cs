@@ -1,3 +1,8 @@
+// #######################################################################################
+// Sentraq Plattform
+// Copyright (c) 2026, Stefan Watermann, Watermann IT, Germany (www.watermann-it.de)
+// Licensed under the GPL 3.0 license. See LICENSE file in the project root for details.
+// #######################################################################################
 using System.Runtime.CompilerServices;
 using Microsoft.EntityFrameworkCore;
 using SentraqCommon.Context;
@@ -5,6 +10,10 @@ using SentraqModels.Data;
 
 namespace SentraqCommon.Services;
 
+/// <summary>
+/// Manage access to the aggregation views.
+/// </summary>
+/// <param name="dbContext"></param>
 public class AggregationService(
     DatabaseContext dbContext)
 {

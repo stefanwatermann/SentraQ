@@ -1,3 +1,8 @@
+// #######################################################################################
+// Sentraq Plattform
+// Copyright (c) 2026, Stefan Watermann, Watermann IT, Germany (www.watermann-it.de)
+// Licensed under the GPL 3.0 license. See LICENSE file in the project root for details.
+// #######################################################################################
 using System.Globalization;
 
 namespace SentraqModels.Helper;
@@ -5,8 +10,8 @@ namespace SentraqModels.Helper;
 public static class AdjustmentFunctionCalculator
 {
     /// <summary>
-    /// Simple AdjustemtFunction.
-    /// Field AdjustemtFunction of model can contain a math symbol (+-*/)
+    /// Simple AdjustmentFunction.
+    /// Field AdjustmentFunction of model can contain a math symbol (+-*/)
     /// and a number that will be applied to the payload. Payload is
     /// treated as double in this case.
     /// Example: "+10" adds 10 to the payload, "/10" divides payload by 10

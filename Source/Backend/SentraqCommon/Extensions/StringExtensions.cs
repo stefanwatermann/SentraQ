@@ -1,9 +1,16 @@
-using System.Runtime.InteropServices;
+// #######################################################################################
+// Sentraq Plattform
+// Copyright (c) 2026, Stefan Watermann, Watermann IT, Germany (www.watermann-it.de)
+// Licensed under the GPL 3.0 license. See LICENSE file in the project root for details.
+// #######################################################################################
 using System.Text.RegularExpressions;
 using System.Web;
 
 namespace SentraqCommon.Extensions;
 
+/// <summary>
+/// Useful string extensions.
+/// </summary>
 public static class StringExtensions
 {
     public static string[] SplitCamelCase(this string? source) 

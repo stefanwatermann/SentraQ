@@ -1,7 +1,6 @@
 using System.Text.Json.Nodes;
 using Microsoft.AspNetCore.Mvc;
 using SentraqApi.Attributes;
-using SentraqApi.Filters;
 using SentraqCommon.Extensions;
 using SentraqCommon.Services;
 using SentraqModels.Mapper;
@@ -13,7 +12,6 @@ namespace SentraqApi.Controllers;
 [RequireAuthorizationKey]
 [Route("api/user")]
 public class UserController(
-    ILogger<UserController> logger,
     PasswordService passwordService,
     UserService userService) : ControllerBase
 {

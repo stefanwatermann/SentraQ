@@ -7,11 +7,14 @@ using Api = SentraqModels.Api;
 
 namespace SentraqApi.Controllers.Management;
 
+/// <summary>
+/// API used by the Sentraq management tool (Desktop App).
+/// </summary>
+/// <param name="userService"></param>
 [ApiController]
 [RequireAuthorizationKey]
 [Route("api/management/user")]
 public class MgmtUserController(
-    ILogger<MgmtUserController> logger,
     UserService userService) : ControllerBase
 {
     [HttpPost()]

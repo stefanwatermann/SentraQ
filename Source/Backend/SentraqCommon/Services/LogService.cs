@@ -1,3 +1,8 @@
+// #######################################################################################
+// Sentraq Plattform
+// Copyright (c) 2026, Stefan Watermann, Watermann IT, Germany (www.watermann-it.de)
+// Licensed under the GPL 3.0 license. See LICENSE file in the project root for details.
+// #######################################################################################
 using Microsoft.Extensions.Logging;
 using SentraqCommon.Context;
 using SentraqCommon.Extensions;
@@ -6,7 +11,9 @@ using SentraqModels.Data;
 namespace SentraqCommon.Services;
 
 /// <summary>
-/// Business related log messages, written to database table Log.
+/// Manages business related log messages, written to database table Log.
+/// Traditional logging messages (error, warning, info, etc.) are handled
+/// by regular dotnet logging and not written into the Log table.
 /// </summary>
 /// <param name="logger"></param>
 /// <param name="dbContext"></param>

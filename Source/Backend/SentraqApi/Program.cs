@@ -29,6 +29,9 @@ internal static class Program
             Console.WriteLine($"CurrentDirectory: {Directory.GetCurrentDirectory()}");
 
             var builder = WebApplication.CreateBuilder(args);
+            
+            var connStr = builder.Configuration.GetConnectionString("DbConnection") ??
+                          throw new InvalidOperationException("Could not find connection string in appsettings.json");
 
             // Add services to the container.
             builder.Services.AddControllers().AddJsonOptions(options =>
@@ -39,15 +42,8 @@ internal static class Program
                 options.JsonSerializerOptions.Converters.Add(new SimpleDateTimeConverter());
             });
 
-            var connStr = builder.Configuration.GetConnectionString("DbConnection") ??
-                          throw new InvalidOperationException("Could not find connection string in appsettings.json");
-
-            builder.Services.AddDbContext<DatabaseContext>(options =>
-                options.UseNpgsql(Decrypt.PasswordInConnectionString(connStr, Secrets.EncryptionPwd)));
-
-            builder.Services.AddScoped<SettingService>();
             builder.Services.AddScoped<CacheService>();
-            builder.Services.AddScoped<AuthorizationService>();
+            builder.Services.AddScoped<SettingService>();
             builder.Services.AddScoped<StationService>();
             builder.Services.AddScoped<AggregationService>();
             builder.Services.AddScoped<ComponentService>();
@@ -73,6 +69,17 @@ internal static class Program
             {
                 options.ActivityTrackingOptions = ActivityTrackingOptions.None;
             });
+
+            builder.Services.AddDbContext<DatabaseContext>(options =>
+            {
+                options.UseNpgsql(Decrypt.PasswordInConnectionString(connStr, Secrets.EncryptionPwd));
+            }, ServiceLifetime.Transient);
+            
+            // Singleton services should use the DbContextFactory to ensure to use fresh DbContext always
+            builder.Services.AddDbContextFactory<DatabaseContext>(options =>
+            {
+                options.UseNpgsql(Decrypt.PasswordInConnectionString(connStr, Secrets.EncryptionPwd));
+            }, ServiceLifetime.Transient);
 
             var app = builder.Build();
 

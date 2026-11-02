@@ -55,7 +55,6 @@ internal static class Program
             builder.Services.AddScoped<NotificationService>();
             builder.Services.AddScoped<StatusFileService>();
             builder.Services.AddScoped<StationService>();
-            builder.Services.AddScoped<AuthorizationService>();
             builder.Services.AddScoped<PayloadProcessingService>();
             builder.Services.AddHostedService<MqttSubscriberWorkerService>();
             builder.Services.AddHostedService<MaintenanceWorkerService>();

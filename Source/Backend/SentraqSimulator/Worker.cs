@@ -1,3 +1,8 @@
+// #######################################################################################
+// Sentraq Plattform
+// Copyright (c) 2026, Stefan Watermann, Watermann IT, Germany (www.watermann-it.de)
+// Licensed under the GPL 3.0 license. See LICENSE file in the project root for details.
+// #######################################################################################
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -6,7 +11,6 @@ using SentraqSimulator.Services;
 namespace SentraqSimulator;
 
 public sealed class Worker(
-    IHostApplicationLifetime hostApplicationLifetime,
     ILogger<Worker> logger,
     IConfiguration config,
     CounterTestService counterTestService,

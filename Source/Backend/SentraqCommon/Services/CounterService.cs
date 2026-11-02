@@ -1,16 +1,27 @@
+// #######################################################################################
+// Sentraq Plattform
+// Copyright (c) 2026, Stefan Watermann, Watermann IT, Germany (www.watermann-it.de)
+// Licensed under the GPL 3.0 license. See LICENSE file in the project root for details.
+// #######################################################################################
 using SentraqCommon.Context;
 using SentraqModels.Data;
 
 namespace SentraqCommon.Services;
 
+/// <summary>
+/// Manage access to Counters stored in table Counter.
+/// </summary>
+/// <param name="logService"></param>
+/// <param name="userService"></param>
+/// <param name="dbContext"></param>
 public class CounterService(
     LogService logService,
-    AuthorizationService authorizationService,
+    UserService userService,
     DatabaseContext dbContext)
 {
     public void WriteCounter(Counter counter, string changedBy)
     {
-        authorizationService.ThrowWhenChangedByUserNotAdmin(changedBy);
+        userService.ThrowWhenChangedByUserNotAdmin(changedBy);
 
         var existing = dbContext
             .Counters
@@ -40,7 +51,7 @@ public class CounterService(
 
     public void RemoveCounter(string hardwareId, string changedBy)
     {
-        authorizationService.ThrowWhenChangedByUserNotAdmin(changedBy);
+        userService.ThrowWhenChangedByUserNotAdmin(changedBy);
 
         var counter = dbContext
                           .Counters
