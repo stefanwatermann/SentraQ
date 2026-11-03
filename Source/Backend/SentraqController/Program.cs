@@ -48,6 +48,7 @@ internal static class Program
             builder.Services.AddSingleton<MessageHandlerFactory>();
             builder.Services.AddSingleton<CacheService>();
             builder.Services.AddScoped<MailService>();
+            builder.Services.AddScoped<UserService>();
             builder.Services.AddScoped<LogService>();
             builder.Services.AddScoped<MqttMessageParserFactory>();
             builder.Services.AddScoped<MqttMessageBuilderFactory>();

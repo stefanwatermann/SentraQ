@@ -96,8 +96,8 @@ public class WatchdogService(
             }).Select(c => new WatchdogStation()
             {
                 StationUid = c.Uid,
-                WatchdogHardwareId = c.WatchdogHardwareId,
-                LastReceivedTs = c.LastReceivedTs.Value
+                WatchdogHardwareId = c.WatchdogHardwareId ?? string.Empty,
+                LastReceivedTs = c.LastReceivedTs.Value,
             }).ToList();
 
         return data;

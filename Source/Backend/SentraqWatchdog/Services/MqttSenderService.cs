@@ -14,23 +14,31 @@ using SentraqModels.Mqtt;
 
 namespace SentraqWatchdog.Services;
 
-public class MqttSenderService(
-    ILogger<MqttSenderService> logger,
-    SettingService settings)
+public class MqttSenderService
 {
     private readonly MqttTopicTemplate _topicTemplate = new("/client/send/{clientTopic}");
-    private IMqttClient _mqttClient;
-    private string _payloadString;
+    private readonly IMqttClient _mqttClient;
+    private readonly ILogger<MqttSenderService> _logger;
+    private readonly SettingService _settings;
     
-    public async Task Send(MqttPayload payload)
+    private string _payloadString = string.Empty;
+    
+    public MqttSenderService(
+        ILogger<MqttSenderService> logger,
+        SettingService settings)
     {
+        _logger = logger;
+        _settings = settings;
+        
         var mqttFactory = new MqttClientFactory();
-
         _mqttClient = mqttFactory.CreateMqttClient();
         _mqttClient.ConnectedAsync += MqttClientOnConnectedAsync;
         _mqttClient.ConnectingAsync += MqttClientOnConnectingAsync;
         _mqttClient.DisconnectedAsync += MqttClientOnDisconnectedAsync;
-        
+    }
+    
+    public async Task Send(MqttPayload payload)
+    {
         var serializerOptions = new JsonSerializerOptions();
         serializerOptions.Converters.Add(new SimpleDateTimeConverter());
         _payloadString = JsonSerializer.Serialize(payload, serializerOptions);
@@ -38,8 +46,8 @@ public class MqttSenderService(
         var mqttClientOptions = new MqttClientOptionsBuilder()
             .WithClientId(Guid.NewGuid().ToString())
             .WithTlsOptions(o => { o.UseTls(false); })
-            .WithTcpServer(settings.ControllerMqttBrokerHostname, settings.ControllerMqttBrokerPort)
-            .WithCredentials(settings.ControllerMqttBrokerUsername, Decrypt.Text(settings.ControllerMqttBrokerPassword, Secrets.EncryptionPwd))
+            .WithTcpServer(_settings.ControllerMqttBrokerHostname, _settings.ControllerMqttBrokerPort)
+            .WithCredentials(_settings.ControllerMqttBrokerUsername, Decrypt.Text(_settings.ControllerMqttBrokerPassword, Secrets.EncryptionPwd))
             .Build();
 
         await _mqttClient.ConnectAsync(mqttClientOptions, CancellationToken.None);
@@ -49,22 +57,22 @@ public class MqttSenderService(
     {
         var err = arg.Exception != null ? ", Exception: " + arg.Exception.Message : string.Empty;
         var result = arg.ConnectResult != null ? arg.ConnectResult.ResultCode.ToString() : string.Empty;
-        logger.LogDebug("MQTT client disconnected. {result}, reason: {reason}{err}", result, arg.ReasonString, err);
+        _logger.LogDebug("MQTT client disconnected. {result}, reason: {reason}{err}", result, arg.ReasonString, err);
         return Task.CompletedTask;
     }
 
     private Task MqttClientOnConnectingAsync(MqttClientConnectingEventArgs arg)
     {
-        logger.LogDebug("MQTT client connecting to {brokerHostname} ...", settings.ControllerMqttBrokerHostname);
+        _logger.LogDebug("MQTT client connecting to {brokerHostname} ...", _settings.ControllerMqttBrokerHostname);
         return Task.CompletedTask;
     }
 
     private Task MqttClientOnConnectedAsync(MqttClientConnectedEventArgs arg)
     {
-        logger.LogInformation($"MQTT client connected, now sending payload: {_payloadString}");
+        _logger.LogInformation($"MQTT client connected, now sending payload: {_payloadString}");
         
         var applicationMessage = new MqttApplicationMessageBuilder()
-            .WithTopicTemplate(_topicTemplate.WithParameter("clientTopic", settings.ControllerMqttClientTopic))
+            .WithTopicTemplate(_topicTemplate.WithParameter("clientTopic", _settings.ControllerMqttClientTopic))
             .WithPayload(_payloadString)
             .Build();
         

@@ -22,7 +22,7 @@ public class StatusController(
     [HttpGet("")]
     public StatusInfo Get()
     {
-        return new StatusInfo()
+        var status = new StatusInfo()
         {
             ApiVersion = Assembly.GetExecutingAssembly().GetName()?.Version?.ToString(),
             ControllerVersion = GetControllerVersion(),
@@ -30,6 +30,7 @@ public class StatusController(
             WatchdogVersion = GetWatchdogVersion(),
             WatchdogUp = IsWatchdogRunning()
         };
+        return status;
     }
 
     private string GetControllerVersion()
@@ -41,7 +42,7 @@ public class StatusController(
         }
         catch (Exception e)
         {
-            logger.LogError("Failed to get assembly-version of controller.");
+            logger.LogError("Failed to get assembly-version of controller. {e}", e.Message);
             return "failed";
         }
     }
@@ -55,7 +56,7 @@ public class StatusController(
         }
         catch (Exception e)
         {
-            logger.LogError("Failed to get assembly-version of watchdog.");
+            logger.LogError("Failed to get assembly-version of watchdog. {e}", e.Message);
             return "failed";
         }
     }
@@ -69,7 +70,7 @@ public class StatusController(
         }
         catch (Exception e)
         {
-            logger.LogError("Failed to read status of controller.");
+            logger.LogError("Failed to read status of controller. {e}", e.Message);
             return false;
         }
     }
@@ -83,7 +84,7 @@ public class StatusController(
         }
         catch (Exception e)
         {
-            logger.LogError("Failed to read status of watchdog.");
+            logger.LogError("Failed to read status of watchdog. {e}", e.Message);
             return false;
         }
     }

@@ -174,7 +174,7 @@ Begin WebContainer ComponentActorViewContainer Implements IEmbeddableViewContain
       Italic          =   False
       Left            =   23
       LockBottom      =   False
-      LockedInPosition=   False
+      LockedInPosition=   True
       LockHorizontal  =   False
       LockLeft        =   True
       LockRight       =   False
@@ -202,6 +202,17 @@ End
 	#tag Method, Flags = &h0
 		Sub Constructor(component as ComponentModel)
 		  Self.MyComponent = component
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Sub EnableSwitch()
+		  Switch1.Enabled = Session.WasPasskeyAuthentication And Not MyStation.MaintenanceActive And MyComponent.TypeDef = Enums.ComponentTypes.Switch
+		  If Switch1.Enabled Then
+		    Switch1.CSSClasses.Add("cursor-pointer")
+		  Else
+		    Switch1.CSSClasses.Remove("cursor-pointer")
+		  End
 		End Sub
 	#tag EndMethod
 
@@ -259,8 +270,8 @@ End
 		      Var v As Boolean = If (Self.MyComponent.CurrentValue.IntegerValue = 0, False, True)
 		      SetSwitchLabel(v)
 		      Switch1.Value = v
-		      lbWaitForResponse.Visible = false
-		      Switch1.Enabled = Session.WasPasskeyAuthentication And Not MyStation.MaintenanceActive And MyComponent.TypeDef = Enums.ComponentTypes.Switch
+		      lbWaitForResponse.Visible = False
+		      EnableSwitch
 		    end
 		    
 		  Finally
@@ -312,7 +323,7 @@ End
 #tag Events Switch1
 	#tag Event
 		Sub Shown()
-		  Me.Enabled = Session.WasPasskeyAuthentication And Not MyStation.MaintenanceActive And MyComponent.TypeDef = Enums.ComponentTypes.Switch
+		  EnableSwitch
 		End Sub
 	#tag EndEvent
 	#tag Event

@@ -18,7 +18,6 @@ namespace SentraqController.Services;
 /// <param name="logger"></param>
 /// <param name="componentCacheService"></param>
 /// <param name="settings"></param>
-/// <param name="dbContext"></param>
 public class MqttSubscriberWorkerService(
     ILogger<MqttSubscriberWorkerService> logger,
     CacheService componentCacheService,
