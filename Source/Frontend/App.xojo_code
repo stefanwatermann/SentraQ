@@ -67,15 +67,8 @@ Inherits LobBase.LobWebApplication
 
 	#tag Method, Flags = &h21
 		Private Sub DataReloadTimerAction(sender as Object)
-		  Log.Debug(CurrentMethodName)
-		  MyProfiler.Start(CurrentMethodName)
-		  
 		  // reload stations from controller api 
-		  Self.DataSvc.ReadAndCacheStationsAndComponents()
-		  
-		  log.Info("Station cache reinitialized with " + str(self.DataSvc.Stations.Count) + " stations.", CurrentMethodName)
-		  
-		  MyProfiler.Stop(CurrentMethodName)
+		  Self.DataSvc.ReadAndCacheStationsAndComponentsAsync()
 		End Sub
 	#tag EndMethod
 
@@ -161,7 +154,7 @@ Inherits LobBase.LobWebApplication
 		Private Function HandleReloadDataRequest(requets as WebRequest, response as WebResponse) As integer
 		  // reload stations and components from controller api
 		  // called frequently to decouple frontend requests from backend logic
-		  Self.DataSvc.ReadAndCacheStationsAndComponents
+		  Self.DataSvc.ReadAndCacheStationsAndComponentsAsync
 		  
 		  // return http status success
 		  Return 200

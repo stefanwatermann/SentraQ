@@ -129,6 +129,10 @@ h6 {
 	cursor: pointer;
 }
 
+.cursor-pointer input.form-check-input {
+	cursor: pointer;
+}
+
 .small {
 	font-size: 0.9em !important;
 }

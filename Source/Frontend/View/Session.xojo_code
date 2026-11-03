@@ -360,6 +360,9 @@ Inherits WebSession
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
+			  #If DebugBuild Then
+			    Return True
+			  #EndIf
 			  Return Session.Cookies.Value(kAuthTypeCookieName) = "pk"
 			End Get
 		#tag EndGetter

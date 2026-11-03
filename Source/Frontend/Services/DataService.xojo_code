@@ -152,6 +152,14 @@ Protected Class DataService
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h21
+		Private Function GetComponentsLast() As Variant()
+		  Var apiClient As New BackendApiControllerClient
+		  Var r As String = apiClient.Get("/components/last")
+		  return ParseJSON(r)
+		End Function
+	#tag EndMethod
+
 	#tag Method, Flags = &h0
 		Function GetEventDataExport(uids() as string, types() as string, dtFrom as DateTime, dtTo as DateTime, executingLogin as string) As EventDataExportModel()
 		  Var url As String = "eventData/export"
@@ -176,6 +184,14 @@ Protected Class DataService
 		  Next
 		  
 		  Return result
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Function GetStations() As Variant()
+		  Var apiClient As New BackendApiControllerClient
+		  Var r As String = apiClient.Get("station")
+		  return ParseJSON(r)
 		End Function
 	#tag EndMethod
 
@@ -228,19 +244,19 @@ Protected Class DataService
 
 	#tag Method, Flags = &h0
 		Sub ReadAndCacheStationsAndComponents(withClear as Boolean = false)
-		  If withClear then
-		    self.Stations.RemoveAll
-		  End
+		  Var stations() As Variant = GetStations()
+		  Var components() As Variant = GetComponentsLast()
 		  
-		  Var apiClient As New BackendApiControllerClient
-		  
-		  Var r1 As String = apiClient.Get("station")
-		  Var stations() As Variant = ParseJSON(r1)
-		  
-		  Var r2 As String = apiClient.Get("/components/last")
-		  Var components() As Variant = ParseJSON(r2)
-		  
-		  UpdateStationsCache(stations, components)
+		  UpdateStationsCache(stations, components, withClear)
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub ReadAndCacheStationsAndComponentsAsync(withClear as Boolean = false)
+		  MyProfiler.Start("DataReloadAsync")
+		  AsyncClearCache = withClear
+		  Var t As New Thread
+		  t.StartMethod(AddressOf ReadStationsAndComponentsForAsync, Thread.Types.Preemptive, AddressOf UpdateStationsCacheForAsync)
 		End Sub
 	#tag EndMethod
 
@@ -270,6 +286,16 @@ Protected Class DataService
 		    StationModel.FromJson(response, s)
 		  End
 		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Function ReadStationsAndComponentsForAsync() As Variant
+		  // gets stations and components from backend-api
+		  // used for async calls to backend
+		  AsyncStations = GetStations()
+		  AsyncComponents = GetComponentsLast()
+		  return 0
+		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
@@ -330,7 +356,11 @@ Protected Class DataService
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
-		Private Sub UpdateStationsCache(stations() as Variant, components() as Variant)
+		Private Sub UpdateStationsCache(stations() as Variant, components() as Variant, withClear as Boolean)
+		  If withClear Then
+		    Self.Stations.RemoveAll
+		  End
+		  
 		  Var addedOrUpdatedStationUid() As String
 		  
 		  // add and update stations
@@ -359,6 +389,14 @@ Protected Class DataService
 		  next
 		  
 		  Log.Debug(Str(Self.Stations.Count) + " stations in cache.")
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Sub UpdateStationsCacheForAsync(value as variant)
+		  UpdateStationsCache(AsyncStations, AsyncComponents, AsyncClearCache)
+		  MyProfiler.Stop("DataReloadAsync")
+		  Log.Info("Station cache reinitialized with " + Str(Stations.Count) + " stations and " + str(AsyncComponents.Count) + " components.", CurrentMethodName)
 		End Sub
 	#tag EndMethod
 
@@ -401,6 +439,18 @@ Protected Class DataService
 		End Sub
 	#tag EndMethod
 
+
+	#tag Property, Flags = &h21
+		Private AsyncClearCache As Boolean
+	#tag EndProperty
+
+	#tag Property, Flags = &h21
+		Private AsyncComponents() As Variant
+	#tag EndProperty
+
+	#tag Property, Flags = &h21
+		Private AsyncStations() As Variant
+	#tag EndProperty
 
 	#tag Property, Flags = &h0
 		Stations() As StationModel
